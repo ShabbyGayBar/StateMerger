@@ -1,6 +1,7 @@
 from paradox_file_parser import ParadoxFileParser
 import os
 import re
+import shutil
 
 state_file_dir = {
     "map_data": r"map_data/state_regions/",
@@ -839,6 +840,16 @@ class StateMerger:
                     continue
                 with open(self.mod_dir[key]+file, 'w', encoding='utf-8') as file:
                     file.write("")
+
+        # Copy state_trait file to mod directory
+        state_trait_dir = "./mod/common/state_trait"
+        state_trait_file = "./000_states_merging.txt"
+        if not os.path.exists(state_trait_dir):
+            os.makedirs(state_trait_dir)
+        # Delete the file in state_trait_dir if it exists
+        if os.path.exists(state_trait_dir+"/000_states_merging.txt"):
+            os.remove(state_trait_dir+"/000_states_merging.txt")
+        shutil.copy(state_trait_file, state_trait_dir)
 
     def merge_misc_data(self):
         for dir in misc_file_dir:

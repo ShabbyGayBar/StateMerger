@@ -2,7 +2,7 @@ from state_merger import StateMerger
 import json
 
 game_root_dir = "C:/Program Files (x86)/Steam/steamapps/common/Victoria 3/game"+'/'
-merge_file = 'StateMerger/merge_states.json'
+merge_file = './merge_states.json'
 # Read merge state plan
 with open(merge_file, 'r', encoding='utf-8') as file:
     merge_dict = json.load(file)
