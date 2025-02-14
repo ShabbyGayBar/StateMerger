@@ -42,9 +42,13 @@ For example, the following rule merges `state_1`, `state_2`, and `state_3` into 
 
 - Navigate to the Victoria 3 `/game` directory under the root directory (or the mod root directory). You should see the following:
   -  `/game` directory under the root directory
+
     ![`/game` directory under the root directory](figures/game_root.png)
+
   -  mod root directory
+
     ![mod root directory](figures/mod_root.png)
+
 - Copy the path of the Victoria 3 game root directory (or the mod root directory).
 - Right click `./state_merger_script.py` and open in notepad or other text editor.
 - Replace the `game_root_dir` variable with the path you copied in the previous step. Make sure to use double backslashes `\\` or single forward slashes `/` as path separators, and add a trailing backslash `\\` at the end of the path.
@@ -53,6 +57,7 @@ For example, the following rule merges `state_1`, `state_2`, and `state_3` into 
   `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game`,
 
   you should set
+
   `game_root_dir = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Victoria 3\\game\\"`
 
   or

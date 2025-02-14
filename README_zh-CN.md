@@ -40,18 +40,29 @@
 
 - 在文件管理器中打开维多利亚3游戏根目录（或 mod 根目录）。您应该看到以下内容：
   - 游戏根目录下的 `/game` 目录
+
     ![`/game` 目录](figures/game_root.png)
+
   - mod 根目录
+
     ![mod 根目录](figures/mod_root.png)
+
 - 复制维多利亚3游戏根目录（或 mod 根目录）的路径。
 - 右键单击 `./state_merger_script.py` 并在记事本或其他文本编辑器中打开。
 - 用您在上一步中复制的路径替换 `game_root_dir` 变量。请确保使用双反斜杠 `\\` 或单斜杠 `/` 作为路径分隔符，并在路径末尾添加反斜杠 `\\`。
+
   例如，如果您的游戏根目录是：
+
   `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game`，
+
   您应该设置
+
   `game_root_dir = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Victoria 3\\game\\"`
+
   或
+
   `game_root_dir = "C:/Program Files (x86)/Steam/steamapps/common/Victoria 3/game/"`。
+
 - 双击 `./state_merger_script.py` 运行脚本，或在终端中运行 `python ./state_merger_script.py`。
 - 脚本运行完成后，您应该在与脚本相同的目录中看到一个名为 `mod` 的新文件夹。此文件夹包含描述部分中显示的生成文件。
 - 将 `mod` 文件夹的内容复制到您的 mod 文件夹中。您仍然需要创建一个 `.mod` 文件以使游戏识别您的 mod。更多信息请参考 [维多利亚3 Wiki](https://vic3.paradoxwikis.com/Modding)。
