@@ -1,6 +1,6 @@
 # 维多利亚3省份合并工具&教程
 
-作者的省份合并 mod 已经发布在 [Steam 创意工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3371693463)！
+作者的[省份合并 mod](https://github.com/ShabbyGayBar/StateMerging) 已经发布在 [Steam 创意工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3371693463)！
 
 ## 简介
 
