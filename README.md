@@ -18,7 +18,7 @@ It generates the following files that can be used in a Victoria 3 mod:
 ### Step 0: Prerequisites
 
 - Install [Python 3.8 or later](https://www.python.org/downloads/).
-- Download and unzip the State Merger zip file in the release page.
+- Download and unzip the State Merger zip file in the [release page](https://github.com/ShabbyGayBar/StateMerger/releases).
 - You could choose either one of the following methods, depending on whether you want to make a mod from scratch or use an existing mod as a base.
   - Install Victoria 3 Vanilla game (e.g. via Steam).
   - Install a Victoria 3 mod (e.g. via Steam) that you want to use as a base.

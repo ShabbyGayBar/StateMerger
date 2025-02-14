@@ -16,7 +16,7 @@
 ### 0. 准备工作
 
 - 安装 [Python 3.8](https://www.python.org/downloads/) 或更高版本。
-- 下载并解压发布页面中的 State Merger 压缩包。
+- 下载并解压[发布页面](https://github.com/ShabbyGayBar/StateMerger/releases)中的 State Merger 压缩包。
 - 根据需要选择以下两种方法之一，取决于您是从头开始制作 mod 还是使用现有 mod 作为基础。
   - 安装维多利亚3原版游戏（例如通过 Steam）。
   - 安装您想要用作基础的维多利亚3 mod（例如通过 Steam）。
