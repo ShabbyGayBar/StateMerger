@@ -94,3 +94,7 @@ Please report any bugs you encounter in the Issues tab using the bug report temp
 - The Python script for paradox file parsing is based on the [Victoria 3 Modding Toolkit](https://github.com/jakeOmega/Victoria3ModdingToolkit).
 - The Victoria 3 game and its data files are the property of Paradox Interactive.
 - This project is an unofficial modding tool and is not affiliated with or endorsed by Paradox Interactive.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

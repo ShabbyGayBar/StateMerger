@@ -92,3 +92,7 @@
 - 本 Python 脚本基于 [Victoria 3 Modding Toolkit](https://github.com/jakeOmega/Victoria3ModdingToolkit) 编写。
 - 维多利亚3游戏及其数据文件归 Paradox Interactive 所有。
 - 本项目是非官方的 modding 工具，与 Paradox Interactive 无关。
+
+# 开源许可
+
+本项目采用 MIT 许可证。详见 [LICENSE](LICENSE) 文件。
