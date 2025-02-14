@@ -40,20 +40,29 @@ For example, the following rule merges `state_1`, `state_2`, and `state_3` into 
 
 ### Step 2: Run the Script
 
-- Navigate to the Victoria 3 game root directory (or the mod root directory). You should see the following:
+- Navigate to the Victoria 3 `/game` directory under the root directory (or the mod root directory). You should see the following:
+  -  `/game` directory under the root directory
+    ![`/game` directory under the root directory](figures/game_root.png)
+  -  mod root directory
+    ![mod root directory](figures/mod_root.png)
 - Copy the path of the Victoria 3 game root directory (or the mod root directory).
 - Right click `./state_merger_script.py` and open in notepad or other text editor.
 - Replace the `game_root_dir` variable with the path you copied in the previous step. Make sure to use double backslashes `\\` or single forward slashes `/` as path separators, and add a trailing backslash `\\` at the end of the path.
+
   For example, if your game root directory is:
-  `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3`,
+  `C:\Program Files (x86)\Steam\steamapps\common\Victoria 3\game`,
+
   you should set
-  `game_root_dir = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Victoria 3\\"`
+  `game_root_dir = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Victoria 3\\game\\"`
+
   or
-  `game_root_dir = "C:/Program Files (x86)/Steam/steamapps/common/Victoria 3/"`.
+
+  `game_root_dir = "C:/Program Files (x86)/Steam/steamapps/common/Victoria 3/game/"`.
+
 - Run the script by double clicking `./state_merger_script.py` or running `python ./state_merger_script.py` in a terminal.
 - After the script finishes, you should see a new folder named `mod` in the same directory as the script. This folder contains the generated files shown in the description section.
 - Copy the contents of the `mod` folder to your mod folder. You still need to create a `.mod` file to make the game recognize your mod. You can refer to [Victoria 3 Wiki](https://vic3.paradoxwikis.com/Modding) for further information.
-  
+
 ### Step 3: Edit Spline Network
 
 Now comes the last manual part of the process. You need to edit the spline network to remove the invalid hubs of the merged states and reshape the road network between the new states.
