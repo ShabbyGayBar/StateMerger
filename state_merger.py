@@ -386,7 +386,7 @@ class MapData:
         self.data = {}
         for state_id in states_dict.keys():
             print("Reading map_data: "+state_id)
-            if "city" not in states_dict[state_id].keys(): # Check if is sea state
+            if "subsistence_building" not in states_dict[state_id].keys(): # Check if is sea state
                 print(f'{state_id} is a sea state, skipping...')
                 continue
             if 'impassable' in states_dict[state_id].keys():
