@@ -852,7 +852,7 @@ class StateMerger:
         self.states.dump(self.mod_dir["state"]+"00_states.txt")
 
         # Copy state_trait file to mod directory
-        state_trait_dir = "./mod/common/state_trait"
+        state_trait_dir = "./mod/common/state_traits"
         state_trait_file = "./data/000_states_merging.txt"
         if not os.path.exists(state_trait_dir):
             os.makedirs(state_trait_dir)
