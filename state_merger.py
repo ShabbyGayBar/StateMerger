@@ -820,6 +820,14 @@ class StateMerger:
                     os.remove(os.path.join(dir, file))
 
     def merge_state_data(self):
+        # Write cleared base game data to mod directory
+        for key, value in self.base_game_dir.items():
+            for file in os.listdir(value):
+                if file == filename:
+                    continue
+                with open(self.mod_dir[key]+file, 'w', encoding='utf-8') as file:
+                    file.write("")
+
         # Merge map_data
         self.map_data.merge(self.merge_dict)
         self.map_data.dump(self.mod_dir["map_data"]+filename)
@@ -831,15 +839,7 @@ class StateMerger:
         self.pops.dump(self.mod_dir["pops"]+filename)
         # Merge states
         self.states.merge(self.merge_dict)
-        self.states.dump(self.mod_dir["state"]+filename)
-
-        # Write cleared base game data to mod directory
-        for key, value in self.base_game_dir.items():
-            for file in os.listdir(value):
-                if file == filename:
-                    continue
-                with open(self.mod_dir[key]+file, 'w', encoding='utf-8') as file:
-                    file.write("")
+        self.states.dump(self.mod_dir["state"]+"00_states.txt")
 
         # Copy state_trait file to mod directory
         state_trait_dir = "./mod/common/state_trait"
