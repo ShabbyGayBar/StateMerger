@@ -415,7 +415,7 @@ class MapData:
                     self.data.pop(food)
 
     def dump(self, dir):
-        with open(dir, 'w', encoding='utf-8') as file:
+        with open(dir, 'w', encoding='utf_8_sig') as file:
             for state_id in self.data.keys():
                 print("Exporting map_data: "+state_id)
                 file.write(str(self.data[state_id]))
@@ -601,7 +601,7 @@ class Buildings:
         return building_str
 
     def dump(self, dir):
-        with open(dir, 'w', encoding='utf-8') as file:
+        with open(dir, 'w', encoding='utf_8_sig') as file:
             file.write('BUILDINGS = {\n')
             for state_id in self.data.keys():
                 print("Exporting building data: "+state_id)
@@ -685,7 +685,7 @@ class Pops:
                     self.data.pop("s:"+food)
 
     def dump(self, dir):
-        with open(dir, 'w', encoding='utf-8') as file:
+        with open(dir, 'w', encoding='utf_8_sig') as file:
             file.write('POPS = {\n')
             for state_id in self.data.keys():
                 print("Exporting pop data: "+state_id)
@@ -712,6 +712,8 @@ class States:
                     state["owned_provinces"] = list(state["owned_provinces"])
                 elif not isinstance(state["owned_provinces"], list):
                     state["owned_provinces"] = [state["owned_provinces"]]
+                if isinstance(state["state_type"], str):
+                    state["state_type"] = [state["state_type"]]
             if "add_homeland" in self.data[state_id].keys():
                 if isinstance(self.data[state_id]["add_homeland"], tuple):
                     self.data[state_id]["add_homeland"] = list(self.data[state_id]["add_homeland"])
@@ -728,7 +730,7 @@ class States:
         for province in self.data[other]["create_state"]:
             found = False
             for province_ref in self.data[this]["create_state"]:
-                if province["country"][0] == province_ref["country"][0]:
+                if province["country"] == province_ref["country"]:
                     found = True
                     province_ref["owned_provinces"] += province["owned_provinces"]
                     break
@@ -751,7 +753,7 @@ class States:
         state_str = f'    {state_id} = {{\n'
         for province in self.data[state_id]["create_state"]:
             state_str += f'        create_state = {{\n'
-            state_str += f'            country = {province["country"][0]}\n'
+            state_str += f'            country = {province["country"]}\n'
             state_str += f'            owned_provinces = {{ '
             for owned_province in province["owned_provinces"]:
                 state_str += f'{owned_province} '
@@ -779,7 +781,7 @@ class States:
                     self.data.pop("s:"+food)
 
     def dump(self, dir):
-        with open(dir, 'w', encoding='utf-8') as file:
+        with open(dir, 'w', encoding='utf_8_sig') as file:
             file.write('STATES = {\n')
             for state_id in self.data.keys():
                 print("Exporting state data: "+state_id)
@@ -830,7 +832,7 @@ class StateMerger:
             for file in os.listdir(value):
                 if file == filename:
                     continue
-                with open(self.mod_dir[key]+file, 'w', encoding='utf-8') as file:
+                with open(self.mod_dir[key]+file, 'w', encoding='utf_8_sig') as file:
                     file.write("")
 
         # Merge map_data
@@ -898,7 +900,7 @@ class StateMerger:
                 # Create the output directory if it doesn't exist
                 if not os.path.exists(os.path.dirname(output_file)):
                     os.makedirs(os.path.dirname(output_file))
-                with open(output_file, 'w', encoding='utf-8') as file:
+                with open(output_file, 'w', encoding='utf_8_sig') as file:
                     for line in lines:
                         for diner, food_list in self.merge_dict.items():
                             for food in food_list:
