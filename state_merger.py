@@ -712,8 +712,11 @@ class States:
                     state["owned_provinces"] = list(state["owned_provinces"])
                 elif not isinstance(state["owned_provinces"], list):
                     state["owned_provinces"] = [state["owned_provinces"]]
-                if isinstance(state["state_type"], str):
-                    state["state_type"] = [state["state_type"]]
+                if "state_type" in state.keys():
+                    if isinstance(state["state_type"], tuple):
+                        state["state_type"] = list(state["state_type"])
+                    elif not isinstance(state["state_type"], list):
+                        state["state_type"] = [state["state_type"]]
             if "add_homeland" in self.data[state_id].keys():
                 if isinstance(self.data[state_id]["add_homeland"], tuple):
                     self.data[state_id]["add_homeland"] = list(self.data[state_id]["add_homeland"])
