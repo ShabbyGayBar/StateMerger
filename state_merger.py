@@ -1,6 +1,7 @@
 from paradox_file_parser import ParadoxFileParser
 import os
 import re
+import json
 import shutil
 
 state_file_dir = {
@@ -810,6 +811,10 @@ class StateMerger:
         self.pops = Pops(game_data["pops"])
         self.states = States(game_data["state"])
 
+        # Dump the game_data to a json file
+        with open("./data/game_data.json", 'w', encoding='utf_8') as file:
+            json.dump(game_data, file, indent=4, ensure_ascii=False)
+
     def clear_mod_dir(self):
         # Clear the output directory
         for dir in self.mod_dir.values():
@@ -843,7 +848,7 @@ class StateMerger:
 
         # Copy state_trait file to mod directory
         state_trait_dir = "./mod/common/state_trait"
-        state_trait_file = "./000_states_merging.txt"
+        state_trait_file = "./data/000_states_merging.txt"
         if not os.path.exists(state_trait_dir):
             os.makedirs(state_trait_dir)
         # Delete the file in state_trait_dir if it exists
