@@ -903,7 +903,7 @@ class StateMerger:
                 # Create the output directory if it doesn't exist
                 if not os.path.exists(os.path.dirname(output_file)):
                     os.makedirs(os.path.dirname(output_file))
-                with open(output_file, 'w', encoding='utf_8_sig') as file:
+                with open(output_file, 'w', encoding='utf_8') as file:
                     for line in lines:
                         for diner, food_list in self.merge_dict.items():
                             for food in food_list:
