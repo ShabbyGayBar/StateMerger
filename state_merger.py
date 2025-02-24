@@ -37,7 +37,7 @@ misc_file_dir = [
     "events/soi_events/"
 ]
 
-filename = "000_land_states.txt"
+filename = "00_states_merging.txt"
 seq_str = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"]
 smallStateLimit = 4 # The limit of provinces for a state to be considered a small state
 
@@ -876,12 +876,12 @@ class StateMerger:
 
         # Copy state_trait file to mod directory
         state_trait_dir = "./mod/common/state_traits"
-        state_trait_file = "./data/000_states_merging.txt"
+        state_trait_file = "./data/00_states_merging.txt"
         if not os.path.exists(state_trait_dir):
             os.makedirs(state_trait_dir)
         # Delete the file in state_trait_dir if it exists
-        if os.path.exists(state_trait_dir+"/000_states_merging.txt"):
-            os.remove(state_trait_dir+"/000_states_merging.txt")
+        if os.path.exists(state_trait_dir+"/"+filename):
+            os.remove(state_trait_dir+"/"+filename)
         shutil.copy(state_trait_file, state_trait_dir)
 
     def merge_misc_data(self):
