@@ -22,6 +22,7 @@ misc_file_dir = [
     "common/dynamic_country_names/",
     "common/flag_definitions/",
     "common/history/global/",
+    "common/history/diplomatic_plays",
     "common/history/military_formations/",
     "common/journal_entries/",
     "common/on_actions/",
