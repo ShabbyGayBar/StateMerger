@@ -38,6 +38,7 @@ misc_file_dir = [
 
 filename = "000_land_states.txt"
 seq_str = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"]
+smallStateLimit = 4 # The limit of provinces for a state to be considered a small state
 
 class ModState:
     def __init__(self, base_game_dir, mod_dir, diff=False):
@@ -240,7 +241,19 @@ class StateRegion:
                 return i
         return 1
 
-    def merge(self, other):
+    def province_cnt(self):
+        '''Return the number of provinces in the state
+        '''
+        return len(self.provinces)
+
+    def is_small_state(self):
+        '''Determine if the state is a small state
+        '''
+        if self.province_cnt() < smallStateLimit:
+            return True
+        return False
+
+    def merge(self, other, ignoreSmallStates=False):
         '''Merge two state objects.
         '''
         # provinces: list append
@@ -261,13 +274,22 @@ class StateRegion:
         for trait in other.traits:
             if trait != f'"state_trait_{seq_str[otherMergeStatesCnt]}_states_integration"' and trait != f'"state_trait_{seq_str[otherCoastCnt]}_coast_integration"' and trait not in self.traits:
                 self.traits.append(trait)
-        if (thisMergeStatesCnt + otherMergeStatesCnt < 8):
-            self.traits.append(f'"state_trait_{seq_str[thisMergeStatesCnt + otherMergeStatesCnt]}_states_integration"')
-        else:
+        totalMergeStatesCnt = thisMergeStatesCnt + otherMergeStatesCnt
+        totalCoastCnt = thisCoastCnt + otherCoastCnt
+        if (ignoreSmallStates):
+            if self.is_small_state():
+                totalMergeStatesCnt -= 1
+                totalCoastCnt -= 1
+            if other.is_small_state():
+                totalMergeStatesCnt -= 1
+                totalCoastCnt -= 1
+        if (totalMergeStatesCnt > 1) and (totalMergeStatesCnt < 8):
+            self.traits.append(f'"state_trait_{seq_str[totalMergeStatesCnt]}_states_integration"')
+        elif (totalMergeStatesCnt >= 8):
             self.traits.append('"state_trait_eight_states_integration"')
-        if (thisCoastCnt + otherCoastCnt > 1) and (thisCoastCnt + otherCoastCnt < 6):
-            self.traits.append(f'"state_trait_{seq_str[thisCoastCnt + otherCoastCnt]}_coast_integration"')
-        elif (thisCoastCnt + otherCoastCnt >= 6):
+        if (totalCoastCnt > 1) and (totalCoastCnt < 6):
+            self.traits.append(f'"state_trait_{seq_str[totalCoastCnt]}_coast_integration"')
+        elif (totalCoastCnt >= 6):
             self.traits.append('"state_trait_six_coast_integration"')
         # arable_land: int sum
         self.arable_land += other.arable_land
@@ -406,12 +428,12 @@ class MapData:
                     states_dict[state_id]['resource'] = [states_dict[state_id]['resource']]
             self.data[state_id] = StateRegion(state_id, states_dict)
 
-    def merge(self, merge_dict):
+    def merge(self, merge_dict, ignoreSmallStates=False):
         for diner, food_list in merge_dict.items():
             for food in food_list:
                 if food in self.data.keys():
                     print(f'Merging {food} map_data into {diner}')
-                    self.data[diner].merge(self.data[food])
+                    self.data[diner].merge(self.data[food], ignoreSmallStates)
                     self.data.pop(food)
 
     def dump(self, dir):
@@ -829,7 +851,7 @@ class StateMerger:
                 for file in os.listdir(dir):
                     os.remove(os.path.join(dir, file))
 
-    def merge_state_data(self):
+    def merge_state_data(self, ignoreSmallStates=False):
         # Write cleared base game data to mod directory
         for key, value in self.base_game_dir.items():
             for file in os.listdir(value):
@@ -839,7 +861,7 @@ class StateMerger:
                     file.write("")
 
         # Merge map_data
-        self.map_data.merge(self.merge_dict)
+        self.map_data.merge(self.merge_dict, ignoreSmallStates)
         self.map_data.dump(self.mod_dir["map_data"]+filename)
         # Merge buildings
         self.buildings.merge(self.merge_dict)

@@ -9,7 +9,7 @@ with open(merge_file, 'r', encoding='utf-8') as file:
 
 # Merge states
 state_merger = StateMerger(game_root_dir, merge_dict)
-state_merger.merge_state_data()
+state_merger.merge_state_data(ignoreSmallStates=True)
 state_merger.merge_misc_data()
 
 print("**Don't forget to manually add the 'if dlc' buildings to file**")
