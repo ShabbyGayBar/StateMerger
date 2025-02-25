@@ -14,7 +14,7 @@ state_file_dir = {
 misc_file_dir = [
     "common/ai_strategies/",
     "common/buildings/",
-    "common\canals"
+    "common/canals"
     "common/character_templates/",
     "common/company_types/",
     "common/country_creation/",
