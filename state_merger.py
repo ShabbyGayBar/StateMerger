@@ -863,6 +863,9 @@ class StateMerger:
                     continue
                 with open(self.mod_dir[key]+file, 'w', encoding='utf_8_sig') as file:
                     file.write("")
+        # Delete "/map_data/state_regions/99_sea.txt" in mod directory
+        if os.path.exists(self.mod_dir["map_data"]+"99_seas.txt"):
+            os.remove(self.mod_dir["map_data"]+"99_seas.txt")
 
         # Merge map_data
         self.map_data.merge(self.merge_dict, ignoreSmallStates)
