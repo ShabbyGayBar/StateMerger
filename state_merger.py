@@ -14,7 +14,7 @@ state_file_dir = {
 misc_file_dir = [
     "common/ai_strategies/",
     "common/buildings/",
-    "common/canals/"
+    "common/canals/",
     "common/character_templates/",
     "common/company_types/",
     "common/country_creation/",
@@ -23,7 +23,7 @@ misc_file_dir = [
     "common/decisions/",
     "common/dynamic_country_names/",
     "common/flag_definitions/",
-    "common/history/countries/"
+    "common/history/countries/",
     "common/history/global/",
     "common/history/diplomatic_plays/",
     "common/history/military_formations/",
