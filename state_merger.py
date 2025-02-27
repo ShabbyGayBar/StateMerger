@@ -166,6 +166,10 @@ class StateRegion:
         dict_data = dict[name]
         # print(dict_data)
         self.id = int(dict_data['id'])
+        if "subsistence_building" not in dict_data.keys(): # Check if is sea node
+            self.subsistence_building = ''
+            self.provinces = dict_data['provinces']
+            return
         self.subsistence_building = dict_data['subsistence_building']
         self.provinces = dict_data['provinces']
         if 'impassable' in dict_data.keys():
@@ -230,6 +234,8 @@ class StateRegion:
     def merge_states_cnt(self):
         '''Determine the number of states merged in the state
         '''
+        if self.is_sea_node():
+            return 0
         for i in range(2, 9):
             if f'"state_trait_{seq_str[i]}_states_integration"' in self.traits:
                 return i
@@ -238,12 +244,21 @@ class StateRegion:
     def merge_coast_cnt(self):
         '''Determine the number of coast states merged in the state
         '''
+        if self.is_sea_node():
+            return 0
         if self.naval_exit_id == -1:
             return 0
         for i in range(2, 7):
             if f'"state_trait_{seq_str[i]}_coast_integration"' in self.traits:
                 return i
         return 1
+    
+    def is_sea_node(self):
+        '''Determine if the state is a sea node
+        '''
+        if self.subsistence_building == '':
+            return True
+        return False
 
     def province_cnt(self):
         '''Return the number of provinces in the state
@@ -253,6 +268,8 @@ class StateRegion:
     def is_small_state(self):
         '''Determine if the state is a small state
         '''
+        if self.is_sea_node():
+            return False
         if self.province_cnt() < smallStateLimit:
             return True
         return False
@@ -260,6 +277,9 @@ class StateRegion:
     def merge(self, other, ignoreSmallStates=False):
         '''Merge two state objects.
         '''
+        if self.is_sea_node() or other.is_sea_node():
+            print(f'Error: Cannot merge sea node with other state')
+            return
         # provinces: list append
         self.provinces += other.provinces
         # impassable: list append
@@ -339,6 +359,13 @@ class StateRegion:
         '''
         state_str = f'{self.name} = {{\n'
         state_str += f'    id = {self.id}\n'
+        if self.is_sea_node():
+            state_str += f'    provinces = {{ '
+            for province in self.provinces:
+                state_str += f'{province} '
+            state_str += f'}}\n'
+            state_str += f'}}\n\n'
+            return state_str
         state_str += f'    subsistence_building = {self.subsistence_building}\n'
         state_str += f'    provinces = {{ '
         for province in self.provinces:
@@ -412,9 +439,6 @@ class MapData:
         self.data = {}
         for state_id in states_dict.keys():
             print("Reading map_data: "+state_id)
-            if "subsistence_building" not in states_dict[state_id].keys(): # Check if is sea state
-                print(f'{state_id} is a sea state, skipping...')
-                continue
             if 'impassable' in states_dict[state_id].keys():
                 if isinstance(states_dict[state_id]['impassable'], str):
                     states_dict[state_id]['impassable'] = [states_dict[state_id]['impassable']]
@@ -437,13 +461,19 @@ class MapData:
             for food in food_list:
                 if food in self.data.keys():
                     print(f'Merging {food} map_data into {diner}')
+                    if self.data[food].is_sea_node():
+                        print(f'{food} is a sea node, skipping...')
+                        continue
                     self.data[diner].merge(self.data[food], ignoreSmallStates)
                     self.data.pop(food)
 
-    def dump(self, dir):
+    def dump(self, dir, include_sea_nodes=False):
         with open(dir, 'w', encoding='utf_8_sig') as file:
             for state_id in self.data.keys():
                 print("Exporting map_data: "+state_id)
+                if not include_sea_nodes and self.data[state_id].is_sea_node():
+                    print(f'{state_id} is a sea node, skipping...')
+                    continue
                 file.write(str(self.data[state_id]))
 
 class Buildings:
