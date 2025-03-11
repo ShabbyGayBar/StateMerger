@@ -11,7 +11,7 @@ state_file_dir = {
     "buildings": r"common/history/buildings/"
 }
 
-misc_file_dir = [
+replace_file_dir = [
     "common/ai_strategies/",
     "common/buildings/",
     "common/canals/",
@@ -38,6 +38,10 @@ misc_file_dir = [
     "events/brazil/",
     "events/india_events/",
     "events/soi_events/"
+]
+
+remove_file_dir = [
+    "common\strategic_regions"
 ]
 
 filename = "00_states_merging.txt"
@@ -921,7 +925,7 @@ class StateMerger:
         shutil.copy(state_trait_file, state_trait_dir)
 
     def merge_misc_data(self):
-        for dir in misc_file_dir:
+        for dir in replace_file_dir:
             base_game_dir = self.game_root_dir+dir
             mod_dir = r"./mod/"+dir
             print("Scanning", base_game_dir)
@@ -969,4 +973,51 @@ class StateMerger:
                                 # Replace "food" with "diner"
                                 line = re.sub(r'\b' + re.escape(food) + r'\b', diner, line)
                         file.write(line)
+        for dir in remove_file_dir:
+            base_game_dir = self.game_root_dir+dir
+            mod_dir = r"./mod/"+dir
+            print("Scanning", base_game_dir)
 
+            # Clear the output directory
+            if not os.path.exists(mod_dir):
+                os.makedirs(mod_dir)
+            else:
+                for file in os.listdir(mod_dir):
+                    if os.path.isdir(mod_dir+file): # If is folder
+                        continue
+                    os.remove(os.path.join(mod_dir, file))
+            
+            for game_file in os.listdir(base_game_dir):
+                if os.path.isdir(base_game_dir+game_file): # If is folder
+                    continue
+
+                # Read game file
+                with open(base_game_dir+game_file, 'r', encoding='utf-8') as file:
+                    lines = file.readlines()
+
+                food_name_found = False
+
+                for diner, food_list in self.merge_dict.items():
+                    for food in food_list:
+                        # Find all state names in the file
+                        if re.search(r'\b' + re.escape(food) + r'\b', ''.join(lines)):
+                            food_name_found = True
+                            break
+                    if food_name_found:
+                        break
+                if not food_name_found:
+                    continue
+
+                print("Modifying", base_game_dir+game_file)
+                # Replace all state names with ""
+                output_file = mod_dir+game_file
+                # Create the output directory if it doesn't exist
+                if not os.path.exists(os.path.dirname(output_file)):
+                    os.makedirs(os.path.dirname(output_file))
+                with open(output_file, 'w', encoding='utf_8') as file:
+                    for line in lines:
+                        for diner, food_list in self.merge_dict.items():
+                            for food in food_list:
+                                # Replace "food" with ""
+                                line = re.sub(r'\b' + re.escape(food) + r'\b', "", line)
+                        file.write(line)
