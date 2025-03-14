@@ -41,7 +41,7 @@ replace_file_dir = [
 ]
 
 remove_file_dir = [
-    "common\strategic_regions"
+    "common/strategic_regions/"
 ]
 
 filename = "00_states_merging.txt"
