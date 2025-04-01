@@ -48,7 +48,8 @@
     ![mod 根目录](figures/mod_root.png)
 
 - 复制维多利亚3游戏根目录（或 mod 根目录）的路径。
-- 右键单击 `./state_merger_script.py` 并在记事本或其他文本编辑器中打开。
+- 打开您下载并解压后的本工程目录。
+- 右键单击本工程内的 `state_merger_script.py` 并在记事本或其他文本编辑器中打开。
 - 用您在上一步中复制的路径替换 `game_root_dir` 变量。请确保使用双反斜杠 `\\` 或单斜杠 `/` 作为路径分隔符，并在路径末尾添加反斜杠 `\\`。
 
   例如，如果您的游戏根目录是：
@@ -64,12 +65,13 @@
   `game_root_dir = "C:/Program Files (x86)/Steam/steamapps/common/Victoria 3/game/"`。
 
 - 双击 `./state_merger_script.py` 运行脚本，或在终端中运行 `python ./state_merger_script.py`。
+- 脚本执行大概需要 5 分钟。
 - 脚本运行完成后，您应该在与脚本相同的目录中看到一个名为 `mod` 的新文件夹。此文件夹包含描述部分中显示的生成文件。
-- 将 `mod` 文件夹的内容复制到您的 mod 文件夹中。您仍然需要创建一个 `.mod` 文件以使游戏识别您的 mod。更多信息请参考 [维多利亚3 Wiki](https://vic3.paradoxwikis.com/Modding)。
+- 将 `mod` 文件夹的内容复制到您的 mod 文件夹中。您仍然需要创建一个 `.metadata` 文件以使游戏识别您的 mod。更多信息请参考 [维多利亚3 Wiki](https://vic3.paradoxwikis.com/Modding)。
   
 ### 3. 编辑 Spline Network
 
-接下来是整个过程的最后一个手动部分。您需要编辑 spline network 以删除被合并省份的无效城市模型并重绘省份之间的新道路网络。
+接下来是整个过程的最后一个**手动**部分。您需要编辑 spline network 以删除被合并省份的无效城市模型并重绘省份之间的新道路网络。
 
 - 以调试模式打开维多利亚3游戏。
 - 按 `~` 键打开控制台。
