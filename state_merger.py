@@ -1073,7 +1073,7 @@ class StateMerger:
                 if not os.path.exists(os.path.dirname(write_file)):
                     os.makedirs(os.path.dirname(write_file))
                 with open(write_file, 'w', encoding='utf-8-sig') as f:
-                    content = yaml.dump({lang: miss_dict}, f, allow_unicode=True, default_style='', default_flow_style=False)
+                    content = yaml.dump({lang: miss_dict}, allow_unicode=True, default_style='', default_flow_style=False)
                     # Remove all '\'' in write_file
                     content = content.replace("'", "")
                     f.write(content)
