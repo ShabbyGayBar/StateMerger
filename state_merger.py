@@ -472,7 +472,7 @@ class MapData:
                     self.data.pop(food)
 
     def dump(self, dir, include_sea_nodes=False):
-        with open(dir, 'w', encoding='utf_8_sig') as file:
+        with open(dir, 'w', encoding='utf-8-sig') as file:
             for state_id in self.data.keys():
                 print("Exporting map_data: "+state_id)
                 if not include_sea_nodes and self.data[state_id].is_sea_node():
@@ -661,7 +661,7 @@ class Buildings:
         return building_str
 
     def dump(self, dir):
-        with open(dir, 'w', encoding='utf_8_sig') as file:
+        with open(dir, 'w', encoding='utf-8-sig') as file:
             file.write('BUILDINGS = {\n')
             for state_id in self.data.keys():
                 print("Exporting building data: "+state_id)
@@ -745,7 +745,7 @@ class Pops:
                     self.data.pop("s:"+food)
 
     def dump(self, dir):
-        with open(dir, 'w', encoding='utf_8_sig') as file:
+        with open(dir, 'w', encoding='utf-8-sig') as file:
             file.write('POPS = {\n')
             for state_id in self.data.keys():
                 print("Exporting pop data: "+state_id)
@@ -844,7 +844,7 @@ class States:
                     self.data.pop("s:"+food)
 
     def dump(self, dir):
-        with open(dir, 'w', encoding='utf_8_sig') as file:
+        with open(dir, 'w', encoding='utf-8-sig') as file:
             file.write('STATES = {\n')
             for state_id in self.data.keys():
                 print("Exporting state data: "+state_id)
@@ -898,7 +898,7 @@ class StateMerger:
             for file in os.listdir(value):
                 if file == filename:
                     continue
-                with open(self.mod_dir[key]+file, 'w', encoding='utf_8_sig') as file:
+                with open(self.mod_dir[key]+file, 'w', encoding='utf-8-sig') as file:
                     file.write("")
         # Delete "/map_data/state_regions/99_sea.txt" in mod directory
         if os.path.exists(self.mod_dir["map_data"]+"99_seas.txt"):
@@ -969,7 +969,7 @@ class StateMerger:
                 # Create the output directory if it doesn't exist
                 if not os.path.exists(os.path.dirname(output_file)):
                     os.makedirs(os.path.dirname(output_file))
-                with open(output_file, 'w', encoding='utf_8') as file:
+                with open(output_file, 'w', encoding='utf-8') as file:
                     for line in lines:
                         for diner, food_list in self.merge_dict.items():
                             for food in food_list:
@@ -1017,7 +1017,7 @@ class StateMerger:
                 # Create the output directory if it doesn't exist
                 if not os.path.exists(os.path.dirname(output_file)):
                     os.makedirs(os.path.dirname(output_file))
-                with open(output_file, 'w', encoding='utf_8') as file:
+                with open(output_file, 'w', encoding='utf-8') as file:
                     for line in lines:
                         for diner, food_list in self.merge_dict.items():
                             for food in food_list:
