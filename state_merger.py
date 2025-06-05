@@ -852,16 +852,18 @@ class States:
             file.write('}\n')
 
 class StateMerger:
-    def __init__(self, game_root_dir, merge_dict):
+    def __init__(self, game_root_dir, write_dir, merge_dict, cache_dir="./data"):
         self.base_game_dir = {}
         self.mod_dir = {}
         self.game_root_dir = game_root_dir
+        self.write_dir = write_dir
         self.merge_dict = merge_dict
+        self.cache_dir = cache_dir
 
         # Set the base game and mod directories
         for key, value in state_file_dir.items():
             self.base_game_dir[key] = self.game_root_dir+value
-            self.mod_dir[key] = r"./mod/"+value
+            self.mod_dir[key] = write_dir+value
         self.clear_mod_dir()
                 
         # Read base game data
@@ -877,8 +879,9 @@ class StateMerger:
         self.states = States(game_data["state"])
 
         # Dump the game_data to a json file
-        with open("./data/game_data.json", 'w', encoding='utf_8') as file:
-            json.dump(game_data, file, indent=4, ensure_ascii=False)
+        for key in game_data.keys():
+            with open(f"{cache_dir}{key}.json", 'w', encoding='utf-8') as file:
+                json.dump(game_data[key], file, indent=4, ensure_ascii=False)
 
     def clear_mod_dir(self):
         # Clear the output directory
@@ -915,8 +918,8 @@ class StateMerger:
         self.states.dump(self.mod_dir["state"]+"00_states.txt")
 
         # Copy state_trait file to mod directory
-        state_trait_dir = "./mod/common/state_traits"
-        state_trait_file = "./data/00_states_merging.txt"
+        state_trait_dir = f"{self.write_dir}common/state_traits"
+        state_trait_file = f"{self.cache_dir}00_states_merging.txt"
         if not os.path.exists(state_trait_dir):
             os.makedirs(state_trait_dir)
         # Delete the file in state_trait_dir if it exists
@@ -927,7 +930,7 @@ class StateMerger:
     def merge_misc_data(self):
         for dir in replace_file_dir:
             base_game_dir = self.game_root_dir+dir
-            mod_dir = r"./mod/"+dir
+            mod_dir = self.write_dir+dir
             print("Scanning", base_game_dir)
 
             # Clear the output directory
@@ -975,7 +978,7 @@ class StateMerger:
                         file.write(line)
         for dir in remove_file_dir:
             base_game_dir = self.game_root_dir+dir
-            mod_dir = r"./mod/"+dir
+            mod_dir = self.write_dir+dir
             print("Scanning", base_game_dir)
 
             # Clear the output directory
