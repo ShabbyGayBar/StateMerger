@@ -2,6 +2,7 @@ from paradox_file_parser import ParadoxFileParser
 import os
 import re
 import json
+import yaml
 import shutil
 
 state_file_dir = {
@@ -44,9 +45,22 @@ remove_file_dir = [
     "common/strategic_regions/"
 ]
 
+loc_file_dir = {
+    "l_english": r"localization/english/",
+    "l_simp_chinese": r"localization/simp_chinese/"
+}
+
 filename = "00_states_merging.txt"
 seq_str = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"]
 smallStateLimit = 4 # The limit of provinces for a state to be considered a small state
+
+def clean_v3_yml_numbered_keys(yml_path):
+    with open(yml_path, 'r', encoding='utf-8') as f:
+        raw = f.read()
+    # Replace :<number> (optionally with spaces) before a quote or non-quote value
+    cleaned = re.sub(r':\d+\s*"', ': "', raw)
+    cleaned = re.sub(r':\d+\s+([^\n"]+)', r': \1', cleaned)
+    return cleaned
 
 class ModState:
     def __init__(self, base_game_dir, mod_dir, diff=False):
@@ -1024,3 +1038,42 @@ class StateMerger:
                                 # Replace "food" with ""
                                 line = re.sub(r'\b' + re.escape(food) + r'\b', "", line)
                         file.write(line)
+
+    def merge_loc_data(self):
+        # Read localization yml files
+        for lang, loc_dir in loc_file_dir.items():
+            print(f"Reading localization files for {lang}...")
+            hub_file = os.path.join(self.game_root_dir, loc_dir, f'hub_names_{lang}.yml')
+            miss_dict = {}
+            with open(hub_file, 'r', encoding='utf-8') as f:
+                cleaned_yml = clean_v3_yml_numbered_keys(hub_file)
+                data = yaml.safe_load(cleaned_yml)[lang]
+                # Process the localization data as needed
+                print(f"Processing {hub_file} for {lang}")
+                for diner, food_list in self.merge_dict.items():
+                    # Check if city, wood, mine, farm, port attribute of diner are in the localization data
+                    for attr in ["city", "wood", "mine", "farm", "port"]:
+                        if getattr(self.map_data.data[diner], attr, '') == '':
+                            continue
+                        if f"HUB_NAME_{diner}_{attr}" in data.keys():
+                            continue
+                        # If not found, add a missing hub name entry
+                        print(f"Missing HUB_NAME_{diner}_{attr} in {lang}")
+                        # Search for attribute in the food_list
+                        for food in food_list:
+                            if f"HUB_NAME_{food}_{attr}" in data.keys():
+                                miss_dict[f"HUB_NAME_{diner}_{attr}"] = "\""+data[f'HUB_NAME_{food}_{attr}']+"\""
+                                print(miss_dict[f"HUB_NAME_{diner}_{attr}"])
+                                break
+            # Write the missing hub names to the localization file
+            write_file = self.write_dir + loc_dir + f'hub_names_states_merging_{lang}.yml'
+            if miss_dict:
+                print(f'Modifying {write_file}')
+                # Create the output directory if it doesn't exist
+                if not os.path.exists(os.path.dirname(write_file)):
+                    os.makedirs(os.path.dirname(write_file))
+                with open(write_file, 'w', encoding='utf-8-sig') as f:
+                    content = yaml.dump({lang: miss_dict}, f, allow_unicode=True, default_style='', default_flow_style=False)
+                    # Remove all '\'' in write_file
+                    content = content.replace("'", "")
+                    f.write(content)
