@@ -12723,7 +12723,7 @@
                     }
                 ]
             },
-            "region_state:ABU": {
+            "region_state:BHN": {
                 "create_pop": [
                     {
                         "culture": "bedouin",
@@ -19932,39 +19932,19 @@
                 "create_pop": [
                     {
                         "culture": "malay",
-                        "size": "60000"
+                        "size": "100000"
                     },
                     {
                         "culture": "tamil",
-                        "size": "2400"
+                        "size": "4400"
                     },
                     {
                         "culture": "yue",
-                        "size": "4000"
+                        "size": "17000"
                     },
                     {
                         "culture": "british",
-                        "size": "600"
-                    }
-                ]
-            },
-            "region_state:GBR": {
-                "create_pop": [
-                    {
-                        "culture": "malay",
-                        "size": "40000"
-                    },
-                    {
-                        "culture": "tamil",
-                        "size": "2000"
-                    },
-                    {
-                        "culture": "yue",
-                        "size": "13996"
-                    },
-                    {
-                        "culture": "british",
-                        "size": "2196"
+                        "size": "2796"
                     }
                 ]
             }
@@ -21118,7 +21098,7 @@
                 "create_pop": [
                     {
                         "culture": "melanesian",
-                        "size": "80000"
+                        "size": "1251"
                     }
                 ]
             }

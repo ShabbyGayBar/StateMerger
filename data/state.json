@@ -330,7 +330,7 @@
                 {
                     "country": "c:OMA",
                     "state_type": [
-                        "treaty_port"
+                        "unincorporated"
                     ],
                     "owned_provinces": [
                         "xB7B2BD"
@@ -1105,9 +1105,6 @@
                         "xF9A1A2",
                         "xFEA40C",
                         "xFEE042"
-                    ],
-                    "state_type": [
-                        "unincorporated"
                     ]
                 },
                 {
@@ -20302,7 +20299,6 @@
                         "xDFB040",
                         "xFA1C92",
                         "x20B0C0",
-                        "xA0B0C0",
                         "xF05E87",
                         "x75DC50",
                         "x8FBBB6",
@@ -20313,7 +20309,8 @@
                 {
                     "country": "c:SPA",
                     "owned_provinces": [
-                        "xCA9F75"
+                        "xCA9F75",
+                        "xA0B0C0"
                     ],
                     "state_type": [
                         "unincorporated"
@@ -24961,7 +24958,7 @@
                         "xABADB1"
                     ],
                     "state_type": [
-                        "treaty_port"
+                        "unincorporated"
                     ]
                 },
                 {
@@ -26462,17 +26459,12 @@
                 {
                     "country": "c:BIC",
                     "owned_provinces": [
+                        "xC00130",
                         "x8080B0",
                         "x08673B"
-                    ]
-                },
-                {
-                    "country": "c:GBR",
-                    "owned_provinces": [
-                        "xC00130"
                     ],
                     "state_type": [
-                        "treaty_port"
+                        "unincorporated"
                     ]
                 },
                 {
@@ -32169,17 +32161,17 @@
                         "x75B0BE",
                         "x36F270",
                         "x42FC41",
-                        "x2F832B"
-                    ]
-                },
-                {
-                    "country": "c:ABU",
-                    "owned_provinces": [
-                        "x8070A0",
-                        "xB80596"
+                        "x2F832B",
+                        "x8070A0"
                     ],
                     "state_type": [
                         "unincorporated"
+                    ]
+                },
+                {
+                    "country": "c:BHN",
+                    "owned_provinces": [
+                        "xB80596"
                     ]
                 }
             ],
@@ -36986,8 +36978,7 @@
                         "xB031E0"
                     ],
                     "state_type": [
-                        "unincorporated",
-                        "treaty_port"
+                        "unincorporated"
                     ]
                 }
             ],

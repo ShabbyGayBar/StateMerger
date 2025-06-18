@@ -34,6 +34,19 @@
                         "activate_production_methods": "\"pm_iron_frame_buildings\""
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "country": [
+                                {
+                                    "country": "\"c:SWE\"",
+                                    "levels": "3"
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_university\"",
                         "add_ownership": {
                             "country": [
@@ -186,6 +199,19 @@
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "country": [
+                                {
+                                    "country": "\"c:SWE\"",
+                                    "levels": "1"
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_paper_mills\"",
@@ -349,6 +375,19 @@
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "country": [
+                                {
+                                    "country": "\"c:SWE\"",
+                                    "levels": "1"
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_shipyards\"",
@@ -643,6 +682,19 @@
         "s:STATE_ZEALAND": {
             "region_state:DEN": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "country": [
+                                {
+                                    "country": "\"c:DEN\"",
+                                    "levels": "3"
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_government_administration\"",
                         "add_ownership": {
@@ -943,6 +995,19 @@
             "region_state:NOR": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "country": [
+                                {
+                                    "country": "\"c:NOR\"",
+                                    "levels": "2"
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_fishing_wharf\"",
                         "add_ownership": {
                             "building": [
@@ -999,6 +1064,19 @@
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "country": [
+                                {
+                                    "country": "\"c:NOR\"",
+                                    "levels": "1"
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_shipyards\"",
@@ -1197,6 +1275,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "20",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_arts_academy\"",
                         "add_ownership": {
                             "building": [
@@ -1253,14 +1346,14 @@
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "6",
+                                    "levels": "3",
                                     "region": "\"STATE_HOME_COUNTIES\""
                                 }
                             ],
                             "country": [
                                 {
                                     "country": "\"c:GBR\"",
-                                    "levels": "4"
+                                    "levels": "2"
                                 }
                             ]
                         },
@@ -1277,14 +1370,14 @@
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "17",
+                                    "levels": "10",
                                     "region": "\"STATE_HOME_COUNTIES\""
                                 }
                             ],
                             "country": [
                                 {
                                     "country": "\"c:GBR\"",
-                                    "levels": "6"
+                                    "levels": "3"
                                 }
                             ]
                         },
@@ -1302,7 +1395,7 @@
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "4",
+                                    "levels": "3",
                                     "region": "\"STATE_HOME_COUNTIES\""
                                 }
                             ]
@@ -1408,9 +1501,8 @@
                     {
                         "building": "\"building_railway\"",
                         "add_ownership": {
-                            "company": [
+                            "country": [
                                 {
-                                    "type": "company_gwr",
                                     "country": "\"c:GBR\"",
                                     "levels": "2"
                                 }
@@ -1428,7 +1520,7 @@
                             "country": [
                                 {
                                     "country": "\"c:GBR\"",
-                                    "levels": "10"
+                                    "levels": "5"
                                 }
                             ]
                         },
@@ -1459,25 +1551,46 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "12",
+                                    "region": "\"STATE_LANCASHIRE\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "8",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_textile_mills\"",
                         "add_ownership": {
                             "building": [
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "4",
+                                    "levels": "2",
                                     "region": "\"STATE_LANCASHIRE\""
                                 },
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "12",
+                                    "levels": "8",
                                     "region": "\"STATE_HOME_COUNTIES\""
                                 },
                                 {
                                     "type": "\"building_textile_mills\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "4",
+                                    "levels": "3",
                                     "region": "\"STATE_LANCASHIRE\""
                                 }
                             ]
@@ -1485,7 +1598,7 @@
                         "reserves": "1",
                         "activate_production_methods": [
                             "\"pm_dye_workshops\"",
-                            "\"pm_craftsman_sewing\"",
+                            "\"pm_no_luxury_clothes\"",
                             "\"pm_traditional_looms\""
                         ]
                     },
@@ -1671,7 +1784,7 @@
                             "country": [
                                 {
                                     "country": "\"c:GBR\"",
-                                    "levels": "8"
+                                    "levels": "4"
                                 }
                             ]
                         },
@@ -1684,6 +1797,21 @@
         "s:STATE_WALES": {
             "region_state:GBR": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_paper_mills\"",
                         "add_ownership": {
@@ -1773,19 +1901,6 @@
                             "\"pm_no_equipment\"",
                             "\"pm_road_carts\""
                         ]
-                    },
-                    {
-                        "building": "\"building_port\"",
-                        "add_ownership": {
-                            "country": [
-                                {
-                                    "country": "\"c:GBR\"",
-                                    "levels": "1"
-                                }
-                            ]
-                        },
-                        "reserves": "1",
-                        "activate_production_methods": "\"pm_basic_port\""
                     }
                 ]
             }
@@ -1809,6 +1924,27 @@
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_YORKSHIRE\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_tooling_workshops\"",
@@ -1917,7 +2053,6 @@
                         "reserves": "1",
                         "activate_production_methods": [
                             "\"pm_steam_engines\"",
-                            "\"pm_automobiles_disabled\"",
                             "\"pm_automation_disabled\""
                         ]
                     },
@@ -2036,7 +2171,7 @@
                             "country": [
                                 {
                                     "country": "\"c:GBR\"",
-                                    "levels": "5"
+                                    "levels": "2"
                                 }
                             ]
                         },
@@ -2133,6 +2268,27 @@
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_MIDLANDS\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_arms_industry\"",
@@ -2352,9 +2508,8 @@
                     {
                         "building": "\"building_railway\"",
                         "add_ownership": {
-                            "company": [
+                            "country": [
                                 {
-                                    "type": "company_gwr",
                                     "country": "\"c:GBR\"",
                                     "levels": "2"
                                 }
@@ -2372,7 +2527,7 @@
                             "country": [
                                 {
                                     "country": "\"c:GBR\"",
-                                    "levels": "5"
+                                    "levels": "2"
                                 }
                             ]
                         },
@@ -2465,12 +2620,10 @@
                     {
                         "building": "\"building_food_industry\"",
                         "add_ownership": {
-                            "building": [
+                            "country": [
                                 {
-                                    "type": "\"building_financial_district\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "4",
-                                    "region": "\"STATE_EAST_ANGLIA\""
+                                    "levels": "5"
                                 }
                             ]
                         },
@@ -2509,7 +2662,7 @@
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "4",
+                                    "levels": "2",
                                     "region": "\"STATE_EAST_ANGLIA\""
                                 }
                             ]
@@ -2616,9 +2769,8 @@
                     {
                         "building": "\"building_railway\"",
                         "add_ownership": {
-                            "company": [
+                            "country": [
                                 {
-                                    "type": "company_gwr",
                                     "country": "\"c:GBR\"",
                                     "levels": "1"
                                 }
@@ -2636,7 +2788,7 @@
                             "country": [
                                 {
                                     "country": "\"c:GBR\"",
-                                    "levels": "8"
+                                    "levels": "4"
                                 }
                             ]
                         },
@@ -2687,6 +2839,27 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_WEST_COUNTRY\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_tooling_workshops\"",
                         "add_ownership": {
                             "building": [
@@ -2717,12 +2890,6 @@
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "3",
-                                    "region": "\"STATE_WEST_COUNTRY\""
-                                },
-                                {
-                                    "type": "\"building_financial_district\"",
-                                    "country": "\"c:GBR\"",
                                     "levels": "1",
                                     "region": "\"STATE_WEST_COUNTRY\""
                                 }
@@ -2732,7 +2899,7 @@
                         "activate_production_methods": [
                             "\"pm_dye_workshops\"",
                             "\"pm_traditional_looms\"",
-                            "\"pm_craftsman_sewing\""
+                            "\"pm_no_luxury_clothes\""
                         ]
                     },
                     {
@@ -2742,13 +2909,13 @@
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "5",
+                                    "levels": "3",
                                     "region": "\"STATE_WEST_COUNTRY\""
                                 },
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "5",
+                                    "levels": "4",
                                     "region": "\"STATE_HOME_COUNTIES\""
                                 }
                             ]
@@ -2872,7 +3039,7 @@
                             "country": [
                                 {
                                     "country": "\"c:GBR\"",
-                                    "levels": "8"
+                                    "levels": "4"
                                 }
                             ]
                         },
@@ -2903,6 +3070,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_LOWLANDS\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_construction_sector\"",
                         "add_ownership": {
                             "country": [
@@ -2922,7 +3104,7 @@
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "4",
+                                    "levels": "3",
                                     "region": "\"STATE_LOWLANDS\""
                                 }
                             ]
@@ -3093,7 +3275,7 @@
                             "country": [
                                 {
                                     "country": "\"c:GBR\"",
-                                    "levels": "5"
+                                    "levels": "2"
                                 }
                             ]
                         },
@@ -3191,7 +3373,7 @@
                             "country": [
                                 {
                                     "country": "\"c:GBR\"",
-                                    "levels": "2"
+                                    "levels": "1"
                                 }
                             ]
                         },
@@ -3229,7 +3411,7 @@
                             "country": [
                                 {
                                     "country": "\"c:GBR\"",
-                                    "levels": "2"
+                                    "levels": "1"
                                 }
                             ]
                         },
@@ -3257,6 +3439,21 @@
                             "\"pm_scholastic_education\"",
                             "\"pm_religious_academia\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_lead_mine\"",
@@ -3294,7 +3491,7 @@
                         "activate_production_methods": [
                             "\"pm_sweeteners\"",
                             "\"pm_disabled_canning\"",
-                            "\"pm_pot_stills\"",
+                            "\"pm_disabled_distillery\"",
                             "\"pm_manual_dough_processing\""
                         ]
                     },
@@ -3323,7 +3520,7 @@
                             "country": [
                                 {
                                     "country": "\"c:GBR\"",
-                                    "levels": "4"
+                                    "levels": "2"
                                 }
                             ]
                         },
@@ -3354,19 +3551,6 @@
                             "\"pm_tools\"",
                             "\"pm_potatoes\""
                         ]
-                    },
-                    {
-                        "building": "\"building_port\"",
-                        "add_ownership": {
-                            "country": [
-                                {
-                                    "country": "\"c:GBR\"",
-                                    "levels": "1"
-                                }
-                            ]
-                        },
-                        "reserves": "1",
-                        "activate_production_methods": "\"pm_basic_port\""
                     }
                 ]
             }
@@ -3390,6 +3574,21 @@
                             "\"pm_religious_bureaucrats\"",
                             "\"pm_vertical_filing_cabinets\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRA\"",
+                                    "levels": "5",
+                                    "region": "\"STATE_ILE_DE_FRANCE\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_construction_sector\"",
@@ -3457,7 +3656,7 @@
                         "activate_production_methods": [
                             "\"pm_lathe\"",
                             "\"pm_automation_disabled\"",
-                            "\"pm_luxury_furniture\""
+                            "\"pm_no_luxuries\""
                         ]
                     },
                     {
@@ -3607,6 +3806,27 @@
             "region_state:FRA": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRA\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_PROVENCE\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRA\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_ILE_DE_FRANCE\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_textile_mills\"",
                         "add_ownership": {
                             "building": [
@@ -3710,7 +3930,7 @@
                             "country": [
                                 {
                                     "country": "\"c:FRA\"",
-                                    "levels": "3"
+                                    "levels": "2"
                                 }
                             ]
                         },
@@ -3739,6 +3959,27 @@
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRA\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_NORMANDY\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_ILE_DE_FRANCE\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_shipyards\"",
@@ -3858,7 +4099,7 @@
                             "country": [
                                 {
                                     "country": "\"c:FRA\"",
-                                    "levels": "3"
+                                    "levels": "2"
                                 }
                             ]
                         },
@@ -3871,6 +4112,27 @@
         "s:STATE_LANGUEDOC": {
             "region_state:FRA": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_LANGUEDOC\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_ILE_DE_FRANCE\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_university\"",
                         "add_ownership": {
@@ -3993,6 +4255,27 @@
         "s:STATE_RHONE": {
             "region_state:FRA": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_RHONE\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_ILE_DE_FRANCE\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_construction_sector\"",
                         "add_ownership": {
@@ -4204,6 +4487,21 @@
             "region_state:FRA": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_ILE_DE_FRANCE\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_arms_industry\"",
                         "add_ownership": {
                             "building": [
@@ -4326,7 +4624,7 @@
                             "country": [
                                 {
                                     "country": "\"c:FRA\"",
-                                    "levels": "2"
+                                    "levels": "1"
                                 }
                             ]
                         },
@@ -4451,13 +4749,28 @@
             "region_state:FRA": {
                 "create_building": [
                     {
-                        "building": "\"building_steel_mills\"",
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
                         "add_ownership": {
                             "building": [
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:FRA\"",
                                     "levels": "1",
+                                    "region": "\"STATE_ALSACE_LORRAINE\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
+                        "building": "\"building_steel_mills\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRA\"",
+                                    "levels": "2",
                                     "region": "\"STATE_ALSACE_LORRAINE\""
                                 }
                             ]
@@ -4837,13 +5150,13 @@
                                 {
                                     "type": "\"building_furniture_manufacturies\"",
                                     "country": "\"c:FRA\"",
-                                    "levels": "1",
+                                    "levels": "2",
                                     "region": "\"STATE_AUVERGNE_LIMOUSIN\""
                                 },
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:FRA\"",
-                                    "levels": "1",
+                                    "levels": "3",
                                     "region": "\"STATE_AUVERGNE_LIMOUSIN\""
                                 }
                             ]
@@ -4851,7 +5164,7 @@
                         "reserves": "1",
                         "activate_production_methods": [
                             "\"pm_lathe\"",
-                            "\"pm_luxury_furniture\"",
+                            "\"pm_no_luxuries\"",
                             "\"pm_automation_disabled\""
                         ]
                     },
@@ -4928,6 +5241,27 @@
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_BRITTANY\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_ILE_DE_FRANCE\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_shipyards\"",
@@ -5070,7 +5404,7 @@
                             "country": [
                                 {
                                     "country": "\"c:FRA\"",
-                                    "levels": "3"
+                                    "levels": "2"
                                 }
                             ]
                         },
@@ -5167,7 +5501,7 @@
                         },
                         "reserves": "1",
                         "activate_production_methods": [
-                            "\"pm_soil_enriching_farming\"",
+                            "\"pm_simple_farming\"",
                             "\"pm_no_secondary\"",
                             "\"pm_tools_disabled\""
                         ]
@@ -5216,7 +5550,7 @@
                         },
                         "reserves": "1",
                         "activate_production_methods": [
-                            "\"pm_pot_stills\"",
+                            "\"pm_disabled_distillery\"",
                             "\"pm_disabled_canning\"",
                             "\"pm_sweeteners\"",
                             "\"pm_manual_dough_processing\""
@@ -5298,13 +5632,13 @@
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:FRA\"",
-                                    "levels": "3",
+                                    "levels": "2",
                                     "region": "\"STATE_FRANCHE_COMTE\""
                                 },
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:FRA\"",
-                                    "levels": "3",
+                                    "levels": "1",
                                     "region": "\"STATE_ILE_DE_FRANCE\""
                                 },
                                 {
@@ -5437,6 +5771,12 @@
                                     "country": "\"c:FRA\"",
                                     "levels": "2",
                                     "region": "\"STATE_LORRAINE\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_FRENCH_LOW_COUNTRIES\""
                                 }
                             ]
                         },
@@ -5500,6 +5840,27 @@
         "s:STATE_AQUITAINE": {
             "region_state:FRA": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRA\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_AQUITAINE\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRA\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_ILE_DE_FRANCE\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_food_industry\"",
                         "add_ownership": {
@@ -5607,7 +5968,7 @@
                             "country": [
                                 {
                                     "country": "\"c:FRA\"",
-                                    "levels": "3"
+                                    "levels": "1"
                                 }
                             ]
                         },
@@ -5702,6 +6063,21 @@
         "s:STATE_HOLLAND": {
             "region_state:NET": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:NET\"",
+                                    "levels": "6",
+                                    "region": "\"STATE_HOLLAND\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_government_administration\"",
                         "add_ownership": {
@@ -5922,6 +6298,41 @@
             "region_state:NET": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:NET\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_HOLLAND\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
+                        "building": "\"building_logging_camp\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:NET\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_FRIESLAND\""
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_simple_forestry\"",
+                            "\"pm_hardwood\"",
+                            "\"pm_no_equipment\"",
+                            "\"pm_road_carts\""
+                        ]
+                    },
+                    {
                         "building": "\"building_government_administration\"",
                         "add_ownership": {
                             "country": [
@@ -6034,6 +6445,21 @@
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:NET\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HOLLAND\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_furniture_manufacturies\"",
@@ -6184,6 +6610,21 @@
                             "\"pm_religious_bureaucrats\"",
                             "\"pm_vertical_filing_cabinets\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:BEL\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_WALLONIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_steel_mills\"",
@@ -6385,6 +6826,21 @@
         "s:STATE_FLANDERS": {
             "region_state:BEL": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:BEL\"",
+                                    "levels": "6",
+                                    "region": "\"STATE_FLANDERS\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_government_administration\"",
                         "add_ownership": {
@@ -6662,6 +7118,21 @@
             "region_state:AUS": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:AUS\"",
+                                    "levels": "4",
+                                    "region": "\"STATE_AUSTRIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_government_administration\"",
                         "add_ownership": {
                             "country": [
@@ -6838,6 +7309,21 @@
                             "\"pm_hereditary_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:AUS\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_BOHEMIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_arms_industry\"",
@@ -7343,6 +7829,27 @@
             "region_state:PRU": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:PRU\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_POMERANIA\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:PRU\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_BRANDENBURG\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_fishing_wharf\"",
                         "add_ownership": {
                             "building": [
@@ -7445,6 +7952,21 @@
             "region_state:BRE": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:BRE\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_ELBE\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_paper_mills\"",
                         "add_ownership": {
                             "country": [
@@ -7471,12 +7993,27 @@
                             ]
                         },
                         "reserves": "1",
-                        "activate_production_methods": "\"pm_anchorage\""
+                        "activate_production_methods": "\"pm_basic_port\""
                     }
                 ]
             },
             "region_state:HAM": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:HAM\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_ELBE\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_furniture_manufacturies\"",
                         "add_ownership": {
@@ -7527,7 +8064,7 @@
                             ]
                         },
                         "reserves": "1",
-                        "activate_production_methods": "\"pm_anchorage\""
+                        "activate_production_methods": "\"pm_basic_port\""
                     }
                 ]
             },
@@ -7614,6 +8151,21 @@
                             "\"pm_hereditary_bureaucrats\"",
                             "\"pm_horizontal_drawer_cabinets\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:SWI\"",
+                                    "levels": "4",
+                                    "region": "\"STATE_EAST_SWITZERLAND\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_university\"",
@@ -7744,6 +8296,21 @@
                             "\"pm_hereditary_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:SWI\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_WEST_SWITZERLAND\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_paper_mills\"",
@@ -8162,6 +8729,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:PRU\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_RHINELAND\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_construction_sector\"",
                         "add_ownership": {
                             "country": [
@@ -8437,6 +9019,21 @@
             "region_state:PRU": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:PRU\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_BRANDENBURG\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_government_administration\"",
                         "add_ownership": {
                             "country": [
@@ -8679,6 +9276,21 @@
                         },
                         "reserves": "1",
                         "activate_production_methods": "\"pm_basic_port\""
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:LUB\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_SCHLESWIG_HOLSTEIN\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     }
                 ]
             },
@@ -8966,6 +9578,21 @@
             "region_state:BAD": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:BAD\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_BADEN\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_university\"",
                         "add_ownership": {
                             "country": [
@@ -9133,6 +9760,21 @@
                             "\"pm_religious_bureaucrats\"",
                             "\"pm_horizontal_drawer_cabinets\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:HAN\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_HANNOVER\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_university\"",
@@ -9323,6 +9965,21 @@
                             "\"pm_religious_bureaucrats\"",
                             "\"pm_horizontal_drawer_cabinets\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:BAV\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_BAVARIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_construction_sector\"",
@@ -9658,6 +10315,21 @@
                             "\"pm_religious_bureaucrats\"",
                             "\"pm_horizontal_drawer_cabinets\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:SAX\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_SAXONY\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_university\"",
@@ -10045,6 +10717,21 @@
         "s:STATE_HESSE": {
             "region_state:FRM": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRM\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HESSE\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_textile_mills\"",
                         "add_ownership": {
@@ -10687,6 +11374,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:AUS\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_LOMBARDY\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_construction_sector\"",
                         "add_ownership": {
                             "country": [
@@ -10829,6 +11531,21 @@
                             "\"pm_hereditary_bureaucrats\"",
                             "\"pm_horizontal_drawer_cabinets\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:SAR\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_PIEDMONT\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_construction_sector\"",
@@ -11345,6 +12062,48 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:SIC\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_CAMPANIA\""
+                                },
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:SIC\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_CAMPANIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:SIC\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_CAMPANIA\""
+                                },
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:SIC\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_CAMPANIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_construction_sector\"",
                         "add_ownership": {
                             "country": [
@@ -11356,34 +12115,6 @@
                         },
                         "reserves": "1",
                         "activate_production_methods": "\"pm_wooden_buildings\""
-                    },
-                    {
-                        "building": "\"building_shipyards\"",
-                        "add_ownership": {
-                            "building": [
-                                {
-                                    "type": "\"building_financial_district\"",
-                                    "country": "\"c:SIC\"",
-                                    "levels": "1",
-                                    "region": "\"STATE_CAMPANIA\""
-                                }
-                            ]
-                        },
-                        "reserves": "1",
-                        "activate_production_methods": "\"pm_basic_shipbuilding\""
-                    },
-                    {
-                        "building": "\"building_military_shipyards\"",
-                        "add_ownership": {
-                            "country": [
-                                {
-                                    "country": "\"c:SIC\"",
-                                    "levels": "1"
-                                }
-                            ]
-                        },
-                        "reserves": "1",
-                        "activate_production_methods": "\"pm_military_shipbuilding_wooden\""
                     },
                     {
                         "building": "\"building_glassworks\"",
@@ -11608,12 +12339,6 @@
                                     "country": "\"c:SIC\"",
                                     "levels": "1",
                                     "region": "\"STATE_CALABRIA\""
-                                },
-                                {
-                                    "type": "\"building_financial_district\"",
-                                    "country": "\"c:SIC\"",
-                                    "levels": "1",
-                                    "region": "\"STATE_CALABRIA\""
                                 }
                             ]
                         },
@@ -11623,6 +12348,26 @@
                             "\"pm_disabled_canning\"",
                             "\"pm_manual_dough_processing\"",
                             "\"pm_pot_stills\""
+                        ]
+                    },
+                    {
+                        "building": "\"building_iron_mine\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:SIC\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_CAMPANIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_picks_and_shovels_building_iron_mine\"",
+                            "\"pm_no_explosives\"",
+                            "\"pm_no_steam_automation\"",
+                            "\"pm_road_carts\""
                         ]
                     },
                     {
@@ -12121,6 +12866,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_limited\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:LUC\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_EMILIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_port\"",
                         "add_ownership": {
                             "country": [
@@ -12232,6 +12992,21 @@
                             "\"pm_hereditary_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:TUS\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_TUSCANY\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_university\"",
@@ -12576,6 +13351,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:PAP\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_LAZIO\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_paper_mills\"",
                         "add_ownership": {
                             "country": [
@@ -12707,6 +13497,21 @@
                             "\"pm_hereditary_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:AUS\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_VENETIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_paper_mills\"",
@@ -12967,6 +13772,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:SIC\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_SICILY\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_port\"",
                         "add_ownership": {
                             "country": [
@@ -13001,6 +13821,21 @@
                             "\"pm_religious_bureaucrats\"",
                             "\"pm_horizontal_drawer_cabinets\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:SPA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_TOLEDO\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_university\"",
@@ -13466,6 +14301,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:SPA\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_TOLEDO\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_paper_mills\"",
                         "add_ownership": {
                             "country": [
@@ -13769,6 +14619,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:SPA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_CATALONIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_construction_sector\"",
                         "add_ownership": {
                             "country": [
@@ -13971,6 +14836,21 @@
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:SPA\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_ANDALUSIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_construction_sector\"",
@@ -14270,6 +15150,41 @@
                             "\"pm_horizontal_drawer_cabinets\"",
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
+                        ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:SPA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_VALENCIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
+                        "building": "\"building_logging_camp\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:SPA\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_VALENCIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_simple_forestry\"",
+                            "\"pm_no_hardwood\"",
+                            "\"pm_no_equipment\"",
+                            "\"pm_road_carts\""
                         ]
                     },
                     {
@@ -14604,6 +15519,41 @@
                             "\"pm_horizontal_drawer_cabinets\"",
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
+                        ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:POR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_ESTREMADURA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
+                        "building": "\"building_logging_camp\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:POR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_ESTREMADURA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_saw_mills\"",
+                            "\"pm_hardwood\"",
+                            "\"pm_no_equipment\"",
+                            "\"pm_road_carts\""
                         ]
                     },
                     {
@@ -15050,6 +16000,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:TUR\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_EASTERN_THRACE\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_paper_mills\"",
                         "add_ownership": {
                             "country": [
@@ -15120,7 +16085,7 @@
                         "activate_production_methods": [
                             "\"pm_handsewn_clothes\"",
                             "\"pm_traditional_looms\"",
-                            "\"pm_craftsman_sewing\""
+                            "\"pm_no_luxury_clothes\""
                         ]
                     },
                     {
@@ -15313,7 +16278,7 @@
                         "reserves": "1",
                         "activate_production_methods": [
                             "\"pm_handsewn_clothes\"",
-                            "\"pm_craftsman_sewing\"",
+                            "\"pm_no_luxury_clothes\"",
                             "\"pm_traditional_looms\""
                         ]
                     },
@@ -15618,7 +16583,7 @@
                         "reserves": "1",
                         "activate_production_methods": [
                             "\"pm_handcrafted_furniture\"",
-                            "\"pm_luxury_furniture\"",
+                            "\"pm_no_luxuries\"",
                             "\"pm_automation_disabled\""
                         ]
                     },
@@ -16018,6 +16983,21 @@
             "region_state:AUS": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:AUS\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_ISTRIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_tooling_workshops\"",
                         "add_ownership": {
                             "building": [
@@ -16408,6 +17388,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:GRE\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_ATTICA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_shipyards\"",
                         "add_ownership": {
                             "building": [
@@ -16724,6 +17719,21 @@
         "s:STATE_MACEDONIA": {
             "region_state:TUR": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:TUR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_MACEDONIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_food_industry\"",
                         "add_ownership": {
@@ -17077,55 +18087,6 @@
             "region_state:RUS": {
                 "create_building": [
                     {
-                        "building": "\"building_furniture_manufacturies\"",
-                        "add_ownership": {
-                            "building": [
-                                {
-                                    "type": "\"building_furniture_manufacturies\"",
-                                    "country": "\"c:RUS\"",
-                                    "levels": "1",
-                                    "region": "\"STATE_MAZOVIA\""
-                                }
-                            ]
-                        },
-                        "reserves": "1",
-                        "activate_production_methods": [
-                            "\"pm_handcrafted_furniture\"",
-                            "\"pm_automation_disabled\"",
-                            "\"pm_luxury_furniture\""
-                        ]
-                    },
-                    {
-                        "building": "\"building_paper_mills\"",
-                        "add_ownership": {
-                            "building": [
-                                {
-                                    "type": "\"building_paper_mills\"",
-                                    "country": "\"c:RUS\"",
-                                    "levels": "1",
-                                    "region": "\"STATE_MAZOVIA\""
-                                },
-                                {
-                                    "type": "\"building_financial_district\"",
-                                    "country": "\"c:RUS\"",
-                                    "levels": "1",
-                                    "region": "\"STATE_MAZOVIA\""
-                                }
-                            ],
-                            "country": [
-                                {
-                                    "country": "\"c:RUS\"",
-                                    "levels": "1"
-                                }
-                            ]
-                        },
-                        "reserves": "1",
-                        "activate_production_methods": [
-                            "\"pm_pulp_pressing\"",
-                            "\"pm_automation_disabled\""
-                        ]
-                    },
-                    {
                         "building": "\"building_rye_farm\"",
                         "add_ownership": {
                             "building": [
@@ -17142,24 +18103,6 @@
                             "\"pm_simple_farming\"",
                             "\"pm_potatoes\"",
                             "\"pm_tools_disabled\""
-                        ]
-                    },
-                    {
-                        "building": "\"building_tooling_workshops\"",
-                        "add_ownership": {
-                            "building": [
-                                {
-                                    "type": "\"building_tooling_workshops\"",
-                                    "country": "\"c:RUS\"",
-                                    "levels": "1",
-                                    "region": "\"STATE_MAZOVIA\""
-                                }
-                            ]
-                        },
-                        "reserves": "1",
-                        "activate_production_methods": [
-                            "\"pm_crude_tools\"",
-                            "\"pm_automation_disabled\""
                         ]
                     },
                     {
@@ -17232,6 +18175,21 @@
         "s:STATE_SILESIA": {
             "region_state:PRU": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:PRU\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_SILESIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_textile_mills\"",
                         "add_ownership": {
@@ -17418,6 +18376,88 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:RUS\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_GREATER_POLAND\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
+                        "building": "\"building_furniture_manufacturies\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_furniture_manufacturies\"",
+                                    "country": "\"c:RUS\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_GREATER_POLAND\""
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_handcrafted_furniture\"",
+                            "\"pm_automation_disabled\"",
+                            "\"pm_luxury_furniture\""
+                        ]
+                    },
+                    {
+                        "building": "\"building_paper_mills\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_paper_mills\"",
+                                    "country": "\"c:RUS\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_GREATER_POLAND\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:RUS\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_GREATER_POLAND\""
+                                }
+                            ],
+                            "country": [
+                                {
+                                    "country": "\"c:RUS\"",
+                                    "levels": "1"
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_pulp_pressing\"",
+                            "\"pm_automation_disabled\""
+                        ]
+                    },
+                    {
+                        "building": "\"building_tooling_workshops\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_tooling_workshops\"",
+                                    "country": "\"c:RUS\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_GREATER_POLAND\""
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_crude_tools\"",
+                            "\"pm_automation_disabled\""
+                        ]
+                    },
+                    {
                         "building": "\"building_rye_farm\"",
                         "add_ownership": {
                             "building": [
@@ -17504,6 +18544,21 @@
             "region_state:PRU": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:PRU\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_WEST_PRUSSIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_fishing_wharf\"",
                         "add_ownership": {
                             "building": [
@@ -17559,6 +18614,21 @@
         "s:STATE_EAST_PRUSSIA": {
             "region_state:PRU": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:PRU\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_EAST_PRUSSIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_textile_mills\"",
                         "add_ownership": {
@@ -17760,6 +18830,21 @@
             },
             "region_state:KRA": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:KRA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_WEST_GALICIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_university\"",
                         "add_ownership": {
@@ -18078,6 +19163,21 @@
         "s:STATE_TRANSDANUBIA": {
             "region_state:AUS": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:AUS\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_TRANSDANUBIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_food_industry\"",
                         "add_ownership": {
@@ -18999,6 +20099,27 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:EGY\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_LOWER_EGYPT\""
+                                }
+                            ],
+                            "country": [
+                                {
+                                    "country": "\"c:EGY\"",
+                                    "levels": "5"
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_construction_sector\"",
                         "add_ownership": {
                             "country": [
@@ -19677,6 +20798,19 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "country": [
+                                {
+                                    "country": "\"c:MOR\"",
+                                    "levels": "1"
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_glassworks\"",
                         "add_ownership": {
                             "building": [
@@ -20065,6 +21199,19 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_limited\"",
+                        "add_ownership": {
+                            "country": [
+                                {
+                                    "country": "\"c:MAS\"",
+                                    "levels": "1"
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_port\"",
                         "add_ownership": {
                             "country": [
@@ -20184,7 +21331,7 @@
                             "country": [
                                 {
                                     "country": "\"c:FRA\"",
-                                    "levels": "2"
+                                    "levels": "1"
                                 }
                             ]
                         },
@@ -20271,6 +21418,19 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_limited\"",
+                        "add_ownership": {
+                            "country": [
+                                {
+                                    "country": "\"c:CON\"",
+                                    "levels": "1"
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_wheat_farm\"",
                         "add_ownership": {
                             "building": [
@@ -20355,7 +21515,7 @@
                             ]
                         },
                         "reserves": "1",
-                        "activate_production_methods": "\"pm_basic_port\""
+                        "activate_production_methods": "\"pm_anchorage\""
                     },
                     {
                         "building": "\"building_wheat_farm\"",
@@ -20582,7 +21742,7 @@
                             ]
                         },
                         "reserves": "1",
-                        "activate_production_methods": "\"pm_basic_port\""
+                        "activate_production_methods": "\"pm_anchorage\""
                     },
                     {
                         "building": "\"building_fishing_wharf\"",
@@ -20627,6 +21787,19 @@
         "s:STATE_TUNISIA": {
             "region_state:TUN": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_limited\"",
+                        "add_ownership": {
+                            "country": [
+                                {
+                                    "country": "\"c:TUN\"",
+                                    "levels": "1"
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_textile_mills\"",
                         "add_ownership": {
@@ -24719,6 +25892,21 @@
             "region_state:USA": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:USA\"",
+                                    "levels": "6",
+                                    "region": "\"STATE_LOUISIANA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_port\"",
                         "add_ownership": {
                             "country": [
@@ -24789,6 +25977,21 @@
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_secular_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:USA\"",
+                                    "levels": "10",
+                                    "region": "\"STATE_NEW_YORK\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_construction_sector\"",
@@ -25217,8 +26420,9 @@
                     {
                         "building": "\"building_port\"",
                         "add_ownership": {
-                            "country": [
+                            "company": [
                                 {
+                                    "type": "company_russian_american_company",
                                     "country": "\"c:RUS\"",
                                     "levels": "1"
                                 }
@@ -25226,6 +26430,42 @@
                         },
                         "reserves": "1",
                         "activate_production_methods": "\"pm_anchorage\""
+                    },
+                    {
+                        "building": "\"building_whaling_station\"",
+                        "add_ownership": {
+                            "company": [
+                                {
+                                    "type": "company_russian_american_company",
+                                    "country": "\"c:RUS\"",
+                                    "levels": "1"
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_unrefrigerated\"",
+                            "\"pm_wooden_whaling_ships\""
+                        ]
+                    },
+                    {
+                        "building": "\"building_logging_camp\"",
+                        "add_ownership": {
+                            "company": [
+                                {
+                                    "type": "company_russian_american_company",
+                                    "country": "\"c:RUS\"",
+                                    "levels": "2"
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_simple_forestry\"",
+                            "\"pm_no_equipment\"",
+                            "\"pm_road_carts\"",
+                            "\"pm_hardwood\""
+                        ]
                     }
                 ]
             },
@@ -25439,6 +26679,21 @@
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_secular_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:USA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_MISSOURI\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_lead_mine\"",
@@ -26561,6 +27816,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:USA\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_MARYLAND\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_glassworks\"",
                         "add_ownership": {
                             "building": [
@@ -26711,6 +27981,21 @@
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_secular_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:USA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_PENNSYLVANIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_steel_mills\"",
@@ -27004,7 +28289,6 @@
                         "reserves": "1",
                         "activate_production_methods": [
                             "\"pm_steam_engines\"",
-                            "\"pm_automobiles_disabled\"",
                             "\"pm_automation_disabled\""
                         ]
                     }
@@ -27014,6 +28298,21 @@
         "s:STATE_NEW_JERSEY": {
             "region_state:USA": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:USA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_NEW_JERSEY\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_paper_mills\"",
                         "add_ownership": {
@@ -27132,6 +28431,21 @@
         "s:STATE_ILLINOIS": {
             "region_state:USA": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:USA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_ILLINOIS\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_lead_mine\"",
                         "add_ownership": {
@@ -27317,6 +28631,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:USA\"",
+                                    "levels": "5",
+                                    "region": "\"STATE_MASSACHUSETTS\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_construction_sector\"",
                         "add_ownership": {
                             "country": [
@@ -27484,7 +28813,7 @@
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:USA\"",
-                                    "levels": "1",
+                                    "levels": "2",
                                     "region": "\"STATE_MASSACHUSETTS\""
                                 }
                             ]
@@ -27907,6 +29236,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:USA\"",
+                                    "levels": "6",
+                                    "region": "\"STATE_MASSACHUSETTS\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_cotton_plantation\"",
                         "add_ownership": {
                             "building": [
@@ -28136,12 +29480,11 @@
                     {
                         "building": "\"building_logging_camp\"",
                         "add_ownership": {
-                            "building": [
+                            "company": [
                                 {
-                                    "type": "\"building_financial_district\"",
-                                    "country": "\"c:HBC\"",
-                                    "levels": "1",
-                                    "region": "\"STATE_MANITOBA\""
+                                    "type": "company_hbc",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "1"
                                 }
                             ]
                         },
@@ -28157,6 +29500,21 @@
             },
             "region_state:ONT": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_sulfur_mine\"",
                         "add_ownership": {
@@ -28342,6 +29700,21 @@
             "region_state:NVS": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_fishing_wharf\"",
                         "add_ownership": {
                             "building": [
@@ -28391,6 +29764,21 @@
         "s:STATE_QUEBEC": {
             "region_state:QUE": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_university\"",
                         "add_ownership": {
@@ -28527,12 +29915,11 @@
                     {
                         "building": "\"building_logging_camp\"",
                         "add_ownership": {
-                            "building": [
+                            "company": [
                                 {
-                                    "type": "\"building_financial_district\"",
-                                    "country": "\"c:HBC\"",
-                                    "levels": "1",
-                                    "region": "\"STATE_MANITOBA\""
+                                    "type": "company_hbc",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "1"
                                 }
                             ]
                         },
@@ -28577,12 +29964,11 @@
                     {
                         "building": "\"building_logging_camp\"",
                         "add_ownership": {
-                            "building": [
+                            "company": [
                                 {
-                                    "type": "\"building_financial_district\"",
-                                    "country": "\"c:HBC\"",
-                                    "levels": "1",
-                                    "region": "\"STATE_MANITOBA\""
+                                    "type": "company_hbc",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "1"
                                 }
                             ]
                         },
@@ -28669,12 +30055,11 @@
                     {
                         "building": "\"building_logging_camp\"",
                         "add_ownership": {
-                            "building": [
+                            "company": [
                                 {
-                                    "type": "\"building_financial_district\"",
-                                    "country": "\"c:HBC\"",
-                                    "levels": "2",
-                                    "region": "\"STATE_MANITOBA\""
+                                    "type": "company_hbc",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "2"
                                 }
                             ]
                         },
@@ -28878,7 +30263,7 @@
                         "reserves": "1",
                         "activate_production_methods": [
                             "\"pm_saw_mills\"",
-                            "\"pm_hardwood\"",
+                            "\"pm_no_hardwood\"",
                             "\"pm_no_equipment\"",
                             "\"pm_road_carts\""
                         ]
@@ -29343,6 +30728,21 @@
                             "\"pm_no_luxury_clothes\"",
                             "\"pm_traditional_looms\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:MEX\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_VERACRUZ\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_maize_farm\"",
@@ -30314,6 +31714,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:HAI\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HAITI\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_tobacco_plantation\"",
                         "add_ownership": {
                             "building": [
@@ -30475,6 +31890,21 @@
             "region_state:SPA": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:SPA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_PUERTO_RICO\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_coffee_plantation\"",
                         "add_ownership": {
                             "building": [
@@ -30620,6 +32050,21 @@
         "s:STATE_WEST_INDIES": {
             "region_state:FRA": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_ILE_DE_FRANCE\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_sugar_plantation\"",
                         "add_ownership": {
@@ -30782,6 +32227,27 @@
             "region_state:GBR": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_JAMAICA\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_banana_plantation\"",
                         "add_ownership": {
                             "building": [
@@ -30854,6 +32320,27 @@
         "s:STATE_CUBA": {
             "region_state:CUB": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:CUB\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_CUBA\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:SPA\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_TOLEDO\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_rice_farm\"",
                         "add_ownership": {
@@ -30995,6 +32482,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:ECU\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_ECUADOR\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_fishing_wharf\"",
                         "add_ownership": {
                             "building": [
@@ -31087,6 +32589,21 @@
             "region_state:NET": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:NET\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HOLLAND\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_sugar_plantation\"",
                         "add_ownership": {
                             "building": [
@@ -31138,6 +32655,21 @@
             },
             "region_state:GBR": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_sugar_plantation\"",
                         "add_ownership": {
@@ -31269,6 +32801,21 @@
                             "\"pm_simple_fishing\"",
                             "\"pm_unrefrigerated\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:VNZ\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_MIRANDA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_government_administration\"",
@@ -31422,6 +32969,21 @@
                             "\"pm_religious_bureaucrats\"",
                             "\"pm_professional_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:CLM\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_ANTIOQUIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_fishing_wharf\"",
@@ -31685,7 +33247,7 @@
                         "activate_production_methods": [
                             "\"pm_handcrafted_furniture\"",
                             "\"pm_automation_disabled\"",
-                            "\"pm_luxury_furniture\""
+                            "\"pm_no_luxuries\""
                         ]
                     },
                     {
@@ -33033,6 +34595,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:ARG\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_BUENOS_AIRES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_tooling_workshops\"",
                         "add_ownership": {
                             "building": [
@@ -33413,6 +34990,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:CHL\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_SANTIAGO\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_tooling_workshops\"",
                         "add_ownership": {
                             "building": [
@@ -33696,6 +35288,21 @@
             "region_state:PRA": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_limited\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:PRA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_PARA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_logging_camp\"",
                         "add_ownership": {
                             "building": [
@@ -33806,7 +35413,7 @@
                         "reserves": "1",
                         "activate_production_methods": [
                             "\"pm_simple_farming_building_rice_farm\"",
-                            "\"pm_no_secondary\"",
+                            "\"pm_fig_orchards_building_rice_farm\"",
                             "\"pm_tools_disabled\""
                         ]
                     }
@@ -34151,6 +35758,21 @@
         "s:STATE_SAO_PAULO": {
             "region_state:BRZ": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:BRZ\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_SAO_PAULO\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_coffee_plantation\"",
                         "add_ownership": {
@@ -34512,6 +36134,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:BRZ\"",
+                                    "levels": "5",
+                                    "region": "\"STATE_RIO_DE_JANEIRO\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_university\"",
                         "add_ownership": {
                             "country": [
@@ -34709,6 +36346,21 @@
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:BRZ\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_BAHIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_shipyards\"",
@@ -35070,7 +36722,7 @@
                         "reserves": "1",
                         "activate_production_methods": [
                             "\"pm_simple_farming\"",
-                            "\"pm_no_secondary\"",
+                            "\"pm_citrus_orchards\"",
                             "\"pm_tools_disabled\""
                         ]
                     },
@@ -35178,6 +36830,21 @@
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:BRZ\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_PERNAMBUCO\""
+                                }
+                            ]
+                        },
+                        "reserves": "2"
                     },
                     {
                         "building": "\"building_textile_mills\"",
@@ -35367,6 +37034,21 @@
                             "\"pm_religious_bureaucrats\"",
                             "\"pm_professional_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:OMA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_OMAN\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_shipyards\"",
@@ -35930,6 +37612,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:EGY\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_SYRIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_glassworks\"",
                         "add_ownership": {
                             "building": [
@@ -36217,6 +37914,21 @@
             "region_state:TUR": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:TUR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_BASRA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_fishing_wharf\"",
                         "add_ownership": {
                             "building": [
@@ -36475,6 +38187,21 @@
             },
             "region_state:OMA": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:OMA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_LARISTAN\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_fishing_wharf\"",
                         "add_ownership": {
@@ -37329,6 +39056,21 @@
         "s:STATE_AYDIN": {
             "region_state:TUR": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:TUR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_AYDIN\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_textile_mills\"",
                         "add_ownership": {
@@ -39723,7 +41465,7 @@
                             "company": [
                                 {
                                     "type": "company_east_india_company",
-                                    "country": "\"c:BIC\"",
+                                    "country": "\"c:GBR\"",
                                     "levels": "5"
                                 }
                             ]
@@ -39830,6 +41572,27 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:BIC\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_WEST_BENGAL\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "9",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_construction_sector\"",
                         "add_ownership": {
                             "country": [
@@ -39922,7 +41685,7 @@
                             "company": [
                                 {
                                     "type": "company_east_india_company",
-                                    "country": "\"c:BIC\"",
+                                    "country": "\"c:GBR\"",
                                     "levels": "5"
                                 }
                             ]
@@ -39977,7 +41740,7 @@
                             "company": [
                                 {
                                     "type": "company_east_india_company",
-                                    "country": "\"c:BIC\"",
+                                    "country": "\"c:GBR\"",
                                     "levels": "1"
                                 }
                             ]
@@ -40533,7 +42296,7 @@
                             "company": [
                                 {
                                     "type": "company_east_india_company",
-                                    "country": "\"c:BIC\"",
+                                    "country": "\"c:GBR\"",
                                     "levels": "1"
                                 }
                             ]
@@ -40665,7 +42428,7 @@
                             "company": [
                                 {
                                     "type": "company_east_india_company",
-                                    "country": "\"c:BIC\"",
+                                    "country": "\"c:GBR\"",
                                     "levels": "5"
                                 }
                             ]
@@ -40781,6 +42544,21 @@
                             "\"pm_hereditary_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:BIC\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_AGRA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_dye_plantation\"",
@@ -42462,6 +44240,21 @@
             "region_state:FRA": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:FRA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_ILE_DE_FRANCE\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_sugar_plantation\"",
                         "add_ownership": {
                             "building": [
@@ -42496,6 +44289,21 @@
             },
             "region_state:GBR": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_sugar_plantation\"",
                         "add_ownership": {
@@ -42584,7 +44392,7 @@
                             ]
                         },
                         "reserves": "1",
-                        "activate_production_methods": "\"pm_basic_port\""
+                        "activate_production_methods": "\"pm_anchorage\""
                     },
                     {
                         "building": "\"building_logging_camp\"",
@@ -42652,6 +44460,21 @@
                             "\"pm_hereditary_bureaucrats\"",
                             "\"pm_secular_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:BIC\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_MADRAS\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_arms_industry\"",
@@ -43042,7 +44865,7 @@
                             ]
                         },
                         "reserves": "1",
-                        "activate_production_methods": "\"pm_basic_port\""
+                        "activate_production_methods": "\"pm_anchorage\""
                     }
                 ]
             },
@@ -43064,6 +44887,21 @@
                             "\"pm_hereditary_bureaucrats\"",
                             "\"pm_secular_bureaucrats\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:BIC\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_MADRAS\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_construction_sector\"",
@@ -43403,6 +45241,21 @@
         "s:STATE_BOMBAY": {
             "region_state:POR": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:POR\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_BOMBAY\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_dye_plantation\"",
                         "add_ownership": {
@@ -44863,6 +46716,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:CHI\"",
+                                    "levels": "25",
+                                    "region": "\"STATE_GUANGDONG\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_banana_plantation\"",
                         "add_ownership": {
                             "building": [
@@ -44996,6 +46864,27 @@
             },
             "region_state:POR": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:POR\"",
+                                    "levels": "5",
+                                    "region": "\"STATE_GUANGDONG\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:POR\"",
+                                    "levels": "5",
+                                    "region": "\"STATE_ESTREMADURA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_rice_farm\"",
                         "add_ownership": {
@@ -46881,6 +48770,21 @@
             "region_state:DAI": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_trade_center\"",
+                                    "country": "\"c:DAI\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_MEKONG\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_rice_farm\"",
                         "add_ownership": {
                             "building": [
@@ -47456,13 +49360,32 @@
             "region_state:JAP": {
                 "create_building": [
                     {
+                        "building": "\"building_rice_farm\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_manor_house\"",
+                                    "country": "\"c:JAP\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HOKKAIDO\""
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_simple_farming_building_rice_farm\"",
+                            "\"pm_no_secondary\"",
+                            "\"pm_tools_disabled\""
+                        ]
+                    },
+                    {
                         "building": "\"building_fishing_wharf\"",
                         "add_ownership": {
                             "building": [
                                 {
                                     "type": "\"building_fishing_wharf\"",
                                     "country": "\"c:JAP\"",
-                                    "levels": "2",
+                                    "levels": "1",
                                     "region": "\"STATE_HOKKAIDO\""
                                 }
                             ]
@@ -47724,6 +49647,26 @@
                         },
                         "reserves": "1",
                         "activate_production_methods": "\"pm_no_organization\""
+                    },
+                    {
+                        "building": "\"building_lead_mine\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_lead_mine\"",
+                                    "country": "\"c:JAP\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_KANTO\""
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_picks_and_shovels_building_lead_mine\"",
+                            "\"pm_no_explosives\"",
+                            "\"pm_no_steam_automation\"",
+                            "\"pm_road_carts\""
+                        ]
                     }
                 ]
             }
@@ -49267,6 +51210,60 @@
                         ]
                     },
                     {
+                        "building": "\"building_sugar_plantation\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_manor_house\"",
+                                    "country": "\"c:JOH\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_MALAYA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"default_building_sugar_plantation\"",
+                            "\"pm_road_carts\""
+                        ]
+                    },
+                    {
+                        "building": "\"building_tea_plantation\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_manor_house\"",
+                                    "country": "\"c:JOH\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_MALAYA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"default_building_tea_plantation\"",
+                            "\"pm_road_carts\""
+                        ]
+                    },
+                    {
+                        "building": "\"building_tea_plantation\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_manor_house\"",
+                                    "country": "\"c:JOH\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_MALAYA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"default_building_tea_plantation\"",
+                            "\"pm_road_carts\""
+                        ]
+                    },
+                    {
                         "building": "\"building_fishing_wharf\"",
                         "add_ownership": {
                             "building": [
@@ -49322,34 +51319,28 @@
                 ]
             },
             "region_state:BIC": {
-                "create_building": []
-            },
-            "region_state:GBR": {
                 "create_building": [
                     {
-                        "building": "\"building_tea_plantation\"",
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
                         "add_ownership": {
                             "building": [
                                 {
-                                    "type": "\"building_manor_house\"",
-                                    "country": "\"c:GBR\"",
-                                    "levels": "1",
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:BIC\"",
+                                    "levels": "2",
                                     "region": "\"STATE_MALAYA\""
                                 }
                             ]
                         },
-                        "reserves": "1",
-                        "activate_production_methods": [
-                            "\"default_building_tea_plantation\"",
-                            "\"pm_road_carts\""
-                        ]
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_port\"",
                         "add_ownership": {
                             "country": [
                                 {
-                                    "country": "\"c:GBR\"",
+                                    "country": "\"c:BIC\"",
                                     "levels": "1"
                                 }
                             ]
@@ -49824,6 +51815,27 @@
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_horizontal_drawer_cabinets\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:NET\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_HOLLAND\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:DEI\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_WEST_JAVA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_construction_sector\"",
@@ -51400,6 +53412,21 @@
                         ]
                     },
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:SPA\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_TOLEDO\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_rice_farm\"",
                         "add_ownership": {
                             "building": [
@@ -51686,6 +53713,21 @@
             "region_state:NSW": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_wheat_farm\"",
                         "add_ownership": {
                             "building": [
@@ -51702,6 +53744,24 @@
                             "\"pm_simple_farming\"",
                             "\"pm_tools_disabled\"",
                             "\"pm_citrus_orchards\""
+                        ]
+                    },
+                    {
+                        "building": "\"building_whaling_station\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_unrefrigerated\"",
+                            "\"pm_wooden_whaling_ships\""
                         ]
                     },
                     {
@@ -51788,6 +53848,26 @@
                         },
                         "reserves": "1",
                         "activate_production_methods": "\"pm_no_organization\""
+                    },
+                    {
+                        "building": "\"building_logging_camp\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_simple_forestry\"",
+                            "\"pm_no_hardwood\"",
+                            "\"pm_no_equipment\"",
+                            "\"pm_road_carts\""
+                        ]
                     }
                 ]
             }
@@ -51807,6 +53887,26 @@
                         },
                         "reserves": "1",
                         "activate_production_methods": "\"pm_no_organization\""
+                    },
+                    {
+                        "building": "\"building_logging_camp\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_simple_forestry\"",
+                            "\"pm_no_hardwood\"",
+                            "\"pm_no_equipment\"",
+                            "\"pm_road_carts\""
+                        ]
                     }
                 ]
             }
@@ -51931,6 +54031,26 @@
                         },
                         "reserves": "1",
                         "activate_production_methods": "\"pm_no_organization\""
+                    },
+                    {
+                        "building": "\"building_logging_camp\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:GBR\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_HOME_COUNTIES\""
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_saw_mills\"",
+                            "\"pm_no_hardwood\"",
+                            "\"pm_no_equipment\"",
+                            "\"pm_road_carts\""
+                        ]
                     }
                 ]
             }
@@ -52074,8 +54194,9 @@
                     {
                         "building": "\"building_port\"",
                         "add_ownership": {
-                            "country": [
+                            "company": [
                                 {
+                                    "type": "company_russian_american_company",
                                     "country": "\"c:RUS\"",
                                     "levels": "1"
                                 }
@@ -52223,7 +54344,7 @@
                             "country": [
                                 {
                                     "country": "\"c:UBD\"",
-                                    "levels": "3"
+                                    "levels": "1"
                                 }
                             ]
                         },
@@ -52255,6 +54376,27 @@
                             "\"pm_religious_bureaucrats\"",
                             "\"pm_horizontal_drawer_cabinets\""
                         ]
+                    },
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:UBD\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_RIGA\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:RUS\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_MOSCOW\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
                     },
                     {
                         "building": "\"building_rye_farm\"",
@@ -52296,7 +54438,7 @@
                             "country": [
                                 {
                                     "country": "\"c:UBD\"",
-                                    "levels": "3"
+                                    "levels": "2"
                                 }
                             ]
                         },
@@ -52833,6 +54975,21 @@
             "region_state:RUS": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:RUS\"",
+                                    "levels": "10",
+                                    "region": "\"STATE_INGRIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_university\"",
                         "add_ownership": {
                             "country": [
@@ -52920,7 +55077,7 @@
                                 {
                                     "type": "\"building_glassworks\"",
                                     "country": "\"c:RUS\"",
-                                    "levels": "3",
+                                    "levels": "2",
                                     "region": "\"STATE_INGRIA\""
                                 }
                             ]
@@ -52999,6 +55156,21 @@
             "region_state:RUS": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:RUS\"",
+                                    "levels": "3",
+                                    "region": "\"STATE_MOSCOW\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_government_administration\"",
                         "add_ownership": {
                             "country": [
@@ -53035,7 +55207,7 @@
                                 {
                                     "type": "\"building_tooling_workshops\"",
                                     "country": "\"c:RUS\"",
-                                    "levels": "5",
+                                    "levels": "7",
                                     "region": "\"STATE_MOSCOW\""
                                 }
                             ]
@@ -53157,7 +55329,7 @@
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:RUS\"",
-                                    "levels": "6",
+                                    "levels": "4",
                                     "region": "\"STATE_INGRIA\""
                                 }
                             ]
@@ -53195,6 +55367,21 @@
         "s:STATE_KIEV": {
             "region_state:RUS": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:RUS\"",
+                                    "levels": "2",
+                                    "region": "\"STATE_KIEV\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_government_administration\"",
                         "add_ownership": {
@@ -53453,6 +55640,24 @@
                         ]
                     },
                     {
+                        "building": "\"building_tooling_workshops\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_tooling_workshops\"",
+                                    "country": "\"c:RUS\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_SMOLENSK\""
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_pig_iron\"",
+                            "\"pm_automation_disabled\""
+                        ]
+                    },
+                    {
                         "building": "\"building_rye_farm\"",
                         "add_ownership": {
                             "building": [
@@ -53554,6 +55759,21 @@
         "s:STATE_ARKHANGELSK": {
             "region_state:RUS": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:RUS\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_INGRIA\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_fishing_wharf\"",
                         "add_ownership": {
@@ -53665,7 +55885,7 @@
                             "country": [
                                 {
                                     "country": "\"c:RUS\"",
-                                    "levels": "2"
+                                    "levels": "1"
                                 }
                             ]
                         },
@@ -53780,7 +56000,7 @@
                         },
                         "reserves": "1",
                         "activate_production_methods": [
-                            "\"pm_saw_mills\"",
+                            "\"pm_simple_forestry\"",
                             "\"pm_no_hardwood\"",
                             "\"pm_no_equipment\"",
                             "\"pm_road_carts\""
@@ -53825,13 +56045,34 @@
             "region_state:RUS": {
                 "create_building": [
                     {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:RUS\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_CHERSON\""
+                                },
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:RUS\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_MOSCOW\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
+                    {
                         "building": "\"building_shipyards\"",
                         "add_ownership": {
                             "building": [
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:RUS\"",
-                                    "levels": "4",
+                                    "levels": "3",
                                     "region": "\"STATE_KIEV\""
                                 }
                             ]
@@ -53897,7 +56138,7 @@
                             "country": [
                                 {
                                     "country": "\"c:RUS\"",
-                                    "levels": "3"
+                                    "levels": "2"
                                 }
                             ]
                         },
@@ -54061,6 +56302,21 @@
         "s:STATE_ROSTOV": {
             "region_state:RUS": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:RUS\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_ROSTOV\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_livestock_ranch\"",
                         "add_ownership": {
@@ -54931,6 +57187,21 @@
         "s:STATE_NIZHNY_NOVGOROD": {
             "region_state:RUS": {
                 "create_building": [
+                    {
+                        "building": "\"building_trade_center\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "add_ownership": {
+                            "building": [
+                                {
+                                    "type": "\"building_financial_district\"",
+                                    "country": "\"c:RUS\"",
+                                    "levels": "1",
+                                    "region": "\"STATE_NIZHNY_NOVGOROD\""
+                                }
+                            ]
+                        },
+                        "reserves": "1"
+                    },
                     {
                         "building": "\"building_logging_camp\"",
                         "add_ownership": {

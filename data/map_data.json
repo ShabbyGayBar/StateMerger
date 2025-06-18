@@ -1577,7 +1577,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3030"
@@ -1772,7 +1772,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3028"
@@ -2636,7 +2636,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "30"
+                "undiscovered_amount": "60"
             }
         ],
         "naval_exit_id": "3027"
@@ -3006,7 +3006,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "30"
+                "undiscovered_amount": "60"
             }
         ],
         "naval_exit_id": "3027"
@@ -3378,7 +3378,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "30"
+                "undiscovered_amount": "60"
             }
         ],
         "naval_exit_id": "3027"
@@ -3686,6 +3686,7 @@
             "\"bg_wheat_farms\"",
             "\"bg_livestock_ranches\"",
             "\"bg_cotton_plantations\"",
+            "\"bg_silk_plantations\"",
             "\"bg_vineyard_plantations\""
         ],
         "capped_resources": {
@@ -3696,7 +3697,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -4394,7 +4395,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "30"
             }
         ],
         "naval_exit_id": "3029"
@@ -4965,7 +4966,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3033"
@@ -5926,7 +5927,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "30"
+                "undiscovered_amount": "60"
             }
         ]
     },
@@ -5969,7 +5970,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "60"
+                "undiscovered_amount": "100"
             }
         ]
     },
@@ -6116,7 +6117,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -6325,7 +6326,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "30"
+                "undiscovered_amount": "50"
             }
         ]
     },
@@ -6382,7 +6383,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "60"
+                "undiscovered_amount": "80"
             }
         ]
     },
@@ -7229,7 +7230,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -7367,7 +7368,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "30"
             }
         ]
     },
@@ -7805,7 +7806,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3032"
@@ -8118,7 +8119,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "30"
+                "undiscovered_amount": "50"
             }
         ],
         "naval_exit_id": "3033"
@@ -8484,7 +8485,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "30"
+                "undiscovered_amount": "50"
             }
         ]
     },
@@ -8773,7 +8774,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -9140,7 +9141,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -9547,7 +9548,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -9889,7 +9890,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -10167,7 +10168,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "30"
+                "undiscovered_amount": "50"
             }
         ]
     },
@@ -10396,7 +10397,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "30"
             }
         ]
     },
@@ -16177,7 +16178,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3060"
@@ -18394,7 +18395,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -18493,7 +18494,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -18653,7 +18654,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -18744,7 +18745,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -18835,7 +18836,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -18925,7 +18926,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -19009,7 +19010,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "20"
+                "undiscovered_amount": "50"
             }
         ]
     },
@@ -19083,7 +19084,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "40"
+                "undiscovered_amount": "80"
             }
         ]
     },
@@ -19149,7 +19150,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -19224,7 +19225,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -19642,7 +19643,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "30"
             }
         ]
     },
@@ -19817,7 +19818,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "30"
             }
         ],
         "naval_exit_id": "3060"
@@ -19882,7 +19883,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3060"
@@ -19952,7 +19953,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "30"
             }
         ],
         "naval_exit_id": "3060"
@@ -20187,7 +20188,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "30"
+                "undiscovered_amount": "50"
             }
         ]
     },
@@ -20655,7 +20656,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -21230,7 +21231,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "40"
+                "undiscovered_amount": "60"
             }
         ]
     },
@@ -22612,7 +22613,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "50"
+                "undiscovered_amount": "80"
             }
         ]
     },
@@ -23355,7 +23356,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "20"
+                "undiscovered_amount": "30"
             }
         ]
     },
@@ -23650,7 +23651,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "20"
+                "undiscovered_amount": "30"
             }
         ]
     },
@@ -28287,7 +28288,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "50"
+                "undiscovered_amount": "100"
             }
         ],
         "naval_exit_id": "3060"
@@ -28750,7 +28751,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "50"
+                "undiscovered_amount": "80"
             }
         ],
         "naval_exit_id": "3153"
@@ -28998,7 +28999,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "50"
+                "undiscovered_amount": "80"
             }
         ],
         "naval_exit_id": "3060"
@@ -29298,7 +29299,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "20"
+                "undiscovered_amount": "40"
             }
         ],
         "naval_exit_id": "3060"
@@ -30141,7 +30142,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "20"
+                "undiscovered_amount": "30"
             }
         ],
         "naval_exit_id": "3025"
@@ -30238,7 +30239,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "10"
             }
         ],
         "naval_exit_id": "3061"
@@ -30450,7 +30451,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3062"
@@ -30516,7 +30517,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "60"
+                "undiscovered_amount": "100"
             }
         ],
         "naval_exit_id": "3025"
@@ -30601,7 +30602,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "60"
+                "undiscovered_amount": "100"
             }
         ],
         "naval_exit_id": "3025"
@@ -30782,7 +30783,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "30"
+                "undiscovered_amount": "50"
             }
         ],
         "naval_exit_id": "3025"
@@ -30876,7 +30877,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3025"
@@ -31243,7 +31244,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -31474,7 +31475,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "30"
+                "undiscovered_amount": "50"
             }
         ]
     },
@@ -31598,7 +31599,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "30"
+                "undiscovered_amount": "50"
             }
         ]
     },
@@ -31732,7 +31733,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3024"
@@ -32051,7 +32052,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3065"
@@ -32221,7 +32222,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -32285,7 +32286,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -32649,7 +32650,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3066"
@@ -32925,7 +32926,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3065"
@@ -32988,7 +32989,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -33467,7 +33468,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3151"
@@ -33839,7 +33840,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3062"
@@ -34449,7 +34450,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -34989,7 +34990,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -35088,7 +35089,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3064"
@@ -35314,7 +35315,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3064"
@@ -35474,7 +35475,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -36372,7 +36373,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "20"
+                "undiscovered_amount": "30"
             }
         ],
         "naval_exit_id": "3048"
@@ -36567,7 +36568,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "20"
+                "undiscovered_amount": "30"
             }
         ],
         "naval_exit_id": "3047"
@@ -43616,7 +43617,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "10"
             }
         ]
     },
@@ -44078,7 +44079,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3057"
@@ -44221,7 +44222,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3059"
@@ -44902,7 +44903,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "20"
             }
         ]
     },
@@ -45157,7 +45158,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "10"
             }
         ]
     },
@@ -45925,7 +45926,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3057"
@@ -47119,7 +47120,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "5"
+                "undiscovered_amount": "10"
             }
         ],
         "naval_exit_id": "3059"
@@ -47865,6 +47866,10 @@
             {
                 "type": "\"bg_rubber\"",
                 "undiscovered_amount": "16"
+            },
+            {
+                "type": "\"bg_oil_extraction\"",
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3055"
@@ -48070,7 +48075,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "40"
+                "undiscovered_amount": "60"
             }
         ],
         "naval_exit_id": "3125"
@@ -48121,7 +48126,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3052"
@@ -48178,7 +48183,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3052"
@@ -48380,7 +48385,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "20"
             }
         ],
         "naval_exit_id": "3120"
@@ -48440,7 +48445,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "25"
             }
         ],
         "naval_exit_id": "3051"
@@ -48555,7 +48560,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "15"
             }
         ],
         "naval_exit_id": "3125"
@@ -48799,7 +48804,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "15"
             }
         ],
         "naval_exit_id": "3129"
@@ -49587,7 +49592,7 @@
             },
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "10"
+                "undiscovered_amount": "30"
             }
         ],
         "naval_exit_id": "3122"
