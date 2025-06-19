@@ -1282,7 +1282,7 @@
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "20",
+                                    "levels": "15",
                                     "region": "\"STATE_HOME_COUNTIES\""
                                 }
                             ]
@@ -1558,13 +1558,13 @@
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "12",
+                                    "levels": "3",
                                     "region": "\"STATE_LANCASHIRE\""
                                 },
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "8",
+                                    "levels": "2",
                                     "region": "\"STATE_HOME_COUNTIES\""
                                 }
                             ]
@@ -1750,7 +1750,7 @@
                             "country": [
                                 {
                                     "country": "\"c:GBR\"",
-                                    "levels": "2"
+                                    "levels": "3"
                                 }
                             ]
                         },
@@ -1933,13 +1933,13 @@
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "3",
+                                    "levels": "2",
                                     "region": "\"STATE_YORKSHIRE\""
                                 },
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "2",
+                                    "levels": "1",
                                     "region": "\"STATE_HOME_COUNTIES\""
                                 }
                             ]
@@ -1953,13 +1953,13 @@
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "6",
+                                    "levels": "5",
                                     "region": "\"STATE_HOME_COUNTIES\""
                                 },
                                 {
                                     "type": "\"building_financial_district\"",
                                     "country": "\"c:GBR\"",
-                                    "levels": "12",
+                                    "levels": "10",
                                     "region": "\"STATE_YORKSHIRE\""
                                 }
                             ]
