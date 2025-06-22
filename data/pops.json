@@ -9303,7 +9303,7 @@
             "region_state:HAW": {
                 "create_pop": [
                     {
-                        "pop_type": "clergy",
+                        "pop_type": "clergymen",
                         "culture": "yankee",
                         "religion": "protestant",
                         "size": "100"
