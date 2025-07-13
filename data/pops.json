@@ -15257,16 +15257,16 @@
                 "create_pop": [
                     {
                         "culture": "nepali",
-                        "size": "619204"
+                        "size": "2786418"
                     },
                     {
                         "culture": "bihari",
                         "religion": "animist",
-                        "size": "172000"
+                        "size": "688000"
                     },
                     {
                         "culture": "tibetan",
-                        "size": "192008"
+                        "size": "768008"
                     }
                 ]
             }
@@ -16885,7 +16885,7 @@
                     {
                         "culture": "afro_antillean",
                         "religion": "catholic",
-                        "size": "801"
+                        "size": "2801"
                     }
                 ]
             }

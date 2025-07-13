@@ -40329,7 +40329,7 @@
         "farm": "\"xA228F8\"",
         "mine": "\"x29576A\"",
         "wood": "\"xC6D4A8\"",
-        "arable_land": "41",
+        "arable_land": "111",
         "arable_resources": [
             "\"bg_rice_farms\"",
             "\"bg_livestock_ranches\"",
@@ -40338,8 +40338,9 @@
             "\"bg_tobacco_plantations\""
         ],
         "capped_resources": {
-            "bg_logging": "6",
-            "bg_lead_mining": "2"
+            "bg_logging": "10",
+            "bg_lead_mining": "8",
+            "bg_iron_mining": "8"
         }
     },
     "STATE_EASTERN_HIMALAYAS": {
@@ -40420,7 +40421,7 @@
         ],
         "capped_resources": {
             "bg_logging": "3",
-            "bg_coal_mining": "1"
+            "bg_coal_mining": "3"
         }
     },
     "STATE_BIHAR": {
@@ -45194,7 +45195,8 @@
             "\"xFEBFD5\""
         ],
         "traits": [
-            "\"state_trait_pearl_river\""
+            "\"state_trait_pearl_river\"",
+            "\"state_trait_natural_harbors\""
         ],
         "city": "\"x2BDE7B\"",
         "port": "\"xB031E0\"",
@@ -45507,7 +45509,7 @@
             "\"bg_tobacco_plantations\""
         ],
         "capped_resources": {
-            "bg_coal_mining": "4",
+            "bg_coal_mining": "5",
             "bg_iron_mining": "9",
             "bg_sulfur_mining": "36",
             "bg_logging": "9",
