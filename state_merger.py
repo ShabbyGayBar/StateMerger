@@ -9,7 +9,8 @@ state_file_dir = {
     "map_data": r"map_data/state_regions/",
     "state": r"common/history/states/",
     "pops": r"common/history/pops/",
-    "buildings": r"common/history/buildings/"
+    "buildings": r"common/history/buildings/",
+    "trade": r"common/history/trade/"
 }
 
 replace_file_dir = [
@@ -865,6 +866,139 @@ class States:
                 file.write(self.get_str(state_id))
             file.write('}\n')
 
+class Trade:
+    def __init__(self, trade_dict):
+        self.data = trade_dict["TRADE"]
+        self.format()
+
+    def format(self):
+        # Format trade data to ensure consistent structure
+        for state_id in self.data.keys():
+            print(f'Formatting trade data: {state_id}')
+            if isinstance(self.data[state_id], list):
+                merge_dict = {}
+                for entry in self.data[state_id]:
+                    for region_state, trade_goods in entry.items():
+                        if region_state not in merge_dict:
+                            merge_dict[region_state] = {}
+                        for trade_good, good_data in trade_goods.items():
+                            if trade_good not in merge_dict[region_state]:
+                                merge_dict[region_state][trade_good] = good_data
+                            else:
+                                # Merge trade good data
+                                merge_dict[region_state][trade_good].update(good_data)
+                self.data[state_id] = merge_dict
+
+            # Ensure region_state entries are properly formatted
+            for region_state in self.data[state_id].keys():
+                if not isinstance(self.data[state_id][region_state], dict):
+                    continue
+
+                # Ensure trade goods are properly formatted
+                for trade_good in self.data[state_id][region_state].keys():
+                    if isinstance(self.data[state_id][region_state][trade_good], dict):
+                        # Convert single values to proper structure if needed
+                        good_data = self.data[state_id][region_state][trade_good]
+                        if 'add_exports' in good_data and not isinstance(good_data['add_exports'], (int, float)):
+                            try:
+                                good_data['add_exports'] = int(good_data['add_exports'])
+                            except (ValueError, TypeError):
+                                good_data['add_exports'] = 0
+                        if 'add_imports' in good_data and not isinstance(good_data['add_imports'], (int, float)):
+                            try:
+                                good_data['add_imports'] = int(good_data['add_imports'])
+                            except (ValueError, TypeError):
+                                good_data['add_imports'] = 0
+
+    def merge_by_id(self, this, other):
+        """Merge trade data from 'other' state into 'this' state"""
+        if other not in self.data:
+            return
+
+        if this not in self.data:
+            self.data[this] = {}
+
+        # Merge each region_state from other into this
+        for region_state in self.data[other].keys():
+            if region_state not in self.data[this]:
+                self.data[this][region_state] = {}
+
+            # Merge trade goods for each region_state
+            for trade_good in self.data[other][region_state].keys():
+                if trade_good not in self.data[this][region_state]:
+                    # Copy the entire trade good entry
+                    self.data[this][region_state][trade_good] = self.data[other][region_state][trade_good].copy()
+                else:
+                    # Merge exports and imports
+                    other_good = self.data[other][region_state][trade_good]
+                    this_good = self.data[this][region_state][trade_good]
+
+                    if 'add_exports' in other_good:
+                        if 'add_exports' in this_good:
+                            this_good['add_exports'] += other_good['add_exports']
+                        else:
+                            this_good['add_exports'] = other_good['add_exports']
+
+                    if 'add_imports' in other_good:
+                        if 'add_imports' in this_good:
+                            this_good['add_imports'] += other_good['add_imports']
+                        else:
+                            this_good['add_imports'] = other_good['add_imports']
+
+    def merge(self, merge_dict):
+        """Merge trade data according to state merging dictionary"""
+        for diner, food_list in merge_dict.items():
+            for food in food_list:
+                food_key = f"s:{food}"
+                diner_key = f"s:{diner}"
+
+                if food_key in self.data:
+                    print(f'Merging {food} trade data into {diner}')
+                    self.merge_by_id(diner_key, food_key)
+                    self.data.pop(food_key)
+
+    def get_str(self, state_id):
+        """Generate string representation for a state's trade data"""
+        if state_id not in self.data:
+            return ""
+
+        state_str = f'    {state_id}={{\n'
+
+        for region_state, trade_data in self.data[state_id].items():
+            if not trade_data:
+                continue
+
+            state_str += f'        {region_state}={{\n'
+
+            for trade_good, good_data in trade_data.items():
+                if not good_data:
+                    continue
+
+                state_str += f'            {trade_good} = {{\n'
+
+                if 'add_exports' in good_data and good_data['add_exports'] > 0:
+                    state_str += f'                add_exports = {good_data["add_exports"]}\n'
+
+                if 'add_imports' in good_data and good_data['add_imports'] > 0:
+                    state_str += f'                add_imports = {good_data["add_imports"]}\n'
+
+                state_str += f'            }}\n'
+
+            state_str += f'        }}\n'
+
+        state_str += f'    }}\n'
+        return state_str
+
+    def dump(self, dir):
+        """Export trade data to file"""
+        with open(dir, 'w', encoding='utf-8-sig') as file:
+            file.write('TRADE = {\n')
+            for state_id in self.data.keys():
+                if self.data[state_id]:  # Only write states with trade data
+                    print("Exporting trade data: " + state_id)
+                    file.write(self.get_str(state_id))
+            file.write('}\n')
+
 class StateMerger:
     def __init__(self, game_root_dir, write_dir, merge_dict, cache_dir="./data"):
         self.base_game_dir = {}
@@ -879,18 +1013,19 @@ class StateMerger:
             self.base_game_dir[key] = self.game_root_dir+value
             self.mod_dir[key] = write_dir+value
         self.clear_mod_dir()
-                
+
         # Read base game data
         mod_state = ModState(self.base_game_dir, self.mod_dir)
         game_data = {}
         for key in self.base_game_dir.keys():
             game_data[key] = mod_state.get_data(key)
-        
+
         # Parse data
         self.map_data = MapData(game_data["map_data"])
         self.buildings = Buildings(game_data["buildings"])
         self.pops = Pops(game_data["pops"])
         self.states = States(game_data["state"])
+        self.trade = Trade(game_data["trade"])
 
         # Dump the game_data to a json file
         for key in game_data.keys():
@@ -930,6 +1065,9 @@ class StateMerger:
         # Merge states
         self.states.merge(self.merge_dict)
         self.states.dump(self.mod_dir["state"]+"00_states.txt")
+        # Merge trade
+        self.trade.merge(self.merge_dict)
+        self.trade.dump(self.mod_dir["trade"]+"00_historical_trade.txt")
 
         # Copy state_trait file to mod directory
         state_trait_dir = f"{self.write_dir}common/state_traits"
