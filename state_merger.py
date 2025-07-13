@@ -55,6 +55,15 @@ filename = "00_states_merging.txt"
 seq_str = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"]
 smallStateLimit = 4 # The limit of provinces for a state to be considered a small state
 
+def clear_mod_dir(dir_dict):
+    # Clear the output directory
+    for dir in dir_dict.values():
+        if not os.path.exists(dir):
+            os.makedirs(dir)
+        else:
+            for file in os.listdir(dir):
+                os.remove(os.path.join(dir, file))
+
 def clean_v3_yml_numbered_keys(yml_path):
     with open(yml_path, 'r', encoding='utf-8') as f:
         raw = f.read()
@@ -1012,7 +1021,7 @@ class StateMerger:
         for key, value in state_file_dir.items():
             self.base_game_dir[key] = self.game_root_dir+value
             self.mod_dir[key] = write_dir+value
-        self.clear_mod_dir()
+        clear_mod_dir(self.mod_dir)
 
         # Read base game data
         mod_state = ModState(self.base_game_dir, self.mod_dir)
@@ -1031,15 +1040,6 @@ class StateMerger:
         for key in game_data.keys():
             with open(f"{cache_dir}{key}.json", 'w', encoding='utf-8') as file:
                 json.dump(game_data[key], file, indent=4, ensure_ascii=False)
-
-    def clear_mod_dir(self):
-        # Clear the output directory
-        for dir in self.mod_dir.values():
-            if not os.path.exists(dir):
-                os.makedirs(dir)
-            else:
-                for file in os.listdir(dir):
-                    os.remove(os.path.join(dir, file))
 
     def merge_state_data(self, ignoreSmallStates=False):
         # Write cleared base game data to mod directory
