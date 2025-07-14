@@ -1,0 +1,9 @@
+[project]
+name = "StateMerger"
+version = "0.1.0"
+description = "Victoria 3 States Merging Automation Script & Tutorial"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pyyaml>=6.0.2",
+]
