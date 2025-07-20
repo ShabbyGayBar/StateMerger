@@ -25451,7 +25451,7 @@
                             "country": [
                                 {
                                     "country": "\"c:ZUL\"",
-                                    "levels": "15"
+                                    "levels": "20"
                                 }
                             ]
                         },
@@ -25826,6 +25826,19 @@
             },
             "region_state:GZA": {
                 "create_building": [
+                    {
+                        "building": "\"building_barracks\"",
+                        "add_ownership": {
+                            "country": [
+                                {
+                                    "country": "\"c:GZA\"",
+                                    "levels": "25"
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": "\"pm_no_organization\""
+                    },
                     {
                         "building": "\"building_millet_farm\"",
                         "add_ownership": {
