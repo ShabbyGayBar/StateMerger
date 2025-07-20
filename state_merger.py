@@ -1189,6 +1189,15 @@ class StateMerger:
                 # Process the localization data as needed
                 print(f"Processing {hub_file} for {lang}")
                 for diner, food_list in self.merge_dict.items():
+                    # Skip states with empty food lists (no merging needed)
+                    if not food_list:
+                        continue
+                    
+                    # Check if the diner state exists in map data
+                    if diner not in self.map_data.data:
+                        print(f"Warning: {diner} not found in map data, skipping localization processing")
+                        continue
+                    
                     # Check if city, wood, mine, farm, port attribute of diner are in the localization data
                     for attr in ["city", "wood", "mine", "farm", "port"]:
                         if getattr(self.map_data.data[diner], attr, '') == '':
