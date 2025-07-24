@@ -51,7 +51,6 @@ loc_file_dir = {
     "l_simp_chinese": r"localization/simp_chinese/"
 }
 
-filename = "00_states_merging.txt"
 seq_str = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"]
 smallStateLimit = 4 # The limit of provinces for a state to be considered a small state
 
@@ -1046,7 +1045,7 @@ class StateMerger:
         # Write cleared base game data to mod directory
         for key, value in self.base_game_dir.items():
             for file in os.listdir(value):
-                if file == filename:
+                if file == "00_states_merging.txt":
                     continue
                 with open(self.mod_dir[key]+file, 'w', encoding='utf-8-sig') as file:
                     file.write("")
@@ -1056,29 +1055,19 @@ class StateMerger:
 
         # Merge map_data
         self.map_data.merge(self.merge_dict, ignoreSmallStates)
-        self.map_data.dump(self.mod_dir["map_data"]+filename)
+        self.map_data.dump(self.mod_dir["map_data"]+"00_states_merging.txt")
         # Merge buildings
         self.buildings.merge(self.merge_dict)
-        self.buildings.dump(self.mod_dir["buildings"]+filename)
+        self.buildings.dump(self.mod_dir["buildings"]+"00_states_merging.txt")
         # Merge pops
         self.pops.merge(self.merge_dict)
-        self.pops.dump(self.mod_dir["pops"]+filename)
+        self.pops.dump(self.mod_dir["pops"]+"00_states_merging.txt")
         # Merge states
         self.states.merge(self.merge_dict)
         self.states.dump(self.mod_dir["state"]+"00_states.txt")
         # Merge trade
         self.trade.merge(self.merge_dict)
         self.trade.dump(self.mod_dir["trade"]+"00_historical_trade.txt")
-
-        # Copy state_trait file to mod directory
-        state_trait_dir = f"{self.write_dir}common/state_traits"
-        state_trait_file = f"{self.cache_dir}00_states_merging.txt"
-        if not os.path.exists(state_trait_dir):
-            os.makedirs(state_trait_dir)
-        # Delete the file in state_trait_dir if it exists
-        if os.path.exists(state_trait_dir+"/"+filename):
-            os.remove(state_trait_dir+"/"+filename)
-        shutil.copy(state_trait_file, state_trait_dir)
 
     def merge_misc_data(self):
         for dir in replace_file_dir:
@@ -1177,6 +1166,36 @@ class StateMerger:
                                 # Replace "food" with ""
                                 line = re.sub(r'\b' + re.escape(food) + r'\b', "", line)
                         file.write(line)
+
+        # Copy state_trait file to mod directory
+        dir = f"{self.write_dir}common/state_traits"
+        file = f"{self.cache_dir}state_traits.txt"
+        if not os.path.exists(dir):
+            os.makedirs(dir)
+        # Delete the file in dir if it exists
+        if os.path.exists(dir+"/00_states_merging.txt"):
+            os.remove(dir+"/00_states_merging.txt")
+        shutil.copy(file, dir+"/00_states_merging.txt")
+
+        # Copy USA flag adaptation file to mod directory
+        dir = f"{self.write_dir}common/flag_definitions"
+        file = f"{self.cache_dir}01_flag_definitions_usa.txt"
+        if not os.path.exists(dir):
+            os.makedirs(dir)
+        # Delete the file in dir if it exists
+        if os.path.exists(dir+"/01_flag_definitions_usa.txt"):
+            os.remove(dir+"/01_flag_definitions_usa.txt")
+        shutil.copy(file, dir)
+
+        # Copy USA state counting file to mod directory
+        dir = f"{self.write_dir}common/script_values"
+        file = f"{self.cache_dir}usa_state_counter.txt"
+        if not os.path.exists(dir):
+            os.makedirs(dir)
+        # Delete the file in dir if it exists
+        if os.path.exists(dir+"/00_states_merging.txt"):
+            os.remove(dir+"/00_states_merging.txt")
+        shutil.copy(file, dir+"/00_states_merging.txt")
 
     def merge_loc_data(self):
         # Read localization yml files
