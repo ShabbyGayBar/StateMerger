@@ -824,9 +824,10 @@ class States:
             if not found:
                 self.data[this]["create_state"].append(province)
         # Merge add_homeland
-        for culture in self.data[other]["add_homeland"]:
-            if culture not in self.data[this]["add_homeland"]:
-                self.data[this]["add_homeland"].append(culture)
+        if "add_homeland" in self.data[other].keys():
+            for culture in self.data[other]["add_homeland"]:
+                if culture not in self.data[this]["add_homeland"]:
+                    self.data[this]["add_homeland"].append(culture)
         # Merge add_claim
         if "add_claim" not in self.data[this].keys():
             if "add_claim" in self.data[other].keys():
