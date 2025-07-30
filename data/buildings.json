@@ -1250,9 +1250,7 @@
             }
         },
         "s:STATE_GREENLAND": {
-            "region_state:DEN": {
-                "create_building": []
-            }
+            "region_state:DEN": []
         },
         "s:STATE_HOME_COUNTIES": {
             "region_state:GBR": {
@@ -8607,9 +8605,7 @@
                     }
                 ]
             },
-            "region_state:SCM": {
-                "create_building": []
-            }
+            "region_state:SCM": []
         },
         "s:STATE_ANHALT": {
             "region_state:PRU": {
@@ -9957,9 +9953,7 @@
                     }
                 ]
             },
-            "region_state:PRU": {
-                "create_building": []
-            }
+            "region_state:PRU": []
         },
         "s:STATE_BAVARIA": {
             "region_state:BAV": {
@@ -10225,7 +10219,7 @@
                                 {
                                     "type": "\"building_furniture_manufacturies\"",
                                     "country": "\"c:BAV\"",
-                                    "levels": "2",
+                                    "levels": 3,
                                     "region": "\"STATE_FRANCONIA\""
                                 },
                                 {
@@ -12157,7 +12151,7 @@
                                 {
                                     "type": "\"building_tooling_workshops\"",
                                     "country": "\"c:SIC\"",
-                                    "levels": "2",
+                                    "levels": 3,
                                     "region": "\"STATE_CAMPANIA\""
                                 },
                                 {
@@ -16271,9 +16265,7 @@
                     }
                 ]
             },
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_ALBANIA": {
             "region_state:TUR": {
@@ -20526,19 +20518,13 @@
             }
         },
         "s:STATE_EGYPTIAN_DESERT": {
-            "region_state:EGY": {
-                "create_building": []
-            }
+            "region_state:EGY": []
         },
         "s:STATE_MATRUH": {
-            "region_state:EGY": {
-                "create_building": []
-            }
+            "region_state:EGY": []
         },
         "s:STATE_SINAI": {
-            "region_state:EGY": {
-                "create_building": []
-            }
+            "region_state:EGY": []
         },
         "s:STATE_ERITREA": {
             "region_state:EGY": {
@@ -21188,9 +21174,7 @@
                     }
                 ]
             },
-            "region_state:SAH": {
-                "create_building": []
-            }
+            "region_state:SAH": []
         },
         "s:STATE_ALGIERS": {
             "region_state:MAS": {
@@ -22055,19 +22039,13 @@
             }
         },
         "s:STATE_LIBYAN_DESERT": {
-            "region_state:TRI": {
-                "create_building": []
-            }
+            "region_state:TRI": []
         },
         "s:STATE_SAHARA": {
-            "region_state:TUA": {
-                "create_building": []
-            }
+            "region_state:TUA": []
         },
         "s:STATE_EAST_SAHARA": {
-            "region_state:AHG": {
-                "create_building": []
-            },
+            "region_state:AHG": [],
             "region_state:TUG": {
                 "create_building": [
                     {
@@ -22087,17 +22065,11 @@
             }
         },
         "s:STATE_WEST_SAHARA": {
-            "region_state:SAH": {
-                "create_building": []
-            }
+            "region_state:SAH": []
         },
         "s:STATE_MAURITANIA": {
-            "region_state:OUA": {
-                "create_building": []
-            },
-            "region_state:TRZ": {
-                "create_building": []
-            },
+            "region_state:OUA": [],
+            "region_state:TRZ": [],
             "region_state:FTR": {
                 "create_building": [
                     {
@@ -22121,9 +22093,7 @@
             }
         },
         "s:STATE_INNER_MAURITANIA": {
-            "region_state:OUA": {
-                "create_building": []
-            }
+            "region_state:OUA": []
         },
         "s:STATE_EASTERN_MALI": {
             "region_state:MSN": {
@@ -22259,17 +22229,11 @@
             }
         },
         "s:STATE_TIMBUKTU": {
-            "region_state:ADG": {
-                "create_building": []
-            },
-            "region_state:MSN": {
-                "create_building": []
-            }
+            "region_state:ADG": [],
+            "region_state:MSN": []
         },
         "s:STATE_NIGER": {
-            "region_state:AIR": {
-                "create_building": []
-            }
+            "region_state:AIR": []
         },
         "s:STATE_CHAD": {
             "region_state:WAD": {
@@ -22309,9 +22273,7 @@
                     }
                 ]
             },
-            "region_state:TBI": {
-                "create_building": []
-            },
+            "region_state:TBI": [],
             "region_state:BOR": {
                 "create_building": [
                     {
@@ -22355,26 +22317,14 @@
                     }
                 ]
             },
-            "region_state:BLE": {
-                "create_building": []
-            },
-            "region_state:KNG": {
-                "create_building": []
-            },
-            "region_state:AYI": {
-                "create_building": []
-            }
+            "region_state:BLE": [],
+            "region_state:KNG": [],
+            "region_state:AYI": []
         },
         "s:STATE_WINDWARD_COAST": {
-            "region_state:KBD": {
-                "create_building": []
-            },
-            "region_state:BLE": {
-                "create_building": []
-            },
-            "region_state:KRU": {
-                "create_building": []
-            }
+            "region_state:KBD": [],
+            "region_state:BLE": [],
+            "region_state:KRU": []
         },
         "s:STATE_SENEGAL": {
             "region_state:FRA": {
@@ -22412,12 +22362,8 @@
                     }
                 ]
             },
-            "region_state:JLF": {
-                "create_building": []
-            },
-            "region_state:CAY": {
-                "create_building": []
-            },
+            "region_state:JLF": [],
+            "region_state:CAY": [],
             "region_state:FTR": {
                 "create_building": [
                     {
@@ -22509,15 +22455,9 @@
                     }
                 ]
             },
-            "region_state:SRR": {
-                "create_building": []
-            },
-            "region_state:BND": {
-                "create_building": []
-            },
-            "region_state:KBU": {
-                "create_building": []
-            }
+            "region_state:SRR": [],
+            "region_state:BND": [],
+            "region_state:KBU": []
         },
         "s:STATE_SIERRA_LEONE": {
             "region_state:SIL": {
@@ -22558,12 +22498,8 @@
             }
         },
         "s:STATE_VOLTA": {
-            "region_state:MOS": {
-                "create_building": []
-            },
-            "region_state:KNG": {
-                "create_building": []
-            }
+            "region_state:MOS": [],
+            "region_state:KNG": []
         },
         "s:STATE_LIBERIA": {
             "region_state:LIB": {
@@ -22871,9 +22807,7 @@
             }
         },
         "s:STATE_NIGER_DELTA": {
-            "region_state:IBO": {
-                "create_building": []
-            }
+            "region_state:IBO": []
         },
         "s:STATE_OUTER_HAUSALAND": {
             "region_state:SOK": {
@@ -23183,12 +23117,8 @@
             }
         },
         "s:STATE_GUINEA": {
-            "region_state:MDK": {
-                "create_building": []
-            },
-            "region_state:SSU": {
-                "create_building": []
-            },
+            "region_state:MDK": [],
+            "region_state:SSU": [],
             "region_state:FTJ": {
                 "create_building": [
                     {
@@ -23352,9 +23282,7 @@
                     }
                 ]
             },
-            "region_state:EWE": {
-                "create_building": []
-            }
+            "region_state:EWE": []
         },
         "s:STATE_DAHOMEY": {
             "region_state:DAH": {
@@ -23449,15 +23377,9 @@
             }
         },
         "s:STATE_LINDI": {
-            "region_state:HHE": {
-                "create_building": []
-            },
-            "region_state:GGO": {
-                "create_building": []
-            },
-            "region_state:SNG": {
-                "create_building": []
-            }
+            "region_state:HHE": [],
+            "region_state:GGO": [],
+            "region_state:SNG": []
         },
         "s:STATE_ZANZIBAR": {
             "region_state:OMA": {
@@ -23566,12 +23488,8 @@
             }
         },
         "s:STATE_TANGANYIKA": {
-            "region_state:NYM": {
-                "create_building": []
-            },
-            "region_state:MSI": {
-                "create_building": []
-            },
+            "region_state:NYM": [],
+            "region_state:MSI": [],
             "region_state:KRG": {
                 "create_building": [
                     {
@@ -23665,20 +23583,12 @@
             }
         },
         "s:STATE_KENYA": {
-            "region_state:KKY": {
-                "create_building": []
-            }
+            "region_state:KKY": []
         },
         "s:STATE_RIFT_VALLEY": {
-            "region_state:MSI": {
-                "create_building": []
-            },
-            "region_state:LUO": {
-                "create_building": []
-            },
-            "region_state:TRK": {
-                "create_building": []
-            }
+            "region_state:MSI": [],
+            "region_state:LUO": [],
+            "region_state:TRK": []
         },
         "s:STATE_OROMIA": {
             "region_state:HAR": {
@@ -24407,15 +24317,9 @@
             }
         },
         "s:STATE_KAZEMBE": {
-            "region_state:BMB": {
-                "create_building": []
-            },
-            "region_state:KZM": {
-                "create_building": []
-            },
-            "region_state:MRV": {
-                "create_building": []
-            }
+            "region_state:BMB": [],
+            "region_state:KZM": [],
+            "region_state:MRV": []
         },
         "s:STATE_SOMALILAND": {
             "region_state:ISQ": {
@@ -24897,18 +24801,10 @@
             }
         },
         "s:STATE_EQUATORIA": {
-            "region_state:DNK": {
-                "create_building": []
-            },
-            "region_state:NUE": {
-                "create_building": []
-            },
-            "region_state:DFT": {
-                "create_building": []
-            },
-            "region_state:TPS": {
-                "create_building": []
-            }
+            "region_state:DNK": [],
+            "region_state:NUE": [],
+            "region_state:DFT": [],
+            "region_state:TPS": []
         },
         "s:STATE_MOCAMBIQUE": {
             "region_state:POR": {
@@ -24989,9 +24885,7 @@
                     }
                 ]
             },
-            "region_state:MRV": {
-                "create_building": []
-            }
+            "region_state:MRV": []
         },
         "s:STATE_WADDAI": {
             "region_state:WAD": {
@@ -25047,9 +24941,7 @@
                     }
                 ]
             },
-            "region_state:BOR": {
-                "create_building": []
-            }
+            "region_state:BOR": []
         },
         "s:STATE_NORTH_CAMEROON": {
             "region_state:SOK": {
@@ -25088,9 +24980,7 @@
                     }
                 ]
             },
-            "region_state:BMM": {
-                "create_building": []
-            }
+            "region_state:BMM": []
         },
         "s:STATE_SOUTH_CAMEROON": {
             "region_state:SPA": {
@@ -25110,56 +25000,28 @@
                     }
                 ]
             },
-            "region_state:FNG": {
-                "create_building": []
-            },
-            "region_state:DLA": {
-                "create_building": []
-            }
+            "region_state:FNG": [],
+            "region_state:DLA": []
         },
         "s:STATE_UBANGI_SHARI": {
-            "region_state:DAK": {
-                "create_building": []
-            },
-            "region_state:ZND": {
-                "create_building": []
-            }
+            "region_state:DAK": [],
+            "region_state:ZND": []
         },
         "s:STATE_CONGO": {
-            "region_state:BOB": {
-                "create_building": []
-            },
-            "region_state:LNG": {
-                "create_building": []
-            },
-            "region_state:TKE": {
-                "create_building": []
-            }
+            "region_state:BOB": [],
+            "region_state:LNG": [],
+            "region_state:TKE": []
         },
         "s:STATE_CONGO_ORIENTALE": {
-            "region_state:MNB": {
-                "create_building": []
-            },
-            "region_state:ZND": {
-                "create_building": []
-            },
-            "region_state:LGA": {
-                "create_building": []
-            },
-            "region_state:HMB": {
-                "create_building": []
-            },
-            "region_state:LBA": {
-                "create_building": []
-            }
+            "region_state:MNB": [],
+            "region_state:ZND": [],
+            "region_state:LGA": [],
+            "region_state:HMB": [],
+            "region_state:LBA": []
         },
         "s:STATE_KASAI": {
-            "region_state:KBA": {
-                "create_building": []
-            },
-            "region_state:LBA": {
-                "create_building": []
-            }
+            "region_state:KBA": [],
+            "region_state:LBA": []
         },
         "s:STATE_BAS_CONGO": {
             "region_state:KON": {
@@ -25198,17 +25060,11 @@
                     }
                 ]
             },
-            "region_state:YKA": {
-                "create_building": []
-            }
+            "region_state:YKA": []
         },
         "s:STATE_EQUATEUR": {
-            "region_state:BNG": {
-                "create_building": []
-            },
-            "region_state:BOB": {
-                "create_building": []
-            }
+            "region_state:BNG": [],
+            "region_state:BOB": []
         },
         "s:STATE_NORTH_ANGOLA": {
             "region_state:POR": {
@@ -25326,50 +25182,26 @@
                     }
                 ]
             },
-            "region_state:OVM": {
-                "create_building": []
-            }
+            "region_state:OVM": []
         },
         "s:STATE_EAST_ANGOLA": {
-            "region_state:CHK": {
-                "create_building": []
-            },
-            "region_state:LND": {
-                "create_building": []
-            },
-            "region_state:KSN": {
-                "create_building": []
-            },
-            "region_state:LZO": {
-                "create_building": []
-            }
+            "region_state:CHK": [],
+            "region_state:LND": [],
+            "region_state:KSN": [],
+            "region_state:LZO": []
         },
         "s:STATE_KATANGA": {
-            "region_state:KZM": {
-                "create_building": []
-            },
-            "region_state:LND": {
-                "create_building": []
-            },
-            "region_state:LBA": {
-                "create_building": []
-            }
+            "region_state:KZM": [],
+            "region_state:LND": [],
+            "region_state:LBA": []
         },
         "s:STATE_GABON": {
-            "region_state:FNG": {
-                "create_building": []
-            },
-            "region_state:LNG": {
-                "create_building": []
-            }
+            "region_state:FNG": [],
+            "region_state:LNG": []
         },
         "s:STATE_ZAMBIA": {
-            "region_state:LZO": {
-                "create_building": []
-            },
-            "region_state:BMB": {
-                "create_building": []
-            }
+            "region_state:LZO": [],
+            "region_state:BMB": []
         },
         "s:STATE_ZAMBEZIA": {
             "region_state:POR": {
@@ -25394,33 +25226,19 @@
                     }
                 ]
             },
-            "region_state:MSK": {
-                "create_building": []
-            },
-            "region_state:MNC": {
-                "create_building": []
-            }
+            "region_state:MSK": [],
+            "region_state:MNC": []
         },
         "s:STATE_ZAMBEZI": {
-            "region_state:MTB": {
-                "create_building": []
-            },
-            "region_state:MSH": {
-                "create_building": []
-            },
-            "region_state:MNC": {
-                "create_building": []
-            }
+            "region_state:MTB": [],
+            "region_state:MSH": [],
+            "region_state:MNC": []
         },
         "s:STATE_NAMAQUALAND": {
-            "region_state:NAM": {
-                "create_building": []
-            }
+            "region_state:NAM": []
         },
         "s:STATE_HEREROLAND": {
-            "region_state:HRO": {
-                "create_building": []
-            }
+            "region_state:HRO": []
         },
         "s:STATE_ZULULAND": {
             "region_state:ZUL": {
@@ -25460,9 +25278,7 @@
                     }
                 ]
             },
-            "region_state:BST": {
-                "create_building": []
-            }
+            "region_state:BST": []
         },
         "s:STATE_VRYSTAAT": {
             "region_state:ORA": {
@@ -25749,20 +25565,12 @@
                     }
                 ]
             },
-            "region_state:TSW": {
-                "create_building": []
-            },
-            "region_state:WBL": {
-                "create_building": []
-            }
+            "region_state:TSW": [],
+            "region_state:WBL": []
         },
         "s:STATE_BOTSWANA": {
-            "region_state:TSW": {
-                "create_building": []
-            },
-            "region_state:LZO": {
-                "create_building": []
-            }
+            "region_state:TSW": [],
+            "region_state:LZO": []
         },
         "s:STATE_LOURENCO_MARQUES": {
             "region_state:POR": {
@@ -26497,14 +26305,10 @@
                     }
                 ]
             },
-            "region_state:ATB": {
-                "create_building": []
-            }
+            "region_state:ATB": []
         },
         "s:STATE_WASHINGTON": {
-            "region_state:ORG": {
-                "create_building": []
-            }
+            "region_state:ORG": []
         },
         "s:STATE_OREGON": {
             "region_state:ORG": {
@@ -26533,89 +26337,43 @@
             }
         },
         "s:STATE_IDAHO": {
-            "region_state:ORG": {
-                "create_building": []
-            },
-            "region_state:NZP": {
-                "create_building": []
-            }
+            "region_state:ORG": [],
+            "region_state:NZP": []
         },
         "s:STATE_COLORADO": {
-            "region_state:MEX": {
-                "create_building": []
-            },
-            "region_state:ARP": {
-                "create_building": []
-            },
-            "region_state:UTE": {
-                "create_building": []
-            },
-            "region_state:USA": {
-                "create_building": []
-            }
+            "region_state:MEX": [],
+            "region_state:ARP": [],
+            "region_state:UTE": [],
+            "region_state:USA": []
         },
         "s:STATE_WYOMING": {
-            "region_state:USA": {
-                "create_building": []
-            },
-            "region_state:LKT": {
-                "create_building": []
-            },
-            "region_state:ARP": {
-                "create_building": []
-            }
+            "region_state:USA": [],
+            "region_state:LKT": [],
+            "region_state:ARP": []
         },
         "s:STATE_MONTANA": {
-            "region_state:USA": {
-                "create_building": []
-            },
-            "region_state:ABS": {
-                "create_building": []
-            },
-            "region_state:LKT": {
-                "create_building": []
-            },
-            "region_state:BLF": {
-                "create_building": []
-            }
+            "region_state:USA": [],
+            "region_state:ABS": [],
+            "region_state:LKT": [],
+            "region_state:BLF": []
         },
         "s:STATE_NORTH_DAKOTA": {
-            "region_state:USA": {
-                "create_building": []
-            },
-            "region_state:LKT": {
-                "create_building": []
-            }
+            "region_state:USA": [],
+            "region_state:LKT": []
         },
         "s:STATE_SOUTH_DAKOTA": {
-            "region_state:LKT": {
-                "create_building": []
-            },
-            "region_state:USA": {
-                "create_building": []
-            }
+            "region_state:LKT": [],
+            "region_state:USA": []
         },
         "s:STATE_NEBRASKA": {
-            "region_state:USA": {
-                "create_building": []
-            },
-            "region_state:LKT": {
-                "create_building": []
-            },
-            "region_state:PWN": {
-                "create_building": []
-            }
+            "region_state:USA": [],
+            "region_state:LKT": [],
+            "region_state:PWN": []
         },
         "s:STATE_KANSAS": {
-            "region_state:USA": {
-                "create_building": []
-            },
-            "region_state:PWN": {
-                "create_building": []
-            },
-            "region_state:COM": {
-                "create_building": []
-            }
+            "region_state:USA": [],
+            "region_state:PWN": [],
+            "region_state:COM": []
         },
         "s:STATE_OKLAHOMA": {
             "region_state:SEQ": {
@@ -26640,9 +26398,7 @@
                     }
                 ]
             },
-            "region_state:COM": {
-                "create_building": []
-            }
+            "region_state:COM": []
         },
         "s:STATE_ARKANSAS": {
             "region_state:USA": {
@@ -26792,22 +26548,14 @@
             }
         },
         "s:STATE_IOWA": {
-            "region_state:USA": {
-                "create_building": []
-            }
+            "region_state:USA": []
         },
         "s:STATE_MINNESOTA": {
-            "region_state:USA": {
-                "create_building": []
-            },
-            "region_state:LKT": {
-                "create_building": []
-            }
+            "region_state:USA": [],
+            "region_state:LKT": []
         },
         "s:STATE_WISCONSIN": {
-            "region_state:USA": {
-                "create_building": []
-            }
+            "region_state:USA": []
         },
         "s:STATE_INDIANA": {
             "region_state:USA": {
@@ -27638,9 +27386,7 @@
             }
         },
         "s:STATE_FLORIDA": {
-            "region_state:USA": {
-                "create_building": []
-            }
+            "region_state:USA": []
         },
         "s:STATE_GEORGIA": {
             "region_state:USA": {
@@ -29233,15 +28979,9 @@
             }
         },
         "s:STATE_UTAH": {
-            "region_state:MEX": {
-                "create_building": []
-            },
-            "region_state:NVJ": {
-                "create_building": []
-            },
-            "region_state:UTE": {
-                "create_building": []
-            }
+            "region_state:MEX": [],
+            "region_state:NVJ": [],
+            "region_state:UTE": []
         },
         "s:STATE_SOUTH_CAROLINA": {
             "region_state:USA": {
@@ -30010,12 +29750,8 @@
                     }
                 ]
             },
-            "region_state:IRC": {
-                "create_building": []
-            },
-            "region_state:BLF": {
-                "create_building": []
-            }
+            "region_state:IRC": [],
+            "region_state:BLF": []
         },
         "s:STATE_BRITISH_COLUMBIA": {
             "region_state:ORG": {
@@ -30057,12 +29793,8 @@
             }
         },
         "s:STATE_SASKATCHEWAN": {
-            "region_state:HBC": {
-                "create_building": []
-            },
-            "region_state:IRC": {
-                "create_building": []
-            }
+            "region_state:HBC": [],
+            "region_state:IRC": []
         },
         "s:STATE_MANITOBA": {
             "region_state:HBC": {
@@ -30101,24 +29833,16 @@
                     }
                 ]
             },
-            "region_state:IRC": {
-                "create_building": []
-            }
+            "region_state:IRC": []
         },
         "s:STATE_YUKON_TERRITORY": {
-            "region_state:HBC": {
-                "create_building": []
-            }
+            "region_state:HBC": []
         },
         "s:STATE_NORTHWEST_TERRITORIES": {
-            "region_state:HBC": {
-                "create_building": []
-            }
+            "region_state:HBC": []
         },
         "s:STATE_NUNAVUT": {
-            "region_state:HBC": {
-                "create_building": []
-            }
+            "region_state:HBC": []
         },
         "s:STATE_BERMUDA": {
             "region_state:GBR": {
@@ -30181,52 +29905,28 @@
                     }
                 ]
             },
-            "region_state:MEX": {
-                "create_building": []
-            },
-            "region_state:COM": {
-                "create_building": []
-            }
+            "region_state:MEX": [],
+            "region_state:COM": []
         },
         "s:STATE_NEVADA": {
-            "region_state:MEX": {
-                "create_building": []
-            }
+            "region_state:MEX": []
         },
         "s:STATE_ARIZONA": {
-            "region_state:MEX": {
-                "create_building": []
-            },
-            "region_state:NVJ": {
-                "create_building": []
-            },
-            "region_state:APC": {
-                "create_building": []
-            }
+            "region_state:MEX": [],
+            "region_state:NVJ": [],
+            "region_state:APC": []
         },
         "s:STATE_NEW_MEXICO": {
-            "region_state:MEX": {
-                "create_building": []
-            },
-            "region_state:NVJ": {
-                "create_building": []
-            },
-            "region_state:COM": {
-                "create_building": []
-            },
-            "region_state:APC": {
-                "create_building": []
-            }
+            "region_state:MEX": [],
+            "region_state:NVJ": [],
+            "region_state:COM": [],
+            "region_state:APC": []
         },
         "s:STATE_CALIFORNIA": {
-            "region_state:MEX": {
-                "create_building": []
-            }
+            "region_state:MEX": []
         },
         "s:STATE_SONORA": {
-            "region_state:MEX": {
-                "create_building": []
-            }
+            "region_state:MEX": []
         },
         "s:STATE_CHIHUAHUA": {
             "region_state:MEX": {
@@ -31293,14 +30993,10 @@
                     }
                 ]
             },
-            "region_state:UCA": {
-                "create_building": []
-            }
+            "region_state:UCA": []
         },
         "s:STATE_BAJA_CALIFORNIA": {
-            "region_state:MEX": {
-                "create_building": []
-            }
+            "region_state:MEX": []
         },
         "s:STATE_SAN_SALVADOR": {
             "region_state:UCA": {
@@ -33369,12 +33065,8 @@
             }
         },
         "s:STATE_PASTAZA": {
-            "region_state:NPU": {
-                "create_building": []
-            },
-            "region_state:ECU": {
-                "create_building": []
-            }
+            "region_state:NPU": [],
+            "region_state:ECU": []
         },
         "s:STATE_TARAPACA": {
             "region_state:SPU": {
@@ -34396,9 +34088,7 @@
             }
         },
         "s:STATE_JUJUY": {
-            "region_state:BOL": {
-                "create_building": []
-            },
+            "region_state:BOL": [],
             "region_state:ARG": {
                 "create_building": [
                     {
@@ -34423,9 +34113,7 @@
             }
         },
         "s:STATE_ALTO_PARAGUAY": {
-            "region_state:GNI": {
-                "create_building": []
-            }
+            "region_state:GNI": []
         },
         "s:STATE_BAJO_PARAGUAY": {
             "region_state:PRG": {
@@ -34727,25 +34415,15 @@
                     }
                 ]
             },
-            "region_state:PAT": {
-                "create_building": []
-            }
+            "region_state:PAT": []
         },
         "s:STATE_PATAGONIA": {
-            "region_state:THL": {
-                "create_building": []
-            },
-            "region_state:PAT": {
-                "create_building": []
-            }
+            "region_state:THL": [],
+            "region_state:PAT": []
         },
         "s:STATE_RIO_NEGRO": {
-            "region_state:ARG": {
-                "create_building": []
-            },
-            "region_state:PAT": {
-                "create_building": []
-            }
+            "region_state:ARG": [],
+            "region_state:PAT": []
         },
         "s:STATE_LA_PAMPA": {
             "region_state:ARG": {
@@ -34829,9 +34507,7 @@
             }
         },
         "s:STATE_SANTA_FE": {
-            "region_state:GNI": {
-                "create_building": []
-            },
+            "region_state:GNI": [],
             "region_state:ARG": {
                 "create_building": [
                     {
@@ -34990,12 +34666,8 @@
             }
         },
         "s:STATE_CHACO": {
-            "region_state:GNI": {
-                "create_building": []
-            },
-            "region_state:ARG": {
-                "create_building": []
-            }
+            "region_state:GNI": [],
+            "region_state:ARG": []
         },
         "s:STATE_SANTIAGO": {
             "region_state:CHL": {
@@ -35286,12 +34958,8 @@
                     }
                 ]
             },
-            "region_state:THL": {
-                "create_building": []
-            },
-            "region_state:SLK": {
-                "create_building": []
-            }
+            "region_state:THL": [],
+            "region_state:SLK": []
         },
         "s:STATE_SOUTH_ATLANTIC_ISLANDS": {
             "region_state:GBR": {
@@ -35449,20 +35117,12 @@
             }
         },
         "s:STATE_AMAZONAS": {
-            "region_state:CLM": {
-                "create_building": []
-            },
-            "region_state:PRA": {
-                "create_building": []
-            },
-            "region_state:BOL": {
-                "create_building": []
-            }
+            "region_state:CLM": [],
+            "region_state:PRA": [],
+            "region_state:BOL": []
         },
         "s:STATE_ACRE": {
-            "region_state:BOL": {
-                "create_building": []
-            }
+            "region_state:BOL": []
         },
         "s:STATE_GOIAS": {
             "region_state:BRZ": {
@@ -35595,9 +35255,7 @@
                     }
                 ]
             },
-            "region_state:BOL": {
-                "create_building": []
-            }
+            "region_state:BOL": []
         },
         "s:STATE_RIO_GRANDE_DO_SUL": {
             "region_state:PNI": {
@@ -37189,12 +36847,8 @@
                     }
                 ]
             },
-            "region_state:OMA": {
-                "create_building": []
-            },
-            "region_state:BHN": {
-                "create_building": []
-            }
+            "region_state:OMA": [],
+            "region_state:BHN": []
         },
         "s:STATE_YEMEN": {
             "region_state:ZAI": {
@@ -37328,12 +36982,8 @@
                     }
                 ]
             },
-            "region_state:MAH": {
-                "create_building": []
-            },
-            "region_state:KAT": {
-                "create_building": []
-            }
+            "region_state:MAH": [],
+            "region_state:KAT": []
         },
         "s:STATE_HEDJAZ": {
             "region_state:HDJ": {
@@ -39538,9 +39188,7 @@
                     }
                 ]
             },
-            "region_state:TUR": {
-                "create_building": []
-            }
+            "region_state:TUR": []
         },
         "s:STATE_TRABZON": {
             "region_state:TUR": {
@@ -39861,9 +39509,7 @@
                     }
                 ]
             },
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_DAGESTAN": {
             "region_state:RUS": {
@@ -40264,9 +39910,7 @@
                     }
                 ]
             },
-            "region_state:KZH": {
-                "create_building": []
-            }
+            "region_state:KZH": []
         },
         "s:STATE_TARTARIA": {
             "region_state:RUS": {
@@ -40471,9 +40115,7 @@
                     }
                 ]
             },
-            "region_state:BUK": {
-                "create_building": []
-            }
+            "region_state:BUK": []
         },
         "s:STATE_KIRGHIZIA": {
             "region_state:KOK": {
@@ -40575,9 +40217,7 @@
             }
         },
         "s:STATE_JETISY": {
-            "region_state:CHI": {
-                "create_building": []
-            }
+            "region_state:CHI": []
         },
         "s:STATE_TURKMENIA": {
             "region_state:KHI": {
@@ -44097,12 +43737,8 @@
             }
         },
         "s:STATE_RAJPUTANA": {
-            "region_state:BIK": {
-                "create_building": []
-            },
-            "region_state:JAS": {
-                "create_building": []
-            },
+            "region_state:BIK": [],
+            "region_state:JAS": [],
             "region_state:MEW": {
                 "create_building": [
                     {
@@ -44125,12 +43761,8 @@
                     }
                 ]
             },
-            "region_state:JOD": {
-                "create_building": []
-            },
-            "region_state:ALW": {
-                "create_building": []
-            },
+            "region_state:JOD": [],
+            "region_state:ALW": [],
             "region_state:JAI": {
                 "create_building": [
                     {
@@ -46331,14 +45963,10 @@
             }
         },
         "s:STATE_SHENGJING": {
-            "region_state:CHI": {
-                "create_building": []
-            }
+            "region_state:CHI": []
         },
         "s:STATE_OUTER_MANCHURIA": {
-            "region_state:CHI": {
-                "create_building": []
-            }
+            "region_state:CHI": []
         },
         "s:STATE_SOUTHERN_MANCHURIA": {
             "region_state:CHI": {
@@ -49155,9 +48783,7 @@
                     }
                 ]
             },
-            "region_state:SIA": {
-                "create_building": []
-            }
+            "region_state:SIA": []
         },
         "s:STATE_KACHIN": {
             "region_state:BUR": {
@@ -49394,14 +49020,10 @@
             }
         },
         "s:STATE_SAKHALIN": {
-            "region_state:SKH": {
-                "create_building": []
-            }
+            "region_state:SKH": []
         },
         "s:STATE_HOKKAIDO": {
-            "region_state:AIN": {
-                "create_building": []
-            },
+            "region_state:AIN": [],
             "region_state:JAP": {
                 "create_building": [
                     {
@@ -51539,9 +51161,7 @@
                     }
                 ]
             },
-            "region_state:BLG": {
-                "create_building": []
-            }
+            "region_state:BLG": []
         },
         "s:STATE_WEST_BORNEO": {
             "region_state:LAN": {
@@ -51574,9 +51194,7 @@
                     }
                 ]
             },
-            "region_state:DEI": {
-                "create_building": []
-            },
+            "region_state:DEI": [],
             "region_state:SMB": {
                 "create_building": [
                     {
@@ -52940,9 +52558,7 @@
             }
         },
         "s:STATE_WESTERN_NEW_GUINEA": {
-            "region_state:PPU": {
-                "create_building": []
-            },
+            "region_state:PPU": [],
             "region_state:TID": {
                 "create_building": [
                     {
@@ -53119,9 +52735,7 @@
             }
         },
         "s:STATE_CELEBES": {
-            "region_state:SLW": {
-                "create_building": []
-            },
+            "region_state:SLW": [],
             "region_state:DEI": {
                 "create_building": [
                     {
@@ -53174,14 +52788,10 @@
                     }
                 ]
             },
-            "region_state:TID": {
-                "create_building": []
-            }
+            "region_state:TID": []
         },
         "s:STATE_EASTERN_NEW_GUINEA": {
-            "region_state:PPU": {
-                "create_building": []
-            }
+            "region_state:PPU": []
         },
         "s:STATE_SUNDA_ISLANDS": {
             "region_state:BAL": {
@@ -53572,9 +53182,7 @@
                     }
                 ]
             },
-            "region_state:SUL": {
-                "create_building": []
-            }
+            "region_state:SUL": []
         },
         "s:STATE_VISAYAS": {
             "region_state:PHI": {
@@ -53650,44 +53258,28 @@
             }
         },
         "s:STATE_WEST_MICRONESIA": {
-            "region_state:MCR": {
-                "create_building": []
-            }
+            "region_state:MCR": []
         },
         "s:STATE_EAST_MICRONESIA": {
-            "region_state:MCR": {
-                "create_building": []
-            }
+            "region_state:MCR": []
         },
         "s:STATE_SOLOMON_ISLANDS": {
-            "region_state:BLA": {
-                "create_building": []
-            }
+            "region_state:BLA": []
         },
         "s:STATE_NAURU": {
-            "region_state:NRU": {
-                "create_building": []
-            }
+            "region_state:NRU": []
         },
         "s:STATE_FIJI": {
-            "region_state:FJI": {
-                "create_building": []
-            }
+            "region_state:FJI": []
         },
         "s:STATE_VANUATU": {
-            "region_state:VNT": {
-                "create_building": []
-            }
+            "region_state:VNT": []
         },
         "s:STATE_KANAK": {
-            "region_state:KNK": {
-                "create_building": []
-            }
+            "region_state:KNK": []
         },
         "s:STATE_BOUGAINVILLE": {
-            "region_state:HLA": {
-                "create_building": []
-            }
+            "region_state:HLA": []
         },
         "s:STATE_TAHITI": {
             "region_state:PLY": {
@@ -53750,9 +53342,7 @@
             }
         },
         "s:STATE_TONGA": {
-            "region_state:TNG": {
-                "create_building": []
-            }
+            "region_state:TNG": []
         },
         "s:STATE_NEW_SOUTH_WALES": {
             "region_state:NSW": {
@@ -54101,9 +53691,7 @@
             }
         },
         "s:STATE_NORTHERN_TERRITORY": {
-            "region_state:NSW": {
-                "create_building": []
-            }
+            "region_state:NSW": []
         },
         "s:STATE_NORTH_ISLAND": {
             "region_state:UNT": {
@@ -54140,17 +53728,11 @@
                     }
                 ]
             },
-            "region_state:NTO": {
-                "create_building": []
-            }
+            "region_state:NTO": []
         },
         "s:STATE_SOUTH_ISLAND": {
-            "region_state:NTO": {
-                "create_building": []
-            },
-            "region_state:NTU": {
-                "create_building": []
-            }
+            "region_state:NTO": [],
+            "region_state:NTU": []
         },
         "s:STATE_URAL": {
             "region_state:RUS": {
@@ -54199,39 +53781,25 @@
             }
         },
         "s:STATE_TOMSK": {
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_TUVA": {
-            "region_state:CHI": {
-                "create_building": []
-            }
+            "region_state:CHI": []
         },
         "s:STATE_TOBOLSK": {
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_UPPER_YENISEYSK": {
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_OB": {
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_CHUKOTKA": {
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_KAMCHATKA": {
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_OKHOTSK": {
             "region_state:RUS": {
@@ -54254,9 +53822,7 @@
             }
         },
         "s:STATE_YAKUTSK": {
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_TRANS_BAIKAL": {
             "region_state:RUS": {
@@ -54285,9 +53851,7 @@
             }
         },
         "s:STATE_IRKUTSK": {
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_TALINN": {
             "region_state:UBD": {
@@ -54400,9 +53964,7 @@
             }
         },
         "s:STATE_RIGA": {
-            "region_state:RUS": {
-                "create_building": []
-            },
+            "region_state:RUS": [],
             "region_state:UBD": {
                 "create_building": [
                     {
@@ -54874,9 +54436,7 @@
             }
         },
         "s:STATE_ALAND": {
-            "region_state:FIN": {
-                "create_building": []
-            }
+            "region_state:FIN": []
         },
         "s:STATE_OSTROBOTHNIA": {
             "region_state:FIN": {
@@ -55012,9 +54572,7 @@
             }
         },
         "s:STATE_KOLA": {
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_INGRIA": {
             "region_state:RUS": {
@@ -56608,9 +56166,7 @@
             }
         },
         "s:STATE_URALSK": {
-            "region_state:RUS": {
-                "create_building": []
-            },
+            "region_state:RUS": [],
             "region_state:KZH": {
                 "create_building": [
                     {
@@ -56742,48 +56298,28 @@
                     }
                 ]
             },
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_FERGANA": {
-            "region_state:KOK": {
-                "create_building": []
-            }
+            "region_state:KOK": []
         },
         "s:STATE_MERZ": {
-            "region_state:KHI": {
-                "create_building": []
-            },
-            "region_state:BUK": {
-                "create_building": []
-            }
+            "region_state:KHI": [],
+            "region_state:BUK": []
         },
         "s:STATE_SYRDARYA": {
-            "region_state:OZH": {
-                "create_building": []
-            },
-            "region_state:KZH": {
-                "create_building": []
-            },
-            "region_state:UZH": {
-                "create_building": []
-            }
+            "region_state:OZH": [],
+            "region_state:KZH": [],
+            "region_state:UZH": []
         },
         "s:STATE_AKTOBE": {
-            "region_state:KZH": {
-                "create_building": []
-            }
+            "region_state:KZH": []
         },
         "s:STATE_KALMYKIA": {
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_NORTH_CAUCASUS": {
-            "region_state:RUS": {
-                "create_building": []
-            },
+            "region_state:RUS": [],
             "region_state:CHC": {
                 "create_building": [
                     {
@@ -57342,34 +56878,22 @@
             }
         },
         "s:STATE_SURGUT": {
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_KRASNOYARSK": {
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_ALTAI": {
-            "region_state:CHI": {
-                "create_building": []
-            }
+            "region_state:CHI": []
         },
         "s:STATE_BURYATIA": {
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_KOLYMA": {
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_AMUR": {
-            "region_state:CHI": {
-                "create_building": []
-            }
+            "region_state:CHI": []
         },
         "s:STATE_CHELYABINSK": {
             "region_state:RUS": {
@@ -57396,27 +56920,17 @@
                     }
                 ]
             },
-            "region_state:KZH": {
-                "create_building": []
-            },
-            "region_state:OZH": {
-                "create_building": []
-            }
+            "region_state:KZH": [],
+            "region_state:OZH": []
         },
         "s:STATE_ELIZAVETPOL": {
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_STAVROPOL": {
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_CHUVASHIA": {
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         },
         "s:STATE_CHERNIHIV": {
             "region_state:RUS": {
@@ -57470,9 +56984,7 @@
             }
         },
         "s:STATE_NENETSIA": {
-            "region_state:RUS": {
-                "create_building": []
-            }
+            "region_state:RUS": []
         }
     }
 }

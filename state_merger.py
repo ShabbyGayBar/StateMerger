@@ -191,7 +191,6 @@ class StateRegion:
 
         self.name = name
         dict_data = dict[name]
-        # print(dict_data)
         self.id = int(dict_data['id'])
         if "subsistence_building" not in dict_data.keys(): # Check if is sea node
             self.subsistence_building = ''
@@ -236,7 +235,6 @@ class StateRegion:
         self.capped_resources = {}
         if 'capped_resources' in dict_data.keys():
             for resource, amount in dict_data['capped_resources'].items():
-                # print(resource, amount)
                 self.capped_resources[resource] = int(amount)
         if 'resource' in dict_data.keys():
             for resource in dict_data['resource']:
@@ -503,128 +501,223 @@ class MapData:
                     continue
                 file.write(str(self.data[state_id]))
 
+class Building:
+    def __init__(self, dict):
+        '''Initialize the building object with a dictionary'''
+        if "building" in dict.keys():
+            self.building = dict["building"]
+        else:
+            self.building = None
+        self.building_ownership = []
+        self.country_ownership = []
+        self.company_ownership = []
+        self.reserves = 0
+        self.activate_production_methods = []
+        self.isMonument = ("level" in dict.keys())
+        if self.isMonument: return
+        if "add_ownership" in dict.keys():
+            if "building" in dict["add_ownership"].keys():
+                if not isinstance(dict["add_ownership"]["building"], list):
+                    dict["add_ownership"]["building"] = [dict["add_ownership"]["building"]]
+                self.building_ownership = dict["add_ownership"]["building"]
+            if "country" in dict["add_ownership"].keys():
+                if not isinstance(dict["add_ownership"]["country"], list):
+                    dict["add_ownership"]["country"] = [dict["add_ownership"]["country"]]
+                self.country_ownership = dict["add_ownership"]["country"]
+            if "company" in dict["add_ownership"].keys():
+                if not isinstance(dict["add_ownership"]["company"], list):
+                    dict["add_ownership"]["company"] = [dict["add_ownership"]["company"]]
+                self.company_ownership = dict["add_ownership"]["company"]
+        if "reserves" in dict.keys():
+            self.reserves = int(dict["reserves"])
+        if "activate_production_methods" in dict.keys():
+            self.activate_production_methods = dict["activate_production_methods"]
+        self.refresh()
+
+    def is_empty(self):
+        '''Check if the building object is empty'''
+        if self.building is None:
+            return True
+        if self.isMonument:
+            return False
+        if (not self.building_ownership and not self.country_ownership and not self.company_ownership):
+            return True
+        return False
+    
+    def refresh(self):
+        '''Sort ownerships and merge duplicate ownerships'''
+        if self.is_empty():
+            self.building = None
+            self.building_ownership = []
+            self.country_ownership = []
+            self.company_ownership = []
+            return
+        sorted_ownership = []
+        for other_ownership in self.building_ownership:
+            found = False
+            for this_ownership in sorted_ownership:
+                if (this_ownership["type"] == other_ownership["type"] and
+                    this_ownership["country"] == other_ownership["country"] and
+                    this_ownership["region"] == other_ownership["region"]):
+                    found = True
+                    this_ownership["levels"] = int(this_ownership["levels"]) + int(other_ownership["levels"])
+                    break
+            if not found:
+                sorted_ownership.append(other_ownership)
+        self.building_ownership = sorted_ownership
+        if not isinstance(self.activate_production_methods, list):
+            self.activate_production_methods = [self.activate_production_methods]
+
+    def level_cnt(self):
+        if self.isMonument: return 1
+        levels = 0
+        for ownership in (self.building_ownership + self.country_ownership + self.company_ownership):
+            levels += int(ownership["levels"])
+        return levels
+    
+    def __iadd__(self, other):
+        '''Add two building objects together'''
+        if self.building != other.building:
+            raise ValueError("Cannot add buildings with different types")
+        for ownership in other.building_ownership:
+            found = False
+            for this_ownership in self.building_ownership:
+                if (this_ownership["type"] == ownership["type"] and
+                    this_ownership["country"] == ownership["country"] and
+                    this_ownership["region"] == ownership["region"]):
+                    found = True
+                    this_ownership["levels"] = int(this_ownership["levels"]) + int(ownership["levels"])
+                    break
+            if not found:
+                self.building_ownership.append(ownership)
+        for ownership in other.country_ownership:
+            found = False
+            for this_ownership in self.country_ownership:
+                if this_ownership["country"] == ownership["country"]:
+                    found = True
+                    this_ownership["levels"] = int(this_ownership["levels"]) + int(ownership["levels"])
+                    break
+            if not found:
+                self.country_ownership.append(ownership)
+        for ownership in other.company_ownership:
+            found = False
+            for this_ownership in self.company_ownership:
+                if (this_ownership["type"] == ownership["type"] and
+                    this_ownership["country"] == ownership["country"]):
+                    found = True
+                    this_ownership["levels"] = int(this_ownership["levels"]) + int(ownership["levels"])
+                    break
+            if not found:
+                self.company_ownership.append(ownership)
+        return self
+    
+    def __str__(self):
+        building_str = f"            create_building = {{\n"
+        if self.is_empty():
+            building_str += "            }\n"
+            return building_str
+        building_str += f"                building = {self.building}\n"
+        if self.isMonument:
+            building_str += f"                level = 1\n"
+            building_str += "            }\n"
+            return building_str
+        building_str += f"                add_ownership = {{\n"
+        for ownership in self.building_ownership:
+            building_str += f"                    building = {{\n"
+            building_str += f"                        type = {ownership['type']}\n"
+            building_str += f"                        country = {ownership['country']}\n"
+            building_str += f"                        levels = {ownership['levels']}\n"
+            building_str += f"                        region = {ownership['region']}\n"
+            building_str += f"                    }}\n"
+        for ownership in self.country_ownership:
+            building_str += f"                    country = {{\n"
+            building_str += f"                        country = {ownership['country']}\n"
+            building_str += f"                        levels = {ownership['levels']}\n"
+            building_str += f"                    }}\n"
+        for ownership in self.company_ownership:
+            building_str += f"                    company = {{\n"
+            building_str += f"                        type = {ownership['type']}\n"
+            building_str += f"                        country = {ownership['country']}\n"
+            building_str += f"                        levels = {ownership['levels']}\n"
+            building_str += f"                    }}\n"
+        building_str += f"                }}\n"
+        building_str += f"                reserves = {self.reserves}\n"
+        building_str += f"                activate_production_methods = {{\n"
+        for method in self.activate_production_methods:
+            building_str += f"                    {method}\n"
+        building_str += f"                }}\n"
+        building_str += f"            }}\n"
+        return building_str
+
 class Buildings:
     def __init__(self, buildings_dict):
-        self.data = buildings_dict["BUILDINGS"]
+        self.data = {}
+        for state_id in buildings_dict["BUILDINGS"].keys():
+            if state_id == "if": # dlc buildings
+                continue
+            print("Reading buildings: "+state_id)
+            self.data[state_id] = {}
+            for tag in buildings_dict["BUILDINGS"][state_id].keys():
+                self.data[state_id][tag] = []
+                if (not isinstance(buildings_dict["BUILDINGS"][state_id][tag], dict)) or ("create_building" not in buildings_dict["BUILDINGS"][state_id][tag].keys()):
+                    continue
+                if not isinstance(buildings_dict["BUILDINGS"][state_id][tag]["create_building"], list):
+                    buildings_dict["BUILDINGS"][state_id][tag]["create_building"] = [buildings_dict["BUILDINGS"][state_id][tag]["create_building"]]
+                for building in buildings_dict["BUILDINGS"][state_id][tag]["create_building"]:
+                    self.data[state_id][tag].append(Building(building))
         self.format()
 
     def format(self):
         for state_id in self.data.keys(): # Restore the original structure of certain building keys
             if state_id == "if":
                 continue
-            print(f'Formatting building data: {state_id}')
             for tag in self.data[state_id].keys():
-                if not isinstance(self.data[state_id][tag], dict):
-                    self.data[state_id][tag] = {"create_building": []}
-                    continue
-                if isinstance(self.data[state_id][tag]["create_building"], tuple):
-                    self.data[state_id][tag]["create_building"] = list(self.data[state_id][tag]["create_building"])
-                elif not isinstance(self.data[state_id][tag]["create_building"], list):
-                    self.data[state_id][tag]["create_building"] = [self.data[state_id][tag]["create_building"]]
-                for building in self.data[state_id][tag]["create_building"]:
-                    if 'add_ownership' in building.keys():
-                        if "building" in building["add_ownership"].keys():
-                            if isinstance(building["add_ownership"]["building"], tuple):
-                                building["add_ownership"]["building"] = list(building["add_ownership"]["building"])
-                            elif not isinstance(building["add_ownership"]['building'], list):
-                                building["add_ownership"]['building'] = [building["add_ownership"]['building']]
-                        if "country" in building["add_ownership"].keys():
-                            if isinstance(building["add_ownership"]["country"], tuple):
-                                building["add_ownership"]["country"] = list(building["add_ownership"]["country"])
-                            elif not isinstance(building["add_ownership"]['country'], list):
-                                building["add_ownership"]['country'] = [building["add_ownership"]['country']]
-                        if "company" in building["add_ownership"].keys():
-                            if isinstance(building["add_ownership"]["company"], tuple):
-                                building["add_ownership"]["company"] = list(building["add_ownership"]["company"])
-                            elif not isinstance(building["add_ownership"]['company'], list):
-                                building["add_ownership"]['company'] = [building["add_ownership"]['company']]
-
-    def merge_by_id(self, this, other): # this, other are "state_id" strings
-    # state_id layer
-        # tag layer
-        for tag in self.data[other].keys():
-            if not isinstance(self.data[other][tag], dict): # self.data[other][tag] is not dict
-                continue # skip this tag because there's no building data
-            if (tag not in self.data[this].keys()) or (not isinstance(self.data[this][tag], dict)): # tag exists in self.data[this] but is empty or tag doesn't exist in self.data[this] at all
-                self.data[this][tag] = self.data[other][tag]
-                continue
-            # create_building layer
-            for other_building in self.data[other][tag]["create_building"]:
-                found = False
-                for this_building in self.data[this][tag]["create_building"]:
-                    # building layer
-                    if this_building["building"] == other_building["building"]:
-                        found = True
-                        if "building" in other_building["add_ownership"].keys():
-                            if "building" in this_building["add_ownership"].keys():
-                                for other_ownership in other_building["add_ownership"]["building"]:
-                                    found_ownership = False
-                                    for this_ownership in this_building["add_ownership"]["building"]:
-                                        # if "type", "country", "region" are the same, merge "levels"
-                                        if this_ownership["type"] == other_ownership["type"] and this_ownership["country"] == other_ownership["country"] and this_ownership["region"] == other_ownership["region"]:
-                                            found_ownership = True
-                                            this_ownership["levels"] = int(this_ownership["levels"]) + int(other_ownership["levels"])
-                                            break
-                                    if not found_ownership:
-                                        this_building["add_ownership"]["building"].append(other_ownership)
-                            else:
-                                this_building["add_ownership"]["building"] = other_building["add_ownership"]["building"]
-                        if "country" in other_building["add_ownership"].keys():
-                            if "country" in this_building["add_ownership"].keys():
-                                for other_ownership in other_building["add_ownership"]["country"]:
-                                    found_ownership = False
-                                    for this_ownership in this_building["add_ownership"]["country"]:
-                                        # if "country" is the same, merge "levels"
-                                        if this_ownership["country"] == other_ownership["country"]:
-                                            found_ownership = True
-                                            this_ownership["levels"] = int(this_ownership["levels"]) + int(other_ownership["levels"])
-                                            break
-                                    if not found_ownership:
-                                        this_building["add_ownership"]["country"].append(other_ownership)
-                            else:
-                                this_building["add_ownership"]["country"] = other_building["add_ownership"]["country"]
-                        if "company" in other_building["add_ownership"].keys():
-                            if "company" in this_building["add_ownership"].keys():
-                                for other_ownership in other_building["add_ownership"]["company"]:
-                                    found_ownership = False
-                                    for this_ownership in this_building["add_ownership"]["company"]:
-                                        # if "type", "country" are the same, merge "levels"
-                                        if this_ownership["type"] == other_ownership["type"] and this_ownership["country"] == other_ownership["country"]:
-                                            found_ownership = True
-                                            this_ownership["levels"] = int(this_ownership["levels"]) + int(other_ownership["levels"])
-                                            break
-                                    if not found_ownership:
-                                        this_building["add_ownership"]["company"].append(other_ownership)
-                        break
-                if not found:
-                    self.data[this][tag]["create_building"].append(other_building)
+                for i in range(len(self.data[state_id][tag]), 0, -1):
+                    if self.data[state_id][tag][i-1].is_empty():
+                        self.data[state_id][tag].pop(i-1)
 
     def merge(self, merge_dict):
         # Merge building ownerships
         for state_id in self.data.keys():
-            if state_id == "if":
+            if state_id == "if": # dlc buildings
                 continue
             for tag in self.data[state_id].keys():
-                if not isinstance(self.data[state_id][tag], dict):
+                if not isinstance(self.data[state_id][tag], list):
                     continue
-                for building in self.data[state_id][tag]["create_building"]:
-                    if "add_ownership" not in building.keys():
+                for building in self.data[state_id][tag]:
+                    if building.is_empty() or building.isMonument:
                         continue
-                    if "building" not in building["add_ownership"].keys():
-                        continue
-                    for owner in building["add_ownership"]["building"]:
-                        region = owner["region"].replace('\"', '') # Remove '\"' from owner["region"]
+                    for ownership in building.building_ownership:
+                        region = ownership["region"].replace('\"', '') # Remove '\"' from ownership["region"]
                         for diner, food_list in merge_dict.items():
                             if region in food_list:
-                                owner["region"] = '\"'+diner+'\"'
+                                ownership["region"] = '\"'+diner+'\"'
+                                building.refresh()
                                 break
         # Merge building
         for diner, food_list in merge_dict.items():
             for food in food_list:
                 if ("s:"+food) in self.data.keys():
                     print(f'Merging {food} building data into {diner}')
-                    self.merge_by_id("s:"+diner, "s:"+food)
+                    # self.merge_by_id("s:"+diner, "s:"+food)
+                    for tag in self.data["s:"+food].keys():
+                        if tag not in self.data["s:"+diner].keys():
+                            self.data["s:"+diner][tag] = self.data["s:"+food][tag]
+                            continue
+                        for other_building in self.data["s:"+food][tag]:
+                            if other_building.is_empty():
+                                continue
+                            found = False
+                            for this_building in self.data["s:"+diner][tag]:
+                                if this_building.building == other_building.building:
+                                    found = True
+                                    this_building += other_building
+                                    break
+                            if not found:
+                                self.data["s:"+diner][tag].append(other_building)
+                    # Remove the food from data
                     self.data.pop("s:"+food)
+        self.format()
 
     def get_str(self, state_id):
         if state_id == "if":
@@ -632,52 +725,8 @@ class Buildings:
         building_str = f'    {state_id} = {{\n'
         for tag in self.data[state_id].keys():
             building_str += f'        {tag} = {{\n'
-            if isinstance(self.data[state_id][tag], dict):
-                for building in self.data[state_id][tag]["create_building"]:
-                    building_str += f'            create_building = {{\n'
-                    building_str += f'                building = {building["building"]}\n'
-                    if "add_ownership" not in building.keys(): # is monument, only has key "building" & "level"
-                        building_str += f'                level = {building["level"]}\n'
-                        building_str += f'            }}\n'
-                        continue
-                    building_str += f'                add_ownership = {{\n'
-                    # print(name, building["building"], building.keys())
-                    if "building" in building["add_ownership"].keys():
-                        # in case of multiple ownerships, we need to iterate through each ownership
-                        for ownership in building["add_ownership"]["building"]:
-                            building_str += f'                    building = {{\n'
-                            building_str += f'                        type = {ownership["type"]}\n'
-                            building_str += f'                        country = {ownership["country"]}\n'
-                            building_str += f'                        levels = {ownership["levels"]}\n'
-                            building_str += f'                        region = {ownership["region"]}\n'
-                            building_str += f'                    }}\n'
-                    if "country" in building["add_ownership"].keys():
-                        for ownership in building["add_ownership"]["country"]:
-                            building_str += f'                    country = {{\n'
-                            building_str += f'                        country = {ownership["country"]}\n'
-                            building_str += f'                        levels = {ownership["levels"]}\n'
-                            building_str += f'                    }}\n'
-                    if "company" in building["add_ownership"].keys():
-                        for ownership in building["add_ownership"]["company"]:
-                            building_str += f'                    company = {{\n'
-                            building_str += f'                        type = {ownership["type"]}\n'
-                            building_str += f'                        country = {ownership["country"]}\n'
-                            building_str += f'                        levels = {ownership["levels"]}\n'
-                            building_str += f'                    }}\n'
-                    building_str += f'                }}\n'
-                    # Building cash reserve
-                    if "reserves" in building.keys():
-                        building_str += f'                reserves = {building["reserves"]}\n'
-                    # Building production methodss
-                    if "activate_production_methods" in building.keys():
-                        building_str += f'                activate_production_methods = {{\n'
-                        if isinstance(building["activate_production_methods"], str):
-                            building_str += f'                    {building["activate_production_methods"]}\n'
-                        else:
-                            for method in building["activate_production_methods"]:
-                                building_str += f'                    {method}\n'
-                        building_str += f'                }}\n'
-                    building_str += f'            }}\n'
+            for building in self.data[state_id][tag]:
+                building_str += str(building)
             building_str += f'        }}\n'
         building_str += f'    }}\n'
 
