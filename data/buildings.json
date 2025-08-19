@@ -1250,7 +1250,23 @@
             }
         },
         "s:STATE_GREENLAND": {
-            "region_state:DEN": []
+            "region_state:DEN": {
+                "create_building": [
+                    {
+                        "building": "\"building_port\"",
+                        "add_ownership": {
+                            "country": [
+                                {
+                                    "country": "\"c:DEN\"",
+                                    "levels": "1"
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": "\"pm_anchorage\""
+                    }
+                ]
+            }
         },
         "s:STATE_HOME_COUNTIES": {
             "region_state:GBR": {
@@ -21180,6 +21196,23 @@
             "region_state:MAS": {
                 "create_building": [
                     {
+                        "building": "\"building_government_administration\"",
+                        "add_ownership": {
+                            "country": [
+                                {
+                                    "country": "\"c:MAS\"",
+                                    "levels": "1"
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_simple_organization\"",
+                            "\"pm_religious_bureaucrats\"",
+                            "\"pm_professional_bureaucrats\""
+                        ]
+                    },
+                    {
                         "building": "\"building_fishing_wharf\"",
                         "add_ownership": {
                             "building": [
@@ -21222,26 +21255,6 @@
                         },
                         "reserves": "1",
                         "activate_production_methods": "\"pm_basic_port\""
-                    },
-                    {
-                        "building": "\"building_lead_mine\"",
-                        "add_ownership": {
-                            "building": [
-                                {
-                                    "type": "\"building_lead_mine\"",
-                                    "country": "\"c:MAS\"",
-                                    "levels": "1",
-                                    "region": "\"STATE_ALGIERS\""
-                                }
-                            ]
-                        },
-                        "reserves": "1",
-                        "activate_production_methods": [
-                            "\"pm_picks_and_shovels_building_lead_mine\"",
-                            "\"pm_no_explosives\"",
-                            "\"pm_no_steam_automation\"",
-                            "\"pm_road_carts\""
-                        ]
                     },
                     {
                         "building": "\"building_wheat_farm\"",
@@ -21653,6 +21666,23 @@
             "region_state:MAS": {
                 "create_building": [
                     {
+                        "building": "\"building_government_administration\"",
+                        "add_ownership": {
+                            "country": [
+                                {
+                                    "country": "\"c:MAS\"",
+                                    "levels": "3"
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_simple_organization\"",
+                            "\"pm_religious_bureaucrats\"",
+                            "\"pm_professional_bureaucrats\""
+                        ]
+                    },
+                    {
                         "building": "\"building_wheat_farm\"",
                         "add_ownership": {
                             "building": [
@@ -21707,23 +21737,6 @@
                             "\"pm_simple_ranch\"",
                             "\"pm_standard_fences\"",
                             "\"pm_unrefrigerated\""
-                        ]
-                    },
-                    {
-                        "building": "\"building_government_administration\"",
-                        "add_ownership": {
-                            "country": [
-                                {
-                                    "country": "\"c:MAS\"",
-                                    "levels": "1"
-                                }
-                            ]
-                        },
-                        "reserves": "1",
-                        "activate_production_methods": [
-                            "\"pm_simple_organization\"",
-                            "\"pm_religious_bureaucrats\"",
-                            "\"pm_professional_bureaucrats\""
                         ]
                     }
                 ]
@@ -22566,7 +22579,7 @@
                             "country": [
                                 {
                                     "country": "\"c:SOK\"",
-                                    "levels": "2"
+                                    "levels": "5"
                                 }
                             ]
                         },
@@ -22584,7 +22597,7 @@
                                 {
                                     "type": "\"building_textile_mills\"",
                                     "country": "\"c:SOK\"",
-                                    "levels": "2",
+                                    "levels": "1",
                                     "region": "\"STATE_HAUSALAND\""
                                 }
                             ]
@@ -30078,7 +30091,7 @@
                             "country": [
                                 {
                                     "country": "\"c:MEX\"",
-                                    "levels": "3"
+                                    "levels": "2"
                                 }
                             ]
                         },
@@ -30238,13 +30251,13 @@
                             "country": [
                                 {
                                     "country": "\"c:MEX\"",
-                                    "levels": "7"
+                                    "levels": "5"
                                 }
                             ]
                         },
                         "reserves": "1",
                         "activate_production_methods": [
-                            "\"pm_simple_organization\"",
+                            "\"pm_horizontal_drawer_cabinets\"",
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
@@ -30459,13 +30472,13 @@
                     },
                     {
                         "building": "\"building_trade_center\"",
-                        "activate_production_methods": "\"pm_trade_center_trade_quantity_normal\"",
+                        "activate_production_methods": "\"pm_trade_center_trade_quantity_limited\"",
                         "add_ownership": {
                             "building": [
                                 {
                                     "type": "\"building_trade_center\"",
                                     "country": "\"c:MEX\"",
-                                    "levels": "2",
+                                    "levels": "3",
                                     "region": "\"STATE_VERACRUZ\""
                                 }
                             ]
@@ -30552,13 +30565,13 @@
                             "country": [
                                 {
                                     "country": "\"c:MEX\"",
-                                    "levels": "2"
+                                    "levels": "1"
                                 }
                             ]
                         },
                         "reserves": "1",
                         "activate_production_methods": [
-                            "\"pm_simple_organization\"",
+                            "\"pm_horizontal_drawer_cabinets\"",
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
@@ -30676,7 +30689,7 @@
                         },
                         "reserves": "1",
                         "activate_production_methods": [
-                            "\"pm_simple_organization\"",
+                            "\"pm_horizontal_drawer_cabinets\"",
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
@@ -30748,13 +30761,13 @@
                             "country": [
                                 {
                                     "country": "\"c:MEX\"",
-                                    "levels": "4"
+                                    "levels": "2"
                                 }
                             ]
                         },
                         "reserves": "1",
                         "activate_production_methods": [
-                            "\"pm_simple_organization\"",
+                            "\"pm_horizontal_drawer_cabinets\"",
                             "\"pm_professional_bureaucrats\"",
                             "\"pm_religious_bureaucrats\""
                         ]
@@ -30830,26 +30843,6 @@
                             "\"pm_simple_farming\"",
                             "\"pm_no_secondary\"",
                             "\"pm_tools_disabled\""
-                        ]
-                    },
-                    {
-                        "building": "\"building_iron_mine\"",
-                        "add_ownership": {
-                            "building": [
-                                {
-                                    "type": "\"building_financial_district\"",
-                                    "country": "\"c:MEX\"",
-                                    "levels": "1",
-                                    "region": "\"STATE_JALISCO\""
-                                }
-                            ]
-                        },
-                        "reserves": "1",
-                        "activate_production_methods": [
-                            "\"pm_picks_and_shovels_building_iron_mine\"",
-                            "\"pm_no_explosives\"",
-                            "\"pm_no_steam_automation\"",
-                            "\"pm_road_carts\""
                         ]
                     }
                 ]
@@ -34299,13 +34292,13 @@
                             "country": [
                                 {
                                     "country": "\"c:ARG\"",
-                                    "levels": "3"
+                                    "levels": "2"
                                 }
                             ]
                         },
                         "reserves": "1",
                         "activate_production_methods": [
-                            "\"pm_simple_organization\"",
+                            "\"pm_horizontal_drawer_cabinets\"",
                             "\"pm_religious_bureaucrats\"",
                             "\"pm_professional_bureaucrats\""
                         ]
@@ -37681,6 +37674,23 @@
             "region_state:PER": {
                 "create_building": [
                     {
+                        "building": "\"building_government_administration\"",
+                        "add_ownership": {
+                            "country": [
+                                {
+                                    "country": "\"c:PER\"",
+                                    "levels": "2"
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": [
+                            "\"pm_simple_organization\"",
+                            "\"pm_religious_bureaucrats\"",
+                            "\"pm_professional_bureaucrats\""
+                        ]
+                    },
+                    {
                         "building": "\"building_wheat_farm\"",
                         "add_ownership": {
                             "building": [
@@ -37964,7 +37974,7 @@
                             "country": [
                                 {
                                     "country": "\"c:PER\"",
-                                    "levels": "1"
+                                    "levels": "2"
                                 }
                             ]
                         },
@@ -38124,7 +38134,7 @@
                             "country": [
                                 {
                                     "country": "\"c:PER\"",
-                                    "levels": "2"
+                                    "levels": "4"
                                 }
                             ]
                         },
@@ -38280,7 +38290,7 @@
                         "activate_production_methods": [
                             "\"pm_handsewn_clothes\"",
                             "\"pm_traditional_looms\"",
-                            "\"pm_craftsman_sewing\""
+                            "\"pm_no_luxury_clothes\""
                         ]
                     },
                     {
@@ -38289,7 +38299,7 @@
                             "country": [
                                 {
                                     "country": "\"c:PER\"",
-                                    "levels": "3"
+                                    "levels": "8"
                                 }
                             ]
                         },
@@ -38351,7 +38361,7 @@
                             "country": [
                                 {
                                     "country": "\"c:PER\"",
-                                    "levels": "3"
+                                    "levels": "6"
                                 }
                             ]
                         },
@@ -44537,6 +44547,23 @@
                             "country": [
                                 {
                                     "country": "\"c:FRA\"",
+                                    "levels": "1"
+                                }
+                            ]
+                        },
+                        "reserves": "1",
+                        "activate_production_methods": "\"pm_anchorage\""
+                    }
+                ]
+            },
+            "region_state:DEN": {
+                "create_building": [
+                    {
+                        "building": "\"building_port\"",
+                        "add_ownership": {
+                            "country": [
+                                {
+                                    "country": "\"c:DEN\"",
                                     "levels": "1"
                                 }
                             ]

@@ -33491,6 +33491,7 @@
             "\"xB5760C\"",
             "\"x0CB556\""
         ],
+        "center_province": "\"x3020D0\"",
         "traits": [
             "\"state_trait_antarctic_whaling\""
         ],
@@ -41704,6 +41705,7 @@
             "\"xDAB923\"",
             "\"xDF2050\""
         ],
+        "center_province": "\"xDAB923\"",
         "prime_land": [
             "x95AAA3"
         ],
@@ -47402,6 +47404,7 @@
             "\"xEF50C0\"",
             "\"x800111\""
         ],
+        "center_province": "\"x705080\"",
         "traits": [
             "\"state_trait_chikuho_coalfield\"",
             "\"state_trait_nagasaki_bay\""
@@ -49048,6 +49051,7 @@
         "traits": [
             "\"state_trait_severe_malaria\""
         ],
+        "center_province": "\"x71414D\"",
         "city": "\"x71414D\"",
         "port": "\"xA7F7E3\"",
         "farm": "\"x71414D\"",
@@ -49080,6 +49084,7 @@
             "\"x808090\"",
             "\"x527F6C\""
         ],
+        "center_province": "\"x808011\"",
         "traits": [
             "\"state_trait_severe_malaria\""
         ],
@@ -49170,6 +49175,7 @@
             "\"x61A3E3\"",
             "\"xC04D30\""
         ],
+        "center_province": "\"x61A3E3\"",
         "traits": [
             "\"state_trait_severe_malaria\""
         ],
