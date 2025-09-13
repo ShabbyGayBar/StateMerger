@@ -176,3 +176,4 @@ cython_debug/
 
 # Project specific
 mod/
+.python-version
