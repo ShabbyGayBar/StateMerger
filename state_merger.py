@@ -52,7 +52,6 @@ loc_file_dir = {
 }
 
 seq_str = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"]
-smallStateLimit = 4 # The limit of provinces for a state to be considered a small state
 
 def clear_mod_dir(dir_dict):
     # Clear the output directory
@@ -290,16 +289,16 @@ class StateRegion:
         '''
         return len(self.provinces)
 
-    def is_small_state(self):
+    def is_small_state(self, limit=4):
         '''Determine if the state is a small state
         '''
         if self.is_sea_node():
             return False
-        if self.province_cnt() < smallStateLimit:
+        if self.province_cnt() < limit:
             return True
         return False
 
-    def merge(self, other, ignoreSmallStates=False):
+    def merge(self, other, ignoreSmallStates=False, smallStateLimit=4):
         '''Merge two state objects.
         '''
         if self.is_sea_node() or other.is_sea_node():
@@ -326,10 +325,10 @@ class StateRegion:
         totalMergeStatesCnt = thisMergeStatesCnt + otherMergeStatesCnt
         totalCoastCnt = thisCoastCnt + otherCoastCnt
         if (ignoreSmallStates):
-            if self.is_small_state():
+            if self.is_small_state(limit=smallStateLimit):
                 totalMergeStatesCnt -= 1
                 totalCoastCnt -= 1
-            if other.is_small_state():
+            if other.is_small_state(limit=smallStateLimit):
                 totalMergeStatesCnt -= 1
                 totalCoastCnt -= 1
         if (totalMergeStatesCnt > 1) and (totalMergeStatesCnt < 8):
@@ -481,7 +480,7 @@ class MapData:
                     states_dict[state_id]['resource'] = [states_dict[state_id]['resource']]
             self.data[state_id] = StateRegion(state_id, states_dict)
 
-    def merge(self, merge_dict, ignoreSmallStates=False):
+    def merge(self, merge_dict, ignoreSmallStates=False, smallStateLimit=4):
         for diner, food_list in merge_dict.items():
             for food in food_list:
                 if food in self.data.keys():
@@ -489,7 +488,7 @@ class MapData:
                     if self.data[food].is_sea_node():
                         print(f'{food} is a sea node, skipping...')
                         continue
-                    self.data[diner].merge(self.data[food], ignoreSmallStates)
+                    self.data[diner].merge(self.data[food], ignoreSmallStates=ignoreSmallStates, smallStateLimit=smallStateLimit)
                     self.data.pop(food)
 
     def dump(self, dir, include_sea_nodes=False):
@@ -1090,7 +1089,7 @@ class StateMerger:
             with open(f"{cache_dir}{key}.json", 'w', encoding='utf-8') as file:
                 json.dump(game_data[key], file, indent=4, ensure_ascii=False)
 
-    def merge_state_data(self, ignoreSmallStates=False):
+    def merge_state_data(self, buff=True, ignoreSmallStates=False, smallStateLimit=4):
         # Write cleared base game data to mod directory
         for key, value in self.base_game_dir.items():
             for file in os.listdir(value):
@@ -1103,7 +1102,10 @@ class StateMerger:
             os.remove(self.mod_dir["map_data"]+"99_seas.txt")
 
         # Merge map_data
-        self.map_data.merge(self.merge_dict, ignoreSmallStates)
+        if not buff:
+            ignoreSmallStates = True
+            smallStateLimit = 1000
+        self.map_data.merge(self.merge_dict, ignoreSmallStates=ignoreSmallStates, smallStateLimit=smallStateLimit)
         self.map_data.dump(self.mod_dir["map_data"]+"00_states_merging.txt")
         # Merge buildings
         self.buildings.merge(self.merge_dict)
