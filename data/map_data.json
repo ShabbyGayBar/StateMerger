@@ -397,6 +397,8 @@
         "city": "\"xF93B61\"",
         "port": "\"x21C0E0\"",
         "farm": "\"xF93B61\"",
+        "mine": "\"xF93B61\"",
+        "wood": "\"xF93B61\"",
         "arable_land": "3",
         "arable_resources": [
             "\"bg_rye_farms\"",
@@ -2066,7 +2068,8 @@
             "\"xD642B5\""
         ],
         "traits": [
-            "\"state_trait_seine_river\""
+            "\"state_trait_seine_river\"",
+            "\"state_trait_natural_harbors\""
         ],
         "city": "\"x9020C0\"",
         "port": "\"xA786BB\"",
@@ -2404,7 +2407,8 @@
             "\"xF08060\""
         ],
         "traits": [
-            "\"state_trait_loire_river\""
+            "\"state_trait_loire_river\"",
+            "\"state_trait_great_terroir\""
         ],
         "city": "\"x8C3297\"",
         "farm": "\"x8329EC\"",
@@ -2437,7 +2441,7 @@
             "\"xEFBF20\""
         ],
         "traits": [
-            "\"state_trait_good_soils\""
+            "\"state_trait_great_terroir\""
         ],
         "city": "\"xD6A06D\"",
         "farm": "\"xEF00DF\"",
@@ -2804,7 +2808,9 @@
         "capped_resources": {
             "bg_coal_mining": "48",
             "bg_iron_mining": "45",
-            "bg_logging": "17"
+            "bg_logging": "17",
+            "bg_lead_mining": "8",
+            "bg_gold_mining": "5"
         }
     },
     "STATE_MORAVIA": {
@@ -2817,10 +2823,8 @@
             "\"x1D088E\"",
             "\"x49C8F7\"",
             "\"x4B3444\"",
-            "\"x71E080\"",
             "\"xD9A784\"",
-            "\"xEF6080\"",
-            "\"xF0E080\""
+            "\"xEF6080\""
         ],
         "city": "\"xD9A784\"",
         "farm": "\"xEF6080\"",
@@ -2918,7 +2922,7 @@
         "farm": "\"xD0BF60\"",
         "mine": "\"x039D0F\"",
         "wood": "\"xD040E0\"",
-        "arable_land": "15",
+        "arable_land": "30",
         "arable_resources": [
             "\"bg_wheat_farms\"",
             "\"bg_livestock_ranches\"",
@@ -2932,6 +2936,8 @@
         "id": "57",
         "subsistence_building": "\"building_subsistence_farms\"",
         "provinces": [
+            "\"x0180A0\"",
+            "\"x3E3572\"",
             "\"x19AE19\"",
             "\"x3C26DD\"",
             "\"x567452\"",
@@ -2987,7 +2993,7 @@
         ],
         "traits": [
             "\"state_trait_elbe_river\"",
-            "\"state_trait_bremerhaven\""
+            "\"state_trait_hamburger_hafen\""
         ],
         "city": "\"x587297\"",
         "port": "\"x68BE66\"",
@@ -3165,7 +3171,8 @@
             "\"xD080A0\""
         ],
         "traits": [
-            "\"state_trait_rhine_river\""
+            "\"state_trait_rhine_river\"",
+            "\"state_trait_great_terroir\""
         ],
         "city": "\"x904020\"",
         "farm": "\"x707505\"",
@@ -3491,7 +3498,6 @@
             "\"x43CE26\"",
             "\"x5141A0\"",
             "\"x51C021\"",
-            "\"x614121\"",
             "\"x66FE0A\"",
             "\"x795368\"",
             "\"x917939\"",
@@ -3505,7 +3511,6 @@
             "\"xD0C021\"",
             "\"x66FE0A\"",
             "\"x169073\"",
-            "\"x614121\"",
             "\"xAFDFBF\"",
             "\"x917939\"",
             "\"x43CE26\""
@@ -3703,7 +3708,7 @@
     },
     "STATE_PIEDMONT": {
         "id": "77",
-        "subsistence_building": "\"building_subsistence_farms\"",
+        "subsistence_building": "\"building_subsistence_rice_paddies\"",
         "provinces": [
             "\"x1140E0\"",
             "\"x11C061\"",
@@ -3728,7 +3733,7 @@
         "wood": "\"xD080E0\"",
         "arable_land": "90",
         "arable_resources": [
-            "\"bg_wheat_farms\"",
+            "\"bg_rice_farms\"",
             "\"bg_livestock_ranches\"",
             "\"bg_cotton_plantations\"",
             "\"bg_vineyard_plantations\""
@@ -3790,6 +3795,8 @@
         "city": "\"x015121\"",
         "port": "\"x015121\"",
         "farm": "\"x3A8B51\"",
+        "mine": "\"x3A8B51\"",
+        "wood": "\"x3A8B51\"",
         "arable_land": "5",
         "arable_resources": [
             "\"bg_wheat_farms\"",
@@ -3844,6 +3851,7 @@
         "port": "\"x706E78\"",
         "farm": "\"x396B5C\"",
         "wood": "\"xEF4020\"",
+        "mine": "\"xEF4020\"",
         "arable_land": "10",
         "arable_resources": [
             "\"bg_livestock_ranches\"",
@@ -4045,6 +4053,9 @@
     "STATE_TUSCANY": {
         "id": "88",
         "subsistence_building": "\"building_subsistence_farms\"",
+        "traits": [
+            "\"state_trait_great_terroir\""
+        ],
         "provinces": [
             "\"x32BA1A\"",
             "\"x6A7662\"",
@@ -4147,7 +4158,8 @@
             "\"xC02A3F\""
         ],
         "traits": [
-            "\"state_trait_po_river\""
+            "\"state_trait_po_river\"",
+            "\"state_trait_venetian_lagoon\""
         ],
         "city": "\"x3083C8\"",
         "port": "\"xB001A0\"",
@@ -4373,7 +4385,8 @@
             "\"xCB3245\""
         ],
         "traits": [
-            "\"state_trait_basque_iron_ore\""
+            "\"state_trait_basque_iron_ore\"",
+            "\"state_trait_great_terroir\""
         ],
         "city": "\"xABE0B3\"",
         "port": "\"x48868C\"",
@@ -4478,6 +4491,9 @@
         ],
         "city": "\"x60F080\"",
         "port": "\"x7D3FD7\"",
+        "farm": "\"x7D3FD7\"",
+        "mine": "\"x7D3FD7\"",
+        "wood": "\"x7D3FD7\"",
         "arable_land": "10",
         "arable_resources": [
             "\"bg_wheat_farms\"",
@@ -4652,6 +4668,9 @@
     "STATE_BEIRA": {
         "id": "104",
         "subsistence_building": "\"building_subsistence_farms\"",
+        "traits": [
+            "\"state_trait_great_terroir\""
+        ],
         "provinces": [
             "\"x0EF845\"",
             "\"x3020A3\"",
@@ -4819,6 +4838,7 @@
         "port": "\"x769456\"",
         "farm": "\"x90A080\"",
         "wood": "\"x90A080\"",
+        "mine": "\"x90A080\"",
         "arable_land": "6",
         "arable_resources": [
             "\"bg_wheat_farms\"",
@@ -4844,6 +4864,8 @@
         "city": "\"x4D5156\"",
         "port": "\"x385719\"",
         "farm": "\"x385719\"",
+        "mine": "\"x385719\"",
+        "wood": "\"x385719\"",
         "arable_land": "8",
         "arable_resources": [
             "\"bg_wheat_farms\"",
@@ -4861,6 +4883,9 @@
     "STATE_EASTERN_THRACE": {
         "id": "108",
         "subsistence_building": "\"building_subsistence_farms\"",
+        "traits": [
+            "\"state_trait_bosporus\""
+        ],
         "provinces": [
             "\"x115006\"",
             "\"x194E90\"",
@@ -5221,7 +5246,8 @@
             "\"xF0A040\""
         ],
         "traits": [
-            "\"state_trait_terra_rossa\""
+            "\"state_trait_terra_rossa\"",
+            "\"state_trait_gulf_of_trieste\""
         ],
         "city": "\"x3060BF\"",
         "port": "\"x36B2E3\"",
@@ -5262,39 +5288,41 @@
         "farm": "\"x8C6292\"",
         "mine": "\"xA12F82\"",
         "wood": "\"xA12F82\"",
-        "arable_land": "13",
+        "arable_land": "38",
         "arable_resources": [
             "\"bg_wheat_farms\"",
             "\"bg_livestock_ranches\"",
             "\"bg_vineyard_plantations\""
         ],
         "capped_resources": {
-            "bg_lead_mining": "24",
-            "bg_logging": "4"
+            "bg_coal_mining": "50",
+            "bg_logging": "15",
+            "bg_fishing": "15"
         },
         "naval_exit_id": "3033"
     },
-    "STATE_NORTHERN_SERBIA": {
+    "STATE_WESTERN_SERBIA": {
         "id": "120",
         "subsistence_building": "\"building_subsistence_farms\"",
         "provinces": [
             "\"x10A060\"",
-            "\"x3B6092\"",
-            "\"x40AF95\"",
+            "\"x4773E6\"",
             "\"x4B1F45\"",
             "\"x4D115A\"",
-            "\"x74F1F4\"",
-            "\"x9061A0\"",
             "\"x90A061\"",
+            "\"x9DFFAF\"",
             "\"xEDBA20\"",
             "\"xF9E78E\""
+        ],
+        "prime_land": [
+            "\"x9DFFAF\""
         ],
         "traits": [
             "\"state_trait_danube_river\""
         ],
         "city": "\"xF9E78E\"",
-        "farm": "\"x3B6092\"",
-        "mine": "\"x9061A0\"",
+        "farm": "\"x9DFFAF\"",
+        "mine": "\"x90A061\"",
         "wood": "\"xEDBA20\"",
         "arable_land": "35",
         "arable_resources": [
@@ -5307,26 +5335,27 @@
             "bg_logging": "13"
         }
     },
-    "STATE_SOUTHERN_SERBIA": {
+    "STATE_EASTERN_SERBIA": {
         "id": "121",
         "subsistence_building": "\"building_subsistence_farms\"",
+        "traits": [
+            "\"state_trait_danube_river\""
+        ],
         "provinces": [
             "\"x18B761\"",
             "\"x334B53\"",
-            "\"x45E06A\"",
-            "\"x4773E6\"",
+            "\"x3B6092\"",
+            "\"x40AF95\"",
             "\"x62A730\"",
-            "\"x9DFFAF\"",
-            "\"xA5D3A9\"",
+            "\"x74F1F4\"",
+            "\"x9061A0\"",
             "\"xAC083C\"",
-            "\"xB852BB\"",
-            "\"xD02161\"",
             "\"xD021E0\""
         ],
-        "city": "\"x45E06A\"",
-        "farm": "\"xD02161\"",
-        "mine": "\"x334B53\"",
-        "wood": "\"xD021E0\"",
+        "city": "\"x334B53\"",
+        "farm": "\"x62A730\"",
+        "mine": "\"x74F1F4\"",
+        "wood": "\"xAC083C\"",
         "arable_land": "45",
         "arable_resources": [
             "\"bg_wheat_farms\"",
@@ -5334,9 +5363,34 @@
             "\"bg_vineyard_plantations\""
         ],
         "capped_resources": {
-            "bg_coal_mining": "40",
-            "bg_lead_mining": "36",
-            "bg_logging": "14"
+            "bg_coal_mining": "30",
+            "bg_lead_mining": "12",
+            "bg_logging": "10"
+        }
+    },
+    "STATE_KOSOVO": {
+        "id": "923",
+        "subsistence_building": "\"building_subsistence_farms\"",
+        "provinces": [
+            "\"x45E06A\"",
+            "\"xA5D3A9\"",
+            "\"xB852BB\"",
+            "\"xD02161\""
+        ],
+        "city": "\"x45E06A\"",
+        "farm": "\"xA5D3A9\"",
+        "mine": "\"x45E06A\"",
+        "wood": "\"xA5D3A9\"",
+        "arable_land": "45",
+        "arable_resources": [
+            "\"bg_wheat_farms\"",
+            "\"bg_livestock_ranches\"",
+            "\"bg_vineyard_plantations\""
+        ],
+        "capped_resources": {
+            "bg_coal_mining": "10",
+            "bg_lead_mining": "24",
+            "bg_logging": "4"
         }
     },
     "STATE_CRETE": {
@@ -5349,6 +5403,8 @@
         "city": "\"x0B9BBE\"",
         "port": "\"x6010A0\"",
         "farm": "\"x6010A0\"",
+        "mine": "\"x6010A0\"",
+        "wood": "\"x6010A0\"",
         "arable_land": "8",
         "arable_resources": [
             "\"bg_wheat_farms\"",
@@ -5376,6 +5432,8 @@
         "city": "\"x6090A0\"",
         "port": "\"x6960A0\"",
         "farm": "\"x6090A0\"",
+        "mine": "\"x6090A0\"",
+        "wood": "\"x6090A0\"",
         "arable_land": "5",
         "arable_resources": [
             "\"bg_wheat_farms\"",
@@ -5401,6 +5459,7 @@
         "port": "\"xE011A0\"",
         "farm": "\"x2190A0\"",
         "wood": "\"xC56452\"",
+        "mine": "\"xC56452\"",
         "arable_land": "5",
         "arable_resources": [
             "\"bg_wheat_farms\"",
@@ -5586,6 +5645,8 @@
         "city": "\"x4B79CA\"",
         "port": "\"x405060\"",
         "farm": "\"x405060\"",
+        "mine": "\"x405060\"",
+        "wood": "\"x405060\"",
         "arable_land": "10",
         "arable_resources": [
             "\"bg_wheat_farms\"",
@@ -5663,44 +5724,76 @@
             "bg_logging": "8"
         }
     },
-    "STATE_SILESIA": {
+    "STATE_LOWER_SILESIA": {
         "id": "155",
         "subsistence_building": "\"building_subsistence_farms\"",
         "provinces": [
             "\"x1B72C9\"",
             "\"x272E48\"",
-            "\"x5E9091\"",
+            "\"x614121\"",
             "\"x6E617F\"",
             "\"x732DC0\"",
-            "\"x7B2F62\"",
-            "\"x821F52\"",
-            "\"x88194B\"",
-            "\"x90B12B\"",
             "\"x94D624\"",
-            "\"xAF9F20\"",
             "\"xC00121\"",
             "\"xC108EA\"",
             "\"xCE74AB\""
         ],
         "traits": [
-            "\"state_trait_oder_river\"",
-            "\"state_trait_upper_silesia_coalfield\""
+            "\"state_trait_oder_river\""
         ],
         "city": "\"x6E617F\"",
-        "farm": "\"xAF9F20\"",
+        "farm": "\"xC108EA\"",
         "mine": "\"x272E48\"",
-        "wood": "\"x90B12B\"",
-        "arable_land": "105",
+        "wood": "\"x732DC0\"",
+        "arable_land": "90",
         "arable_resources": [
             "\"bg_rye_farms\"",
             "\"bg_livestock_ranches\""
         ],
         "capped_resources": {
-            "bg_coal_mining": "120",
-            "bg_iron_mining": "60",
-            "bg_lead_mining": "54",
-            "bg_sulfur_mining": "40",
-            "bg_logging": "14"
+            "bg_coal_mining": "20",
+            "bg_iron_mining": "20",
+            "bg_lead_mining": "4",
+            "bg_sulfur_mining": "9",
+            "bg_logging": "10"
+        }
+    },
+    "STATE_UPPER_SILESIA": {
+        "id": "924",
+        "subsistence_building": "\"building_subsistence_farms\"",
+        "provinces": [
+            "\"x5E9091\"",
+            "\"x71E080\"",
+            "\"x7B2F62\"",
+            "\"x821F52\"",
+            "\"x88194B\"",
+            "\"x9061E0\"",
+            "\"x90B12B\"",
+            "\"xAF9F20\"",
+            "\"xF0E080\""
+        ],
+        "traits": [
+            "\"state_trait_oder_river\"",
+            "\"state_trait_upper_silesia_coalfield\""
+        ],
+        "prime_land": [
+            "\"xF0E080\""
+        ],
+        "city": "\"x90B12B\"",
+        "farm": "\"xF0E080\"",
+        "mine": "\"x821F52\"",
+        "wood": "\"x9061E0\"",
+        "arable_land": "45",
+        "arable_resources": [
+            "\"bg_rye_farms\"",
+            "\"bg_livestock_ranches\""
+        ],
+        "capped_resources": {
+            "bg_coal_mining": "110",
+            "bg_iron_mining": "40",
+            "bg_lead_mining": "50",
+            "bg_sulfur_mining": "31",
+            "bg_logging": "4"
         }
     },
     "STATE_GREATER_POLAND": {
@@ -5785,15 +5878,11 @@
         "id": "158",
         "subsistence_building": "\"building_subsistence_farms\"",
         "provinces": [
-            "\"x0180A0\"",
             "\"x178C99\"",
             "\"x374AC3\"",
-            "\"x3E3572\"",
             "\"x41A021\"",
             "\"x55FD02\"",
             "\"x611F2F\"",
-            "\"x6E8875\"",
-            "\"x7A6061\"",
             "\"x7CB839\"",
             "\"x80A0A0\"",
             "\"x945000\"",
@@ -5829,7 +5918,9 @@
             "\"x4121A0\"",
             "\"x47C900\"",
             "\"x5428E6\"",
+            "\"x6E8875\"",
             "\"x72FDF3\"",
+            "\"x7A6061\"",
             "\"x7D6DC3\"",
             "\"x975566\"",
             "\"x981EBE\"",
@@ -5898,7 +5989,6 @@
             "\"x5F3456\"",
             "\"x66DCEE\"",
             "\"x906060\"",
-            "\"x9061E0\"",
             "\"x90E060\"",
             "\"xA550A9\"",
             "\"xA63CE6\"",
@@ -5913,7 +6003,7 @@
         "city": "\"x906060\"",
         "farm": "\"x5F3456\"",
         "mine": "\"x5F3456\"",
-        "wood": "\"x9061E0\"",
+        "wood": "\"x5F3456\"",
         "arable_land": "145",
         "arable_resources": [
             "\"bg_rye_farms\"",
@@ -5950,7 +6040,6 @@
             "\"xC58E1C\"",
             "\"xCAE5B0\"",
             "\"xCDD223\"",
-            "\"xD0E061\"",
             "\"xE369C4\"",
             "\"xEFE270\""
         ],
@@ -6136,7 +6225,8 @@
             "\"xF56517\""
         ],
         "traits": [
-            "\"state_trait_pannonian_plain\""
+            "\"state_trait_pannonian_plain\"",
+            "\"state_trait_danube_river\""
         ],
         "city": "\"x90E021\"",
         "farm": "\"x15C7D1\"",
@@ -6152,19 +6242,25 @@
             "bg_logging": "9"
         }
     },
-    "STATE_WEST_SLOVAKIA": {
+    "STATE_SLOVAKIA": {
         "id": "168",
         "subsistence_building": "\"building_subsistence_farms\"",
         "provinces": [
+            "\"x02CE3A\"",
             "\"x082416\"",
             "\"x1F3F2B\"",
+            "\"x20C000\"",
             "\"x51306A\"",
             "\"x516161\"",
+            "\"x51E061\"",
             "\"x695F42\"",
             "\"x6B444C\"",
+            "\"x7DE5D3\"",
             "\"x853117\"",
             "\"x90E0E0\"",
+            "\"xB23DA0\"",
             "\"xB386BA\"",
+            "\"xC54074\"",
             "\"xCA932B\"",
             "\"xD06161\"",
             "\"xFC6F14\""
@@ -6173,9 +6269,9 @@
             "\"state_trait_danube_river\""
         ],
         "city": "\"xCA932B\"",
-        "farm": "\"x90E0E0\"",
-        "mine": "\"x853117\"",
-        "wood": "\"x51306A\"",
+        "farm": "\"x7DE5D3\"",
+        "mine": "\"x51306A\"",
+        "wood": "\"x853117\"",
         "arable_land": "105",
         "arable_resources": [
             "\"bg_wheat_farms\"",
@@ -6188,25 +6284,20 @@
             "bg_logging": "8"
         }
     },
-    "STATE_EAST_SLOVAKIA": {
+    "STATE_RUTHENIA": {
         "id": "169",
         "subsistence_building": "\"building_subsistence_farms\"",
         "provinces": [
-            "\"x02CE3A\"",
-            "\"x20C000\"",
             "\"x359378\"",
-            "\"x51E061\"",
             "\"x69BAC7\"",
-            "\"x7DE5D3\"",
             "\"xA0531B\"",
-            "\"xB23DA0\"",
-            "\"xC54074\"",
-            "\"xC85CD0\""
+            "\"xC85CD0\"",
+            "\"xD0E061\""
         ],
-        "city": "\"x7DE5D3\"",
-        "farm": "\"xC85CD0\"",
-        "mine": "\"xA0531B\"",
-        "wood": "\"x02CE3A\"",
+        "city": "\"xA0531B\"",
+        "farm": "\"xA0531B\"",
+        "mine": "\"x69BAC7\"",
+        "wood": "\"x69BAC7\"",
         "arable_land": "70",
         "arable_resources": [
             "\"bg_wheat_farms\"",
@@ -6287,29 +6378,24 @@
         "id": "172",
         "subsistence_building": "\"building_subsistence_farms\"",
         "provinces": [
-            "\"x00A7F4\"",
-            "\"x067DF0\"",
             "\"x0983EE\"",
             "\"x0D8A56\"",
             "\"x30E0A0\"",
-            "\"x31A0A0\"",
             "\"x35CE84\"",
             "\"x3CE97E\"",
             "\"x556DE7\"",
             "\"x56839F\"",
             "\"x734EFF\"",
-            "\"x7E6263\"",
             "\"x80D8F3\"",
             "\"x946A66\"",
             "\"xB0A0E0\"",
             "\"xEF2060\"",
             "\"xF40045\"",
-            "\"xFF2F40\"",
-            "\"xFFCCDA\""
+            "\"xFF2F40\""
         ],
         "city": "\"x946A66\"",
         "farm": "\"x30E0A0\"",
-        "mine": "\"xFFCCDA\"",
+        "mine": "\"x35CE84\"",
         "wood": "\"x0D8A56\"",
         "arable_land": "100",
         "arable_resources": [
@@ -6320,8 +6406,8 @@
             "\"bg_vineyard_plantations\""
         ],
         "capped_resources": {
-            "bg_iron_mining": "30",
-            "bg_logging": "14"
+            "bg_iron_mining": "26",
+            "bg_logging": "8"
         },
         "resource": [
             {
@@ -6329,6 +6415,32 @@
                 "undiscovered_amount": "50"
             }
         ]
+    },
+    "STATE_BUKOVINA": {
+        "id": "922",
+        "subsistence_building": "\"building_subsistence_farms\"",
+        "provinces": [
+            "\"x00A7F4\"",
+            "\"x067DF0\"",
+            "\"x31A0A0\"",
+            "\"x7E6263\"",
+            "\"xFFCCDA\""
+        ],
+        "city": "\"x00A7F4\"",
+        "farm": "\"x00A7F4\"",
+        "mine": "\"x00A7F4\"",
+        "wood": "\"x00A7F4\"",
+        "arable_land": "100",
+        "arable_resources": [
+            "\"bg_wheat_farms\"",
+            "\"bg_livestock_ranches\"",
+            "\"bg_vineyard_plantations\""
+        ],
+        "capped_resources": {
+            "bg_iron_mining": "4",
+            "bg_coal_mining": "2",
+            "bg_logging": "7"
+        }
     },
     "STATE_WALLACHIA": {
         "id": "173",
@@ -11768,11 +11880,12 @@
     "STATE_ZANZIBAR": {
         "id": "224",
         "subsistence_building": "\"building_subsistence_farms\"",
+        "traits": [
+            "\"state_trait_natural_harbors\"",
+            "\"state_trait_malaria\""
+        ],
         "provinces": [
             "\"x16F859\"",
-            "\"x21A090\"",
-            "\"x22D39E\"",
-            "\"x35554F\"",
             "\"x414325\"",
             "\"x438029\"",
             "\"x6021AF\"",
@@ -11781,22 +11894,14 @@
             "\"x6B7D25\"",
             "\"x7D05E3\"",
             "\"x93DC46\"",
-            "\"x941594\"",
-            "\"x9E9F57\"",
             "\"xA06030\"",
             "\"xA50F53\"",
-            "\"xC52E48\"",
-            "\"xC53497\"",
             "\"xE020B0\"",
             "\"xE0D920\"",
-            "\"xE23000\"",
             "\"xE60324\"",
             "\"xF87B77\""
         ],
-        "traits": [
-            "\"state_trait_malaria\""
-        ],
-        "city": "\"xE0D920\"",
+        "city": "\"xE020B0\"",
         "port": "\"xA50F53\"",
         "farm": "\"x93DC46\"",
         "mine": "\"x16F859\"",
@@ -11963,10 +12068,13 @@
             "\"x08B945\"",
             "\"x0AF9FB\"",
             "\"x19CFEC\"",
+            "\"x21A090\"",
+            "\"x22D39E\"",
             "\"x28843B\"",
             "\"x2F7464\"",
             "\"x30D3AC\"",
             "\"x33566A\"",
+            "\"x35554F\"",
             "\"x356777\"",
             "\"x405F8E\"",
             "\"x40DE9B\"",
@@ -11991,11 +12099,13 @@
             "\"x89BA83\"",
             "\"x8FF25F\"",
             "\"x90F646\"",
+            "\"x941594\"",
             "\"x95C403\"",
             "\"x996D62\"",
             "\"x9A78B7\"",
             "\"x9AE44A\"",
             "\"x9BA0B4\"",
+            "\"x9E9F57\"",
             "\"x9FDE2D\"",
             "\"xA02190\"",
             "\"xA0A011\"",
@@ -12010,6 +12120,8 @@
             "\"xBD067F\"",
             "\"xBFCF3E\"",
             "\"xC2118A\"",
+            "\"xC52E48\"",
+            "\"xC53497\"",
             "\"xC80CAC\"",
             "\"xC8B790\"",
             "\"xC95AAB\"",
@@ -12017,6 +12129,7 @@
             "\"xD775AC\"",
             "\"xD8A2A3\"",
             "\"xE007A1\"",
+            "\"xE23000\"",
             "\"xE5F986\"",
             "\"xECA4C0\"",
             "\"xF59538\"",
@@ -12032,6 +12145,20 @@
         "farm": "\"x6B52F1\"",
         "mine": "\"x89BA83\"",
         "wood": "\"xF59538\"",
+        "prime_land": [
+            "x35554F",
+            "x941594",
+            "x22D39E",
+            "x5C1ADA",
+            "x6CCF4B",
+            "x6B52F1",
+            "xA02190",
+            "x21A090",
+            "x9E9F57",
+            "xC53497",
+            "xC52E48",
+            "xE23000"
+        ],
         "arable_land": "80",
         "arable_resources": [
             "\"bg_millet_farms\"",
@@ -12047,7 +12174,7 @@
         ],
         "capped_resources": {
             "bg_logging": "6",
-            "bg_fishing": "5"
+            "bg_fishing": "10"
         },
         "resource": [
             {
@@ -13111,7 +13238,8 @@
             "\"xFF0E29\""
         ],
         "traits": [
-            "\"state_trait_malaria\""
+            "\"state_trait_malaria\"",
+            "\"state_trait_white_nile\""
         ],
         "prime_land": [
             "\"xF9F832\""
@@ -15688,6 +15816,9 @@
     "STATE_CAPE_COLONY": {
         "id": "261",
         "subsistence_building": "\"building_subsistence_farms\"",
+        "traits": [
+            "\"state_trait_natural_harbors\""
+        ],
         "provinces": [
             "\"x026A9C\"",
             "\"x0C9F79\"",
@@ -16107,7 +16238,9 @@
         "city": "\"x700080\"",
         "port": "\"x700080\"",
         "farm": "\"x44578C\"",
-        "arable_land": "1",
+        "mine": "\"x44578C\"",
+        "wood": "\"x44578C\"",
+        "arable_land": "3",
         "arable_resources": [
             "\"bg_maize_farms\"",
             "\"bg_livestock_ranches\"",
@@ -18090,7 +18223,8 @@
         "capped_resources": {
             "bg_coal_mining": "32",
             "bg_logging": "17",
-            "bg_fishing": "6"
+            "bg_fishing": "6",
+            "bg_whaling": "3"
         },
         "naval_exit_id": "3154"
     },
@@ -18194,7 +18328,8 @@
         ],
         "capped_resources": {
             "bg_logging": "20",
-            "bg_fishing": "5"
+            "bg_fishing": "5",
+            "bg_whaling": "3"
         },
         "naval_exit_id": "3154"
     },
@@ -20111,6 +20246,8 @@
         "city": "\"xEBA646\"",
         "port": "\"xEBA646\"",
         "farm": "\"xEBA646\"",
+        "mine": "\"xEBA646\"",
+        "wood": "\"xEBA646\"",
         "arable_land": "15",
         "arable_resources": [
             "\"bg_maize_farms\"",
@@ -20307,6 +20444,8 @@
         "city": "\"x939ACE\"",
         "port": "\"x939ACE\"",
         "farm": "\"x939ACE\"",
+        "wood": "\"x939ACE\"",
+        "mine": "\"x939ACE\"",
         "arable_land": "10",
         "arable_resources": [
             "\"bg_wheat_farms\"",
@@ -20337,6 +20476,7 @@
         "port": "\"x7DE678\"",
         "farm": "\"x3040C0\"",
         "wood": "\"x9D3A73\"",
+        "mine": "\"x9D3A73\"",
         "arable_land": "15",
         "arable_resources": [
             "\"bg_wheat_farms\"",
@@ -20719,6 +20859,8 @@
         "city": "\"xB5403E\"",
         "port": "\"x492B26\"",
         "farm": "\"x6090C0\"",
+        "mine": "\"x6090C0\"",
+        "wood": "\"x6090C0\"",
         "arable_land": "15",
         "arable_resources": [
             "\"bg_rice_farms\"",
@@ -28090,6 +28232,8 @@
         "city": "\"xE55147\"",
         "port": "\"x169E2D\"",
         "farm": "\"x169E2D\"",
+        "mine": "\"x169E2D\"",
+        "wood": "\"x169E2D\"",
         "arable_land": "10",
         "arable_resources": [
             "\"bg_livestock_ranches\"",
@@ -28265,6 +28409,9 @@
             "\"xFDD38C\"",
             "\"xFE0821\"",
             "\"xFE4703\""
+        ],
+        "traits": [
+            "\"state_trait_rio_grande_river\""
         ],
         "city": "\"x1B9E2A\"",
         "port": "\"x803040\"",
@@ -28509,6 +28656,9 @@
     "STATE_NEW_MEXICO": {
         "id": "325",
         "subsistence_building": "\"building_subsistence_pastures\"",
+        "traits": [
+            "\"state_trait_rio_grande_river\""
+        ],
         "provinces": [
             "\"x00E2A7\"",
             "\"x0957D1\"",
@@ -28741,7 +28891,8 @@
             "bg_iron_mining": "33",
             "bg_sulfur_mining": "40",
             "bg_logging": "13",
-            "bg_fishing": "14"
+            "bg_fishing": "14",
+            "bg_whaling": "6"
         },
         "resource": [
             {
@@ -28891,7 +29042,8 @@
             "\"xFE578D\""
         ],
         "traits": [
-            "\"state_trait_sierra_madre_oriental\""
+            "\"state_trait_sierra_madre_oriental\"",
+            "\"state_trait_rio_grande_river\""
         ],
         "city": "\"x2B7E93\"",
         "farm": "\"x04C43F\"",
@@ -28979,6 +29131,9 @@
             "\"xF9A35E\"",
             "\"xFC72E1\"",
             "\"xFEC6A5\""
+        ],
+        "traits": [
+            "\"state_trait_rio_grande_river\""
         ],
         "city": "\"x766F08\"",
         "port": "\"xE96480\"",
@@ -29462,7 +29617,8 @@
             "\"xE9BCBE\""
         ],
         "traits": [
-            "\"state_trait_sierra_madre_occidental\""
+            "\"state_trait_sierra_madre_occidental\"",
+            "\"state_trait_natural_harbors\""
         ],
         "city": "\"xE34EE3\"",
         "port": "\"x3F0A44\"",
@@ -29643,7 +29799,8 @@
         ],
         "capped_resources": {
             "bg_logging": "2",
-            "bg_fishing": "6"
+            "bg_fishing": "6",
+            "bg_whaling": "4"
         },
         "naval_exit_id": "3153"
     },
@@ -30051,6 +30208,8 @@
         "city": "\"x2160B9\"",
         "port": "\"xB07080\"",
         "farm": "\"xB07080\"",
+        "mine": "\"xB07080\"",
+        "wood": "\"xB07080\"",
         "arable_land": "15",
         "arable_resources": [
             "\"bg_rice_farms\"",
@@ -30085,6 +30244,7 @@
         "port": "\"x72C072\"",
         "farm": "\"x4EBC79\"",
         "wood": "\"x4EBC79\"",
+        "mine": "\"x4EBC79\"",
         "arable_land": "10",
         "arable_resources": [
             "\"bg_rice_farms\"",
@@ -30161,6 +30321,8 @@
         "city": "\"x7070B8\"",
         "port": "\"x7070B8\"",
         "farm": "\"x535B49\"",
+        "mine": "\"x535B49\"",
+        "wood": "\"x535B49\"",
         "arable_land": "20",
         "arable_resources": [
             "\"bg_rice_farms\"",
@@ -32029,7 +32191,8 @@
         ],
         "traits": [
             "\"state_trait_uruguay_river\"",
-            "\"state_trait_pampas\""
+            "\"state_trait_pampas\"",
+            "\"state_trait_natural_harbors\""
         ],
         "city": "\"x302DDA\"",
         "port": "\"xA46ED2\"",
@@ -32040,8 +32203,6 @@
         "arable_resources": [
             "\"bg_maize_farms\"",
             "\"bg_livestock_ranches\"",
-            "\"bg_coffee_plantations\"",
-            "\"bg_tobacco_plantations\"",
             "\"bg_vineyard_plantations\""
         ],
         "capped_resources": {
@@ -32377,7 +32538,8 @@
             "\"xF74125\""
         ],
         "traits": [
-            "\"state_trait_pampas\""
+            "\"state_trait_pampas\"",
+            "\"state_trait_natural_harbors\""
         ],
         "city": "\"x365A5B\"",
         "port": "\"x672B93\"",
@@ -36432,6 +36594,9 @@
     "STATE_YEMEN": {
         "id": "401",
         "subsistence_building": "\"building_subsistence_pastures\"",
+        "traits": [
+            "\"state_trait_natural_harbors\""
+        ],
         "provinces": [
             "\"x00E3EF\"",
             "\"x02B35C\"",
@@ -36934,6 +37099,8 @@
         "city": "\"x40B020\"",
         "port": "\"xBF3020\"",
         "farm": "\"x79685E\"",
+        "mine": "\"x79685E\"",
+        "wood": "\"x79685E\"",
         "arable_land": "9",
         "arable_resources": [
             "\"bg_wheat_farms\"",
@@ -38200,6 +38367,9 @@
     "STATE_AYDIN": {
         "id": "425",
         "subsistence_building": "\"building_subsistence_farms\"",
+        "traits": [
+            "\"state_trait_natural_harbors\""
+        ],
         "provinces": [
             "\"x15CC91\"",
             "\"x205020\"",
@@ -38239,6 +38409,9 @@
     "STATE_KONYA": {
         "id": "426",
         "subsistence_building": "\"building_subsistence_farms\"",
+        "traits": [
+            "\"state_trait_anatolian_plateau\""
+        ],
         "provinces": [
             "\"x02FE8B\"",
             "\"x04C595\"",
@@ -38309,6 +38482,10 @@
     "STATE_KASTAMONU": {
         "id": "427",
         "subsistence_building": "\"building_subsistence_farms\"",
+        "traits": [
+            "\"state_trait_pontus\"",
+            "\"state_trait_zonguldak_basin\""
+        ],
         "provinces": [
             "\"x1D8401\"",
             "\"x312F4B\"",
@@ -38445,6 +38622,9 @@
     "STATE_TRABZON": {
         "id": "430",
         "subsistence_building": "\"building_subsistence_farms\"",
+        "traits": [
+            "\"state_trait_pontus\""
+        ],
         "provinces": [
             "\"x001080\"",
             "\"x009080\"",
@@ -38534,6 +38714,9 @@
     "STATE_ANKARA": {
         "id": "432",
         "subsistence_building": "\"building_subsistence_farms\"",
+        "traits": [
+            "\"state_trait_anatolian_plateau\""
+        ],
         "provinces": [
             "\"x03F8EA\"",
             "\"x04F350\"",
@@ -38778,9 +38961,6 @@
             "\"xBFD159\"",
             "\"xD77566\"",
             "\"xE7B07C\""
-        ],
-        "traits": [
-            "\"state_trait_caucasus_mountains\""
         ],
         "city": "\"x6EB08E\"",
         "farm": "\"x493F0B\"",
@@ -40409,7 +40589,6 @@
             "\"state_trait_himalayas_mountains\""
         ],
         "city": "\"xDA7F32\"",
-        "port": "\"xDA7F32\"",
         "farm": "\"xDA7F32\"",
         "mine": "\"xDA7F32\"",
         "wood": "\"xDA7F32\"",
@@ -41758,6 +41937,8 @@
         "city": "\"xD690E0\"",
         "port": "\"xD0E090\"",
         "farm": "\"xD0E090\"",
+        "mine": "\"xD0E090\"",
+        "wood": "\"xD0E090\"",
         "arable_land": "15",
         "arable_resources": [
             "\"bg_rice_farms\"",
@@ -45948,7 +46129,8 @@
             "\"xE9E92E\""
         ],
         "traits": [
-            "\"state_trait_yangtze_river\""
+            "\"state_trait_yangtze_river\"",
+            "\"state_trait_natural_harbors\""
         ],
         "city": "\"xB01101\"",
         "port": "\"x301000\"",
@@ -46588,6 +46770,11 @@
             "\"xFA2C44\"",
             "\"xFB565E\""
         ],
+        "prime_land": [
+            "\"xEFEF20\"",
+            "\"x2E84A3\"",
+            "\"x65369D\""
+        ],
         "traits": [
             "\"state_trait_indochinese_forest\"",
             "\"state_trait_mekong_river\""
@@ -46595,7 +46782,7 @@
         "city": "\"xD45279\"",
         "port": "\"x7A5B5E\"",
         "farm": "\"xE2C782\"",
-        "mine": "\"xF0FC47\"",
+        "mine": "\"x20D113\"",
         "wood": "\"xC2C8CF\"",
         "arable_land": "35",
         "arable_resources": [
@@ -46649,7 +46836,8 @@
             "\"xF36077\""
         ],
         "traits": [
-            "\"state_trait_chao_phraya_delta\""
+            "\"state_trait_chao_phraya_delta\"",
+            "\"state_trait_natural_harbors\""
         ],
         "city": "\"x10AFE0\"",
         "port": "\"x10AFE0\"",
@@ -46767,11 +46955,11 @@
         "traits": [
             "\"state_trait_indochinese_forest\""
         ],
-        "city": "\"xA01EF1\"",
-        "port": "\"x2A870A\"",
-        "farm": "\"xB070A0\"",
+        "city": "\"xB070A0\"",
+        "port": "\"xA01EF1\"",
+        "farm": "\"x2A870A\"",
         "mine": "\"xEDBFB1\"",
-        "wood": "\"x307020\"",
+        "wood": "\"x5109BC\"",
         "arable_land": "60",
         "arable_resources": [
             "\"bg_rice_farms\"",
@@ -46830,6 +47018,18 @@
             "\"xE5A4DA\"",
             "\"xFD66E6\""
         ],
+        "prime_land": [
+            "\"x246E58\"",
+            "\"x4923A3\"",
+            "\"x223DD3\"",
+            "\"xDF070D\"",
+            "\"x1D9718\"",
+            "\"x4080B0\"",
+            "\"x474B0B\"",
+            "\"xE5A4DA\"",
+            "\"x00C0B0\"",
+            "\"x7D46C6\""
+        ],
         "traits": [
             "\"state_trait_mekong_delta\"",
             "\"state_trait_indochinese_forest\""
@@ -46839,7 +47039,7 @@
         "farm": "\"x3C8C22\"",
         "mine": "\"x1C5BE6\"",
         "wood": "\"x246E58\"",
-        "arable_land": "45",
+        "arable_land": "60",
         "arable_resources": [
             "\"bg_rice_farms\"",
             "\"bg_livestock_ranches\"",
@@ -46920,9 +47120,9 @@
             "\"state_trait_mekong_river\""
         ],
         "city": "\"x1E6D3C\"",
-        "farm": "\"x21D9CC\"",
+        "farm": "\"xC8AFB5\"",
         "mine": "\"xF03D75\"",
-        "wood": "\"xDE87E1\"",
+        "wood": "\"xB0EF20\"",
         "arable_land": "40",
         "arable_resources": [
             "\"bg_rice_farms\"",
@@ -47064,7 +47264,8 @@
             "\"bg_banana_plantations\""
         ],
         "capped_resources": {
-            "bg_logging": "25"
+            "bg_logging": "25",
+            "bg_fishing": "6"
         },
         "resource": [
             {
@@ -47443,6 +47644,8 @@
         "city": "\"xF0F061\"",
         "port": "\"xF0D080\"",
         "farm": "\"xF0F061\"",
+        "mine": "\"xF0F061\"",
+        "wood": "\"xF0F061\"",
         "arable_land": "15",
         "arable_resources": [
             "\"bg_rice_farms\"",
@@ -47735,6 +47938,9 @@
     "STATE_MALAYA": {
         "id": "540",
         "subsistence_building": "\"building_subsistence_rice_paddies\"",
+        "traits": [
+            "\"state_trait_natural_harbors\""
+        ],
         "provinces": [
             "\"x0080B0\"",
             "\"x08673B\"",
@@ -48398,6 +48604,9 @@
     "STATE_ACEH": {
         "id": "547",
         "subsistence_building": "\"building_subsistence_farms\"",
+        "traits": [
+            "\"state_trait_natural_harbors\""
+        ],
         "provinces": [
             "\"x07B7F0\"",
             "\"x0DDF49\"",
@@ -49154,6 +49363,8 @@
         "city": "\"x418382\"",
         "port": "\"xC041F0\"",
         "farm": "\"x418382\"",
+        "mine": "\"x418382\"",
+        "wood": "\"x418382\"",
         "arable_land": "5",
         "arable_resources": [
             "\"bg_rice_farms\"",
@@ -49183,6 +49394,7 @@
         "port": "\"x61A3E3\"",
         "farm": "\"x53FA6E\"",
         "wood": "\"x53FA6E\"",
+        "mine": "\"x53FA6E\"",
         "arable_land": "5",
         "arable_resources": [
             "\"bg_rice_farms\"",
@@ -49211,6 +49423,7 @@
         "port": "\"x504090\"",
         "farm": "\"x75A377\"",
         "wood": "\"x5178BC\"",
+        "mine": "\"x5178BC\"",
         "arable_land": "5",
         "arable_resources": [
             "\"bg_rice_farms\"",
@@ -49242,6 +49455,7 @@
         "port": "\"x302090\"",
         "farm": "\"x665AAF\"",
         "wood": "\"x302090\"",
+        "mine": "\"x302090\"",
         "arable_land": "5",
         "arable_resources": [
             "\"bg_rice_farms\"",
@@ -49272,6 +49486,8 @@
         "city": "\"x97FBC3\"",
         "port": "\"x97FBC3\"",
         "farm": "\"x9BC5AD\"",
+        "mine": "\"x9BC5AD\"",
+        "wood": "\"x9BC5AD\"",
         "arable_land": "5",
         "arable_resources": [
             "\"bg_rice_farms\"",
@@ -49569,7 +49785,8 @@
         ],
         "traits": [
             "\"state_trait_great_dividing_range\"",
-            "\"state_trait_murray_darling_basin\""
+            "\"state_trait_murray_darling_basin\"",
+            "\"state_trait_natural_harbors\""
         ],
         "city": "\"xFDFB3F\"",
         "port": "\"xAEFFEB\"",
@@ -60456,7 +60673,8 @@
             "\"bg_livestock_ranches\""
         ],
         "capped_resources": {
-            "bg_logging": "7"
+            "bg_logging": "7",
+            "bg_fishing": "6"
         },
         "naval_exit_id": "3000"
     },
@@ -60464,11 +60682,15 @@
         "id": "153",
         "subsistence_building": "\"building_subsistence_farms\"",
         "provinces": [
+            "\"x00E0A0\"",
             "\"x0980C8\"",
             "\"x0B6577\"",
             "\"x21F318\"",
             "\"x232B98\"",
             "\"x406DC9\"",
+            "\"x4177AF\"",
+            "\"x4678E5\"",
+            "\"x577C69\"",
             "\"x6175AD\"",
             "\"x629C46\"",
             "\"x7A5D64\"",
@@ -60476,6 +60698,7 @@
             "\"x80D858\"",
             "\"x95171C\"",
             "\"xA8FF51\"",
+            "\"xA916E3\"",
             "\"xAF73F2\"",
             "\"xBFE867\"",
             "\"xC0A0A0\"",
@@ -60494,7 +60717,8 @@
             "\"bg_livestock_ranches\""
         ],
         "capped_resources": {
-            "bg_logging": "8"
+            "bg_logging": "8",
+            "bg_fishing": "2"
         },
         "naval_exit_id": "3000"
     },
@@ -60502,18 +60726,14 @@
         "id": "800",
         "subsistence_building": "\"building_subsistence_farms\"",
         "provinces": [
-            "\"x00E0A0\"",
             "\"x0161A0\"",
-            "\"x4177AF\"",
             "\"x41E061\"",
-            "\"x4678E5\"",
-            "\"x577C69\"",
-            "\"xA916E3\"",
             "\"xF2CB3D\""
         ],
         "city": "\"xF2CB3D\"",
         "farm": "\"x41E061\"",
         "wood": "\"x0161A0\"",
+        "mine": "\"x0161A0\"",
         "arable_land": "31",
         "arable_resources": [
             "\"bg_rye_farms\"",
@@ -60688,6 +60908,8 @@
         "city": "\"xE04161\"",
         "port": "\"x459052\"",
         "farm": "\"x459052\"",
+        "mine": "\"x459052\"",
+        "wood": "\"x459052\"",
         "arable_land": "2",
         "arable_resources": [
             "\"bg_rye_farms\"",
@@ -61801,7 +62023,8 @@
             "\"xF56D13\""
         ],
         "traits": [
-            "\"state_trait_black_soil\""
+            "\"state_trait_black_soil\"",
+            "\"state_trait_natural_harbors\""
         ],
         "city": "\"x31E0E0\"",
         "port": "\"xB0DFDF\"",
@@ -64162,6 +64385,10 @@
     "STATE_RYAZAN": {
         "id": "817",
         "subsistence_building": "\"building_subsistence_farms\"",
+        "city": "\"x14830F\"",
+        "farm": "\"xE1114E\"",
+        "mine": "\"xC6A70B\"",
+        "wood": "\"x92470A\"",
         "provinces": [
             "\"x089C80\"",
             "\"x0F54C0\"",
@@ -67455,6 +67682,10 @@
     "STATE_STAVROPOL": {
         "id": "835",
         "subsistence_building": "\"building_subsistence_farms\"",
+        "city": "\"xE0E16A\"",
+        "farm": "\"xB3593A\"",
+        "mine": "\"x1ED727\"",
+        "wood": "\"x7685A4\"",
         "provinces": [
             "\"x1ED727\"",
             "\"x32FEBA\"",
@@ -67507,6 +67738,10 @@
     "STATE_CHUVASHIA": {
         "id": "837",
         "subsistence_building": "\"building_subsistence_farms\"",
+        "city": "\"x83DB48\"",
+        "farm": "\"xD6E65F\"",
+        "mine": "\"x811458\"",
+        "wood": "\"xE89369\"",
         "provinces": [
             "\"x062B1B\"",
             "\"x0D7D00\"",

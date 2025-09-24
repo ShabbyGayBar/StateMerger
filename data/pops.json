@@ -1143,11 +1143,44 @@
                     {
                         "culture": "czech",
                         "religion": "catholic",
-                        "size": "2574808"
+                        "pop_type": "shopkeepers",
+                        "size": "20000"
                     },
                     {
                         "culture": "ashkenazi",
-                        "size": "75996"
+                        "pop_type": "shopkeepers",
+                        "size": "5000"
+                    },
+                    {
+                        "culture": "ashkenazi",
+                        "pop_type": "clerks",
+                        "size": "15000"
+                    },
+                    {
+                        "culture": "ashkenazi",
+                        "pop_type": "laborers",
+                        "size": "30000"
+                    },
+                    {
+                        "culture": "czech",
+                        "religion": "catholic",
+                        "pop_type": "soldiers",
+                        "size": "30000"
+                    },
+                    {
+                        "culture": "czech",
+                        "religion": "catholic",
+                        "pop_type": "clerks",
+                        "size": "20000"
+                    },
+                    {
+                        "culture": "czech",
+                        "religion": "catholic",
+                        "size": "2504808"
+                    },
+                    {
+                        "culture": "ashkenazi",
+                        "size": "25996"
                     }
                 ]
             }
@@ -1157,16 +1190,59 @@
                 "create_pop": [
                     {
                         "culture": "south_german",
-                        "size": "480408"
+                        "size": "10000",
+                        "pop_type": "aristocrats"
+                    },
+                    {
+                        "culture": "czech",
+                        "size": "3500",
+                        "pop_type": "aristocrats"
+                    },
+                    {
+                        "culture": "ashkenazi",
+                        "pop_type": "shopkeepers",
+                        "size": "1000"
+                    },
+                    {
+                        "culture": "ashkenazi",
+                        "pop_type": "clerks",
+                        "size": "2000"
+                    },
+                    {
+                        "culture": "ashkenazi",
+                        "pop_type": "laborers",
+                        "size": "10000"
                     },
                     {
                         "culture": "czech",
                         "religion": "catholic",
-                        "size": "1131996"
+                        "pop_type": "shopkeepers",
+                        "size": "10000"
+                    },
+                    {
+                        "culture": "czech",
+                        "religion": "catholic",
+                        "pop_type": "soldiers",
+                        "size": "30000"
+                    },
+                    {
+                        "culture": "czech",
+                        "religion": "catholic",
+                        "pop_type": "clerks",
+                        "size": "5000"
+                    },
+                    {
+                        "culture": "south_german",
+                        "size": "470408"
+                    },
+                    {
+                        "culture": "czech",
+                        "religion": "catholic",
+                        "size": "1083496"
                     },
                     {
                         "culture": "ashkenazi",
-                        "size": "28000"
+                        "size": "15000"
                     },
                     {
                         "culture": "polish",
@@ -1209,11 +1285,11 @@
                 "create_pop": [
                     {
                         "culture": "south_german",
-                        "size": "174100"
+                        "size": "183000"
                     },
                     {
                         "culture": "north_italian",
-                        "size": "5900"
+                        "size": "308000"
                     }
                 ]
             }
@@ -2623,7 +2699,7 @@
             }
         },
         "s:STATE_CROATIA": {
-            "region_state:AUS": {
+            "region_state:CRO": {
                 "create_pop": [
                     {
                         "culture": "croat",
@@ -2650,7 +2726,7 @@
             }
         },
         "s:STATE_SLAVONIA": {
-            "region_state:AUS": {
+            "region_state:CRO": {
                 "create_pop": [
                     {
                         "culture": "croat",
@@ -2702,15 +2778,15 @@
                 "create_pop": [
                     {
                         "culture": "bosniak",
-                        "size": "43196"
+                        "size": "23196"
                     },
                     {
                         "culture": "serb",
-                        "size": "184000"
+                        "size": "124000"
                     },
                     {
                         "culture": "albanian",
-                        "size": "43800"
+                        "size": "23800"
                     }
                 ]
             },
@@ -2718,11 +2794,15 @@
                 "create_pop": [
                     {
                         "culture": "serb",
-                        "size": "34396"
+                        "size": "114396"
                     },
                     {
                         "culture": "albanian",
-                        "size": "200"
+                        "size": "2200"
+                    },
+                    {
+                        "culture": "bosniak",
+                        "size": "3800"
                     }
                 ]
             },
@@ -2747,42 +2827,125 @@
                 ]
             }
         },
-        "s:STATE_NORTHERN_SERBIA": {
+        "s:STATE_WESTERN_SERBIA": {
             "region_state:SER": {
                 "create_pop": [
                     {
                         "culture": "serb",
-                        "size": "809604"
+                        "size": "436604"
+                    },
+                    {
+                        "culture": "albanian",
+                        "size": "1021"
+                    },
+                    {
+                        "culture": "sephardic",
+                        "size": "912"
+                    }
+                ]
+            },
+            "region_state:TUR": {
+                "create_pop": [
+                    {
+                        "culture": "bosniak",
+                        "size": "36010"
+                    },
+                    {
+                        "culture": "albanian",
+                        "size": "10102"
+                    },
+                    {
+                        "culture": "turkish",
+                        "size": "3201"
+                    },
+                    {
+                        "culture": "serb",
+                        "size": "23101"
+                    },
+                    {
+                        "culture": "romanian",
+                        "size": "1201"
+                    },
+                    {
+                        "culture": "sephardic",
+                        "size": "102"
                     }
                 ]
             }
         },
-        "s:STATE_SOUTHERN_SERBIA": {
-            "region_state:TUR": {
+        "s:STATE_EASTERN_SERBIA": {
+            "region_state:SER": {
                 "create_pop": [
                     {
-                        "culture": "turkish",
-                        "size": "124400"
-                    },
-                    {
-                        "culture": "bosniak",
-                        "size": "22396"
-                    },
-                    {
                         "culture": "serb",
-                        "size": "581800"
+                        "size": "203567"
                     },
                     {
-                        "culture": "greek",
-                        "size": "8000"
+                        "culture": "romanian",
+                        "size": "75573"
                     },
                     {
                         "culture": "albanian",
-                        "size": "192596"
+                        "size": "2031"
                     },
                     {
-                        "culture": "bulgarian",
-                        "size": "49404"
+                        "culture": "sephardic",
+                        "size": "201"
+                    }
+                ]
+            },
+            "region_state:TUR": {
+                "create_pop": [
+                    {
+                        "culture": "serb",
+                        "size": "175355"
+                    },
+                    {
+                        "culture": "albanian",
+                        "size": "43839"
+                    },
+                    {
+                        "culture": "turkish",
+                        "size": "29226"
+                    },
+                    {
+                        "culture": "romanian",
+                        "size": "5845"
+                    },
+                    {
+                        "culture": "sephardic",
+                        "size": "120"
+                    }
+                ]
+            }
+        },
+        "s:STATE_KOSOVO": {
+            "region_state:TUR": {
+                "create_pop": [
+                    {
+                        "culture": "albanian",
+                        "size": "167012"
+                    },
+                    {
+                        "culture": "albanian",
+                        "religion": "catholic",
+                        "size": "23010"
+                    },
+                    {
+                        "culture": "serb",
+                        "size": "85010"
+                    },
+                    {
+                        "culture": "turkish",
+                        "size": "21020"
+                    },
+                    {
+                        "culture": "bosniak",
+                        "size": "7912"
+                    },
+                    {
+                        "culture": "romanian",
+                        "size": "4929"
                     }
                 ]
             }
@@ -2992,7 +3155,7 @@
                         "size": "29910"
                     },
                     {
-                        "culture": "north_german",
+                        "culture": "east_german",
                         "size": "29910"
                     },
                     {
@@ -3023,7 +3186,7 @@
                         "size": "1220711"
                     },
                     {
-                        "culture": "north_german",
+                        "culture": "east_german",
                         "size": "18590"
                     }
                 ]
@@ -3105,7 +3268,7 @@
                         "size": "801499"
                     },
                     {
-                        "culture": "north_german",
+                        "culture": "east_german",
                         "size": "6562"
                     },
                     {
@@ -3136,7 +3299,7 @@
                         "size": "179840"
                     },
                     {
-                        "culture": "south_german",
+                        "culture": "east_german",
                         "size": "8960"
                     },
                     {
@@ -3177,30 +3340,125 @@
                 ]
             }
         },
-        "s:STATE_SILESIA": {
+        "s:STATE_LOWER_SILESIA": {
             "region_state:PRU": {
                 "create_pop": [
                     {
                         "culture": "north_german",
-                        "size": "1319008"
-                    },
-                    {
-                        "culture": "ashkenazi",
-                        "size": "16004"
-                    },
-                    {
-                        "culture": "polish",
-                        "size": "712800"
+                        "religion": "catholic",
+                        "size": "251922"
                     },
                     {
                         "culture": "north_german",
-                        "religion": "catholic",
-                        "size": "228400"
+                        "size": "1427561"
+                    },
+                    {
+                        "culture": "ashkenazi",
+                        "size": "45402"
+                    },
+                    {
+                        "culture": "polish",
+                        "size": "102388"
+                    },
+                    {
+                        "culture": "polish",
+                        "religion": "protestant",
+                        "size": "5389"
                     },
                     {
                         "culture": "czech",
                         "religion": "catholic",
-                        "size": "60000"
+                        "size": "7875"
+                    },
+                    {
+                        "culture": "czech",
+                        "religion": "protestant",
+                        "size": "2625"
+                    },
+                    {
+                        "culture": "sorb",
+                        "religion": "catholic",
+                        "size": "7600"
+                    },
+                    {
+                        "culture": "sorb",
+                        "religion": "protestant",
+                        "size": "68400"
+                    }
+                ]
+            }
+        },
+        "s:STATE_UPPER_SILESIA": {
+            "region_state:PRU": {
+                "create_pop": [
+                    {
+                        "culture": "north_german",
+                        "religion": "catholic",
+                        "size": "157662"
+                    },
+                    {
+                        "culture": "north_german",
+                        "size": "128996"
+                    },
+                    {
+                        "culture": "ashkenazi",
+                        "size": "13153"
+                    },
+                    {
+                        "culture": "polish",
+                        "size": "403318"
+                    },
+                    {
+                        "culture": "polish",
+                        "religion": "protestant",
+                        "size": "21227"
+                    },
+                    {
+                        "culture": "czech",
+                        "religion": "catholic",
+                        "size": "8053"
+                    },
+                    {
+                        "culture": "czech",
+                        "religion": "protestant",
+                        "size": "3452"
+                    }
+                ]
+            },
+            "region_state:AUS": {
+                "create_pop": [
+                    {
+                        "culture": "north_german",
+                        "religion": "catholic",
+                        "size": "131778"
+                    },
+                    {
+                        "culture": "north_german",
+                        "size": "55800"
+                    },
+                    {
+                        "culture": "polish",
+                        "size": "125675"
+                    },
+                    {
+                        "culture": "polish",
+                        "religion": "protestant",
+                        "size": "1777"
+                    },
+                    {
+                        "culture": "czech",
+                        "religion": "catholic",
+                        "size": "75000"
+                    },
+                    {
+                        "culture": "czech",
+                        "religion": "protestant",
+                        "size": "5062"
+                    },
+                    {
+                        "culture": "ashkenazi",
+                        "religion": "jewish",
+                        "size": "6896"
                     }
                 ]
             }
@@ -3289,6 +3547,21 @@
             "region_state:AUS": {
                 "create_pop": [
                     {
+                        "culture": "ashkenazi",
+                        "pop_type": "shopkeepers",
+                        "size": "500"
+                    },
+                    {
+                        "culture": "ashkenazi",
+                        "pop_type": "clerks",
+                        "size": "2000"
+                    },
+                    {
+                        "culture": "ashkenazi",
+                        "pop_type": "laborers",
+                        "size": "5000"
+                    },
+                    {
                         "culture": "polish",
                         "size": "1740004"
                     },
@@ -3302,12 +3575,27 @@
                     },
                     {
                         "culture": "ashkenazi",
-                        "size": "136000"
+                        "size": "128500"
                     }
                 ]
             },
             "region_state:KRA": {
                 "create_pop": [
+                    {
+                        "culture": "ashkenazi",
+                        "pop_type": "shopkeepers",
+                        "size": "1000"
+                    },
+                    {
+                        "culture": "ashkenazi",
+                        "pop_type": "clerks",
+                        "size": "2000"
+                    },
+                    {
+                        "culture": "ashkenazi",
+                        "pop_type": "shopkeepers",
+                        "size": "15000"
+                    },
                     {
                         "culture": "polish",
                         "size": "172396"
@@ -3318,7 +3606,7 @@
                     },
                     {
                         "culture": "ashkenazi",
-                        "size": "32004"
+                        "size": "14004"
                     },
                     {
                         "culture": "ukrainian",
@@ -3332,11 +3620,36 @@
                 "create_pop": [
                     {
                         "culture": "polish",
-                        "size": "832800"
+                        "size": "20000",
+                        "pop_type": "aristocrats"
                     },
                     {
                         "culture": "ukrainian",
-                        "size": "1544404"
+                        "size": "6000",
+                        "pop_type": "aristocrats"
+                    },
+                    {
+                        "culture": "ashkenazi",
+                        "pop_type": "shopkeepers",
+                        "size": "500"
+                    },
+                    {
+                        "culture": "ashkenazi",
+                        "pop_type": "clerks",
+                        "size": "1000"
+                    },
+                    {
+                        "culture": "ashkenazi",
+                        "pop_type": "laborers",
+                        "size": "30000"
+                    },
+                    {
+                        "culture": "polish",
+                        "size": "812800"
+                    },
+                    {
+                        "culture": "ukrainian",
+                        "size": "1543804"
                     },
                     {
                         "culture": "south_german",
@@ -3344,13 +3657,13 @@
                     },
                     {
                         "culture": "ashkenazi",
-                        "size": "180000"
+                        "size": "14500"
                     }
                 ]
             }
         },
         "s:STATE_CENTRAL_HUNGARY": {
-            "region_state:AUS": {
+            "region_state:HUN": {
                 "create_pop": [
                     {
                         "culture": "hungarian",
@@ -3378,7 +3691,7 @@
             }
         },
         "s:STATE_BEKES": {
-            "region_state:AUS": {
+            "region_state:HUN": {
                 "create_pop": [
                     {
                         "culture": "hungarian",
@@ -3418,7 +3731,7 @@
             }
         },
         "s:STATE_TRANSDANUBIA": {
-            "region_state:AUS": {
+            "region_state:HUN": {
                 "create_pop": [
                     {
                         "culture": "hungarian",
@@ -3459,7 +3772,7 @@
             }
         },
         "s:STATE_DELVIDEK": {
-            "region_state:AUS": {
+            "region_state:HUN": {
                 "create_pop": [
                     {
                         "culture": "south_german",
@@ -3489,7 +3802,7 @@
             }
         },
         "s:STATE_BANAT": {
-            "region_state:AUS": {
+            "region_state:HUN": {
                 "create_pop": [
                     {
                         "culture": "south_german",
@@ -3528,82 +3841,118 @@
                 ]
             }
         },
-        "s:STATE_WEST_SLOVAKIA": {
-            "region_state:AUS": {
+        "s:STATE_SLOVAKIA": {
+            "region_state:HUN": {
                 "create_pop": [
                     {
-                        "culture": "hungarian",
-                        "size": "237000"
-                    },
-                    {
-                        "culture": "south_german",
-                        "size": "152800"
+                        "culture": "slovak",
+                        "religion": "catholic",
+                        "size": "1092041"
                     },
                     {
                         "culture": "slovak",
-                        "size": "1140796"
+                        "religion": "protestant",
+                        "size": "273012"
                     },
                     {
-                        "culture": "ukrainian",
-                        "size": "244000"
+                        "culture": "hungarian",
+                        "religion": "catholic",
+                        "size": "187540"
                     },
                     {
                         "culture": "hungarian",
                         "religion": "protestant",
-                        "size": "212396"
+                        "size": "126302"
+                    },
+                    {
+                        "culture": "south_german",
+                        "religion": "catholic",
+                        "size": "126031"
+                    },
+                    {
+                        "culture": "south_german",
+                        "religion": "protestant",
+                        "size": "84020"
                     },
                     {
                         "culture": "ashkenazi",
-                        "size": "60400"
+                        "size": "105072"
                     },
                     {
                         "culture": "polish",
-                        "size": "8000"
+                        "size": "12021"
+                    },
+                    {
+                        "culture": "ukrainian",
+                        "size": "22035"
+                    },
+                    {
+                        "culture": "ukrainian",
+                        "religion": "catholic",
+                        "size": "5012"
                     }
                 ]
             }
         },
-        "s:STATE_EAST_SLOVAKIA": {
-            "region_state:AUS": {
+        "s:STATE_RUTHENIA": {
+            "region_state:HUN": {
                 "create_pop": [
                     {
-                        "culture": "hungarian",
-                        "size": "150848"
-                    },
-                    {
-                        "culture": "slovak",
-                        "size": "606000"
-                    },
-                    {
-                        "culture": "polish",
-                        "size": "4000"
+                        "culture": "ukrainian",
+                        "size": "102035"
                     },
                     {
                         "culture": "ukrainian",
-                        "size": "164000"
+                        "religion": "catholic",
+                        "size": "68023"
+                    },
+                    {
+                        "culture": "slovak",
+                        "religion": "protestant",
+                        "size": "1267"
+                    },
+                    {
+                        "culture": "slovak",
+                        "religion": "catholic",
+                        "size": "5068"
+                    },
+                    {
+                        "culture": "south_german",
+                        "religion": "catholic",
+                        "size": "8013"
+                    },
+                    {
+                        "culture": "south_german",
+                        "religion": "protestant",
+                        "size": "5342"
+                    },
+                    {
+                        "culture": "hungarian",
+                        "religion": "catholic",
+                        "size": "51501"
                     },
                     {
                         "culture": "hungarian",
                         "religion": "protestant",
-                        "size": "168452"
-                    },
-                    {
-                        "culture": "ashkenazi",
-                        "size": "40400"
+                        "size": "47501"
                     },
                     {
                         "culture": "romanian",
-                        "size": "60000"
+                        "size": "12296"
                     },
                     {
-                        "culture": "south_german",
-                        "size": "40080"
+                        "culture": "ashkenazi",
+                        "size": "40687"
+                    },
+                    {
+                        "culture": "polish",
+                        "size": "421"
                     }
                 ]
             }
         },
         "s:STATE_SOUTHERN_TRANSYLVANIA": {
-            "region_state:AUS": {
+            "region_state:TRS": {
                 "create_pop": [
                     {
                         "culture": "hungarian",
@@ -3629,21 +3978,23 @@
                     },
                     {
                         "culture": "south_german",
-                        "size": "1792"
+                        "religion": "catholic",
+                        "size": "12000"
                     },
                     {
                         "culture": "ashkenazi",
                         "size": "32800"
                     },
                     {
-                        "culture": "north_german",
-                        "size": "87996"
+                        "culture": "south_german",
+                        "religion": "protestant",
+                        "size": "77788"
                     }
                 ]
             }
         },
         "s:STATE_NORTHERN_TRANSYLVANIA": {
-            "region_state:AUS": {
+            "region_state:TRS": {
                 "create_pop": [
                     {
                         "culture": "hungarian",
@@ -3661,10 +4012,12 @@
                     },
                     {
                         "culture": "south_german",
+                        "religion": "catholic",
                         "size": "3008"
                     },
                     {
-                        "culture": "north_german",
+                        "culture": "south_german",
+                        "religion": "protestant",
                         "size": "164000"
                     },
                     {
@@ -3682,7 +4035,7 @@
                 ]
             }
         },
-        "s:STATE_MOLDAVIA": {
+        "s:STATE_BUKOVINA": {
             "region_state:AUS": {
                 "create_pop": [
                     {
@@ -3714,7 +4067,9 @@
                         "size": "32000"
                     }
                 ]
-            },
+            }
+        },
+        "s:STATE_MOLDAVIA": {
             "region_state:MOL": {
                 "create_pop": [
                     {
@@ -5313,12 +5668,10 @@
                         "size": "79200"
                     },
                     {
-                        "pop_type": "slaves",
                         "culture": "bassa",
                         "size": "13300"
                     },
                     {
-                        "pop_type": "slaves",
                         "culture": "kissi",
                         "size": "8800"
                     },
@@ -5942,7 +6295,7 @@
                         "size": "6000"
                     },
                     {
-                        "culture": "unyamwezi",
+                        "culture": "nyamwezi",
                         "size": "54200"
                     },
                     {
@@ -5966,7 +6319,7 @@
                     },
                     {
                         "pop_type": "slaves",
-                        "culture": "unyamwezi",
+                        "culture": "nyamwezi",
                         "size": "5000"
                     },
                     {
@@ -6017,7 +6370,17 @@
                     },
                     {
                         "culture": "lacustrine_bantu",
-                        "size": "466396"
+                        "size": "466196"
+                    },
+                    {
+                        "culture": "sukuma",
+                        "pop_type": "slaves",
+                        "size": "28000"
+                    },
+                    {
+                        "culture": "gujarati",
+                        "religion": "shiite",
+                        "size": "200"
                     },
                     {
                         "culture": "lacustrine_bantu",
@@ -6026,23 +6389,18 @@
                     },
                     {
                         "culture": "bedouin",
-                        "size": "4004"
-                    },
-                    {
-                        "culture": "bedouin",
-                        "religion": "sunni",
-                        "size": "4000"
+                        "religion": "ibadi",
+                        "size": "8004"
                     },
                     {
                         "culture": "sukuma",
                         "size": "28000"
                     },
                     {
-                        "culture": "unyamwezi",
+                        "culture": "nyamwezi",
                         "size": "92000"
                     },
                     {
-                        "pop_type": "slaves",
                         "culture": "swahili",
                         "size": "30000"
                     },
@@ -6058,17 +6416,12 @@
             "region_state:NYM": {
                 "create_pop": [
                     {
-                        "culture": "unyamwezi",
-                        "size": "331200"
+                        "culture": "nyamwezi",
+                        "size": "316200"
                     },
                     {
                         "culture": "luo",
                         "size": "44400"
-                    },
-                    {
-                        "culture": "sukuma",
-                        "religion": "animist",
-                        "size": "222996"
                     },
                     {
                         "culture": "lacustrine_bantu",
@@ -6087,16 +6440,26 @@
                     }
                 ]
             },
+            "region_state:SKM": {
+                "create_pop": [
+                    {
+                        "culture": "sukuma",
+                        "religion": "animist",
+                        "size": "222996"
+                    },
+                    {
+                        "pop_type": "slaves",
+                        "culture": "nyamwezi",
+                        "religion": "animist",
+                        "size": "15000"
+                    }
+                ]
+            },
             "region_state:MSI": {
                 "create_pop": [
                     {
                         "culture": "maasai",
-                        "size": "29900"
-                    },
-                    {
-                        "pop_type": "slaves",
-                        "culture": "maasai",
-                        "size": "2000"
+                        "size": "31900"
                     }
                 ]
             },
@@ -6144,25 +6507,12 @@
             "region_state:KKY": {
                 "create_pop": [
                     {
-                        "culture": "lacustrine_bantu",
-                        "size": "282600"
-                    },
-                    {
-                        "culture": "swahili",
-                        "size": "44000"
-                    },
-                    {
                         "culture": "kikuyu",
                         "size": "192000"
                     },
                     {
-                        "culture": "somali",
-                        "size": "91600"
-                    },
-                    {
-                        "culture": "oromo",
-                        "religion": "animist",
-                        "size": "20000"
+                        "culture": "lacustrine_bantu",
+                        "size": "168300"
                     },
                     {
                         "culture": "maasai",
@@ -6171,7 +6521,110 @@
                     {
                         "pop_type": "slaves",
                         "culture": "lacustrine_bantu",
-                        "size": "30000"
+                        "size": "22000"
+                    }
+                ]
+            },
+            "region_state:WTU": {
+                "create_pop": [
+                    {
+                        "culture": "swahili",
+                        "size": "9210"
+                    },
+                    {
+                        "culture": "somali",
+                        "size": "7070"
+                    },
+                    {
+                        "culture": "oromo",
+                        "religion": "sunni",
+                        "size": "2220"
+                    }
+                ]
+            },
+            "region_state:OMA": {
+                "create_pop": [
+                    {
+                        "culture": "swahili",
+                        "size": "44000"
+                    },
+                    {
+                        "culture": "bedouin",
+                        "religion": "ibadi",
+                        "size": "1600"
+                    },
+                    {
+                        "culture": "somali",
+                        "size": "7300"
+                    },
+                    {
+                        "pop_type": "slaves",
+                        "culture": "lacustrine_bantu",
+                        "size": "8000"
+                    }
+                ]
+            },
+            "region_state:MBS": {
+                "create_pop": [
+                    {
+                        "culture": "bedouin",
+                        "religion": "ibadi",
+                        "size": "5001"
+                    },
+                    {
+                        "culture": "swahili",
+                        "size": "22600"
+                    },
+                    {
+                        "pop_type": "slaves",
+                        "culture": "lacustrine_bantu",
+                        "size": "2400"
+                    }
+                ]
+            },
+            "region_state:MJK": {
+                "create_pop": [
+                    {
+                        "culture": "lacustrine_bantu",
+                        "size": "110000"
+                    }
+                ]
+            },
+            "region_state:ORM": {
+                "create_pop": [
+                    {
+                        "culture": "oromo",
+                        "religion": "animist",
+                        "size": "21000"
+                    }
+                ]
+            },
+            "region_state:SKY": {
+                "create_pop": [
+                    {
+                        "culture": "oromo",
+                        "religion": "animist",
+                        "size": "28000"
+                    },
+                    {
+                        "culture": "lacustrine_bantu",
+                        "size": "8000"
+                    }
+                ]
+            },
+            "region_state:AJR": {
+                "create_pop": [
+                    {
+                        "culture": "somali",
+                        "size": "42000"
+                    }
+                ]
+            },
+            "region_state:AUL": {
+                "create_pop": [
+                    {
+                        "culture": "somali",
+                        "size": "37000"
                     }
                 ]
             }
@@ -6181,12 +6634,7 @@
                 "create_pop": [
                     {
                         "culture": "maasai",
-                        "size": "49000"
-                    },
-                    {
-                        "pop_type": "slaves",
-                        "culture": "maasai",
-                        "size": "3000"
+                        "size": "42000"
                     }
                 ]
             },
@@ -6231,6 +6679,7 @@
                 "create_pop": [
                     {
                         "culture": "amhara",
+                        "religion": "sunni",
                         "size": "99636"
                     },
                     {
@@ -6240,7 +6689,7 @@
                     },
                     {
                         "culture": "somali",
-                        "size": "485604"
+                        "size": "97121"
                     },
                     {
                         "culture": "somali",
@@ -6257,17 +6706,35 @@
                     },
                     {
                         "culture": "oromo",
-                        "religion": "sunni",
-                        "size": "177200"
-                    },
-                    {
-                        "culture": "oromo",
-                        "size": "476304"
+                        "religion": "oriental_orthodox",
+                        "size": "406304"
                     },
                     {
                         "culture": "kikuyu",
-                        "size": "36234",
+                        "size": "18234",
                         "pop_type": "slaves"
+                    }
+                ]
+            },
+            "region_state:ARS": {
+                "create_pop": [
+                    {
+                        "culture": "oromo",
+                        "religion": "sunni",
+                        "size": "247200"
+                    },
+                    {
+                        "culture": "kikuyu",
+                        "size": "18000",
+                        "pop_type": "slaves"
+                    }
+                ]
+            },
+            "region_state:OGD": {
+                "create_pop": [
+                    {
+                        "culture": "somali",
+                        "size": "388483"
                     }
                 ]
             }
@@ -6281,6 +6748,7 @@
                     },
                     {
                         "culture": "oromo",
+                        "religion": "oriental_orthodox",
                         "size": "120004"
                     },
                     {
@@ -6295,7 +6763,7 @@
                     }
                 ]
             },
-            "region_state:SHW": {
+            "region_state:HDY": {
                 "create_pop": [
                     {
                         "culture": "amhara",
@@ -6303,12 +6771,13 @@
                     },
                     {
                         "culture": "oromo",
-                        "size": "192404"
+                        "religion": "sunni",
+                        "size": "252404"
                     },
                     {
                         "culture": "oromo",
                         "religion": "animist",
-                        "size": "132396"
+                        "size": "72396"
                     }
                 ]
             },
@@ -6325,6 +6794,7 @@
                     },
                     {
                         "culture": "oromo",
+                        "religion": "sunni",
                         "size": "200000"
                     },
                     {
@@ -6342,11 +6812,11 @@
                     },
                     {
                         "culture": "amhara",
-                        "size": "160400"
+                        "size": "60400"
                     },
                     {
                         "culture": "sidama",
-                        "size": "156000"
+                        "size": "50000"
                     },
                     {
                         "culture": "kikuyu",
@@ -6355,7 +6825,25 @@
                     }
                 ]
             },
-            "region_state:SDM": {
+            "region_state:ANU": {
+                "create_pop": [
+                    {
+                        "culture": "luo",
+                        "religion": "animist",
+                        "size": "80200"
+                    }
+                ]
+            },
+            "region_state:OMO": {
+                "create_pop": [
+                    {
+                        "culture": "sidama",
+                        "religion": "animist",
+                        "size": "106000"
+                    }
+                ]
+            },
+            "region_state:WLT": {
                 "create_pop": [
                     {
                         "culture": "sidama",
@@ -6367,19 +6855,56 @@
                         "pop_type": "slaves"
                     }
                 ]
+            },
+            "region_state:SDM": {
+                "create_pop": [
+                    {
+                        "culture": "sidama",
+                        "size": "160000"
+                    },
+                    {
+                        "culture": "kikuyu",
+                        "size": "3000",
+                        "pop_type": "slaves"
+                    }
+                ]
             }
         },
         "s:STATE_GONDER": {
-            "region_state:BGM": {
+            "region_state:QWR": {
                 "create_pop": [
                     {
                         "culture": "amhara",
                         "size": "522000"
                     },
                     {
+                        "culture": "kikuyu",
+                        "size": "38520",
+                        "pop_type": "slaves"
+                    },
+                    {
+                        "pop_type": "slaves",
                         "culture": "oromo",
                         "religion": "animist",
-                        "size": "96000"
+                        "size": "25000"
+                    }
+                ]
+            },
+            "region_state:BGM": {
+                "create_pop": [
+                    {
+                        "culture": "amhara",
+                        "size": "435200"
+                    },
+                    {
+                        "culture": "oromo",
+                        "religion": "animist",
+                        "size": "66000"
+                    },
+                    {
+                        "culture": "oromo",
+                        "religion": "sunni",
+                        "size": "136000"
                     },
                     {
                         "culture": "amhara",
@@ -6388,27 +6913,14 @@
                     },
                     {
                         "culture": "kikuyu",
-                        "size": "77040",
+                        "size": "38520",
                         "pop_type": "slaves"
-                    }
-                ]
-            },
-            "region_state:WLO": {
-                "create_pop": [
-                    {
-                        "culture": "amhara",
-                        "size": "335200"
-                    },
-                    {
-                        "culture": "oromo",
-                        "religion": "animist",
-                        "size": "206000"
                     },
                     {
                         "pop_type": "slaves",
                         "culture": "oromo",
                         "religion": "animist",
-                        "size": "50000"
+                        "size": "25000"
                     },
                     {
                         "pop_type": "slaves",
@@ -6919,15 +7431,11 @@
                     {
                         "culture": "makua",
                         "religion": "sunni",
-                        "size": "55996"
+                        "size": "50996"
                     },
                     {
                         "culture": "lacustrine_bantu",
                         "size": "35000"
-                    },
-                    {
-                        "culture": "swahili",
-                        "size": "19996"
                     },
                     {
                         "culture": "portuguese",
@@ -6960,6 +7468,24 @@
                     {
                         "culture": "lomwe",
                         "size": "60000"
+                    }
+                ]
+            },
+            "region_state:TGI": {
+                "create_pop": [
+                    {
+                        "culture": "swahili",
+                        "size": "19996"
+                    },
+                    {
+                        "culture": "makua",
+                        "religion": "sunni",
+                        "size": "2000"
+                    },
+                    {
+                        "culture": "makua",
+                        "pop_type": "slaves",
+                        "size": "3000"
                     }
                 ]
             }
@@ -9406,6 +9932,10 @@
                     {
                         "culture": "franco_canadian",
                         "size": "52800"
+                    },
+                    {
+                        "culture": "algonquian",
+                        "size": "1403"
                     }
                 ]
             },
@@ -9418,6 +9948,10 @@
                     {
                         "culture": "afro_american",
                         "size": "3333"
+                    },
+                    {
+                        "culture": "algonquian",
+                        "size": "1666"
                     }
                 ]
             }
@@ -9525,7 +10059,7 @@
                 "create_pop": [
                     {
                         "culture": "anglo_canadian",
-                        "size": "8000"
+                        "size": "6500"
                     },
                     {
                         "culture": "salish",
@@ -9533,7 +10067,27 @@
                     },
                     {
                         "culture": "athabaskan",
-                        "size": "55200"
+                        "size": "7000"
+                    }
+                ]
+            },
+            "region_state:ATB": {
+                "create_pop": [
+                    {
+                        "culture": "athabaskan",
+                        "size": "35200"
+                    }
+                ]
+            },
+            "region_state:HBC": {
+                "create_pop": [
+                    {
+                        "culture": "anglo_canadian",
+                        "size": "1500"
+                    },
+                    {
+                        "culture": "athabaskan",
+                        "size": "13000"
                     }
                 ]
             }
@@ -9608,7 +10162,15 @@
                 "create_pop": [
                     {
                         "culture": "athabaskan",
-                        "size": "12000"
+                        "size": "5500"
+                    }
+                ]
+            },
+            "region_state:ATB": {
+                "create_pop": [
+                    {
+                        "culture": "athabaskan",
+                        "size": "6500"
                     }
                 ]
             }
@@ -11825,7 +12387,7 @@
                 "create_pop": [
                     {
                         "culture": "bedouin",
-                        "religion": "shiite",
+                        "religion": "ibadi",
                         "size": "158000"
                     },
                     {
@@ -11900,7 +12462,7 @@
                 "create_pop": [
                     {
                         "culture": "bedouin",
-                        "religion": "shiite",
+                        "religion": "ibadi",
                         "size": "1600"
                     },
                     {
@@ -11915,7 +12477,7 @@
                     },
                     {
                         "culture": "baluchi",
-                        "religion": "shiite",
+                        "religion": "ibadi",
                         "size": "230"
                     },
                     {
@@ -12701,6 +13263,7 @@
                     },
                     {
                         "culture": "bedouin",
+                        "religion": "ibadi",
                         "size": "8012"
                     },
                     {
@@ -12776,6 +13339,7 @@
                     },
                     {
                         "culture": "bedouin",
+                        "religion": "ibadi",
                         "size": "106"
                     },
                     {
@@ -13384,7 +13948,12 @@
                 "create_pop": [
                     {
                         "culture": "kurdish",
-                        "size": "351906"
+                        "size": "260712"
+                    },
+                    {
+                        "culture": "kurdish",
+                        "size": "91190",
+                        "religion": "shiite"
                     },
                     {
                         "culture": "assyrian",
@@ -13528,11 +14097,21 @@
                 "create_pop": [
                     {
                         "culture": "turkish",
-                        "size": "244045"
+                        "size": "150831"
                     },
                     {
                         "culture": "kurdish",
-                        "size": "380301"
+                        "size": "166211"
+                    },
+                    {
+                        "culture": "turkish",
+                        "size": "93214",
+                        "religion": "shiite"
+                    },
+                    {
+                        "culture": "kurdish",
+                        "size": "204090",
+                        "religion": "shiite"
                     },
                     {
                         "culture": "greek",
@@ -13631,11 +14210,21 @@
                 "create_pop": [
                     {
                         "culture": "turkish",
-                        "size": "1206365"
+                        "size": "865092"
                     },
                     {
                         "culture": "kurdish",
-                        "size": "124470"
+                        "size": "100023"
+                    },
+                    {
+                        "culture": "turkish",
+                        "size": "341273",
+                        "religion": "shiite"
+                    },
+                    {
+                        "culture": "kurdish",
+                        "size": "24447",
+                        "religion": "shiite"
                     },
                     {
                         "culture": "greek",
@@ -13747,7 +14336,7 @@
                         "size": "124800"
                     },
                     {
-                        "culture": "south_german",
+                        "culture": "east_german",
                         "size": "9600"
                     }
                 ]
@@ -13829,7 +14418,7 @@
                         "size": "21014"
                     },
                     {
-                        "culture": "south_german",
+                        "culture": "east_german",
                         "size": "1187"
                     },
                     {
@@ -13855,7 +14444,7 @@
                         "size": "9459"
                     },
                     {
-                        "culture": "south_german",
+                        "culture": "east_german",
                         "size": "6306"
                     },
                     {
@@ -13911,7 +14500,7 @@
                         "size": "145276"
                     },
                     {
-                        "culture": "south_german",
+                        "culture": "east_german",
                         "religion": "protestant",
                         "size": "43939"
                     },
@@ -14009,11 +14598,12 @@
                         "size": "17643"
                     },
                     {
-                        "culture": "south_german",
+                        "culture": "east_german",
+                        "religion": "orthodox",
                         "size": "20512"
                     },
                     {
-                        "culture": "south_german",
+                        "culture": "east_german",
                         "religion": "protestant",
                         "size": "56900"
                     }
@@ -14044,11 +14634,12 @@
                         "size": "11574"
                     },
                     {
-                        "culture": "south_german",
-                        "size": "11145"
+                        "culture": "east_german",
+                        "size": "11145",
+                        "religion": "orthodox"
                     },
                     {
-                        "culture": "south_german",
+                        "culture": "east_german",
                         "size": "19312",
                         "religion": "protestant"
                     }
@@ -19061,6 +19652,11 @@
                     {
                         "culture": "thai",
                         "size": "3992"
+                    },
+                    {
+                        "culture": "champa",
+                        "religion": "sunni",
+                        "size": "3947"
                     }
                 ]
             },
@@ -19075,11 +19671,6 @@
                         "size": "23996"
                     },
                     {
-                        "culture": "khmer",
-                        "religion": "animist",
-                        "size": "12000"
-                    },
-                    {
                         "culture": "vietnamese",
                         "size": "13002"
                     },
@@ -19087,6 +19678,30 @@
                         "pop_type": "slaves",
                         "culture": "khmer",
                         "size": "40204"
+                    },
+                    {
+                        "culture": "champa",
+                        "religion": "sunni",
+                        "size": "14008"
+                    }
+                ]
+            },
+            "region_state:KLO": {
+                "create_pop": [
+                    {
+                        "culture": "khmer",
+                        "religion": "animist",
+                        "size": "33000"
+                    },
+                    {
+                        "culture": "lao",
+                        "religion": "animist",
+                        "size": "7000"
+                    },
+                    {
+                        "culture": "champa",
+                        "religion": "animist",
+                        "size": "5000"
                     }
                 ]
             }
@@ -19097,10 +19712,6 @@
                     {
                         "culture": "thai",
                         "size": "1534004"
-                    },
-                    {
-                        "culture": "malay",
-                        "size": "184400"
                     },
                     {
                         "culture": "yue",
@@ -19147,6 +19758,24 @@
                         "pop_type": "slaves",
                         "culture": "vietnamese",
                         "size": "20100"
+                    },
+                    {
+                        "culture": "zhuang",
+                        "size": "33000"
+                    },
+                    {
+                        "culture": "zhuang",
+                        "religion": "mahayana",
+                        "size": "11000"
+                    }
+                ]
+            },
+            "region_state:SCT": {
+                "create_pop": [
+                    {
+                        "culture": "lao",
+                        "religion": "animist",
+                        "size": "29000"
                     }
                 ]
             }
@@ -19228,6 +19857,30 @@
                         "culture": "vietnamese",
                         "religion": "animist",
                         "size": "10000"
+                    },
+                    {
+                        "culture": "champa",
+                        "religion": "sunni",
+                        "size": "82000"
+                    },
+                    {
+                        "culture": "champa",
+                        "religion": "hindu",
+                        "size": "8000"
+                    }
+                ]
+            },
+            "region_state:DGR": {
+                "create_pop": [
+                    {
+                        "culture": "champa",
+                        "religion": "animist",
+                        "size": "50000"
+                    },
+                    {
+                        "culture": "khmer",
+                        "religion": "animist",
+                        "size": "5000"
                     }
                 ]
             }
@@ -19237,15 +19890,15 @@
                 "create_pop": [
                     {
                         "culture": "lao",
-                        "size": "240024"
+                        "size": "216021"
                     },
                     {
                         "culture": "miao",
-                        "size": "24832"
+                        "size": "22348"
                     },
                     {
                         "culture": "khmu",
-                        "size": "69000"
+                        "size": "62100"
                     },
                     {
                         "pop_type": "slaves",
@@ -19263,7 +19916,7 @@
                 "create_pop": [
                     {
                         "culture": "lao",
-                        "size": "123996"
+                        "size": "81837"
                     },
                     {
                         "culture": "shan",
@@ -19271,7 +19924,7 @@
                     },
                     {
                         "culture": "thai",
-                        "size": "54560"
+                        "size": "36009"
                     },
                     {
                         "pop_type": "slaves",
@@ -19298,6 +19951,35 @@
                         "pop_type": "slaves",
                         "culture": "lao",
                         "size": "5000"
+                    }
+                ]
+            },
+            "region_state:DAI": {
+                "create_pop": [
+                    {
+                        "culture": "lao",
+                        "size": "64918"
+                    },
+                    {
+                        "culture": "khmu",
+                        "size": "6900"
+                    },
+                    {
+                        "culture": "thai",
+                        "size": "18334"
+                    },
+                    {
+                        "culture": "miao",
+                        "size": "2400"
+                    }
+                ]
+            },
+            "region_state:SCT": {
+                "create_pop": [
+                    {
+                        "culture": "lao",
+                        "religion": "animist",
+                        "size": "11000"
                     }
                 ]
             }
@@ -19393,6 +20075,10 @@
             },
             "region_state:SIA": {
                 "create_pop": [
+                    {
+                        "culture": "malay",
+                        "size": "184400"
+                    },
                     {
                         "culture": "burmese",
                         "size": "36000"
@@ -21746,7 +22432,7 @@
                         "size": "75418"
                     },
                     {
-                        "culture": "north_german",
+                        "culture": "east_german",
                         "size": "2062"
                     },
                     {
@@ -21772,7 +22458,7 @@
                         "size": "354472"
                     },
                     {
-                        "culture": "north_german",
+                        "culture": "east_german",
                         "size": "35872"
                     },
                     {
@@ -21819,7 +22505,7 @@
                         "size": "11175"
                     },
                     {
-                        "culture": "north_german",
+                        "culture": "east_german",
                         "size": "9832"
                     }
                 ]
@@ -21841,7 +22527,7 @@
                         "size": "4424"
                     },
                     {
-                        "culture": "north_german",
+                        "culture": "east_german",
                         "size": "12324"
                     }
                 ]
@@ -21855,7 +22541,7 @@
                         "size": "362898"
                     },
                     {
-                        "culture": "north_german",
+                        "culture": "east_german",
                         "size": "52775"
                     },
                     {
@@ -21892,7 +22578,7 @@
                         "size": "96273"
                     },
                     {
-                        "culture": "north_german",
+                        "culture": "east_german",
                         "size": "1621"
                     },
                     {
@@ -21923,11 +22609,11 @@
                 "create_pop": [
                     {
                         "culture": "lithuanian",
-                        "size": "618377"
+                        "size": "442209"
                     },
                     {
                         "culture": "ashkenazi",
-                        "size": "124653"
+                        "size": "91653"
                     },
                     {
                         "culture": "latvian",
@@ -21935,19 +22621,19 @@
                     },
                     {
                         "culture": "polish",
-                        "size": "136510"
+                        "size": "6021"
                     },
                     {
-                        "culture": "north_german",
+                        "culture": "east_german",
                         "size": "26366"
                     },
                     {
                         "culture": "russian",
-                        "size": "44443"
+                        "size": "9366"
                     },
                     {
                         "culture": "byelorussian",
-                        "size": "31056"
+                        "size": "16056"
                     }
                 ]
             }
@@ -21964,7 +22650,7 @@
                         "size": "180591"
                     },
                     {
-                        "culture": "north_german",
+                        "culture": "east_german",
                         "size": "39499"
                     },
                     {
@@ -21999,7 +22685,7 @@
                         "size": "358977"
                     },
                     {
-                        "culture": "north_german",
+                        "culture": "east_german",
                         "size": "134245"
                     },
                     {
@@ -22026,7 +22712,7 @@
                         "size": "117162"
                     },
                     {
-                        "culture": "north_german",
+                        "culture": "east_german",
                         "size": "19663"
                     },
                     {
@@ -22336,7 +23022,7 @@
                         "size": "44400"
                     },
                     {
-                        "culture": "south_german",
+                        "culture": "east_german",
                         "size": "40819"
                     },
                     {
@@ -22358,7 +23044,7 @@
                         "size": "2610320"
                     },
                     {
-                        "culture": "south_german",
+                        "culture": "east_german",
                         "size": "30125"
                     },
                     {
@@ -22396,7 +23082,7 @@
                         "size": "75704"
                     },
                     {
-                        "culture": "south_german",
+                        "culture": "east_german",
                         "size": "12010"
                     },
                     {
@@ -22476,7 +23162,7 @@
                         "size": "39420"
                     },
                     {
-                        "culture": "south_german",
+                        "culture": "east_german",
                         "size": "32500"
                     },
                     {
@@ -22524,7 +23210,7 @@
                         "size": "55930"
                     },
                     {
-                        "culture": "south_german",
+                        "culture": "east_german",
                         "size": "57928"
                     },
                     {
@@ -22562,7 +23248,7 @@
                         "size": "28832"
                     },
                     {
-                        "culture": "south_german",
+                        "culture": "east_german",
                         "size": "16864"
                     },
                     {
@@ -22601,7 +23287,7 @@
                         "size": "15405"
                     },
                     {
-                        "culture": "south_german",
+                        "culture": "east_german",
                         "size": "2513"
                     }
                 ]
@@ -22656,7 +23342,7 @@
                         "size": "92855"
                     },
                     {
-                        "culture": "south_german",
+                        "culture": "east_german",
                         "size": "681"
                     },
                     {

@@ -561,27 +561,36 @@
                         "x0C662E",
                         "x7D46C6",
                         "xB366DB",
-                        "x248BCA",
-                        "xA4DBB7",
                         "x00C0B0",
-                        "xD8BFF1",
-                        "xFD66E6",
-                        "x5F0DAB",
-                        "x47ADCE",
-                        "x841E31",
-                        "x72E436",
-                        "x1C5BE6",
-                        "xC080B0",
-                        "x5E16EB",
-                        "x58B174",
                         "x70B060",
                         "x3C8C22"
+                    ]
+                },
+                {
+                    "country": "c:DGR",
+                    "owned_provinces": [
+                        "xA4DBB7",
+                        "x248BCA",
+                        "xC080B0",
+                        "x58B174",
+                        "x841E31",
+                        "x5E16EB",
+                        "xD8BFF1",
+                        "x72E436",
+                        "x47ADCE",
+                        "x1C5BE6",
+                        "x5F0DAB",
+                        "xFD66E6"
                     ]
                 }
             ],
             "add_homeland": [
                 "cu:vietnamese",
-                "cu:khmer"
+                "cu:khmer",
+                "cu:champa"
+            ],
+            "add_claim": [
+                "c:DAI"
             ]
         },
         "s:STATE_SHANDONG": {
@@ -748,6 +757,8 @@
                 {
                     "country": "c:PRU",
                     "owned_provinces": [
+                        "x3E3572",
+                        "x0180A0",
                         "xA9BD82",
                         "x8C6982",
                         "x19AE19",
@@ -4250,15 +4261,12 @@
         "s:STATE_YUKON_TERRITORY": {
             "create_state": [
                 {
-                    "country": "c:HBC",
+                    "country": "c:ATB",
                     "owned_provinces": [
-                        "xF2BAB1",
                         "xF47376",
                         "xE7714E",
                         "x980AB5",
                         "x703870",
-                        "xF3CDF6",
-                        "x4F2C11",
                         "x365975",
                         "x8B29AC",
                         "x6A4CD7",
@@ -4270,7 +4278,6 @@
                         "x1F0BA5",
                         "xA8A09F",
                         "x39101E",
-                        "xD9502D",
                         "x57B8A2",
                         "x2E3941",
                         "x90AF53",
@@ -4279,7 +4286,6 @@
                         "x38C295",
                         "x4F1D47",
                         "x1DBE3C",
-                        "xE39786",
                         "x1DF568",
                         "x07684F",
                         "x19EE3B",
@@ -4297,26 +4303,19 @@
                         "x15FC1A",
                         "x2754DF",
                         "xAE0626",
-                        "xCA438C",
                         "x26E543",
                         "xCB16EC",
                         "x1A6735",
-                        "x0CDB57",
-                        "x272F40",
                         "xD62445",
-                        "x002CA6",
                         "x400644",
                         "xC109EF",
                         "xFF4334",
-                        "x863E68",
                         "xE4B798",
                         "x2D838F",
                         "x93473A",
                         "x9CDEC7",
                         "xB9E827",
-                        "x7EC254",
                         "xAF1462",
-                        "x4DE6D8",
                         "x57A279",
                         "x24C2C1",
                         "xC1FE36",
@@ -4327,14 +4326,8 @@
                         "x9B49E4",
                         "xA63A3F",
                         "x2C272D",
-                        "xF94B3B",
-                        "xF07F7B",
-                        "x53FD19",
                         "xC97FEC",
-                        "x2C889F",
-                        "x0AE4D2",
                         "x23AEA8",
-                        "x58E3CC",
                         "x1447B1",
                         "x041DE6",
                         "x7C4BE7",
@@ -4343,35 +4336,25 @@
                         "x3E2849",
                         "xC08080",
                         "x44B13A",
-                        "xBFEC14",
                         "xA8D5F5",
                         "x30D4A3",
                         "xA86F61",
-                        "xF73CFD",
                         "xBCDB8D",
-                        "xA13B9D",
                         "xFBAF0C",
                         "x244229",
                         "xB9B72B",
                         "x833289",
                         "xD31F1A",
-                        "xD57951",
                         "x919662",
                         "x7298A0",
-                        "x944ED5",
                         "xB2A8E6",
                         "xD3D91D",
                         "x47136C",
                         "xB11131",
-                        "xB9FEC1",
                         "x5255B3",
                         "x2EB016",
-                        "x902933",
-                        "x4E367B",
                         "xDE167C",
                         "x81667A",
-                        "xA00925",
-                        "xC85043",
                         "xFD9177",
                         "xB90C53",
                         "xB8405D",
@@ -4381,23 +4364,17 @@
                         "xA43B5F",
                         "x7626D3",
                         "xFB2B85",
-                        "x8D5662",
-                        "x2E8F6D",
                         "x14A33F",
                         "xBFD8B9",
                         "xB0556F",
                         "xDAE598",
-                        "x0EFEB5",
                         "x05137C",
-                        "x48EFD3",
-                        "x8216B9",
                         "x50A90C",
                         "xDD8241",
                         "xB39C1B",
                         "xAF2C3D",
                         "x7DB318",
                         "x89A524",
-                        "xC3EC0A",
                         "x3CC6B1",
                         "x714A14",
                         "xAC9F19",
@@ -4405,30 +4382,23 @@
                         "x8C2B38",
                         "xCB7E23",
                         "xE0383C",
-                        "x539071",
                         "xDE80AC",
                         "x26A0BA",
                         "x515DEB",
                         "x2D2C2D",
                         "x14B03B",
                         "x0468DF",
-                        "x7E6D65",
-                        "xB65BA2",
-                        "xD24E46",
                         "x69BF88",
                         "x3482E0",
                         "xE742CD",
-                        "x6BCDD9",
                         "x9095BA",
                         "x15A49A",
                         "x408266",
-                        "xF62875",
                         "x096D1F",
                         "x911E83",
                         "x73210A",
                         "x6368B4",
                         "x183A03",
-                        "x1CAFEA",
                         "xE13AB4",
                         "x3E9FAC",
                         "x957643",
@@ -4544,13 +4514,11 @@
                         "xF95E56",
                         "xD6A5C9",
                         "xBF1B61",
-                        "x8D0001",
                         "x42B6C5",
                         "x2D2B9A",
                         "x76372F",
                         "xC666BD",
                         "xB3CC99",
-                        "x27D464",
                         "xFC9250",
                         "xF965BE",
                         "x26408B",
@@ -4561,24 +4529,20 @@
                         "x83B0C8",
                         "xD709EA",
                         "x0A10AF",
-                        "x69005D",
                         "x8A38CF",
                         "x12EBC2",
                         "x2E6271",
                         "x24E698",
                         "x344699",
-                        "x0DADEF",
                         "x4E7D04",
                         "x3AC631",
                         "xC83863",
                         "x08DA68",
                         "xA13095",
-                        "xA1EEF9",
                         "x44EB95",
                         "x55129E",
                         "xC0D262",
                         "xF8016C",
-                        "x65CD76",
                         "xB605A8",
                         "x3E2CBF",
                         "xCFC665",
@@ -4587,7 +4551,6 @@
                         "x8FCD85",
                         "x8B7244",
                         "x0BB9B5",
-                        "xEE94F4",
                         "xDAE588",
                         "x44D809",
                         "xFBEEDF",
@@ -4603,7 +4566,6 @@
                         "xD905FA",
                         "xA9AFA9",
                         "x07ECF5",
-                        "x504A1A",
                         "x7290A1",
                         "x2FB1A9",
                         "xB16C7B",
@@ -4622,7 +4584,6 @@
                         "xB3B289",
                         "x0DBA60",
                         "x6D753E",
-                        "xADA6D6",
                         "x1C7F21",
                         "xAD0039",
                         "xE7C2E0",
@@ -4636,6 +4597,62 @@
                         "x354974",
                         "x7D3108",
                         "x9CA01A"
+                    ]
+                },
+                {
+                    "country": "c:HBC",
+                    "owned_provinces": [
+                        "x8D0001",
+                        "x65CD76",
+                        "x27D464",
+                        "xEE94F4",
+                        "xADA6D6",
+                        "x69005D",
+                        "x504A1A",
+                        "x0DADEF",
+                        "xA1EEF9",
+                        "xF3CDF6",
+                        "xC3EC0A",
+                        "x0CDB57",
+                        "x58E3CC",
+                        "x1CAFEA",
+                        "x8216B9",
+                        "x7EC254",
+                        "x539071",
+                        "xF62875",
+                        "x48EFD3",
+                        "x272F40",
+                        "xD57951",
+                        "xF94B3B",
+                        "xF07F7B",
+                        "x53FD19",
+                        "xB65BA2",
+                        "x6BCDD9",
+                        "xD9502D",
+                        "x944ED5",
+                        "x8D5662",
+                        "x4E367B",
+                        "x4F2C11",
+                        "x2E8F6D",
+                        "x863E68",
+                        "xD24E46",
+                        "x2C889F",
+                        "xC85043",
+                        "x7E6D65",
+                        "xA13B9D",
+                        "xA00925",
+                        "xE39786",
+                        "x002CA6",
+                        "x0AE4D2",
+                        "xB9FEC1",
+                        "x902933",
+                        "x0EFEB5",
+                        "x4DE6D8",
+                        "xBFEC14",
+                        "xF73CFD",
+                        "xCA438C",
+                        "x26A0BA",
+                        "xF2BAB1"
                     ],
                     "state_type": [
                         "unincorporated"
@@ -4645,6 +4662,9 @@
             "add_homeland": [
                 "cu:anglo_canadian",
                 "cu:athabaskan"
+            ],
+            "add_claim": [
+                "c:HBC"
             ]
         },
         "s:STATE_NORTHWEST_TERRITORIES": {
@@ -6749,14 +6769,11 @@
                         "x64E0B4",
                         "x2B750F",
                         "xA941A4",
-                        "xA6B63F",
                         "xA01450",
                         "xEEF6B1",
-                        "xCEC8BC",
                         "x0D541B",
                         "x5D8407",
                         "x9540CC",
-                        "xD46521",
                         "x462445",
                         "xAD1122",
                         "x75646F",
@@ -6764,33 +6781,25 @@
                         "x853C2D",
                         "xC4F8BE",
                         "xD1AA6A",
-                        "x07C186",
                         "x3D7CF6",
                         "x607082",
                         "x32E810",
                         "x003E09",
                         "xFEFB89",
                         "x5A9BA4",
-                        "xBB5D4E",
-                        "xF7E225",
                         "x8BC3A9",
                         "x63DABD",
                         "x7D839E",
                         "xA78118",
                         "x3F0544",
-                        "x353F41",
-                        "x26FE6E",
-                        "x5DC4E3",
                         "xBC873D",
                         "x74B3F3",
                         "xA12143",
                         "xBBF2BB",
                         "xBD3E1F",
-                        "xA5C52C",
                         "xD3E426",
                         "xE9756F",
                         "xE040C0",
-                        "x89CEC2",
                         "xA3DD6F",
                         "x63FBF3",
                         "x0EF29E",
@@ -6798,114 +6807,16 @@
                         "x5249E0",
                         "x3EF318",
                         "x8DCFDA",
-                        "x6E651A",
-                        "xB34974",
-                        "x42CC6B",
-                        "x3F6E46",
-                        "x58555F",
-                        "x84DAEF",
                         "xCB92D8",
-                        "xE49B22",
                         "xF0E9A1",
                         "x6F3AAF",
-                        "x13BF55",
-                        "x86384C",
-                        "xC0C173",
-                        "x0FC30C",
                         "x22717E",
-                        "x9B707D",
-                        "x0C324C",
-                        "x8A2D02",
-                        "x2600C9",
-                        "x6A10E2",
                         "x6C8005",
-                        "x75CE92",
                         "x9D1421",
-                        "x411CE0",
                         "x6E8B4C",
-                        "x77FCF9",
-                        "x45712D",
                         "x211659",
-                        "x149257",
                         "xD369B9",
-                        "x2F6DE4",
-                        "x6D09CF",
-                        "x768B68",
-                        "x7EC219",
-                        "x502BC0",
-                        "x56DFDD",
-                        "x8A0525",
-                        "x83A2F7",
-                        "x53FA26",
-                        "xC84186",
-                        "x457EDC",
-                        "x5E0CD6",
-                        "x172779",
                         "xB8325D",
-                        "x674C91",
-                        "x173D99",
-                        "xDFF28B",
-                        "x2613CC",
-                        "x0F979F",
-                        "xD02FBA",
-                        "x23E4DE",
-                        "x05085F",
-                        "x85C5DE",
-                        "x8D9E74",
-                        "xCA984F",
-                        "xBBC5F1",
-                        "x9C09F4",
-                        "x03EA0D",
-                        "x9D30A0",
-                        "x4A2D16",
-                        "x846BBD",
-                        "xB84CB1",
-                        "x8B7E77",
-                        "x094EE3",
-                        "x20A6BC",
-                        "xE85E08",
-                        "x398AB7",
-                        "xCBEFC9",
-                        "x17186D",
-                        "xE973D5",
-                        "x0019C8",
-                        "xBB7ED9",
-                        "x20D07C",
-                        "x17AC99",
-                        "x2DA2D0",
-                        "x9BCBB0",
-                        "x4D34B5",
-                        "xA9C721",
-                        "x7088D1",
-                        "xE77AF1",
-                        "x83263B",
-                        "x4AFA0E",
-                        "xAB945F",
-                        "x4383D7",
-                        "x4AD217",
-                        "x784FAC",
-                        "xB55800",
-                        "xAAC55E",
-                        "x7FE760",
-                        "xE97A12",
-                        "x004080",
-                        "x88982E",
-                        "x5FBAA3",
-                        "xC39EE7",
-                        "x0C50AB",
-                        "x4D47EB",
-                        "x945793",
-                        "x35417D",
-                        "x6EF14A",
-                        "x63FC5C",
-                        "x7E9185",
-                        "xFACE14",
-                        "x367CC4",
-                        "x54C8A5",
-                        "xDB5BFC",
-                        "xA24464",
-                        "x124B70",
-                        "x664323",
                         "x841727",
                         "x94B02F",
                         "x8B9B2E",
@@ -6956,98 +6867,6 @@
                         "x605F60",
                         "xC8510A",
                         "xFE866D",
-                        "x81606B",
-                        "x34C75E",
-                        "xDB73A1",
-                        "x9C4123",
-                        "xDA1E50",
-                        "x267F51",
-                        "xC0A02F",
-                        "x99E6CC",
-                        "xE02548",
-                        "xC8F21A",
-                        "x670613",
-                        "xDC970D",
-                        "x202671",
-                        "xB44559",
-                        "x827C30",
-                        "x25DD86",
-                        "x65E312",
-                        "x58A2F5",
-                        "x361836",
-                        "xA968D6",
-                        "x36EDBC",
-                        "xA697BD",
-                        "xC826FD",
-                        "x8DA2A3",
-                        "xC7414D",
-                        "x6D883B",
-                        "xE240D1",
-                        "x9C4EBD",
-                        "xDE98A3",
-                        "xB795CF",
-                        "x252116",
-                        "x40028F",
-                        "x27D1C9",
-                        "x6031E8",
-                        "xB2B319",
-                        "x5C8E10",
-                        "xC50A34",
-                        "x084C04",
-                        "x711438",
-                        "xC0F62F",
-                        "xDE374D",
-                        "x97F1DB",
-                        "xABA1A8",
-                        "x7FD1C6",
-                        "x59F3FC",
-                        "xE9B547",
-                        "x098440",
-                        "x03A13C",
-                        "x3108CF",
-                        "x364F5D",
-                        "x666995",
-                        "xB20AF0",
-                        "x396FB1",
-                        "xE7D0D3",
-                        "x3A5746",
-                        "x2F367F",
-                        "xFF5A75",
-                        "x653B62",
-                        "x5F06D2",
-                        "x780F19",
-                        "xA595A4",
-                        "x9860F4",
-                        "x45CCD8",
-                        "xC132C8",
-                        "xA504BE",
-                        "x87D0F6",
-                        "xE8D2D0",
-                        "x90EC1E",
-                        "xAD0C56",
-                        "x105E9E",
-                        "xC087BC",
-                        "x1FD5D0",
-                        "x475882",
-                        "xB175D9",
-                        "x27B8CB",
-                        "xBAD980",
-                        "x196BBC",
-                        "x1C6431",
-                        "xFC10D7",
-                        "x4CB32B",
-                        "xEF46B1",
-                        "xB98D8C",
-                        "x8C21F3",
-                        "xEE19E4",
-                        "x4F2908",
-                        "x383856",
-                        "x1C0D58",
-                        "xF23E90",
-                        "x003C0A",
-                        "x20156D",
-                        "xE057F6",
-                        "x0361F9",
                         "x774BEA",
                         "x539C2F",
                         "x2BBEA4",
@@ -7060,7 +6879,6 @@
                         "x8D62E7",
                         "x064FE6",
                         "xB9E50C",
-                        "xDA096E",
                         "xC7AB8A",
                         "xA0D447",
                         "xB6226D",
@@ -7071,14 +6889,12 @@
                         "xC0A000",
                         "xE811D1",
                         "x69C90F",
-                        "x2E14F8",
                         "xF18B54",
                         "xEE83F2",
                         "x377B09",
                         "x7B567F",
                         "x046319",
                         "x1D0C09",
-                        "x862333",
                         "x4D08E1",
                         "x77AD45",
                         "x872652",
@@ -7104,8 +6920,225 @@
                         "xBB97D1",
                         "xD4AFEA",
                         "x5502EC",
-                        "x082A0F",
-                        "x1A457C"
+                        "x082A0F"
+                    ]
+                },
+                {
+                    "country": "c:ATB",
+                    "owned_provinces": [
+                        "x4A2D16",
+                        "x7088D1",
+                        "x2DA2D0",
+                        "x05085F",
+                        "x8D9E74",
+                        "x20A6BC",
+                        "xFACE14",
+                        "xAAC55E",
+                        "x03EA0D",
+                        "x846BBD",
+                        "x8A0525",
+                        "x42CC6B",
+                        "x172779",
+                        "x0C324C",
+                        "x75CE92",
+                        "x5DC4E3",
+                        "xBB5D4E",
+                        "xA6B63F",
+                        "xD46521",
+                        "x353F41",
+                        "xF7E225",
+                        "x89CEC2",
+                        "x07C186",
+                        "x6E651A",
+                        "x457EDC",
+                        "x411CE0",
+                        "x13BF55",
+                        "x1A457C",
+                        "x3F6E46",
+                        "x0FC30C",
+                        "x6A10E2",
+                        "x2600C9",
+                        "x149257",
+                        "x45712D",
+                        "xDFF28B",
+                        "xC0C173",
+                        "x97F1DB",
+                        "xB795CF",
+                        "xB20AF0",
+                        "x6D883B",
+                        "xE97A12",
+                        "x23E4DE",
+                        "x17186D",
+                        "xE973D5",
+                        "xA595A4",
+                        "x1C0D58",
+                        "x45CCD8",
+                        "x0361F9",
+                        "x105E9E",
+                        "x90EC1E",
+                        "x27B8CB",
+                        "xE8D2D0",
+                        "xD02FBA",
+                        "x862333",
+                        "x2E14F8",
+                        "xB2B319",
+                        "x58555F",
+                        "x56DFDD",
+                        "x098440",
+                        "x827C30",
+                        "xC0F62F",
+                        "x2F367F",
+                        "xDE98A3",
+                        "xDB73A1",
+                        "xB44559",
+                        "xE02548",
+                        "x361836",
+                        "x58A2F5",
+                        "x9C4EBD",
+                        "x711438",
+                        "x8DA2A3",
+                        "x094EE3",
+                        "x945793",
+                        "xA9C721",
+                        "x20D07C",
+                        "x4CB32B",
+                        "xEF46B1",
+                        "xAD0C56",
+                        "xE85E08",
+                        "x77FCF9",
+                        "x2613CC",
+                        "x26FE6E",
+                        "xA5C52C",
+                        "x173D99",
+                        "x2F6DE4",
+                        "x7EC219",
+                        "x9B707D",
+                        "xCEC8BC",
+                        "x3A5746",
+                        "x502BC0",
+                        "x53FA26",
+                        "x83A2F7",
+                        "x5E0CD6",
+                        "x84DAEF",
+                        "xE49B22",
+                        "x202671",
+                        "x54C8A5",
+                        "x004080",
+                        "x7E9185",
+                        "x6D09CF",
+                        "x768B68",
+                        "x8A2D02",
+                        "x86384C",
+                        "xB84CB1",
+                        "x7FE760",
+                        "xBB7ED9",
+                        "xCBEFC9",
+                        "x17AC99",
+                        "x664323",
+                        "x63FC5C",
+                        "x9C09F4",
+                        "x5FBAA3",
+                        "x9BCBB0",
+                        "x9D30A0",
+                        "x4383D7",
+                        "xE77AF1",
+                        "x4AFA0E",
+                        "x85C5DE",
+                        "xCA984F",
+                        "x0019C8",
+                        "x124B70",
+                        "x398AB7",
+                        "x674C91",
+                        "x4AD217",
+                        "x784FAC",
+                        "x0C50AB",
+                        "x367CC4",
+                        "xAB945F",
+                        "x35417D",
+                        "x8B7E77",
+                        "x4D34B5",
+                        "x83263B",
+                        "x88982E",
+                        "x0F979F",
+                        "xBBC5F1",
+                        "xC84186",
+                        "xB55800",
+                        "xB34974",
+                        "xA24464",
+                        "xDB5BFC",
+                        "xC39EE7",
+                        "x6EF14A",
+                        "x4D47EB"
+                    ]
+                },
+                {
+                    "country": "c:HBC",
+                    "owned_provinces": [
+                        "x99E6CC",
+                        "xDA096E",
+                        "xDC970D",
+                        "xC50A34",
+                        "x25DD86",
+                        "x5C8E10",
+                        "x27D1C9",
+                        "xE9B547",
+                        "x666995",
+                        "xC826FD",
+                        "x65E312",
+                        "x03A13C",
+                        "xE7D0D3",
+                        "xDA1E50",
+                        "x6031E8",
+                        "xA697BD",
+                        "x59F3FC",
+                        "x3108CF",
+                        "x396FB1",
+                        "x670613",
+                        "x34C75E",
+                        "x81606B",
+                        "x364F5D",
+                        "x7FD1C6",
+                        "xDE374D",
+                        "xABA1A8",
+                        "x084C04",
+                        "xE240D1",
+                        "x40028F",
+                        "x9C4123",
+                        "xC7414D",
+                        "xFF5A75",
+                        "x252116",
+                        "x36EDBC",
+                        "xC0A02F",
+                        "x267F51",
+                        "xA968D6",
+                        "xC8F21A",
+                        "xFC10D7",
+                        "x653B62",
+                        "x5F06D2",
+                        "x383856",
+                        "x20156D",
+                        "x4F2908",
+                        "xEE19E4",
+                        "xE057F6",
+                        "x003C0A",
+                        "x8C21F3",
+                        "x1FD5D0",
+                        "xB175D9",
+                        "xF23E90",
+                        "xA504BE",
+                        "x475882",
+                        "xC087BC",
+                        "xBAD980",
+                        "x780F19",
+                        "x87D0F6",
+                        "x1C6431",
+                        "x9860F4",
+                        "xB98D8C",
+                        "xC132C8",
+                        "x196BBC"
+                    ],
+                    "state_type": [
+                        "unincorporated"
                     ]
                 }
             ],
@@ -7113,6 +7146,9 @@
                 "cu:anglo_canadian",
                 "cu:athabaskan",
                 "cu:salish"
+            ],
+            "add_claim": [
+                "c:ORG"
             ]
         },
         "s:STATE_ALBERTA": {
@@ -10051,7 +10087,7 @@
         "s:STATE_SOUTHERN_TRANSYLVANIA": {
             "create_state": [
                 {
-                    "country": "c:AUS",
+                    "country": "c:TRS",
                     "owned_provinces": [
                         "x10E29E",
                         "x306060",
@@ -10089,7 +10125,7 @@
         "s:STATE_NORTHERN_TRANSYLVANIA": {
             "create_state": [
                 {
-                    "country": "c:AUS",
+                    "country": "c:TRS",
                     "owned_provinces": [
                         "x3161A0",
                         "x4884E0",
@@ -10112,7 +10148,7 @@
                 "cu:romanian"
             ]
         },
-        "s:STATE_MOLDAVIA": {
+        "s:STATE_BUKOVINA": {
             "create_state": [
                 {
                     "country": "c:AUS",
@@ -10123,7 +10159,15 @@
                         "x00A7F4",
                         "x067DF0"
                     ]
-                },
+                }
+            ],
+            "add_homeland": [
+                "cu:ukrainian",
+                "cu:romanian"
+            ]
+        },
+        "s:STATE_MOLDAVIA": {
+            "create_state": [
                 {
                     "country": "c:MOL",
                     "owned_provinces": [
@@ -14193,20 +14237,29 @@
                         "xA3B8D9",
                         "xA9542D",
                         "xB5755C",
-                        "x73E2F0",
-                        "x319927",
                         "x65369D",
                         "x20D113",
                         "x7070A0",
-                        "x4BA220",
-                        "x9EEF57",
+                        "x9EEF57"
+                    ]
+                },
+                {
+                    "country": "c:KLO",
+                    "owned_provinces": [
                         "xD125AB",
+                        "x73E2F0",
+                        "x4BA220",
+                        "x319927",
                         "xF0FC47"
                     ]
                 }
             ],
             "add_homeland": [
-                "cu:khmer"
+                "cu:khmer",
+                "cu:champa"
+            ],
+            "add_claim": [
+                "c:CAM"
             ]
         },
         "s:STATE_SAVOY": {
@@ -22147,7 +22200,8 @@
                 "cu:bedouin",
                 "cu:sudanese",
                 "cu:dinka",
-                "cu:nuer"
+                "cu:nuer",
+                "cu:nuba"
             ]
         },
         "s:STATE_NEW_BRUNSWICK": {
@@ -22595,8 +22649,6 @@
                 {
                     "country": "c:POR",
                     "owned_provinces": [
-                        "x3D00BC",
-                        "xC270F8",
                         "xA5450D",
                         "xB230F4",
                         "x2F77FB",
@@ -22681,6 +22733,13 @@
                         "xC60197",
                         "x05A72B",
                         "x7D1C19"
+                    ]
+                },
+                {
+                    "country": "c:TGI",
+                    "owned_provinces": [
+                        "x3D00BC",
+                        "xC270F8"
                     ]
                 }
             ],
@@ -25689,7 +25748,8 @@
             "add_homeland": [
                 "cu:burmese",
                 "cu:karen",
-                "cu:thai"
+                "cu:thai",
+                "cu:malay"
             ]
         },
         "s:STATE_KACHIN": {
@@ -26981,15 +27041,10 @@
                         "xDFB76F",
                         "x20EBC8",
                         "x84C294",
-                        "x318256",
-                        "xA51575",
                         "x869C8E",
-                        "x107FA1",
                         "x4160D0",
                         "x077343",
                         "x1E8D53",
-                        "x939EDA",
-                        "x3D8E7B",
                         "x0FA741",
                         "x98DC27",
                         "xB9A342",
@@ -26997,52 +27052,22 @@
                         "xD20B42",
                         "x560028",
                         "xCE40EE",
-                        "xAF0800",
                         "x156474",
                         "x74C88E",
                         "xD61F68",
                         "x82F3F6",
-                        "x1527DC",
                         "xC74C78",
-                        "xBEDF90",
-                        "xFC0BCC",
                         "x489C2A",
-                        "xD25F58",
                         "x02BFCD",
-                        "x9D4A30",
                         "x6075E2",
                         "x055C75",
-                        "x0BB3A0",
-                        "xD68922",
-                        "x7FCE33",
-                        "x4AD726",
-                        "x14A492",
-                        "x0E0BF3",
-                        "xB56BDC",
-                        "x206111",
-                        "x7A2004",
-                        "x516EB2",
                         "x9B2CD2",
-                        "x28B782",
-                        "xAA8CB0",
-                        "x5C59E3",
-                        "x396D03",
-                        "x19A599",
-                        "x721216",
-                        "xE1D0E7",
-                        "x6E7998",
-                        "x582778",
-                        "xB41950",
-                        "xCCBD1F",
-                        "xFD0A16",
-                        "xE156F9",
-                        "x3286BD",
-                        "x8F6EB2",
-                        "xD1CB36",
                         "x75E6F0",
-                        "x6E8CCA",
-                        "x8CA5FB",
-                        "x0D5E96"
+                        "x0D5E96",
+                        "x107FA1",
+                        "xA51575",
+                        "x939EDA",
+                        "x3D8E7B"
                     ]
                 },
                 {
@@ -27059,20 +27084,64 @@
                         "x35C9A6",
                         "xA8A20B",
                         "xD033B3",
-                        "xD6B588",
+                        "xD6B588"
+                    ]
+                },
+                {
+                    "country": "c:ARS",
+                    "owned_provinces": [
                         "x91C70C",
                         "x0FBF6B",
                         "xE04093",
                         "x5FDD08",
                         "x1A441F"
                     ]
+                },
+                {
+                    "country": "c:OGD",
+                    "owned_provinces": [
+                        "x0BB3A0",
+                        "x0E0BF3",
+                        "x14A492",
+                        "x1527DC",
+                        "x19A599",
+                        "x206111",
+                        "x28B782",
+                        "x318256",
+                        "x3286BD",
+                        "x396D03",
+                        "x4AD726",
+                        "x516EB2",
+                        "x582778",
+                        "x5C59E3",
+                        "x6E7998",
+                        "x6E8CCA",
+                        "x721216",
+                        "x7A2004",
+                        "x7FCE33",
+                        "x8CA5FB",
+                        "x8F6EB2",
+                        "x9D4A30",
+                        "xAA8CB0",
+                        "xAF0800",
+                        "xB41950",
+                        "xB56BDC",
+                        "xBEDF90",
+                        "xCCBD1F",
+                        "xD1CB36",
+                        "xD25F58",
+                        "xD68922",
+                        "xE156F9",
+                        "xE1D0E7",
+                        "xFC0BCC",
+                        "xFD0A16"
+                    ]
                 }
             ],
             "add_homeland": [
                 "cu:oromo",
                 "cu:amhara",
-                "cu:somali",
-                "cu:kikuyu"
+                "cu:somali"
             ]
         },
         "s:STATE_AMHARA": {
@@ -27095,7 +27164,7 @@
                     ]
                 },
                 {
-                    "country": "c:SHW",
+                    "country": "c:HDY",
                     "owned_provinces": [
                         "x69B4E9",
                         "xC4CB68",
@@ -27130,33 +27199,43 @@
                 {
                     "country": "c:KFA",
                     "owned_provinces": [
-                        "x848437",
-                        "x0739DC",
                         "x98BB15",
-                        "xD769E6",
                         "xD27454",
                         "xE8D092",
                         "xA6F2C6",
                         "x62BE5B",
                         "xB332F3",
-                        "x1EA108",
                         "x5F19EC",
                         "xDFF064",
                         "x29C3A2",
-                        "x6AEA5C",
-                        "x2D8473",
-                        "x4681AC",
-                        "x71415B",
-                        "x40BCE0",
+                        "x870056"
+                    ]
+                },
+                {
+                    "country": "c:ANU",
+                    "owned_provinces": [
                         "x3503EC",
                         "x2AC215",
-                        "xEE8BD1",
-                        "x963349",
-                        "x44DF06",
-                        "x9EFEE0",
+                        "x6AEA5C",
+                        "x40BCE0",
+                        "x1EA108",
+                        "x2D8473",
+                        "x71415B",
+                        "x4681AC",
+                        "xD769E6"
+                    ]
+                },
+                {
+                    "country": "c:OMO",
+                    "owned_provinces": [
                         "x7F617B",
-                        "x870056",
-                        "x1D098B"
+                        "x1D098B",
+                        "xEE8BD1",
+                        "x9EFEE0",
+                        "x44DF06",
+                        "x963349",
+                        "x0739DC",
+                        "x848437"
                     ]
                 },
                 {
@@ -27165,38 +27244,44 @@
                         "x5A8BBB",
                         "x10D446",
                         "x1F0F14",
-                        "xBFDFCF",
-                        "x345DC3",
                         "x462918"
+                    ]
+                },
+                {
+                    "country": "c:WLT",
+                    "owned_provinces": [
+                        "xBFDFCF",
+                        "x345DC3"
                     ]
                 }
             ],
             "add_homeland": [
                 "cu:oromo",
                 "cu:amhara",
-                "cu:sidama",
-                "cu:kikuyu"
+                "cu:sidama"
             ]
         },
         "s:STATE_GONDER": {
             "create_state": [
                 {
-                    "country": "c:BGM",
+                    "country": "c:QWR",
                     "owned_provinces": [
                         "xC19466",
+                        "xA2BCF9",
+                        "x7E83AE",
+                        "x61A2A3",
+                        "xEFA8BC",
+                        "x251691",
+                        "x931306"
+                    ]
+                },
+                {
+                    "country": "c:BGM",
+                    "owned_provinces": [
                         "x0DED25",
                         "xDF2090",
                         "x536ACF",
                         "xB87731",
-                        "x61A2A3",
-                        "xEFA8BC",
-                        "x7E83AE",
-                        "xA2BCF9"
-                    ]
-                },
-                {
-                    "country": "c:WLO",
-                    "owned_provinces": [
                         "x4A8BE1",
                         "xDF37BE",
                         "x6BA88A",
@@ -27251,8 +27336,6 @@
                         "x6F31A5",
                         "x3BE1BE",
                         "xE06640",
-                        "x931306",
-                        "x251691",
                         "xDA7922",
                         "x489309",
                         "xA50EE3",
@@ -27264,7 +27347,6 @@
                 "cu:oromo",
                 "cu:amhara",
                 "cu:tigray",
-                "cu:kikuyu",
                 "cu:afar"
             ]
         },
@@ -27546,8 +27628,7 @@
                 }
             ],
             "add_homeland": [
-                "cu:somali",
-                "cu:swahili"
+                "cu:somali"
             ]
         },
         "s:STATE_NAMAQUALAND": {
@@ -27856,6 +27937,17 @@
                 {
                     "country": "c:KKY",
                     "owned_provinces": [
+                        "xA40CF9",
+                        "x5EA4B6",
+                        "x33566A",
+                        "x28843B",
+                        "x40DE9B",
+                        "xA0A090"
+                    ]
+                },
+                {
+                    "country": "c:SKY",
+                    "owned_provinces": [
                         "xECA4C0",
                         "x089446",
                         "x65632F",
@@ -27875,53 +27967,92 @@
                         "x90F646",
                         "x58526D",
                         "xF89944",
-                        "x8FF25F",
-                        "xBD067F",
-                        "xA7A757",
-                        "x9BA0B4",
-                        "x95C403",
-                        "xE007A1",
+                        "x9A78B7",
+                        "x77319E",
+                        "x5C1ADA"
+                    ]
+                },
+                {
+                    "country": "c:MBS",
+                    "owned_provinces": [
+                        "x35554F",
+                        "x941594",
+                        "x22D39E"
+                    ]
+                },
+                {
+                    "country": "c:WTU",
+                    "owned_provinces": [
+                        "x5C1ADA",
+                        "x6CCF4B"
+                    ]
+                },
+                {
+                    "country": "c:OMA",
+                    "owned_provinces": [
+                        "x6B52F1",
+                        "xA02190",
+                        "x21A090",
+                        "x9E9F57",
+                        "xC53497",
+                        "xC52E48",
+                        "xE23000"
+                    ]
+                },
+                {
+                    "country": "c:MJK",
+                    "owned_provinces": [
+                        "x996D62",
+                        "x5CB34D",
+                        "x6C071A",
+                        "xADF3C8",
+                        "x30D3AC",
+                        "x9A78B7"
+                    ]
+                },
+                {
+                    "country": "c:ORM",
+                    "owned_provinces": [
+                        "xF59538",
+                        "xC8B790",
+                        "xD0A631",
+                        "xC80CAC",
+                        "x005C29",
+                        "xD8A2A3",
+                        "x4816E8",
+                        "x89BA83"
+                    ]
+                },
+                {
+                    "country": "c:AJR",
+                    "owned_provinces": [
+                        "xB5BCCC",
                         "xE5F986",
-                        "xA0A011",
-                        "x0AF9FB",
                         "xC95AAB",
+                        "x9BA0B4",
                         "x4168F3",
                         "x834AD2",
-                        "xB5BCCC",
+                        "x0AF9FB",
                         "x08B945",
-                        "xA0A090",
-                        "x40DE9B",
-                        "x5EA4B6",
-                        "xA40CF9",
-                        "x89BA83",
-                        "x8079E2",
-                        "xC80CAC",
-                        "xB97349",
-                        "x6C071A",
-                        "xBFCF3E",
-                        "xADF3C8",
-                        "x9A78B7",
-                        "x30D3AC",
-                        "xD0A631",
-                        "x005C29",
-                        "x4816E8",
-                        "xF59538",
-                        "x47F824",
-                        "x996D62",
-                        "x9FDE2D",
+                        "xBD067F",
+                        "xE007A1",
+                        "x95C403",
+                        "x8FF25F"
+                    ]
+                },
+                {
+                    "country": "c:AUL",
+                    "owned_provinces": [
+                        "xA7A757",
+                        "xA0A011",
                         "x88F1D5",
-                        "xC8B790",
-                        "x77319E",
-                        "x33566A",
-                        "x5CB34D",
-                        "xFE3967",
-                        "xD8A2A3",
-                        "x6CCF4B",
                         "x19CFEC",
-                        "x28843B",
-                        "xA02190",
-                        "x5C1ADA",
-                        "x6B52F1"
+                        "x9FDE2D",
+                        "x47F824",
+                        "xB97349",
+                        "x8079E2",
+                        "xFE3967",
+                        "xBFCF3E"
                     ]
                 }
             ],
@@ -28396,7 +28527,7 @@
             "add_homeland": [
                 "cu:yao",
                 "cu:makua",
-                "cu:unyamwezi",
+                "cu:nyamwezi",
                 "cu:lacustrine_bantu",
                 "cu:chewa"
             ]
@@ -28406,29 +28537,21 @@
                 {
                     "country": "c:OMA",
                     "owned_provinces": [
-                        "x21A090",
-                        "x35554F",
+                        "x16F859",
+                        "x414325",
                         "x438029",
                         "x6021AF",
-                        "x6B7D25",
-                        "xA50F53",
-                        "xE60324",
-                        "x65FD48",
-                        "x16F859",
-                        "xE0D920",
-                        "x414325",
-                        "xE020B0",
-                        "xE23000",
-                        "x22D39E",
-                        "xC52E48",
-                        "xC53497",
-                        "x9E9F57",
-                        "x93DC46",
                         "x60A0AF",
+                        "x65FD48",
+                        "x6B7D25",
                         "x7D05E3",
+                        "x93DC46",
                         "xA06030",
-                        "xF87B77",
-                        "x941594"
+                        "xA50F53",
+                        "xE020B0",
+                        "xE0D920",
+                        "xE60324",
+                        "xF87B77"
                     ]
                 }
             ],
@@ -28443,13 +28566,6 @@
                 {
                     "country": "c:NYM",
                     "owned_provinces": [
-                        "xDD184B",
-                        "x8C8524",
-                        "xE15FF5",
-                        "x61218F",
-                        "xD0FF5C",
-                        "x38E17B",
-                        "x425AA5",
                         "xF56448",
                         "xE5BCC5",
                         "xAEEF76",
@@ -28510,16 +28626,28 @@
                         "x31DDA2",
                         "x56F303",
                         "x3F4074",
-                        "x8C4477",
-                        "xFDF261",
-                        "x385BCF",
                         "x97523A",
                         "xAD3AA2",
-                        "x25315B",
-                        "xFCA852",
                         "xF56448",
                         "xAEEF76",
                         "xE5BCC5"
+                    ]
+                },
+                {
+                    "country": "c:SKM",
+                    "owned_provinces": [
+                        "xFDF261",
+                        "x385BCF",
+                        "x25315B",
+                        "x8C4477",
+                        "xFCA852",
+                        "x425AA5",
+                        "x61218F",
+                        "x38E17B",
+                        "xDD184B",
+                        "x8C8524",
+                        "xD0FF5C",
+                        "xE15FF5"
                     ]
                 },
                 {
@@ -28553,7 +28681,7 @@
             ],
             "add_homeland": [
                 "cu:lacustrine_bantu",
-                "cu:unyamwezi",
+                "cu:nyamwezi",
                 "cu:rundi",
                 "cu:ruanda",
                 "cu:sukuma",
@@ -32861,7 +32989,8 @@
                 }
             ],
             "add_homeland": [
-                "cu:georgian"
+                "cu:georgian",
+                "cu:armenian"
             ]
         },
         "s:STATE_MONTENEGRO": {
@@ -32895,54 +33024,78 @@
                 "c:MON"
             ]
         },
-        "s:STATE_NORTHERN_SERBIA": {
+        "s:STATE_WESTERN_SERBIA": {
             "create_state": [
                 {
                     "country": "c:SER",
                     "owned_provinces": [
-                        "x4D115A",
-                        "xF9E78E",
                         "x10A060",
                         "x4B1F45",
+                        "x4D115A",
+                        "x90A061",
                         "xEDBA20",
-                        "x3B6092",
-                        "x74F1F4",
-                        "x9061A0",
-                        "x40AF95",
-                        "x90A061"
+                        "xF9E78E",
+                        "x4773E6"
+                    ]
+                },
+                {
+                    "country": "c:TUR",
+                    "owned_provinces": [
+                        "x9DFFAF"
                     ]
                 }
             ],
             "add_homeland": [
                 "cu:serb"
+            ],
+            "add_claim": [
+                "c:SER"
             ]
         },
-        "s:STATE_SOUTHERN_SERBIA": {
+        "s:STATE_EASTERN_SERBIA": {
             "create_state": [
                 {
                     "country": "c:TUR",
                     "owned_provinces": [
-                        "xA5D3A9",
-                        "x9DFFAF",
-                        "x334B53",
-                        "xD021E0",
                         "x18B761",
-                        "x4773E6",
-                        "xB852BB",
-                        "xD02161",
-                        "x45E06A",
+                        "x334B53",
                         "x62A730",
-                        "xAC083C"
+                        "xAC083C",
+                        "xD021E0"
+                    ]
+                },
+                {
+                    "country": "c:SER",
+                    "owned_provinces": [
+                        "x9061A0",
+                        "x3B6092",
+                        "x40AF95",
+                        "x74F1F4"
+                    ]
+                }
+            ],
+            "add_homeland": [
+                "cu:serb"
+            ],
+            "add_claim": [
+                "c:SER"
+            ]
+        },
+        "s:STATE_KOSOVO": {
+            "create_state": [
+                {
+                    "country": "c:TUR",
+                    "owned_provinces": [
+                        "x45E06A",
+                        "xA5D3A9",
+                        "xB852BB",
+                        "xD02161"
                     ]
                 }
             ],
             "add_homeland": [
                 "cu:serb",
-                "cu:turkish",
                 "cu:albanian"
-            ],
-            "add_claim": [
-                "c:SER"
             ]
         },
         "s:STATE_HUDAVENDIGAR": {
@@ -33111,7 +33264,6 @@
             ],
             "add_homeland": [
                 "cu:turkish",
-                "cu:kurdish",
                 "cu:armenian",
                 "cu:greek"
             ]
@@ -33742,13 +33894,6 @@
                         "x32BFFB",
                         "x65FE48",
                         "x799EA4",
-                        "x738D72",
-                        "xCD0D1D",
-                        "xD27C1B",
-                        "x5083AB",
-                        "xF031A0",
-                        "x36F847",
-                        "x98FD84",
                         "xF0E531",
                         "x61145A",
                         "x60458E",
@@ -33757,12 +33902,28 @@
                         "xD49EE0",
                         "x4BB178",
                         "x5AB75C",
-                        "xC37AF1"
+                        "xC37AF1",
+                        "xF031A0"
+                    ]
+                },
+                {
+                    "country": "c:SCT",
+                    "owned_provinces": [
+                        "x5083AB",
+                        "x36F847",
+                        "xD27C1B",
+                        "xCD0D1D",
+                        "x98FD84",
+                        "x738D72"
                     ]
                 }
             ],
             "add_homeland": [
-                "cu:vietnamese"
+                "cu:vietnamese",
+                "cu:zhuang"
+            ],
+            "add_claim": [
+                "c:DAI"
             ]
         },
         "s:STATE_ANNAM": {
@@ -33811,37 +33972,27 @@
                         "x6BA60C",
                         "xDA6CAB",
                         "xE8A817",
-                        "x0B160B",
-                        "x578898",
                         "x8D4D75",
-                        "x2DE84E",
-                        "x1957E0",
                         "x1E6D3C",
-                        "x625009",
                         "xEAEF3A",
-                        "xB0B020",
                         "xDE87E1",
                         "x46CCB6",
-                        "x8BFF1F",
-                        "x6C400A",
-                        "x61478F"
+                        "x6C400A"
                     ]
                 },
                 {
                     "country": "c:SIA",
                     "owned_provinces": [
                         "x7E2810",
-                        "x02CE70",
                         "x9EFC82",
                         "xB9A4C0",
-                        "xB07020",
                         "xF03D75",
-                        "x987E5B",
-                        "xB246DC",
-                        "xF3D3B6",
                         "x3E70A9",
                         "xB0EF20",
                         "x9751B6"
+                    ],
+                    "state_type": [
+                        "unincorporated"
                     ]
                 },
                 {
@@ -33856,6 +34007,32 @@
                         "xC8AFB5",
                         "x94CA13",
                         "x899047"
+                    ]
+                },
+                {
+                    "country": "c:DAI",
+                    "owned_provinces": [
+                        "xB07020",
+                        "x02CE70",
+                        "xB246DC",
+                        "x987E5B",
+                        "xF3D3B6",
+                        "x2DE84E",
+                        "x8BFF1F",
+                        "x0B160B",
+                        "x1957E0",
+                        "xB0B020"
+                    ],
+                    "state_type": [
+                        "unincorporated"
+                    ]
+                },
+                {
+                    "country": "c:SCT",
+                    "owned_provinces": [
+                        "x625009",
+                        "x578898",
+                        "x61478F"
                     ]
                 }
             ],
@@ -37815,6 +37992,7 @@
                 }
             ],
             "add_homeland": [
+                "cu:east_german",
                 "cu:estonian"
             ]
         },
@@ -37840,6 +38018,7 @@
                 }
             ],
             "add_homeland": [
+                "cu:east_german",
                 "cu:estonian"
             ]
         },
@@ -37881,6 +38060,7 @@
                 }
             ],
             "add_homeland": [
+                "cu:east_german",
                 "cu:latvian"
             ]
         },
@@ -37909,6 +38089,7 @@
                 }
             ],
             "add_homeland": [
+                "cu:east_german",
                 "cu:latvian"
             ]
         },
@@ -37917,11 +38098,15 @@
                 {
                     "country": "c:RUS",
                     "owned_provinces": [
+                        "x00E0A0",
                         "x0980C8",
                         "x0B6577",
                         "x21F318",
                         "x232B98",
                         "x406DC9",
+                        "x4177AF",
+                        "x4678E5",
+                        "x577C69",
                         "x6175AD",
                         "x629C46",
                         "x7A5D64",
@@ -37929,6 +38114,7 @@
                         "x80D858",
                         "x95171C",
                         "xA8FF51",
+                        "xA916E3",
                         "xAF73F2",
                         "xBFE867",
                         "xC0A0A0",
@@ -37950,13 +38136,8 @@
                 {
                     "country": "c:RUS",
                     "owned_provinces": [
-                        "x00E0A0",
                         "x0161A0",
-                        "x4177AF",
                         "x41E061",
-                        "x4678E5",
-                        "x577C69",
-                        "xA916E3",
                         "xF2CB3D"
                     ],
                     "state_type": [
@@ -39264,6 +39445,7 @@
                 }
             ],
             "add_homeland": [
+                "cu:east_german",
                 "cu:russian",
                 "cu:tatar"
             ]
@@ -46849,8 +47031,7 @@
                         "xC7B7B8",
                         "x5F3456",
                         "x56599F",
-                        "xA550A9",
-                        "x9061E0"
+                        "xA550A9"
                     ]
                 },
                 {
@@ -46886,8 +47067,7 @@
                         "x489C42",
                         "x7EDD9E",
                         "x53932F",
-                        "xC58E1C",
-                        "xD0E061"
+                        "xC58E1C"
                     ]
                 }
             ],
@@ -46896,23 +47076,29 @@
                 "cu:ukrainian"
             ]
         },
-        "s:STATE_WEST_SLOVAKIA": {
+        "s:STATE_SLOVAKIA": {
             "create_state": [
                 {
-                    "country": "c:AUS",
+                    "country": "c:HUN",
                     "owned_provinces": [
-                        "x695F42",
+                        "x02CE3A",
+                        "x082416",
+                        "x1F3F2B",
+                        "x20C000",
+                        "x51306A",
                         "x516161",
-                        "xCA932B",
+                        "x51E061",
+                        "x695F42",
+                        "x6B444C",
+                        "x7DE5D3",
                         "x853117",
                         "x90E0E0",
-                        "xD06161",
-                        "x082416",
+                        "xB23DA0",
                         "xB386BA",
-                        "x1F3F2B",
-                        "x6B444C",
-                        "xFC6F14",
-                        "x51306A"
+                        "xC54074",
+                        "xCA932B",
+                        "xD06161",
+                        "xFC6F14"
                     ]
                 }
             ],
@@ -46921,25 +47107,21 @@
                 "cu:hungarian"
             ]
         },
-        "s:STATE_EAST_SLOVAKIA": {
+        "s:STATE_RUTHENIA": {
             "create_state": [
                 {
-                    "country": "c:AUS",
+                    "country": "c:HUN",
                     "owned_provinces": [
-                        "xC54074",
-                        "xB23DA0",
-                        "x7DE5D3",
-                        "x51E061",
-                        "x20C000",
-                        "x02CE3A",
-                        "xA0531B",
+                        "x359378",
                         "x69BAC7",
+                        "xA0531B",
                         "xC85CD0",
-                        "x359378"
+                        "xD0E061"
                     ]
                 }
             ],
             "add_homeland": [
+                "cu:ukrainian",
                 "cu:slovak",
                 "cu:hungarian"
             ]
@@ -46963,7 +47145,7 @@
         "s:STATE_CROATIA": {
             "create_state": [
                 {
-                    "country": "c:AUS",
+                    "country": "c:CRO",
                     "owned_provinces": [
                         "x71A041",
                         "x70DF00",
@@ -46984,7 +47166,7 @@
         "s:STATE_SLAVONIA": {
             "create_state": [
                 {
-                    "country": "c:AUS",
+                    "country": "c:CRO",
                     "owned_provinces": [
                         "x51A021",
                         "x106020",
@@ -47004,7 +47186,7 @@
         "s:STATE_BEKES": {
             "create_state": [
                 {
-                    "country": "c:AUS",
+                    "country": "c:HUN",
                     "owned_provinces": [
                         "x5161A0",
                         "xAF5C60",
@@ -47023,7 +47205,7 @@
         "s:STATE_TRANSDANUBIA": {
             "create_state": [
                 {
-                    "country": "c:AUS",
+                    "country": "c:HUN",
                     "owned_provinces": [
                         "xF0E001",
                         "x6F8D2A",
@@ -47046,8 +47228,7 @@
                 }
             ],
             "add_homeland": [
-                "cu:hungarian",
-                "cu:south_german"
+                "cu:hungarian"
             ]
         },
         "s:STATE_ISTRIA": {
@@ -47134,10 +47315,8 @@
                         "x49C8F7",
                         "xEF6080",
                         "x12778D",
-                        "x71E080",
                         "x4B3444",
                         "x1D088E",
-                        "xF0E080",
                         "x10DFDF"
                     ]
                 }
@@ -47150,7 +47329,7 @@
         "s:STATE_CENTRAL_HUNGARY": {
             "create_state": [
                 {
-                    "country": "c:AUS",
+                    "country": "c:HUN",
                     "owned_provinces": [
                         "x51E0E0",
                         "xAB6CAC",
@@ -47279,7 +47458,7 @@
         "s:STATE_DELVIDEK": {
             "create_state": [
                 {
-                    "country": "c:AUS",
+                    "country": "c:HUN",
                     "owned_provinces": [
                         "x77143D",
                         "x901B70",
@@ -47386,19 +47565,15 @@
                 {
                     "country": "c:PRU",
                     "owned_provinces": [
-                        "xBAF66D",
                         "x178C99",
+                        "x374AC3",
+                        "x41A021",
+                        "x55FD02",
                         "x611F2F",
-                        "x945000",
-                        "x3E3572",
-                        "x0180A0",
                         "x7CB839",
                         "x80A0A0",
-                        "x7A6061",
-                        "x6E8875",
-                        "x41A021",
-                        "x374AC3",
-                        "x55FD02"
+                        "x945000",
+                        "xBAF66D"
                     ]
                 }
             ],
@@ -47412,23 +47587,25 @@
                 {
                     "country": "c:PRU",
                     "owned_provinces": [
-                        "x975566",
-                        "x4121A0",
-                        "x2399A2",
                         "x1E73B9",
-                        "xC020A0",
-                        "x981EBE",
-                        "x72FDF3",
+                        "x2399A2",
                         "x40A0A0",
-                        "xBF9F20",
-                        "x9FD037",
+                        "x4121A0",
                         "x47C900",
-                        "xC04521",
-                        "x7D6DC3",
-                        "xEEF586",
-                        "xAEA6D6",
                         "x5428E6",
-                        "xABC4AE"
+                        "x6E8875",
+                        "x72FDF3",
+                        "x7A6061",
+                        "x7D6DC3",
+                        "x975566",
+                        "x981EBE",
+                        "x9FD037",
+                        "xABC4AE",
+                        "xAEA6D6",
+                        "xBF9F20",
+                        "xC020A0",
+                        "xC04521",
+                        "xEEF586"
                     ]
                 }
             ],
@@ -47495,31 +47672,56 @@
                 "cu:north_german"
             ]
         },
-        "s:STATE_SILESIA": {
+        "s:STATE_LOWER_SILESIA": {
             "create_state": [
                 {
                     "country": "c:PRU",
                     "owned_provinces": [
-                        "xC108EA",
-                        "x732DC0",
-                        "x6E617F",
                         "x1B72C9",
                         "x272E48",
-                        "xC00121",
-                        "xCE74AB",
+                        "x614121",
+                        "x6E617F",
+                        "x732DC0",
                         "x94D624",
-                        "xAF9F20",
-                        "x88194B",
-                        "x90B12B",
-                        "x821F52",
-                        "x5E9091",
-                        "x7B2F62"
+                        "xC00121",
+                        "xC108EA",
+                        "xCE74AB"
                     ]
                 }
             ],
             "add_homeland": [
                 "cu:north_german",
-                "cu:polish"
+                "cu:sorb"
+            ]
+        },
+        "s:STATE_UPPER_SILESIA": {
+            "create_state": [
+                {
+                    "country": "c:PRU",
+                    "owned_provinces": [
+                        "x5E9091",
+                        "x7B2F62",
+                        "x821F52",
+                        "x90B12B",
+                        "xAF9F20",
+                        "x71E080",
+                        "xF0E080",
+                        "x88194B"
+                    ]
+                },
+                {
+                    "country": "c:AUS",
+                    "owned_provinces": [
+                        "x9061E0",
+                        "x71E080",
+                        "xF0E080"
+                    ]
+                }
+            ],
+            "add_homeland": [
+                "cu:north_german",
+                "cu:polish",
+                "cu:czech"
             ]
         },
         "s:STATE_BRANDENBURG": {
@@ -47527,22 +47729,22 @@
                 {
                     "country": "c:PRU",
                     "owned_provinces": [
-                        "xA65DA6",
+                        "x069CFB",
+                        "x28CEC2",
+                        "x514C51",
+                        "x60BF20",
+                        "x61C0A0",
+                        "x76EF4E",
+                        "x82F9A8",
                         "x83B1A8",
                         "x9B9076",
-                        "xA040A0",
-                        "x069CFB",
-                        "xF8D457",
-                        "x61C0A0",
-                        "x82F9A8",
                         "x9E7304",
-                        "x76EF4E",
-                        "xDF4020",
-                        "x28CEC2",
+                        "xA040A0",
+                        "xA65DA6",
                         "xB90BFF",
-                        "x514C51",
+                        "xDF4020",
                         "xF77289",
-                        "x60BF20"
+                        "xF8D457"
                     ]
                 }
             ],
@@ -47710,7 +47912,6 @@
                         "x917939",
                         "xAFDFBF",
                         "x43CE26",
-                        "x614121",
                         "x31E0C0"
                     ]
                 },
@@ -48209,7 +48410,7 @@
         "s:STATE_BANAT": {
             "create_state": [
                 {
-                    "country": "c:AUS",
+                    "country": "c:HUN",
                     "owned_provinces": [
                         "x90E021",
                         "x1161A0",
