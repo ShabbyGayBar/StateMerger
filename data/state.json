@@ -3714,7 +3714,8 @@
                 }
             ],
             "add_homeland": [
-                "cu:dixie"
+                "cu:dixie",
+                "cu:yankee"
             ]
         },
         "s:STATE_WEST_VIRGINIA": {
@@ -3745,7 +3746,8 @@
                 }
             ],
             "add_homeland": [
-                "cu:dixie"
+                "cu:dixie",
+                "cu:yankee"
             ]
         },
         "s:STATE_MARYLAND": {
@@ -3766,7 +3768,8 @@
                 }
             ],
             "add_homeland": [
-                "cu:dixie"
+                "cu:dixie",
+                "cu:yankee"
             ]
         },
         "s:STATE_DELAWARE": {
@@ -3780,7 +3783,8 @@
                 }
             ],
             "add_homeland": [
-                "cu:dixie"
+                "cu:dixie",
+                "cu:yankee"
             ]
         },
         "s:STATE_PENNSYLVANIA": {
@@ -38146,8 +38150,7 @@
                 }
             ],
             "add_homeland": [
-                "cu:lithuanian",
-                "cu:polish"
+                "cu:lithuanian"
             ]
         },
         "s:STATE_CHUKOTKA": {
@@ -48168,8 +48171,7 @@
                 }
             ],
             "add_homeland": [
-                "cu:byelorussian",
-                "cu:russian"
+                "cu:byelorussian"
             ]
         },
         "s:STATE_GREATER_POLAND": {

@@ -349,12 +349,52 @@
             "region_state:GBR": {
                 "create_pop": [
                     {
+                        "culture": "scottish",
+                        "pop_type": "aristocrats",
+                        "size": "15000"
+                    },
+                    {
                         "culture": "irish",
-                        "size": "1183122"
+                        "pop_type": "aristocrats",
+                        "size": "10000"
+                    },
+                    {
+                        "culture": "scottish",
+                        "pop_type": "farmers",
+                        "size": "15000"
                     },
                     {
                         "culture": "british",
-                        "size": "407111"
+                        "pop_type": "officers",
+                        "size": "2000"
+                    },
+                    {
+                        "culture": "scottish",
+                        "pop_type": "officers",
+                        "size": "2500"
+                    },
+                    {
+                        "culture": "british",
+                        "pop_type": "soldiers",
+                        "size": "20000"
+                    },
+                    {
+                        "culture": "scottish",
+                        "pop_type": "soldiers",
+                        "size": "20000"
+                    },
+                    {
+                        "culture": "irish",
+                        "pop_type": "soldiers",
+                        "size": "25000"
+                    },
+                    {
+                        "culture": "irish",
+                        "size": "1173122"
+                    },
+                    {
+                        "culture": "british",
+                        "size": "385111"
                     },
                     {
                         "culture": "irish",
@@ -363,7 +403,7 @@
                     },
                     {
                         "culture": "scottish",
-                        "size": "575084"
+                        "size": "510084"
                     },
                     {
                         "culture": "irish",
@@ -377,12 +417,27 @@
             "region_state:GBR": {
                 "create_pop": [
                     {
-                        "culture": "irish",
-                        "size": "2214388"
+                        "culture": "british",
+                        "pop_type": "officers",
+                        "size": "1400"
                     },
                     {
                         "culture": "british",
-                        "size": "71856"
+                        "pop_type": "soldiers",
+                        "size": "8000"
+                    },
+                    {
+                        "culture": "irish",
+                        "pop_type": "soldiers",
+                        "size": "8000"
+                    },
+                    {
+                        "culture": "irish",
+                        "size": "2206388"
+                    },
+                    {
+                        "culture": "british",
+                        "size": "62456"
                     },
                     {
                         "culture": "irish",
@@ -405,12 +460,27 @@
             "region_state:GBR": {
                 "create_pop": [
                     {
-                        "culture": "irish",
-                        "size": "1677581"
+                        "culture": "british",
+                        "pop_type": "officers",
+                        "size": "4500"
                     },
                     {
                         "culture": "british",
-                        "size": "160989"
+                        "pop_type": "soldiers",
+                        "size": "26000"
+                    },
+                    {
+                        "culture": "irish",
+                        "pop_type": "soldiers",
+                        "size": "30000"
+                    },
+                    {
+                        "culture": "irish",
+                        "size": "1647581"
+                    },
+                    {
+                        "culture": "british",
+                        "size": "130489"
                     },
                     {
                         "culture": "irish",
@@ -442,12 +512,27 @@
             "region_state:GBR": {
                 "create_pop": [
                     {
-                        "culture": "irish",
-                        "size": "1319428"
+                        "culture": "british",
+                        "pop_type": "officers",
+                        "size": "700"
                     },
                     {
                         "culture": "british",
-                        "size": "28463"
+                        "pop_type": "soldiers",
+                        "size": "6000"
+                    },
+                    {
+                        "culture": "irish",
+                        "pop_type": "soldiers",
+                        "size": "7000"
+                    },
+                    {
+                        "culture": "irish",
+                        "size": "1312428"
+                    },
+                    {
+                        "culture": "british",
+                        "size": "21763"
                     },
                     {
                         "culture": "irish",
@@ -3468,6 +3553,16 @@
                 "create_pop": [
                     {
                         "culture": "north_german",
+                        "pop_type": "aristocrats",
+                        "size": "2000"
+                    },
+                    {
+                        "culture": "polish",
+                        "pop_type": "aristocrats",
+                        "size": "5000"
+                    },
+                    {
+                        "culture": "north_german",
                         "size": "452400"
                     },
                     {
@@ -3481,7 +3576,7 @@
                     },
                     {
                         "culture": "polish",
-                        "size": "188400"
+                        "size": "183400"
                     },
                     {
                         "culture": "north_german",
@@ -3496,7 +3591,18 @@
                 "create_pop": [
                     {
                         "culture": "north_german",
-                        "size": "629796"
+                        "pop_type": "aristocrats",
+                        "size": "5000"
+                    },
+                    {
+                        "culture": "polish",
+                        "religion": "protestant",
+                        "pop_type": "aristocrats",
+                        "size": "2000"
+                    },
+                    {
+                        "culture": "north_german",
+                        "size": "625796"
                     },
                     {
                         "culture": "ashkenazi",
@@ -3515,7 +3621,7 @@
                     {
                         "culture": "polish",
                         "religion": "protestant",
-                        "size": "28000"
+                        "size": "26000"
                     }
                 ]
             }
@@ -3523,6 +3629,11 @@
         "s:STATE_POSEN": {
             "region_state:PRU": {
                 "create_pop": [
+                    {
+                        "culture": "polish",
+                        "pop_type": "aristocrats",
+                        "size": "12000"
+                    },
                     {
                         "culture": "north_german",
                         "size": "540400"
@@ -3533,7 +3644,7 @@
                     },
                     {
                         "culture": "polish",
-                        "size": "871204"
+                        "size": "859204"
                     },
                     {
                         "culture": "north_german",
@@ -3667,16 +3778,22 @@
                 "create_pop": [
                     {
                         "culture": "hungarian",
-                        "size": "989200"
+                        "pop_type": "aristocrats",
+                        "size": "18000"
+                    },
+                    {
+                        "culture": "south_german",
+                        "pop_type": "aristocrats",
+                        "size": "4000"
                     },
                     {
                         "culture": "hungarian",
                         "religion": "protestant",
-                        "size": "932400"
+                        "size": "927400"
                     },
                     {
                         "culture": "south_german",
-                        "size": "149596"
+                        "size": "145596"
                     },
                     {
                         "culture": "hungarian",
@@ -3695,7 +3812,17 @@
                 "create_pop": [
                     {
                         "culture": "hungarian",
-                        "size": "189292"
+                        "pop_type": "aristocrats",
+                        "size": "12000"
+                    },
+                    {
+                        "culture": "romanian",
+                        "pop_type": "aristocrats",
+                        "size": "2000"
+                    },
+                    {
+                        "culture": "hungarian",
+                        "size": "176292"
                     },
                     {
                         "culture": "ashkenazi",
@@ -3712,7 +3839,7 @@
                     },
                     {
                         "culture": "romanian",
-                        "size": "730400"
+                        "size": "728400"
                     },
                     {
                         "culture": "serb",
@@ -3735,7 +3862,17 @@
                 "create_pop": [
                     {
                         "culture": "hungarian",
-                        "size": "1375796"
+                        "pop_type": "aristocrats",
+                        "size": "18000"
+                    },
+                    {
+                        "culture": "south_german",
+                        "pop_type": "aristocrats",
+                        "size": "4000"
+                    },
+                    {
+                        "culture": "hungarian",
+                        "size": "1357796"
                     },
                     {
                         "culture": "croat",
@@ -3748,7 +3885,7 @@
                     },
                     {
                         "culture": "south_german",
-                        "size": "379204"
+                        "size": "375204"
                     },
                     {
                         "culture": "south_german",
@@ -3845,9 +3982,26 @@
             "region_state:HUN": {
                 "create_pop": [
                     {
+                        "culture": "hungarian",
+                        "pop_type": "aristocrats",
+                        "religion": "catholic",
+                        "size": "15000"
+                    },
+                    {
+                        "culture": "slovak",
+                        "pop_type": "aristocrats",
+                        "religion": "catholic",
+                        "size": "2000"
+                    },
+                    {
+                        "culture": "south_german",
+                        "pop_type": "aristocrats",
+                        "size": "3000"
+                    },
+                    {
                         "culture": "slovak",
                         "religion": "catholic",
-                        "size": "1092041"
+                        "size": "1090041"
                     },
                     {
                         "culture": "slovak",
@@ -3857,7 +4011,7 @@
                     {
                         "culture": "hungarian",
                         "religion": "catholic",
-                        "size": "187540"
+                        "size": "186040"
                     },
                     {
                         "culture": "hungarian",
@@ -3867,7 +4021,7 @@
                     {
                         "culture": "south_german",
                         "religion": "catholic",
-                        "size": "126031"
+                        "size": "123031"
                     },
                     {
                         "culture": "south_german",
@@ -3928,8 +4082,14 @@
                     },
                     {
                         "culture": "hungarian",
+                        "pop_type": "aristocrats",
                         "religion": "catholic",
-                        "size": "51501"
+                        "size": "2800"
+                    },
+                    {
+                        "culture": "hungarian",
+                        "religion": "catholic",
+                        "size": "48701"
                     },
                     {
                         "culture": "hungarian",
@@ -22412,6 +22572,11 @@
             "region_state:RUS": {
                 "create_pop": [
                     {
+                        "culture": "polish",
+                        "pop_type": "aristocrats",
+                        "size": "4500"
+                    },
+                    {
                         "culture": "byelorussian",
                         "size": "147130"
                     },
@@ -22429,7 +22594,7 @@
                     },
                     {
                         "culture": "polish",
-                        "size": "75418"
+                        "size": "70918"
                     },
                     {
                         "culture": "east_german",
@@ -22459,7 +22624,12 @@
                     },
                     {
                         "culture": "east_german",
-                        "size": "35872"
+                        "pop_type": "aristocrats",
+                        "size": "5000"
+                    },
+                    {
+                        "culture": "east_german",
+                        "size": "30872"
                     },
                     {
                         "culture": "ashkenazi",
@@ -22497,6 +22667,11 @@
                         "size": "288007"
                     },
                     {
+                        "culture": "east_german",
+                        "pop_type": "aristocrats",
+                        "size": "2800"
+                    },
+                    {
                         "culture": "latvian",
                         "size": "2207"
                     },
@@ -22506,7 +22681,7 @@
                     },
                     {
                         "culture": "east_german",
-                        "size": "9832"
+                        "size": "7032"
                     }
                 ]
             }
@@ -22514,6 +22689,16 @@
         "s:STATE_TALINN": {
             "region_state:UBD": {
                 "create_pop": [
+                    {
+                        "culture": "swedish",
+                        "pop_type": "aristocrats",
+                        "size": "600"
+                    },
+                    {
+                        "culture": "east_german",
+                        "pop_type": "aristocrats",
+                        "size": "2000"
+                    },
                     {
                         "culture": "estonian",
                         "size": "280292"
@@ -22524,11 +22709,11 @@
                     },
                     {
                         "culture": "swedish",
-                        "size": "4424"
+                        "size": "3824"
                     },
                     {
                         "culture": "east_german",
-                        "size": "12324"
+                        "size": "10324"
                     }
                 ]
             }
@@ -22537,12 +22722,17 @@
             "region_state:UBD": {
                 "create_pop": [
                     {
+                        "culture": "east_german",
+                        "pop_type": "aristocrats",
+                        "size": "3800"
+                    },
+                    {
                         "culture": "latvian",
                         "size": "362898"
                     },
                     {
                         "culture": "east_german",
-                        "size": "52775"
+                        "size": "48975"
                     },
                     {
                         "culture": "estonian",
@@ -22608,6 +22798,11 @@
             "region_state:RUS": {
                 "create_pop": [
                     {
+                        "culture": "polish",
+                        "pop_type": "aristocrats",
+                        "size": "4500"
+                    },
+                    {
                         "culture": "lithuanian",
                         "size": "442209"
                     },
@@ -22621,7 +22816,7 @@
                     },
                     {
                         "culture": "polish",
-                        "size": "6021"
+                        "size": "1500"
                     },
                     {
                         "culture": "east_german",
@@ -22643,7 +22838,12 @@
                 "create_pop": [
                     {
                         "culture": "polish",
-                        "size": "970792"
+                        "pop_type": "aristocrats",
+                        "size": "12400"
+                    },
+                    {
+                        "culture": "polish",
+                        "size": "958392"
                     },
                     {
                         "culture": "ashkenazi",
@@ -22673,7 +22873,17 @@
                 "create_pop": [
                     {
                         "culture": "polish",
-                        "size": "2004469"
+                        "pop_type": "aristocrats",
+                        "size": "25000"
+                    },
+                    {
+                        "culture": "russian",
+                        "pop_type": "aristocrats",
+                        "size": "2300"
+                    },
+                    {
+                        "culture": "polish",
+                        "size": "1979469"
                     },
                     {
                         "culture": "polish",
@@ -22690,7 +22900,7 @@
                     },
                     {
                         "culture": "russian",
-                        "size": "60600"
+                        "size": "58300"
                     }
                 ]
             }
@@ -23041,7 +23251,17 @@
                 "create_pop": [
                     {
                         "culture": "ukrainian",
-                        "size": "2610320"
+                        "pop_type": "aristocrats",
+                        "size": "34300"
+                    },
+                    {
+                        "culture": "russian",
+                        "pop_type": "aristocrats",
+                        "size": "6000"
+                    },
+                    {
+                        "culture": "ukrainian",
+                        "size": "2576020"
                     },
                     {
                         "culture": "east_german",
@@ -23057,7 +23277,7 @@
                     },
                     {
                         "culture": "russian",
-                        "size": "87600"
+                        "size": "81600"
                     },
                     {
                         "culture": "romanian",

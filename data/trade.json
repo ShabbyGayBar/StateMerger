@@ -84,6 +84,13 @@
                 }
             }
         },
+        "s:STATE_YEMEN": {
+            "region_state:LAH": {
+                "sg:coffee": {
+                    "add_exports": 8
+                }
+            }
+        },
         "s:STATE_INGRIA": {
             "region_state:RUS": {
                 "sg:sugar": {

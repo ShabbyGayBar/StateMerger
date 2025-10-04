@@ -78,9 +78,9 @@
             "\"bg_livestock_ranches\""
         ],
         "capped_resources": {
-            "bg_iron_mining": "36",
+            "bg_iron_mining": "60",
             "bg_lead_mining": "18",
-            "bg_logging": "23",
+            "bg_logging": "45",
             "bg_fishing": "11"
         },
         "naval_exit_id": "3000"
@@ -132,7 +132,7 @@
         ],
         "capped_resources": {
             "bg_iron_mining": "15",
-            "bg_logging": "17",
+            "bg_logging": "25",
             "bg_fishing": "15"
         },
         "naval_exit_id": "3019"
@@ -168,7 +168,7 @@
         ],
         "capped_resources": {
             "bg_coal_mining": "8",
-            "bg_logging": "5",
+            "bg_logging": "10",
             "bg_fishing": "10"
         },
         "naval_exit_id": "3019"
@@ -378,8 +378,8 @@
             "\"bg_livestock_ranches\""
         ],
         "capped_resources": {
-            "bg_iron_mining": "40",
-            "bg_logging": "20",
+            "bg_iron_mining": "100",
+            "bg_logging": "60",
             "bg_fishing": "12"
         },
         "naval_exit_id": "3000"
@@ -551,7 +551,7 @@
         ],
         "capped_resources": {
             "bg_sulfur_mining": "20",
-            "bg_logging": "14",
+            "bg_logging": "22",
             "bg_fishing": "15"
         },
         "naval_exit_id": "3027"
@@ -750,7 +750,7 @@
         "capped_resources": {
             "bg_iron_mining": "18",
             "bg_sulfur_mining": "20",
-            "bg_logging": "6",
+            "bg_logging": "24",
             "bg_whaling": "10",
             "bg_fishing": "10"
         },
@@ -817,7 +817,7 @@
         ],
         "capped_resources": {
             "bg_iron_mining": "18",
-            "bg_logging": "11",
+            "bg_logging": "22",
             "bg_fishing": "5"
         },
         "naval_exit_id": "3019"
@@ -2898,7 +2898,8 @@
         "arable_land": "30",
         "arable_resources": [
             "\"bg_wheat_farms\"",
-            "\"bg_livestock_ranches\""
+            "\"bg_livestock_ranches\"",
+            "\"bg_vineyard_plantations\""
         ],
         "capped_resources": {
             "bg_gold_mining": "2",
@@ -3452,7 +3453,8 @@
         "arable_land": "65",
         "arable_resources": [
             "\"bg_wheat_farms\"",
-            "\"bg_livestock_ranches\""
+            "\"bg_livestock_ranches\"",
+            "\"bg_vineyard_plantations\""
         ],
         "capped_resources": {
             "bg_coal_mining": "60",
@@ -6198,7 +6200,8 @@
         "arable_land": "50",
         "arable_resources": [
             "\"bg_wheat_farms\"",
-            "\"bg_livestock_ranches\""
+            "\"bg_livestock_ranches\"",
+            "\"bg_vineyard_plantations\""
         ],
         "capped_resources": {
             "bg_logging": "4"
@@ -16370,7 +16373,8 @@
         "arable_resources": [
             "\"bg_wheat_farms\"",
             "\"bg_livestock_ranches\"",
-            "\"bg_vineyard_plantations\""
+            "\"bg_vineyard_plantations\"",
+            "\"bg_tobacco_plantations\""
         ],
         "capped_resources": {
             "bg_iron_mining": "45",
@@ -18127,7 +18131,7 @@
         ],
         "capped_resources": {
             "bg_coal_mining": "32",
-            "bg_logging": "11",
+            "bg_logging": "90",
             "bg_whaling": "8",
             "bg_fishing": "10"
         },
@@ -18222,7 +18226,7 @@
         ],
         "capped_resources": {
             "bg_coal_mining": "32",
-            "bg_logging": "17",
+            "bg_logging": "40",
             "bg_fishing": "6",
             "bg_whaling": "3"
         },
@@ -18327,7 +18331,7 @@
             "\"bg_vineyard_plantations\""
         ],
         "capped_resources": {
-            "bg_logging": "20",
+            "bg_logging": "50",
             "bg_fishing": "5",
             "bg_whaling": "3"
         },
@@ -19527,7 +19531,7 @@
         "capped_resources": {
             "bg_iron_mining": "45",
             "bg_sulfur_mining": "40",
-            "bg_logging": "20"
+            "bg_logging": "40"
         }
     },
     "STATE_WISCONSIN": {
@@ -19592,12 +19596,13 @@
         "arable_land": "180",
         "arable_resources": [
             "\"bg_maize_farms\"",
-            "\"bg_livestock_ranches\""
+            "\"bg_livestock_ranches\"",
+            "\"bg_tobacco_plantations\""
         ],
         "capped_resources": {
             "bg_iron_mining": "24",
             "bg_sulfur_mining": "32",
-            "bg_logging": "23"
+            "bg_logging": "35"
         }
     },
     "STATE_INDIANA": {
@@ -19641,11 +19646,12 @@
         "arable_resources": [
             "\"bg_maize_farms\"",
             "\"bg_livestock_ranches\"",
-            "\"bg_vineyard_plantations\""
+            "\"bg_vineyard_plantations\"",
+            "\"bg_tobacco_plantations\""
         ],
         "capped_resources": {
             "bg_coal_mining": "48",
-            "bg_logging": "18"
+            "bg_logging": "28"
         }
     },
     "STATE_MICHIGAN": {
@@ -19719,7 +19725,7 @@
         "capped_resources": {
             "bg_iron_mining": "60",
             "bg_sulfur_mining": "32",
-            "bg_logging": "20"
+            "bg_logging": "50"
         }
     },
     "STATE_OHIO": {
@@ -19773,7 +19779,7 @@
         "capped_resources": {
             "bg_coal_mining": "60",
             "bg_lead_mining": "36",
-            "bg_logging": "14"
+            "bg_logging": "30"
         },
         "resource": [
             {
@@ -20426,7 +20432,7 @@
         "capped_resources": {
             "bg_coal_mining": "60",
             "bg_lead_mining": "90",
-            "bg_logging": "11"
+            "bg_logging": "22"
         }
     },
     "STATE_RHODE_ISLAND": {
@@ -20559,7 +20565,7 @@
             "\"bg_tobacco_plantations\""
         ],
         "capped_resources": {
-            "bg_logging": "9",
+            "bg_logging": "14",
             "bg_whaling": "2",
             "bg_fishing": "2"
         },
@@ -20591,7 +20597,7 @@
         ],
         "capped_resources": {
             "bg_iron_mining": "18",
-            "bg_logging": "6"
+            "bg_logging": "14"
         }
     },
     "STATE_MAINE": {
@@ -20641,7 +20647,7 @@
             "\"bg_livestock_ranches\""
         ],
         "capped_resources": {
-            "bg_logging": "17",
+            "bg_logging": "35",
             "bg_whaling": "4",
             "bg_fishing": "8"
         },
@@ -21368,7 +21374,7 @@
         ],
         "capped_resources": {
             "bg_sulfur_mining": "48",
-            "bg_logging": "23"
+            "bg_logging": "90"
         },
         "resource": [
             {
@@ -21437,7 +21443,7 @@
         "capped_resources": {
             "bg_coal_mining": "44",
             "bg_lead_mining": "54",
-            "bg_logging": "11",
+            "bg_logging": "30",
             "bg_fishing": "8"
         },
         "naval_exit_id": "3017"
@@ -22242,7 +22248,7 @@
         ],
         "capped_resources": {
             "bg_iron_mining": "60",
-            "bg_logging": "23",
+            "bg_logging": "100",
             "bg_whaling": "4",
             "bg_fishing": "8"
         },
@@ -22428,7 +22434,7 @@
         "capped_resources": {
             "bg_iron_mining": "24",
             "bg_lead_mining": "24",
-            "bg_logging": "8",
+            "bg_logging": "24",
             "bg_whaling": "6",
             "bg_fishing": "10"
         },
@@ -22750,7 +22756,7 @@
         "capped_resources": {
             "bg_coal_mining": "48",
             "bg_sulfur_mining": "32",
-            "bg_logging": "23"
+            "bg_logging": "70"
         },
         "resource": [
             {
@@ -23195,7 +23201,7 @@
         "capped_resources": {
             "bg_coal_mining": "28",
             "bg_sulfur_mining": "36",
-            "bg_logging": "17",
+            "bg_logging": "90",
             "bg_whaling": "6",
             "bg_fishing": "9"
         },
@@ -23493,7 +23499,7 @@
         ],
         "capped_resources": {
             "bg_coal_mining": "40",
-            "bg_logging": "6"
+            "bg_logging": "40"
         },
         "resource": [
             {
@@ -23787,7 +23793,7 @@
             "\"bg_livestock_ranches\""
         ],
         "capped_resources": {
-            "bg_logging": "15",
+            "bg_logging": "32",
             "bg_fishing": "5"
         },
         "resource": [
@@ -24461,7 +24467,7 @@
         ],
         "capped_resources": {
             "bg_iron_mining": "15",
-            "bg_logging": "11"
+            "bg_logging": "25"
         },
         "resource": [
             {
@@ -26110,7 +26116,7 @@
         ],
         "capped_resources": {
             "bg_iron_mining": "18",
-            "bg_logging": "11"
+            "bg_logging": "40"
         }
     },
     "STATE_NUNAVUT": {
@@ -28219,7 +28225,7 @@
             "\"bg_livestock_ranches\""
         ],
         "capped_resources": {
-            "bg_logging": "9"
+            "bg_logging": "8"
         }
     },
     "STATE_BERMUDA": {
@@ -28890,7 +28896,7 @@
         "capped_resources": {
             "bg_iron_mining": "33",
             "bg_sulfur_mining": "40",
-            "bg_logging": "13",
+            "bg_logging": "45",
             "bg_fishing": "14",
             "bg_whaling": "6"
         },
@@ -31038,6 +31044,10 @@
         },
         "resource": [
             {
+                "type": "\"bg_rubber\"",
+                "undiscovered_amount": "8"
+            },
+            {
                 "type": "\"bg_oil_extraction\"",
                 "undiscovered_amount": "20"
             }
@@ -31299,6 +31309,12 @@
             "bg_fishing": "6",
             "bg_whaling": "2"
         },
+        "resource": [
+            {
+                "type": "\"bg_rubber\"",
+                "undiscovered_amount": "6"
+            }
+        ],
         "naval_exit_id": "3155"
     },
     "STATE_PASTAZA": {
@@ -31392,7 +31408,9 @@
             "\"bg_livestock_ranches\"",
             "\"bg_coffee_plantations\"",
             "\"bg_dye_plantations\"",
-            "\"bg_sugar_plantations\""
+            "\"bg_sugar_plantations\"",
+            "\"bg_banana_plantations\"",
+            "\"bg_tobacco_plantations\""
         ],
         "capped_resources": {
             "bg_coal_mining": "28",
@@ -34810,7 +34828,8 @@
             "\"bg_livestock_ranches\"",
             "\"bg_tobacco_plantations\"",
             "\"bg_sugar_plantations\"",
-            "\"bg_banana_plantations\""
+            "\"bg_banana_plantations\"",
+            "\"bg_coffee_plantations\""
         ],
         "capped_resources": {
             "bg_logging": "16",
@@ -36595,7 +36614,8 @@
         "id": "401",
         "subsistence_building": "\"building_subsistence_pastures\"",
         "traits": [
-            "\"state_trait_natural_harbors\""
+            "\"state_trait_natural_harbors\"",
+            "\"state_trait_yemeni_highlands\""
         ],
         "provinces": [
             "\"x00E3EF\"",
@@ -37111,7 +37131,9 @@
         ],
         "capped_resources": {
             "bg_logging": "2",
-            "bg_fishing": "5"
+            "bg_fishing": "5",
+            "bg_iron_mining": "5",
+            "bg_sulfur_mining": "5"
         },
         "naval_exit_id": "3034"
     },
@@ -37388,7 +37410,8 @@
         "arable_resources": [
             "\"bg_wheat_farms\"",
             "\"bg_livestock_ranches\"",
-            "\"bg_cotton_plantations\""
+            "\"bg_cotton_plantations\"",
+            "\"bg_tobacco_plantations\""
         ],
         "capped_resources": {
             "bg_sulfur_mining": "36"
@@ -38983,7 +39006,7 @@
         "resource": [
             {
                 "type": "\"bg_oil_extraction\"",
-                "undiscovered_amount": "240"
+                "undiscovered_amount": "100"
             }
         ]
     },
@@ -44389,7 +44412,8 @@
         "wood": "\"x7D6986\"",
         "arable_land": "25",
         "arable_resources": [
-            "\"bg_livestock_ranches\""
+            "\"bg_livestock_ranches\"",
+            "\"bg_rye_farms\""
         ],
         "capped_resources": {
             "bg_coal_mining": "12",
@@ -47378,7 +47402,6 @@
         "wood": "\"x86757A\"",
         "arable_land": "25",
         "arable_resources": [
-            "\"bg_rice_farms\"",
             "\"bg_wheat_farms\"",
             "\"bg_livestock_ranches\""
         ],
@@ -59912,7 +59935,6 @@
         "wood": "\"xDF23A0\"",
         "arable_land": "14",
         "arable_resources": [
-            "\"bg_rye_farms\"",
             "\"bg_livestock_ranches\""
         ],
         "capped_resources": {
@@ -61123,7 +61145,6 @@
         "wood": "\"x9AB681\"",
         "arable_land": "8",
         "arable_resources": [
-            "\"bg_rye_farms\"",
             "\"bg_livestock_ranches\""
         ],
         "capped_resources": {
@@ -61395,7 +61416,6 @@
         "wood": "\"xA09A15\"",
         "arable_land": "2",
         "arable_resources": [
-            "\"bg_rye_farms\"",
             "\"bg_livestock_ranches\""
         ],
         "capped_resources": {
