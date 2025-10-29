@@ -17,7 +17,5 @@ def main():
     state_merger.merge_misc_data()
     state_merger.merge_loc_data()
 
-    print("**Don't forget to manually add the 'if dlc' buildings to file**")
-
 if __name__ == "__main__":
     main()

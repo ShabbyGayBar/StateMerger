@@ -71,6 +71,29 @@ def clean_v3_yml_numbered_keys(yml_path):
     cleaned = re.sub(r':\d+\s+([^\n"]+)', r': \1', cleaned)
     return cleaned
 
+def format_dict_to_string(d, indent_level=0):
+    # Convert self.data into the game's file format and write to file_path
+    lines = []
+    for key, value in d.items() if isinstance(d, dict) else enumerate(d):
+        if value is None:
+            continue
+        if isinstance(value, dict):
+            lines.append('    ' * indent_level + f'{key} = {{')
+            lines.append(format_dict_to_string(value, indent_level + 1))
+            lines.append('    ' * indent_level + f'}}')
+        elif isinstance(value, list):
+            lines.append('    ' * indent_level + f'{key} = {{')
+            for item in value:
+                if isinstance(item, (dict, list)):
+                    lines.append(format_dict_to_string(item, indent_level + 1))
+                else:
+                    lines.append('    ' * (indent_level + 1) + f'{item}')
+            lines.append('    ' * indent_level + f'}}')
+        else:
+            lines.append('    ' * indent_level + f'{key} = {value}')
+
+    return "\n".join(lines)
+
 class ModState:
     def __init__(self, base_game_dir, mod_dir, diff=False):
         self.base_parsers = {}
@@ -666,6 +689,7 @@ class Buildings:
                 for building in buildings_dict["BUILDINGS"][state_id][tag]["create_building"]:
                     self.data[state_id][tag].append(Building(building))
         self.format()
+        self.data["if"] = buildings_dict["BUILDINGS"]["if"] # dlc buildings
 
     def format(self):
         for state_id in self.data.keys(): # Restore the original structure of certain building keys
@@ -721,7 +745,8 @@ class Buildings:
 
     def get_str(self, state_id):
         if state_id == "if":
-            return ""
+            building_str = format_dict_to_string({"if":self.data[state_id]}, indent_level=1)
+            return building_str
         building_str = f'    {state_id} = {{\n'
         for tag in self.data[state_id].keys():
             building_str += f'        {tag} = {{\n'
