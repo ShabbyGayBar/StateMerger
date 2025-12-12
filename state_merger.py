@@ -1114,17 +1114,17 @@ class StateMerger:
         for key in self.base_game_dir.keys():
             game_data[key] = mod_state.get_data(key)
 
+        # Dump the game_data to a json file
+        for key in game_data.keys():
+            with open(f"{cache_dir}{key}.json", 'w', encoding='utf-8') as file:
+                json.dump(game_data[key], file, indent=4, ensure_ascii=False)
+
         # Parse data
         self.map_data = MapData(game_data["map_data"])
         self.buildings = Buildings(game_data["buildings"])
         self.pops = Pops(game_data["pops"])
         self.states = States(game_data["state"])
         self.trade = Trade(game_data["trade"])
-
-        # Dump the game_data to a json file
-        for key in game_data.keys():
-            with open(f"{cache_dir}{key}.json", 'w', encoding='utf-8') as file:
-                json.dump(game_data[key], file, indent=4, ensure_ascii=False)
 
     def merge_state_data(self, buff=True, ignoreSmallStates=False, smallStateLimit=4):
         # Write cleared base game data to mod directory
