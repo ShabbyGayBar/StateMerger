@@ -3,111 +3,141 @@
         "s:STATE_SVEALAND": {
             "region_state:SWE": {
                 "sg:iron": {
-                    "add_exports": 25
+                    "add_exports": "25"
                 }
             }
         },
         "s:STATE_SANTIAGO": {
             "region_state:CHL": {
                 "sg:tools": {
-                    "add_exports": 4
+                    "add_exports": "4"
                 }
             }
         },
         "s:STATE_SICILY": {
             "region_state:SIC": {
                 "sg:sulfur": {
-                    "add_exports": 25
+                    "add_exports": "25"
                 }
             }
         },
         "s:STATE_CAMPANIA": {
             "region_state:SIC": {
                 "sg:silk": {
-                    "add_exports": 6
+                    "add_exports": "6"
                 }
             }
         },
         "s:STATE_WEST_BENGAL": {
             "region_state:BIC": {
                 "sg:opium": {
-                    "add_exports": 100
+                    "add_exports": "100"
                 }
             }
         },
         "s:STATE_WEST_COUNTRY": {
             "region_state:GBR": {
                 "sg:tools": {
-                    "add_exports": 25
+                    "add_exports": "25"
                 }
             }
         },
         "s:STATE_LOUISIANA": {
             "region_state:USA": {
                 "sg:fabric": {
-                    "add_exports": 50
+                    "add_exports": "50"
                 }
             }
         },
         "s:STATE_FRANCHE_COMTE": {
             "region_state:FRA": {
                 "sg:luxury_furniture": {
-                    "add_exports": 5
+                    "add_exports": "5"
                 }
             }
         },
         "s:STATE_RHONE": {
             "region_state:FRA": {
                 "sg:luxury_clothes": {
-                    "add_exports": 15
+                    "add_exports": "15"
                 }
             }
         },
-        "s:STATE_GUANGDONG": {
-            "region_state:CHI": {
-                "sg:silk": {
-                    "add_exports": 100
+        "s:STATE_GUANGDONG": [
+            {
+                "region_state:CHI": {
+                    "sg:silk": {
+                        "add_exports": "100"
+                    },
+                    "sg:tea": {
+                        "add_exports": "60"
+                    }
                 },
-                "sg:tea": {
-                    "add_exports": 60
-                },
-                "sg:opium": {
-                    "add_imports": 100
+                "region_state:POR": {
+                    "sg:tea": {
+                        "add_exports": "40"
+                    },
+                    "sg:porcelain": {
+                        "add_exports": "10"
+                    }
                 }
             },
-            "region_state:POR": {
-                "sg:tea": {
-                    "add_exports": 40
-                },
-                "sg:porcelain": {
-                    "add_exports": 10
+            {
+                "region_state:CHI": {
+                    "sg:opium": {
+                        "add_imports": "100"
+                    }
                 }
             }
-        },
+        ],
         "s:STATE_YEMEN": {
             "region_state:LAH": {
                 "sg:coffee": {
-                    "add_exports": 8
+                    "add_exports": "8"
+                }
+            }
+        },
+        "s:STATE_WESTERN_CUBA": {
+            "region_state:CUB": {
+                "sg:sugar": {
+                    "add_exports": "80"
                 }
             }
         },
         "s:STATE_INGRIA": {
             "region_state:RUS": {
                 "sg:sugar": {
-                    "add_imports": 5
+                    "add_imports": "5"
                 },
                 "sg:tools": {
-                    "add_imports": 10
+                    "add_imports": "10"
                 }
             }
         },
         "s:STATE_HOME_COUNTIES": {
             "region_state:GBR": {
                 "sg:fabric": {
-                    "add_imports": 50
+                    "add_imports": "50"
                 },
                 "sg:tea": {
-                    "add_imports": 50
+                    "add_imports": "50"
+                }
+            }
+        },
+        "s:STATE_WEST_PRUSSIA": {
+            "region_state:PRU": {
+                "sg:artillery": {
+                    "add_exports": "5"
+                }
+            }
+        },
+        "s:STATE_BASQUE_COUNTRY": {
+            "region_state:SPC": {
+                "sg:hardwood": {
+                    "add_imports": "5"
+                },
+                "sg:artillery": {
+                    "add_imports": "5"
                 }
             }
         }
