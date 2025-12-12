@@ -539,23 +539,34 @@ class Building:
         self.isMonument = ("level" in dict.keys())
         if self.isMonument: return
         if "add_ownership" in dict.keys():
-            if "building" in dict["add_ownership"].keys():
-                if not isinstance(dict["add_ownership"]["building"], list):
-                    dict["add_ownership"]["building"] = [dict["add_ownership"]["building"]]
-                self.building_ownership = dict["add_ownership"]["building"]
-            if "country" in dict["add_ownership"].keys():
-                if not isinstance(dict["add_ownership"]["country"], list):
-                    dict["add_ownership"]["country"] = [dict["add_ownership"]["country"]]
-                self.country_ownership = dict["add_ownership"]["country"]
-            if "company" in dict["add_ownership"].keys():
-                if not isinstance(dict["add_ownership"]["company"], list):
-                    dict["add_ownership"]["company"] = [dict["add_ownership"]["company"]]
-                self.company_ownership = dict["add_ownership"]["company"]
+            if isinstance(dict["add_ownership"], list):
+                for ownership_dict in dict["add_ownership"]:
+                    self.add_ownership(ownership_dict)
+            else:
+                self.add_ownership(dict["add_ownership"])
         if "reserves" in dict.keys():
             self.reserves = int(dict["reserves"])
         if "activate_production_methods" in dict.keys():
             self.activate_production_methods = dict["activate_production_methods"]
         self.refresh()
+
+    def add_ownership(self, ownership_dict):
+        '''Add ownerships from a dictionary'''
+        if "building" in ownership_dict.keys():
+            if not isinstance(ownership_dict["building"], list):
+                self.building_ownership.append(ownership_dict["building"])
+            else:
+                self.building_ownership.extend(ownership_dict["building"])
+        if "country" in ownership_dict.keys():
+            if not isinstance(ownership_dict["country"], list):
+                self.country_ownership.append(ownership_dict["country"])
+            else:
+                self.country_ownership.extend(ownership_dict["country"])
+        if "company" in ownership_dict.keys():
+            if not isinstance(ownership_dict["company"], list):
+                self.company_ownership.append(ownership_dict["company"])
+            else:
+                self.company_ownership.extend(ownership_dict["company"])
 
     def is_empty(self):
         '''Check if the building object is empty'''
