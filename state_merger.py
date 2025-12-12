@@ -524,6 +524,14 @@ class MapData:
                     continue
                 file.write(str(self.data[state_id]))
 
+    def dump_province_count(self, dir):
+        state_province_count = {}
+        for state_id in self.data.keys():
+            print("Counting provinces in state: "+state_id)
+            state_province_count[state_id] = self.data[state_id].province_cnt()
+        with open(dir, 'w', encoding='utf-8') as file:
+            json.dump(state_province_count, file, indent=4)
+
 class Building:
     def __init__(self, dict):
         '''Initialize the building object with a dictionary'''
@@ -1125,6 +1133,9 @@ class StateMerger:
         self.pops = Pops(game_data["pops"])
         self.states = States(game_data["state"])
         self.trade = Trade(game_data["trade"])
+
+        # Dump province count
+        self.map_data.dump_province_count(self.cache_dir+"/map_data_province_count.json")
 
     def merge_state_data(self, buff=True, ignoreSmallStates=False, smallStateLimit=4):
         # Write cleared base game data to mod directory
