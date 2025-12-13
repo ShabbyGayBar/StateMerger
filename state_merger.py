@@ -1268,7 +1268,7 @@ class StateMerger:
 
         # Copy state_trait file to mod directory
         dir = f"{self.write_dir}common/state_traits"
-        file = f"{self.cache_dir}state_traits.txt"
+        file = f"{self.cache_dir}mod_file/state_traits.txt"
         if not os.path.exists(dir):
             os.makedirs(dir)
         # Delete the file in dir if it exists
@@ -1278,7 +1278,7 @@ class StateMerger:
 
         # Copy USA flag adaptation file to mod directory
         dir = f"{self.write_dir}common/flag_definitions"
-        file = f"{self.cache_dir}01_flag_definitions_usa.txt"
+        file = f"{self.cache_dir}mod_file/01_flag_definitions_usa.txt"
         if not os.path.exists(dir):
             os.makedirs(dir)
         # Delete the file in dir if it exists
@@ -1288,7 +1288,7 @@ class StateMerger:
 
         # Copy USA state counting file to mod directory
         dir = f"{self.write_dir}common/script_values"
-        file = f"{self.cache_dir}usa_state_counter.txt"
+        file = f"{self.cache_dir}mod_file/usa_state_counter.txt"
         if not os.path.exists(dir):
             os.makedirs(dir)
         # Delete the file in dir if it exists
