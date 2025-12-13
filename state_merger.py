@@ -10,7 +10,7 @@ state_file_dir = {
     "state": r"common/history/states/",
     "pops": r"common/history/pops/",
     "buildings": r"common/history/buildings/",
-    "trade": r"common/history/trade/"
+    "trade": r"common/history/trade/",
 }
 
 replace_file_dir = [
@@ -51,6 +51,10 @@ loc_file_dir = {
     "l_english": r"localization/english/",
     "l_simp_chinese": r"localization/simp_chinese/"
 }
+
+map_object_data_files = [
+    'generated_map_object_locators_city.txt', 'generated_map_object_locators_farm.txt', 'generated_map_object_locators_mine.txt', 'generated_map_object_locators_port.txt', 'generated_map_object_locators_wood.txt'
+]
 
 seq_str = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"]
 
@@ -1343,3 +1347,24 @@ class StateMerger:
                     # Remove all '\'' in write_file
                     content = content.replace("'", "")
                     f.write(content)
+
+    def copy_state_data(self):
+        for key in state_file_dir.keys():
+            for file in os.listdir(self.base_game_dir[key]):
+                if "99_seas" in file or "100_pops_example" in file:
+                    continue
+                base_game_file = self.base_game_dir[key] + file
+                # copy to cache dir
+                cache_file = self.cache_dir + "game_file/" + key + "/" + file
+                if not os.path.exists(os.path.dirname(cache_file)):
+                    os.makedirs(os.path.dirname(cache_file))
+                shutil.copy(base_game_file, cache_file)
+
+    def copy_map_object_data(self):
+        for file in map_object_data_files:
+            base_game_file = self.game_root_dir + "gfx/map/map_object_data/" + file
+            # copy to cache dir
+            cache_file = self.cache_dir + "game_file/map_object_data/" + file
+            if not os.path.exists(os.path.dirname(cache_file)):
+                os.makedirs(os.path.dirname(cache_file))
+            shutil.copy(base_game_file, cache_file)
