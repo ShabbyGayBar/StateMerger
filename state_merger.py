@@ -265,16 +265,16 @@ class StateRegion:
                 self.capped_resources[resource] = int(amount)
         if 'resource' in dict_data.keys():
             for resource in dict_data['resource']:
-                if resource['type'] == '\"bg_gold_fields\"':
+                if resource['type'] == '\"building_gold_field\"':
                     self.gold[0] = int(resource['undiscovered_amount'])
                     if 'discovered_amount' in resource.keys():
                         self.gold[1] = int(resource['discovered_amount'])
-                elif resource['type'] == '\"bg_rubber\"':
+                elif resource['type'] == '\"building_rubber_plantation\"':
                     if 'undiscovered_amount' in resource.keys():
                         self.rubber[0] = int(resource['undiscovered_amount'])
                     if 'discovered_amount' in resource.keys():
                         self.rubber[1] = int(resource['discovered_amount'])
-                elif resource['type'] == '\"bg_oil_extraction\"':
+                elif resource['type'] == '\"building_oil_rig\"':
                     self.oil = int(resource['undiscovered_amount'])
                 else:
                     print(f'Unknown resource type: {resource["type"]}')
@@ -460,8 +460,8 @@ class StateRegion:
             state_str += f'    }}\n'
         if self.gold != [0, 0]:
             state_str += f'    resource = {{\n'
-            state_str += f'        type = "bg_gold_fields"\n'
-            state_str += f'        depleted_type = "bg_gold_mining"\n'
+            state_str += f'        type = "building_gold_field"\n'
+            state_str += f'        depleted_type = "building_gold_mine"\n'
             if self.gold[0] != 0:
                 state_str += f'        undiscovered_amount = {self.gold[0]}\n'
             if self.gold[1] != 0:
@@ -469,7 +469,7 @@ class StateRegion:
             state_str += f'    }}\n'
         if self.rubber != [0, 0]:
             state_str += f'    resource = {{\n'
-            state_str += f'        type = "bg_rubber"\n'
+            state_str += f'        type = "building_rubber_plantation"\n'
             if self.rubber[0] != 0:
                 state_str += f'        undiscovered_amount = {self.rubber[0]}\n'
             if self.rubber[1] != 0:
@@ -477,7 +477,7 @@ class StateRegion:
             state_str += f'    }}\n'
         if self.oil != 0:
             state_str += f'    resource = {{\n'
-            state_str += f'        type = "bg_oil_extraction"\n'
+            state_str += f'        type = "building_oil_rig"\n'
             state_str += f'        undiscovered_amount = {self.oil}\n'
             state_str += f'    }}\n'
         if self.naval_exit_id != -1:
