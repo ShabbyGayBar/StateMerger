@@ -24,6 +24,7 @@ replace_file_dir = [
     "common/country_formation/",
     "common/decisions/",
     "common/dynamic_country_names/",
+    "common/geographic_regions/",
     "common/flag_definitions/",
     "common/history/countries/",
     "common/history/global/",
