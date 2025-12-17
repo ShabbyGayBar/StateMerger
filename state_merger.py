@@ -39,6 +39,7 @@ replace_file_dir = [
     "events/american_civil_war/",
     "events/balkans_events/",
     "events/brazil/",
+    "events/iberia_events/",
     "events/india_events/",
     "events/soi_events/"
 ]
