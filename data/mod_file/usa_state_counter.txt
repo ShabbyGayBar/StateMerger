@@ -1,5 +1,5 @@
 ﻿# Count number of actual incorporated states in USA
-usa_state_counter = {
+REPLACE_OR_CREATE:usa_state_counter = {
     value = 2
 
     if = {

@@ -1,7 +1,4 @@
-﻿@usa_canton_width = 0.5
-@usa_canton_height = @[ 1 / 13 * 7 ]
-
-USA = {	# United States of America
+﻿REPLACE:USA = {	# United States of America
 	flag_definition = {
 		coa = USA # 24 stars
 		coa_with_overlord_canton = USA
@@ -57,10 +54,10 @@ USA = {	# United States of America
 		trigger = { 
 			scope:actor ?= {
 				OR = {
-					has_law = law_type:law_presidential_republic
-					has_law = law_type:law_parliamentary_republic
+					has_law_or_variant = law_type:law_presidential_republic
+					has_law_or_variant = law_type:law_parliamentary_republic
 				}
-				has_law = law_type:law_technocracy
+				has_law_or_variant = law_type:law_technocracy
 			}
 		}
 	}

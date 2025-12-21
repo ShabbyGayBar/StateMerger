@@ -1,5 +1,5 @@
 ﻿# 两州整合
-state_trait_two_states_integration= {
+INJECT_OR_CREATE:state_trait_two_states_integration= {
     icon = "gfx/interface/icons/state_trait_icons/great_plains.dds"
 
     modifier = {
@@ -12,7 +12,7 @@ state_trait_two_states_integration= {
 }
 
 # 三州整合
-state_trait_three_states_integration= {
+INJECT_OR_CREATE:state_trait_three_states_integration= {
     icon = "gfx/interface/icons/state_trait_icons/great_plains.dds"
 
     modifier = {
@@ -25,7 +25,7 @@ state_trait_three_states_integration= {
 }
 
 # 四州整合
-state_trait_four_states_integration= {
+INJECT_OR_CREATE:state_trait_four_states_integration= {
     icon = "gfx/interface/icons/state_trait_icons/great_plains.dds"
 
     modifier = {
@@ -38,7 +38,7 @@ state_trait_four_states_integration= {
 }
 
 # 五州整合
-state_trait_five_states_integration= {
+INJECT_OR_CREATE:state_trait_five_states_integration= {
     icon = "gfx/interface/icons/state_trait_icons/great_plains.dds"
 
     modifier = {
@@ -51,7 +51,7 @@ state_trait_five_states_integration= {
 }
 
 # 六州整合
-state_trait_six_states_integration= {
+INJECT_OR_CREATE:state_trait_six_states_integration= {
     icon = "gfx/interface/icons/state_trait_icons/great_plains.dds"
 
     modifier = {
@@ -64,7 +64,7 @@ state_trait_six_states_integration= {
 }
 
 # 七州整合
-state_trait_seven_states_integration= {
+INJECT_OR_CREATE:state_trait_seven_states_integration= {
     icon = "gfx/interface/icons/state_trait_icons/great_plains.dds"
 
     modifier = {
@@ -77,7 +77,7 @@ state_trait_seven_states_integration= {
 }
 
 # 八州整合
-state_trait_eight_states_integration= {
+INJECT_OR_CREATE:state_trait_eight_states_integration= {
     icon = "gfx/interface/icons/state_trait_icons/great_plains.dds"
 
     modifier = {
@@ -90,7 +90,7 @@ state_trait_eight_states_integration= {
 }
 
 # 两州海岸整合
-state_trait_two_coast_integration= {
+INJECT_OR_CREATE:state_trait_two_coast_integration= {
     icon = "gfx/interface/icons/state_trait_icons/natural_harbors.dds"
 
     modifier = {
@@ -99,7 +99,7 @@ state_trait_two_coast_integration= {
 }
 
 # 三州海岸整合
-state_trait_three_coast_integration= {
+INJECT_OR_CREATE:state_trait_three_coast_integration= {
     icon = "gfx/interface/icons/state_trait_icons/natural_harbors.dds"
 
     modifier = {
@@ -108,7 +108,7 @@ state_trait_three_coast_integration= {
 }
 
 # 四州海岸整合
-state_trait_four_coast_integration= {
+INJECT_OR_CREATE:state_trait_four_coast_integration= {
     icon = "gfx/interface/icons/state_trait_icons/natural_harbors.dds"
 
     modifier = {
@@ -117,7 +117,7 @@ state_trait_four_coast_integration= {
 }
 
 # 五州海岸整合
-state_trait_five_coast_integration= {
+INJECT_OR_CREATE:state_trait_five_coast_integration= {
     icon = "gfx/interface/icons/state_trait_icons/natural_harbors.dds"
 
     modifier = {
@@ -126,7 +126,7 @@ state_trait_five_coast_integration= {
 }
 
 # 六州海岸整合
-state_trait_six_coast_integration= {
+INJECT_OR_CREATE:state_trait_six_coast_integration= {
     icon = "gfx/interface/icons/state_trait_icons/natural_harbors.dds"
 
     modifier = {
