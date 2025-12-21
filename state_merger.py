@@ -1174,6 +1174,16 @@ class StateMerger:
         self.trade.merge(self.merge_dict)
         self.trade.dump(self.mod_dir["trade"]+"00_historical_trade.txt")
 
+        # Copy state_trait file to mod directory
+        dir = f"{self.write_dir}common/state_traits"
+        file = f"{self.cache_dir}mod_file/state_traits.txt"
+        if not os.path.exists(dir):
+            os.makedirs(dir)
+        # Delete the file in dir if it exists
+        if os.path.exists(dir+"/00_states_merging.txt"):
+            os.remove(dir+"/00_states_merging.txt")
+        shutil.copy(file, dir+"/00_states_merging.txt")
+
     def merge_misc_data(self):
         for dir in replace_file_dir:
             base_game_dir = self.game_root_dir+dir
@@ -1271,16 +1281,6 @@ class StateMerger:
                                 # Replace "food" with ""
                                 line = re.sub(r'\b' + re.escape(food) + r'\b', "", line)
                         file.write(line)
-
-        # Copy state_trait file to mod directory
-        dir = f"{self.write_dir}common/state_traits"
-        file = f"{self.cache_dir}mod_file/state_traits.txt"
-        if not os.path.exists(dir):
-            os.makedirs(dir)
-        # Delete the file in dir if it exists
-        if os.path.exists(dir+"/00_states_merging.txt"):
-            os.remove(dir+"/00_states_merging.txt")
-        shutil.copy(file, dir+"/00_states_merging.txt")
 
         # Copy USA flag adaptation file to mod directory
         dir = f"{self.write_dir}common/flag_definitions"
