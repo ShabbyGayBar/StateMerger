@@ -23,6 +23,7 @@ replace_file_dir = [
     "common/country_definitions/",
     "common/country_formation/",
     "common/decisions/",
+    "common/dynamic_country_map_colors/",
     "common/dynamic_country_names/",
     "common/geographic_regions/",
     "common/flag_definitions/",
@@ -31,7 +32,9 @@ replace_file_dir = [
     "common/history/diplomatic_plays/",
     "common/history/military_formations/",
     "common/journal_entries/",
+    "common/mobilization_options/",
     "common/on_actions/",
+    "common/political_movements/",
     "common/scripted_buttons/",
     "common/scripted_effects/",
     "common/scripted_triggers/",
@@ -42,7 +45,8 @@ replace_file_dir = [
     "events/brazil/",
     "events/iberia_events/",
     "events/india_events/",
-    "events/soi_events/"
+    "events/soi_events/",
+    "gfx/map/city_data/city_types/",
 ]
 
 remove_file_dir = [
@@ -1206,13 +1210,13 @@ class StateMerger:
                 # Read game file
                 with open(base_game_dir+game_file, 'r', encoding='utf-8') as file:
                     lines = file.readlines()
-
+                text=''.join(lines)
                 food_name_found = False
 
                 for diner, food_list in self.merge_dict.items():
                     for food in food_list:
                         # Find all state names in the file
-                        if re.search(r'\b' + re.escape(food) + r'\b', ''.join(lines)):
+                        if re.search(r'\b' + re.escape(food) + r'\b', text):
                             food_name_found = True
                             break
                     if food_name_found:
@@ -1233,6 +1237,7 @@ class StateMerger:
                                 # Replace "food" with "diner"
                                 line = re.sub(r'\b' + re.escape(food) + r'\b', diner, line)
                         file.write(line)
+
         for dir in remove_file_dir:
             base_game_dir = self.game_root_dir+dir
             mod_dir = self.write_dir+dir
