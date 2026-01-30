@@ -1,4 +1,4 @@
-from paradox_file_parser import ParadoxFileParser
+from .paradox_file_parser import ParadoxFileParser
 import os
 import re
 import json

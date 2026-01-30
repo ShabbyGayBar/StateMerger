@@ -10,6 +10,12 @@ dependencies = [
     "pyyaml>=6.0.3",
 ]
 
+[project.urls]
+repository = "https://github.com/ShabbyGayBar/StateMerger"
+
+[project.scripts]
+state-merger = "vic3_state_merger.cli:main"
+
 [dependency-groups]
 dev = [
     "pytest>=9.0.2",
