@@ -43,11 +43,11 @@ For example, the following rule merges `state_1`, `state_2`, and `state_3` into 
 - Navigate to the Victoria 3 `/game` directory under the root directory (or the mod root directory). You should see the following:
   -  `/game` directory under the root directory
 
-    ![`/game` directory under the root directory](figures/game_root.png)
+    ![`/game` directory under the root directory](images/game_root.png)
 
   -  mod root directory
 
-    ![mod root directory](figures/mod_root.png)
+    ![mod root directory](images/mod_root.png)
 
 - Copy the path of the Victoria 3 game root directory (or the mod root directory).
 - Navigate to the directory where you unzipped the State Merger zip file.

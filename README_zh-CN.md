@@ -41,11 +41,11 @@
 - 在文件管理器中打开维多利亚3游戏根目录（或 mod 根目录）。您应该看到以下内容：
   - 游戏根目录下的 `/game` 目录
 
-    ![`/game` 目录](figures/game_root.png)
+    ![`/game` 目录](images/game_root.png)
 
   - mod 根目录
 
-    ![mod 根目录](figures/mod_root.png)
+    ![mod 根目录](images/mod_root.png)
 
 - 复制维多利亚3游戏根目录（或 mod 根目录）的路径。
 - 打开您下载并解压后的本工程目录。
