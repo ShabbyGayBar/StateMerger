@@ -54,15 +54,24 @@ class stateregion:
         self.subsistence_building = dict_data["subsistence_building"]
         self.provinces = dict_data["provinces"]
         if "impassable" in dict_data.keys():
-            self.impassable = dict_data["impassable"]
+            if isinstance(dict_data["impassable"], list):
+                self.impassable = dict_data["impassable"]
+            else:
+                self.impassable = [dict_data["impassable"]]
         else:
             self.impassable = []
         if "prime_land" in dict_data.keys():
-            self.prime_land = dict_data["prime_land"]
+            if isinstance(dict_data["prime_land"], list):
+                self.prime_land = dict_data["prime_land"]
+            else:
+                self.prime_land = [dict_data["prime_land"]]
         else:
             self.prime_land = []
         if "traits" in dict_data.keys():
-            self.traits = dict_data["traits"]
+            if isinstance(dict_data["traits"], list):
+                self.traits = dict_data["traits"]
+            else:
+                self.traits = [dict_data["traits"]]
         else:
             self.traits = []
         if "city" in dict_data.keys():
@@ -86,7 +95,10 @@ class stateregion:
         else:
             self.wood = ""
         self.arable_land = int(dict_data["arable_land"])
-        self.arable_resources = dict_data["arable_resources"]
+        if isinstance(dict_data["arable_resources"], list):
+            self.arable_resources = dict_data["arable_resources"]
+        else:
+            self.arable_resources = [dict_data["arable_resources"]]
         self.capped_resources = {}
         if "capped_resources" in dict_data.keys():
             for resource, amount in dict_data["capped_resources"].items():
