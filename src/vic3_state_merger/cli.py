@@ -1,18 +1,9 @@
 import argparse
 import json
-import os
 from typing import Optional
 
 from vic3_state_merger import __version__
 from vic3_state_merger.state_merger import StateMerger
-
-
-DEFAULT_WINDOWS_GAME_ROOT = (
-    "C:/Program Files (x86)/Steam/steamapps/common/Victoria 3/game/"
-)
-DEFAULT_LINUX_GAME_ROOT = os.path.expandvars(
-    "$HOME/.local/share/Steam/steamapps/common/Victoria 3/game/"
-)
 
 
 def _ensure_trailing_sep(path: str) -> str:
@@ -22,16 +13,9 @@ def _ensure_trailing_sep(path: str) -> str:
         return path
     return path + "/"
 
-
-def _default_game_root() -> str:
-    if os.path.exists(DEFAULT_WINDOWS_GAME_ROOT):
-        return DEFAULT_WINDOWS_GAME_ROOT
-    if os.path.exists(DEFAULT_LINUX_GAME_ROOT):
-        return DEFAULT_LINUX_GAME_ROOT
-    return DEFAULT_WINDOWS_GAME_ROOT
-
-
 def _default_data_dir(mod_dir: str) -> str:
+    import os
+
     mod_dir = os.path.abspath(mod_dir)
     parent = os.path.dirname(mod_dir.rstrip("/\\"))
     candidate = os.path.join(parent, "data")
@@ -50,14 +34,12 @@ def get_parser() -> argparse.ArgumentParser:
         help="Path to merge_states.json (merge plan).",
     )
     parser.add_argument(
-        "mod_dir",
-        help="Target mod output folder.",
+        "game_root",
+        help="Victoria 3 game root directory.",
     )
     parser.add_argument(
-        "--game-root",
-        dest="game_root",
-        default=_default_game_root(),
-        help="Victoria 3 game root directory.",
+        "mod_dir",
+        help="Target mod output folder.",
     )
     parser.add_argument(
         "--data-dir",
