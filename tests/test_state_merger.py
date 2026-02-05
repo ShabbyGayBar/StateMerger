@@ -19,7 +19,7 @@ def main():
     state_merger = StateMerger(
         game_root_dir, f"{this_dir}/mod/", merge_dict, f"{this_dir}/data/"
     )
-    state_merger.merge_state_data(buff=False, ignoreSmallStates=True)
+    state_merger.merge_state_data(ignoreSmallStates=True)
     state_merger.merge_misc_data()
     state_merger.merge_loc_data()
 
