@@ -99,7 +99,7 @@ state-merger-cli merge_states.json "C:/Program Files (x86)/Steam/steamapps/commo
 
 ## 声明
 
-- 本 Python 脚本使用 [Pyradox](https://github.com/festivitymishra/PyraDox) 进行 Paradox 游戏文件解析。
+- 本 Python 脚本使用 [Pyradox](https://github.com/ajul/pyradox) 进行 Paradox 游戏文件解析。
 - 维多利亚3游戏及其数据文件归 Paradox Interactive 所有。
 - 本项目是非官方的 modding 工具，与 Paradox Interactive 无关。
 

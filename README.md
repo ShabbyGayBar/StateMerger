@@ -102,7 +102,7 @@ Please report any bugs you encounter in the Issues tab using the bug report temp
 
 ## Acknowledgments
 
-- The Python script for paradox file parsing uses [Pyradox](https://github.com/festivitymishra/PyraDox).
+- The Python script for paradox file parsing uses [Pyradox](https://github.com/ajul/pyradox).
 - The Victoria 3 game and its data files are the property of Paradox Interactive.
 - This project is an unofficial modding tool and is not affiliated with or endorsed by Paradox Interactive.
 
