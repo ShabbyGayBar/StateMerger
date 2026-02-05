@@ -14,8 +14,10 @@ dependencies = [
 repository = "https://github.com/ShabbyGayBar/StateMerger"
 
 [project.scripts]
-state-merger = "vic3_state_merger.gui:main"
 state-merger-cli = "vic3_state_merger.cli:main"
+
+[project.gui-scripts]
+state-merger = "vic3_state_merger.gui:main"
 
 [dependency-groups]
 dev = [
