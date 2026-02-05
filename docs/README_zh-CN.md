@@ -19,7 +19,9 @@
   - 从[发布页面](https://github.com/ShabbyGayBar/StateMerger/releases)下载最新的 GUI 可执行文件。（推荐但仅 Windows）
   - **或：**
   - 安装 [Python 3.13 或更高版本](https://www.python.org/downloads/)。
-  - 运行 `pip install "https://github.com/ShabbyGayBar/StateMerger/releases/download/v2.0.0/vic3_state_merger-2.0.0-py3-none-any.whl"` 通过 pip 安装本包。
+  - 在命令行中运行
+    `pip install "https://github.com/ShabbyGayBar/StateMerger/releases/download/v2.0.0/vic3_state_merger-2.0.0-py3-none-any.whl"`
+    以通过 pip 安装本包。
 - **二选一：**
   - **安装维多利亚3原版游戏（例如通过 Steam），** 如果你想从头制作 mod。
   - **或：**
@@ -46,19 +48,25 @@
 
 - 双击运行 `state-merger.exe`。
 - 下图的 GUI 会冒出。
-![State Merger GUI](images/gui.png)
+
+  ![State Merger GUI](images/gui.png)
+
 - 填写：
   - *Merge file (merge_states.json)*：上一步编辑的文件。
   - *Game root folder*：维多利亚3安装目录或作为基础的 mod 根目录。
     **注意！** 游戏根目录应该是维多利亚3安装目录或 mod 目录**下**的 `game` 文件夹。也就是说，你应该**在该目录中**看到以下内容：
+
     ![game root contents](images/game_root.png)
+
   - *Mod output folder*：生成的 mod 文件保存位置。
   - *Small state limit*（可选）：省份数量小于等于该值的州将视为“小省份”，默认为 4。
   - *Ignore small states*（可选）：开启后合并时不会给小省份提供 buff。
 - 点击“运行”开始合并。
 - 脚本执行大概需要 5 分钟。
 - 完成后，你应该在 Mod 输出文件夹中看到如下目录结构：
-![mod contents](images/mod_contents.png)
+
+  ![mod contents](images/mod_contents.png)
+
 - 你仍需要创建 `.metadata` 文件夹以使游戏识别你的 mod，也可以自行添加其他 mod 内容。更多信息请参考 [维多利亚3 Wiki](https://vic3.paradoxwikis.com/Modding)。
 
 #### 如果使用命令行（CLI）

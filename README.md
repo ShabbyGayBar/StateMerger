@@ -21,7 +21,9 @@ It generates the following files that can be used in a Victoria 3 mod:
   - Download the latest GUI executable file from the [release page](https://github.com/ShabbyGayBar/StateMerger/releases). (Recommended but Windows only)
   - **Or:**
   - Install [Python 3.10 or later](https://www.python.org/downloads/).
-  - Run `pip install "https://github.com/ShabbyGayBar/StateMerger/releases/download/v2.0.0/vic3_state_merger-2.0.0-py3-none-any.whl"` to install the package via pip.
+  - Run
+    `pip install "https://github.com/ShabbyGayBar/StateMerger/releases/download/v2.0.0/vic3_state_merger-2.0.0-py3-none-any.whl"`
+    to install the package via pip.
 - **Either**:
   - **Install Victoria 3 Vanilla game (e.g. via Steam),** If you want to make a mod from scratch
   - **Or:**
@@ -48,19 +50,25 @@ For example, the following rule merges `state_1`, `state_2`, and `state_3` into 
 
 - Run `state-merger.exe` by double-clicking it.
 - The GUI will pop up.
-![The State Merger GUI](docs/images/gui.png)
+
+  ![The State Merger GUI](docs/images/gui.png)
+
 - Fill in:
   - *Merge file (merge_states.json)*: The one you edited in Step 1.
   - *Game root directory*: The root directory of your Victoria 3 game installation or base mod.
     **Beware!** The game root directory should be the `game` folder **under** the Victoria 3 installation directory or the mod directory. In other words, you should see the following content **inside this directory**:
+
     ![game root contents](docs/images/game_root.png)
+
   - *Mod output folder*: Where you want the generated mod files to be saved.
   - *Small state limit* (optional): The maximum number of provinces a state can have to be considered "small". Default is 4.
   - *Ignore small states* (optional): If set, states will not be granted buffs when merging *small states* defined above.
 - Click the "Run" button to start the merging process.
 - The execution of the script should take about 5 minutes.
 - After the script finishes, you should see the following folders in your mod output folder:
-![mod contents](docs/images/mod_contents.png)
+
+  ![mod contents](docs/images/mod_contents.png)
+
 - You still need to create a `.metadata` folder to make the game recognize your mod. You can also add other mod contents. Refer to [Victoria 3 Wiki](https://vic3.paradoxwikis.com/Modding) for further information.
 
 #### If You Installed the Package (CLI)
