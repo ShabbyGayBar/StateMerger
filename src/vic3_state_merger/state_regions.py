@@ -3,7 +3,7 @@ from pyradox import Tree
 seq_str = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"]
 
 
-class stateregion:
+class StateRegionItem:
     """Class for state objects in '/map_data/state_regions/'
     name: string, state name
     id: int, state id
@@ -392,7 +392,7 @@ class stateregion:
 
 class StateRegion(dict):
     """
-    Dictionary of stateregion objects
+    Dictionary of StateRegionItem objects
     """
 
     def __init__(self, source:dict|Tree|None=None):
@@ -401,10 +401,10 @@ class StateRegion(dict):
         elif isinstance(source, Tree):
             source_dict = source.to_python()
             for state_id in source_dict.keys():
-                self[state_id] = stateregion(state_id, source_dict)
+                self[state_id] = StateRegionItem(state_id, source_dict)
         elif isinstance(source, dict):
             for state_id in source.keys():
-                self[state_id] = stateregion(state_id, source)
+                self[state_id] = StateRegionItem(state_id, source)
         else:
             raise TypeError(
                 "StateRegion can only be initialized with a Tree object, a dict, or None"
@@ -432,10 +432,10 @@ class StateRegion(dict):
 
     def __str__(self, include_sea_nodes:bool=False):
         state_str = ""
-        for stateregion in self.values():
-            if not include_sea_nodes and stateregion.is_sea_node():
+        for state_region_item in self.values():
+            if not include_sea_nodes and state_region_item.is_sea_node():
                 continue
-            state_str += str(stateregion)
+            state_str += str(state_region_item)
         return state_str
 
     def dump(self, dir, include_sea_nodes:bool=False):
