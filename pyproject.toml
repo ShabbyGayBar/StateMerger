@@ -1,9 +1,38 @@
 [project]
-name = "StateMerger"
-version = "0.1.0"
+name = "vic3-state-merger"
+authors = [{ name = "Brian Li", email = "brianlizsy@qq.com" }]
+version = "2.0.0"
 description = "Victoria 3 States Merging Automation Script & Tutorial"
 readme = "README.md"
-requires-python = ">=3.12"
-dependencies = [
-    "pyyaml>=6.0.2",
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = ["pillow>=12.1.0", "pyradox-txt-parser>=5.0.1", "pyyaml>=6.0.3"]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/ShabbyGayBar/StateMerger"
+Issues = "https://github.com/ShabbyGayBar/StateMerger/issues"
+
+[project.scripts]
+state-merger-cli = "vic3_state_merger.cli:main"
+
+[project.gui-scripts]
+state-merger = "vic3_state_merger.gui:main"
+
+[dependency-groups]
+dev = ["pytest>=9.0.2", "pytest-cov>=7.0.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--cov=src",
+    "--cov-report=term-missing",
 ]
