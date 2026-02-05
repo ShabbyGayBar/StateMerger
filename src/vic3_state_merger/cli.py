@@ -66,10 +66,10 @@ def get_parser() -> argparse.ArgumentParser:
         help="Cache/data directory (defaults to sibling of mod_dir).",
     )
     parser.add_argument(
-        "--no-buff",
-        dest="buff",
-        action="store_false",
-        help="Disable buff mode.",
+        "--small-state-limit",
+        type=int,
+        default=4,
+        help="Limit for small states when merging.",
     )
     parser.add_argument(
         "--ignore-small-states",
@@ -100,7 +100,7 @@ def run_merge(
     mod_dir: str,
     game_root: str,
     data_dir: Optional[str],
-    buff: bool,
+    small_state_limit: int,
     ignore_small_states: bool,
 ) -> None:
     with open(merge_file, "r", encoding="utf-8") as file:
@@ -114,7 +114,7 @@ def run_merge(
         merge_dict,
         _ensure_trailing_sep(resolved_data_dir),
     )
-    state_merger.merge_state_data(buff=buff, ignoreSmallStates=ignore_small_states)
+    state_merger.merge_state_data(ignoreSmallStates=ignore_small_states, smallStateLimit=small_state_limit)
     state_merger.merge_misc_data()
     state_merger.merge_loc_data()
 
@@ -127,6 +127,6 @@ def main() -> None:
         mod_dir=args.mod_dir,
         game_root=args.game_root,
         data_dir=args.data_dir,
-        buff=args.buff,
+        small_state_limit=args.small_state_limit,
         ignore_small_states=args.ignore_small_states,
     )

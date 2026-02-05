@@ -151,7 +151,7 @@ class StateMerger:
         )
         self.trade = Trade(parser)
 
-    def merge_state_data(self, buff=True, ignoreSmallStates=False, smallStateLimit=4):
+    def merge_state_data(self, ignoreSmallStates=False, smallStateLimit=4):
         # Write cleared base game data to mod directory
         for key, value in self.base_game_dir.items():
             for file in os.listdir(value):
@@ -164,9 +164,6 @@ class StateMerger:
             os.remove(self.mod_dir["map_data"] + "99_seas.txt")
 
         # Merge map_data
-        if not buff:
-            ignoreSmallStates = True
-            smallStateLimit = 1000
         self.map_data.merge_states(
             self.merge_dict,
             ignoreSmallStates=ignoreSmallStates,
