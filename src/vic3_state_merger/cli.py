@@ -3,8 +3,8 @@ import json
 import os
 from typing import Optional
 
-from . import __version__
-from .state_merger import StateMerger
+from vic3_state_merger import __version__
+from vic3_state_merger.state_merger import StateMerger
 
 
 DEFAULT_WINDOWS_GAME_ROOT = (

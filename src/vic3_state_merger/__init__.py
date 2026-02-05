@@ -8,9 +8,9 @@ try:
 except PackageNotFoundError:
     __version__ = "0.0.0"
 
-from .state_merger import StateMerger, clear_mod_dir
-from .state_regions import StateRegion
-from .buildings import Buildings
-from .pops import Pops
-from .states import States
-from .trade import Trade
+from vic3_state_merger.state_merger import StateMerger, clear_mod_dir
+from vic3_state_merger.state_regions import StateRegion
+from vic3_state_merger.buildings import Buildings
+from vic3_state_merger.pops import Pops
+from vic3_state_merger.states import States
+from vic3_state_merger.trade import Trade

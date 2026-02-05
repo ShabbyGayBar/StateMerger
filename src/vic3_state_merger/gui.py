@@ -2,7 +2,7 @@ import threading
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 
-from .cli import _default_game_root, _default_data_dir, run_merge
+from vic3_state_merger.cli import _default_game_root, _default_data_dir, run_merge
 
 
 def _browse_file(var: tk.StringVar) -> None:
