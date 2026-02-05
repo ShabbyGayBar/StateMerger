@@ -22,7 +22,7 @@ class stateregion:
     naval_exit_id: int, corresponding sea node id for the state
     """
 
-    def __init__(self, name, dict):
+    def __init__(self, name, dict:dict):
         """Initialize the state object with a dictionary"""
         self.name = ""
         self.id = 0
@@ -155,7 +155,7 @@ class stateregion:
         """Return the number of provinces in the state"""
         return len(self.provinces)
 
-    def is_small_state(self, limit=4):
+    def is_small_state(self, limit:int=4):
         """Determine if the state is a small state"""
         if self.is_sea_node():
             return False
@@ -163,7 +163,7 @@ class stateregion:
             return True
         return False
 
-    def merge(self, other, ignoreSmallStates=False, smallStateLimit=4):
+    def merge(self, other, ignoreSmallStates:bool=False, smallStateLimit:int=4):
         """Merge two state objects."""
         if self.is_sea_node() or other.is_sea_node():
             print(f"Error: Cannot merge sea node with other state")
@@ -395,7 +395,7 @@ class StateRegion(dict):
     Dictionary of stateregion objects
     """
 
-    def __init__(self, source=None):
+    def __init__(self, source:dict|Tree|None=None):
         if source is None:
             super().__init__()
         elif isinstance(source, Tree):
@@ -411,7 +411,7 @@ class StateRegion(dict):
             )
 
     def merge_state(
-        self, diner, food, ignoreSmallStates=False, smallStateLimit=4
+        self, diner, food, ignoreSmallStates:bool=False, smallStateLimit:int=4
     ):
         self[diner].merge(
             self[food],
@@ -420,7 +420,7 @@ class StateRegion(dict):
         )
         self.pop(food)
 
-    def merge_states(self, merge_dict, ignoreSmallStates=False, smallStateLimit=4):
+    def merge_states(self, merge_dict:dict, ignoreSmallStates:bool=False, smallStateLimit:int=4):
         for diner, food_list in merge_dict.items():
             for food in food_list:
                 self.merge_state(
@@ -430,7 +430,7 @@ class StateRegion(dict):
                     smallStateLimit=smallStateLimit,
                 )
 
-    def __str__(self, include_sea_nodes=False):
+    def __str__(self, include_sea_nodes:bool=False):
         state_str = ""
         for stateregion in self.values():
             if not include_sea_nodes and stateregion.is_sea_node():
@@ -438,7 +438,7 @@ class StateRegion(dict):
             state_str += str(stateregion)
         return state_str
 
-    def dump(self, dir, include_sea_nodes=False):
+    def dump(self, dir, include_sea_nodes:bool=False):
         with open(dir, "w", encoding="utf-8-sig") as file:
             file.write(self.__str__(include_sea_nodes=include_sea_nodes))
 

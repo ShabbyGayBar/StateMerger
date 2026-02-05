@@ -3,7 +3,7 @@ from pyradox import Tree
 
 class Trade(dict):
 
-    def __init__(self, source=None):
+    def __init__(self, source:dict|Tree|None=None):
         super().__init__()
         if source is None:
             return
@@ -61,7 +61,7 @@ class Trade(dict):
                             except (ValueError, TypeError):
                                 good_data["add_imports"] = 0
 
-    def merge_state(self, this, other):
+    def merge_state(self, this:str, other:str):  # this, other are "state_id" strings
         """Merge trade data from 'other' state into 'this' state"""
         if other not in self:
             return
@@ -98,7 +98,7 @@ class Trade(dict):
                         else:
                             this_good["add_imports"] = other_good["add_imports"]
 
-    def merge_states(self, merge_dict):
+    def merge_states(self, merge_dict:dict):
         """Merge trade data according to state merging dictionary"""
         for diner, food_list in merge_dict.items():
             for food in food_list:
@@ -110,7 +110,7 @@ class Trade(dict):
                     self.merge_state(diner_key, food_key)
                     self.pop(food_key)
 
-    def get_str(self, state_id):
+    def get_str(self, state_id:str) -> str:
         """Generate string representation for a state's trade data"""
         if state_id not in self:
             return ""

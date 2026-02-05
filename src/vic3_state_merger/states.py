@@ -2,7 +2,7 @@ from pyradox import Tree
 
 
 class States(dict):
-    def __init__(self, source=None):
+    def __init__(self, source:dict|Tree|None=None):
         super().__init__()
         if source is None:
             return
@@ -50,7 +50,7 @@ class States(dict):
                 elif not isinstance(self[state_id]["add_claim"], list):
                     self[state_id]["add_claim"] = [self[state_id]["add_claim"]]
 
-    def merge_state(self, this, other):  # this, other are "state_id" strings
+    def merge_state(self, this:str, other:str):  # this, other are "state_id" strings
         # Merge create_state
         for province in self[other]["create_state"]:
             found = False
@@ -75,7 +75,7 @@ class States(dict):
                 if country not in self[this]["add_claim"]:
                     self[this]["add_claim"].append(country)
 
-    def get_str(self, state_id):
+    def get_str(self, state_id:str) -> str:
         state_str = f"    {state_id} = {{\n"
         for province in self[state_id]["create_state"]:
             state_str += f"        create_state = {{\n"
@@ -98,7 +98,7 @@ class States(dict):
 
         return state_str
 
-    def merge_states(self, merge_dict):
+    def merge_states(self, merge_dict:dict):
         for diner, food_list in merge_dict.items():
             for food in food_list:
                 if ("s:" + food) in self.keys():

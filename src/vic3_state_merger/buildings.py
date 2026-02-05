@@ -1,7 +1,7 @@
 from pyradox import Tree
 
 
-def format_dict_to_string(d, indent_level=0):
+def format_dict_to_string(d:dict|list, indent_level:int=0):
     # Convert self into the game's file format and write to file_path
     lines = []
     for key, value in d.items() if isinstance(d, dict) else enumerate(d):
@@ -26,7 +26,7 @@ def format_dict_to_string(d, indent_level=0):
 
 
 class Building:
-    def __init__(self, dict):
+    def __init__(self, dict:dict):
         """Initialize the building object with a dictionary"""
         if "building" in dict.keys():
             self.building = dict["building"]
@@ -52,7 +52,7 @@ class Building:
             self.activate_production_methods = dict["activate_production_methods"]
         self.refresh()
 
-    def add_ownership(self, ownership_dict):
+    def add_ownership(self, ownership_dict:dict):
         """Add ownerships from a dictionary"""
         if "building" in ownership_dict.keys():
             if not isinstance(ownership_dict["building"], list):
@@ -214,7 +214,7 @@ class Building:
 
 
 class Buildings(dict):
-    def __init__(self, source):
+    def __init__(self, source:dict|Tree|None=None):
         super().__init__()
         if source is None:
             return
@@ -264,7 +264,7 @@ class Buildings(dict):
                     if self[state_id][tag][i - 1].is_empty():
                         self[state_id][tag].pop(i - 1)
 
-    def merge_state(self, diner, food):
+    def merge_state(self, diner:str, food:str):
         if ("s:" + food) in self.keys():
             # print(f"Merging {food} building data into {diner}")
             for tag in self["s:" + food].keys():
@@ -285,7 +285,7 @@ class Buildings(dict):
             # Remove the food from data
             self.pop("s:" + food)
 
-    def merge_states(self, merge_dict):
+    def merge_states(self, merge_dict:dict):
         # Transfers building ownerships
         for state_id in self.keys():
             if state_id == "if":  # dlc buildings
@@ -311,7 +311,7 @@ class Buildings(dict):
                 self.merge_state(diner, food)
         self.format()
 
-    def get_str(self, state_id):
+    def get_str(self, state_id:str) -> str:
         if state_id == "if":
             building_tree = Tree(self[state_id])
             return building_tree.__str__()

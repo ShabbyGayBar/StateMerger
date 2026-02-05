@@ -77,7 +77,7 @@ map_object_data_files = [
 ]
 
 
-def parse_merge(path, merge_levels=0):
+def parse_merge(path, merge_levels:int=0):
     """Given a directory, return a Tree as if all .txt files in the directory were a single file"""
 
     result = pyradox.Tree()
@@ -89,7 +89,7 @@ def parse_merge(path, merge_levels=0):
     return result
 
 
-def clear_mod_dir(dir_dict):
+def clear_mod_dir(dir_dict:dict[str, str]):
     # Clear the output directory
     for dir in dir_dict.values():
         if not os.path.exists(dir):
@@ -99,7 +99,7 @@ def clear_mod_dir(dir_dict):
                 os.remove(os.path.join(dir, file))
 
 
-def clean_v3_yml_numbered_keys(yml_path):
+def clean_v3_yml_numbered_keys(yml_path:str) -> str:
     with open(yml_path, "r", encoding="utf-8") as f:
         raw = f.read()
     # Replace :<number> (optionally with spaces) before a quote or non-quote value
@@ -109,7 +109,7 @@ def clean_v3_yml_numbered_keys(yml_path):
 
 
 class StateMerger:
-    def __init__(self, game_root_dir, write_dir, merge_dict, cache_dir="./data"):
+    def __init__(self, game_root_dir:str, write_dir:str, merge_dict:dict, cache_dir:str="./data"):
         self.base_game_dir = {}
         self.mod_dir = {}
         self.game_root_dir = game_root_dir
@@ -151,7 +151,7 @@ class StateMerger:
         )
         self.trade = Trade(parser)
 
-    def merge_state_data(self, ignoreSmallStates=False, smallStateLimit=4):
+    def merge_state_data(self, ignoreSmallStates:bool=False, smallStateLimit:int=4):
         # Write cleared base game data to mod directory
         for key, value in self.base_game_dir.items():
             for file in os.listdir(value):

@@ -2,7 +2,7 @@ from pyradox import Tree
 
 
 class Pops(dict):
-    def __init__(self, source=None):
+    def __init__(self, source:dict|Tree|None=None):
         super().__init__()
         if source is None:
             return
@@ -33,7 +33,7 @@ class Pops(dict):
                         self[state_id][tag]["create_pop"]
                     ]
 
-    def merge_state(self, this, other):  # this, other are "state_id" strings
+    def merge_state(self, this:str, other:str):  # this, other are "state_id" strings
         for tag in self[other].keys():
             if tag in self[this].keys():
                 for other_pop in self[other][tag]["create_pop"]:
@@ -83,7 +83,7 @@ class Pops(dict):
             else:
                 self[this][tag] = self[other][tag]
 
-    def get_str(self, state_id):
+    def get_str(self, state_id:str) -> str:
         state_str = f"    {state_id} = {{\n"
         for tag in self[state_id].keys():
             state_str += f"        {tag} = {{\n"
@@ -97,7 +97,7 @@ class Pops(dict):
 
         return state_str
 
-    def merge_states(self, merge_dict):
+    def merge_states(self, merge_dict:dict):
         for diner, food_list in merge_dict.items():
             for food in food_list:
                 if ("s:" + food) in self.keys():
