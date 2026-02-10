@@ -1,4 +1,7 @@
-﻿REPLACE:USA = {	# United States of America
+﻿@usa_canton_width = 0.5
+@usa_canton_height = @[ 1 / 13 * 7 ]
+
+REPLACE:USA = {	# United States of America
 	flag_definition = {
 		coa = USA # 24 stars
 		coa_with_overlord_canton = USA
