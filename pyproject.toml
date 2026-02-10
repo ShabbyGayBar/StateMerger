@@ -1,7 +1,7 @@
 [project]
 name = "vic3-state-merger"
 authors = [{ name = "Brian Li", email = "brianlizsy@qq.com" }]
-version = "2.0.1"
+version = "2.0.2"
 description = "Victoria 3 States Merging Automation Script & Tutorial"
 readme = "README.md"
 requires-python = ">=3.10"
