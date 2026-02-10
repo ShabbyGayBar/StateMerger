@@ -22,7 +22,7 @@ It generates the following files that can be used in a Victoria 3 mod:
   - **Or:**
   - Install [Python 3.10 or later](https://www.python.org/downloads/).
   - Run
-    `pip install "https://github.com/ShabbyGayBar/StateMerger/releases/download/v2.0.0/vic3_state_merger-2.0.0-py3-none-any.whl"`
+    `pip install "https://github.com/ShabbyGayBar/StateMerger/releases/download/v2.0.2/vic3_state_merger-2.0.2-py3-none-any.whl"`
     to install the package via pip.
 - **Either**:
   - **Install Victoria 3 Vanilla game (e.g. via Steam),** If you want to make a mod from scratch

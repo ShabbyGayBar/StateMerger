@@ -20,7 +20,7 @@
   - **或：**
   - 安装 [Python 3.13 或更高版本](https://www.python.org/downloads/)。
   - 在命令行中运行
-    `pip install "https://github.com/ShabbyGayBar/StateMerger/releases/download/v2.0.0/vic3_state_merger-2.0.0-py3-none-any.whl"`
+    `pip install "https://github.com/ShabbyGayBar/StateMerger/releases/download/v2.0.2/vic3_state_merger-2.0.2-py3-none-any.whl"`
     以通过 pip 安装本包。
 - **二选一：**
   - **安装维多利亚3原版游戏（例如通过 Steam），** 如果你想从头制作 mod。
