@@ -54,22 +54,28 @@ class StateRegionItem:
         self.subsistence_building = dict_data["subsistence_building"]
         self.provinces = dict_data["provinces"]
         if "impassable" in dict_data.keys():
-            if isinstance(dict_data["impassable"], list):
+            if isinstance(dict_data["impassable"], (list, tuple)):
                 self.impassable = dict_data["impassable"]
+            elif dict_data["impassable"] == {}:
+                self.impassable = []
             else:
                 self.impassable = [dict_data["impassable"]]
         else:
             self.impassable = []
         if "prime_land" in dict_data.keys():
-            if isinstance(dict_data["prime_land"], list):
+            if isinstance(dict_data["prime_land"], (list, tuple)):
                 self.prime_land = dict_data["prime_land"]
+            elif dict_data["prime_land"] == {}:
+                self.prime_land = []
             else:
                 self.prime_land = [dict_data["prime_land"]]
         else:
             self.prime_land = []
         if "traits" in dict_data.keys():
-            if isinstance(dict_data["traits"], list):
+            if isinstance(dict_data["traits"], (list, tuple)):
                 self.traits = dict_data["traits"]
+            elif dict_data["traits"] == {}:
+                self.traits = []
             else:
                 self.traits = [dict_data["traits"]]
         else:
