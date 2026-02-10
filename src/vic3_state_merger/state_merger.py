@@ -17,54 +17,54 @@ except ImportError:  # Python 3.8 / 3.7
 assets = files("vic3_state_merger") / "assets"
 
 state_file_dir = {
-    "map_data": r"map_data/state_regions/",
-    "state": r"common/history/states/",
-    "pops": r"common/history/pops/",
-    "buildings": r"common/history/buildings/",
-    "trade": r"common/history/trade/",
+    "map_data": r"map_data/state_regions",
+    "state": r"common/history/states",
+    "pops": r"common/history/pops",
+    "buildings": r"common/history/buildings",
+    "trade": r"common/history/trade",
 }
 
 replace_file_dir = [
-    "common/ai_strategies/",
-    "common/buildings/",
-    "common/canals/",
-    "common/character_templates/",
-    "common/company_types/",
-    "common/country_creation/",
-    "common/country_definitions/",
-    "common/country_formation/",
-    "common/decisions/",
-    "common/dynamic_country_map_colors/",
-    "common/dynamic_country_names/",
-    "common/geographic_regions/",
-    "common/flag_definitions/",
-    "common/history/countries/",
-    "common/history/global/",
-    "common/history/diplomatic_plays/",
-    "common/history/military_formations/",
-    "common/journal_entries/",
-    "common/mobilization_options/",
-    "common/on_actions/",
-    "common/political_movements/",
-    "common/scripted_buttons/",
-    "common/scripted_effects/",
-    "common/scripted_triggers/",
-    "events/",
-    "events/agitators_events/",
-    "events/american_civil_war/",
-    "events/balkans_events/",
-    "events/brazil/",
-    "events/iberia_events/",
-    "events/india_events/",
-    "events/soi_events/",
-    "gfx/map/city_data/city_types/",
+    "common/ai_strategies",
+    "common/buildings",
+    "common/canals",
+    "common/character_templates",
+    "common/company_types",
+    "common/country_creation",
+    "common/country_definitions",
+    "common/country_formation",
+    "common/decisions",
+    "common/dynamic_country_map_colors",
+    "common/dynamic_country_names",
+    "common/geographic_regions",
+    "common/flag_definitions",
+    "common/history/countries",
+    "common/history/global",
+    "common/history/diplomatic_plays",
+    "common/history/military_formations",
+    "common/journal_entries",
+    "common/mobilization_options",
+    "common/on_actions",
+    "common/political_movements",
+    "common/scripted_buttons",
+    "common/scripted_effects",
+    "common/scripted_triggers",
+    "events",
+    "events/agitators_events",
+    "events/american_civil_war",
+    "events/balkans_events",
+    "events/brazil",
+    "events/iberia_events",
+    "events/india_events",
+    "events/soi_events",
+    "gfx/map/city_data/city_types",
 ]
 
-remove_file_dir = ["common/strategic_regions/"]
+remove_file_dir = ["common/strategic_regions"]
 
 loc_file_dir = {
-    "l_english": r"localization/english/",
-    "l_simp_chinese": r"localization/simp_chinese/",
+    "l_english": r"localization/english",
+    "l_simp_chinese": r"localization/simp_chinese",
 }
 
 map_object_data_files = [
@@ -118,8 +118,8 @@ class StateMerger:
 
         # Set the base game and mod directories
         for key, value in state_file_dir.items():
-            self.base_game_dir[key] = self.game_root_dir + value
-            self.mod_dir[key] = write_dir + value
+            self.base_game_dir[key] = os.path.join(game_root_dir, value)
+            self.mod_dir[key] = os.path.join(write_dir, value)
         clear_mod_dir(self.mod_dir)
 
         # Parse State Regions data
@@ -156,11 +156,11 @@ class StateMerger:
             for file in os.listdir(value):
                 if file == "00_states_merging.txt":
                     continue
-                with open(self.mod_dir[key] + file, "w", encoding="utf-8-sig") as file:
+                with open(os.path.join(self.mod_dir[key], file), "w", encoding="utf-8-sig") as file:
                     file.write("")
         # Delete "/map_data/state_regions/99_sea.txt" in mod directory
-        if os.path.exists(self.mod_dir["map_data"] + "99_seas.txt"):
-            os.remove(self.mod_dir["map_data"] + "99_seas.txt")
+        if os.path.exists(os.path.join(self.mod_dir["map_data"], "99_seas.txt")):
+            os.remove(os.path.join(self.mod_dir["map_data"], "99_seas.txt"))
 
         # Merge map_data
         self.map_data.merge_states(
@@ -168,35 +168,35 @@ class StateMerger:
             ignoreSmallStates=ignoreSmallStates,
             smallStateLimit=smallStateLimit,
         )
-        self.map_data.dump(self.mod_dir["map_data"] + "00_states_merging.txt")
+        self.map_data.dump(os.path.join(self.mod_dir["map_data"], "00_states_merging.txt"))
         # Merge buildings
         self.buildings.merge_states(self.merge_dict)
-        self.buildings.dump(self.mod_dir["buildings"] + "00_states_merging.txt")
+        self.buildings.dump(os.path.join(self.mod_dir["buildings"], "00_states_merging.txt"))
         # Merge pops
         self.pops.merge_states(self.merge_dict)
-        self.pops.dump(self.mod_dir["pops"] + "00_states_merging.txt")
+        self.pops.dump(os.path.join(self.mod_dir["pops"], "00_states_merging.txt"))
         # Merge states
         self.states.merge_states(self.merge_dict)
-        self.states.dump(self.mod_dir["state"] + "00_states.txt")
+        self.states.dump(os.path.join(self.mod_dir["state"], "00_states.txt"))
         # Merge trade
         self.trade.merge_states(self.merge_dict)
-        self.trade.dump(self.mod_dir["trade"] + "00_historical_trade.txt")
+        self.trade.dump(os.path.join(self.mod_dir["trade"], "00_historical_trade.txt"))
 
         # Copy state_trait file to mod directory
-        dir = f"{self.write_dir}common/state_traits"
+        dir = os.path.join(self.write_dir, "common", "state_traits")
         file_str = (assets / "state_traits.txt").read_text(encoding="utf-8")
         if not os.path.exists(dir):
             os.makedirs(dir)
         # Delete the file in dir if it exists
-        if os.path.exists(dir + "/00_states_merging.txt"):
-            os.remove(dir + "/00_states_merging.txt")
-        with open(dir + "/00_states_merging.txt", "w", encoding="utf-8") as file:
+        if os.path.exists(os.path.join(dir, "00_states_merging.txt")):
+            os.remove(os.path.join(dir, "00_states_merging.txt"))
+        with open(os.path.join(dir, "00_states_merging.txt"), "w", encoding="utf-8") as file:
             file.write(file_str)
 
     def merge_misc_data(self):
         for dir in replace_file_dir:
-            base_game_dir = self.game_root_dir + dir
-            mod_dir = self.write_dir + dir
+            base_game_dir = os.path.join(self.game_root_dir, dir)
+            mod_dir = os.path.join(self.write_dir, dir)
             print("Scanning", base_game_dir)
 
             # Clear the output directory
@@ -204,16 +204,16 @@ class StateMerger:
                 os.makedirs(mod_dir)
             else:
                 for file in os.listdir(mod_dir):
-                    if os.path.isdir(mod_dir + file):  # If is folder
+                    if os.path.isdir(os.path.join(mod_dir, file)):  # If is folder
                         continue
                     os.remove(os.path.join(mod_dir, file))
 
             for game_file in os.listdir(base_game_dir):
-                if os.path.isdir(base_game_dir + game_file):  # If is folder
+                if os.path.isdir(os.path.join(base_game_dir, game_file)):  # If is folder
                     continue
 
                 # Read game file
-                with open(base_game_dir + game_file, "r", encoding="utf-8") as file:
+                with open(os.path.join(base_game_dir, game_file), "r", encoding="utf-8") as file:
                     lines = file.readlines()
                 text = "".join(lines)
                 food_name_found = False
@@ -229,9 +229,9 @@ class StateMerger:
                 if not food_name_found:
                     continue
 
-                print("Modifying", base_game_dir + game_file)
+                print("Modifying", os.path.join(base_game_dir, game_file))
                 # Replace all state names with their merged counterparts
-                output_file = mod_dir + game_file
+                output_file = os.path.join(mod_dir, game_file)
                 # Create the output directory if it doesn't exist
                 if not os.path.exists(os.path.dirname(output_file)):
                     os.makedirs(os.path.dirname(output_file))
@@ -246,8 +246,8 @@ class StateMerger:
                         file.write(line)
 
         for dir in remove_file_dir:
-            base_game_dir = self.game_root_dir + dir
-            mod_dir = self.write_dir + dir
+            base_game_dir = os.path.join(self.game_root_dir, dir)
+            mod_dir = os.path.join(self.write_dir, dir)
             print("Scanning", base_game_dir)
 
             # Clear the output directory
@@ -255,16 +255,16 @@ class StateMerger:
                 os.makedirs(mod_dir)
             else:
                 for file in os.listdir(mod_dir):
-                    if os.path.isdir(mod_dir + file):  # If is folder
+                    if os.path.isdir(os.path.join(mod_dir, file)):  # If is folder
                         continue
                     os.remove(os.path.join(mod_dir, file))
 
             for game_file in os.listdir(base_game_dir):
-                if os.path.isdir(base_game_dir + game_file):  # If is folder
+                if os.path.isdir(os.path.join(base_game_dir, game_file)):  # If is folder
                     continue
 
                 # Read game file
-                with open(base_game_dir + game_file, "r", encoding="utf-8") as file:
+                with open(os.path.join(base_game_dir, game_file), "r", encoding="utf-8") as file:
                     lines = file.readlines()
 
                 food_name_found = False
@@ -280,9 +280,9 @@ class StateMerger:
                 if not food_name_found:
                     continue
 
-                print("Modifying", base_game_dir + game_file)
+                print("Modifying", os.path.join(base_game_dir, game_file))
                 # Replace all state names with ""
-                output_file = mod_dir + game_file
+                output_file = os.path.join(mod_dir, game_file)
                 # Create the output directory if it doesn't exist
                 if not os.path.exists(os.path.dirname(output_file)):
                     os.makedirs(os.path.dirname(output_file))
@@ -295,25 +295,25 @@ class StateMerger:
                         file.write(line)
 
         # Copy USA flag adaptation file to mod directory
-        dir = f"{self.write_dir}common/flag_definitions"
+        dir = os.path.join(self.write_dir, "common", "flag_definitions")
         file_str = (assets / "01_flag_definitions_usa.txt").read_text(encoding="utf-8")
         if not os.path.exists(dir):
             os.makedirs(dir)
         # Delete the file in dir if it exists
-        if os.path.exists(dir + "/00_states_merging.txt"):
-            os.remove(dir + "/00_states_merging.txt")
-        with open(dir + "/00_states_merging.txt", "w", encoding="utf-8") as file:
+        if os.path.exists(os.path.join(dir, "00_states_merging.txt")):
+            os.remove(os.path.join(dir, "00_states_merging.txt"))
+        with open(os.path.join(dir, "00_states_merging.txt"), "w", encoding="utf-8") as file:
             file.write(file_str)
 
         # Copy USA state counting file to mod directory
-        dir = f"{self.write_dir}common/script_values"
+        dir = os.path.join(self.write_dir, "common", "script_values")
         file_str = (assets / "usa_state_counter.txt").read_text(encoding="utf-8")
         if not os.path.exists(dir):
             os.makedirs(dir)
         # Delete the file in dir if it exists
-        if os.path.exists(dir + "/00_states_merging.txt"):
-            os.remove(dir + "/00_states_merging.txt")
-        with open(dir + "/00_states_merging.txt", "w", encoding="utf-8") as file:
+        if os.path.exists(os.path.join(dir, "00_states_merging.txt")):
+            os.remove(os.path.join(dir, "00_states_merging.txt"))
+        with open(os.path.join(dir, "00_states_merging.txt"), "w", encoding="utf-8") as file:
             file.write(file_str)
 
     def merge_loc_data(self):
@@ -358,8 +358,8 @@ class StateMerger:
                                 print(miss_dict[f"HUB_NAME_{diner}_{attr}"])
                                 break
             # Write the missing hub names to the localization file
-            write_file = (
-                self.write_dir + loc_dir + f"hub_names_states_merging_{lang}.yml"
+            write_file = os.path.join(
+                self.write_dir, loc_dir, f"hub_names_states_merging_{lang}.yml"
             )
             if miss_dict:
                 print(f"Modifying {write_file}")
@@ -382,18 +382,18 @@ class StateMerger:
             for file in os.listdir(self.base_game_dir[key]):
                 if "99_seas" in file or "100_pops_example" in file:
                     continue
-                base_game_file = self.base_game_dir[key] + file
+                base_game_file = os.path.join(self.base_game_dir[key], file)
                 # copy to cache dir
-                cache_file = self.cache_dir + "game_file/" + key + "/" + file
+                cache_file = os.path.join(self.cache_dir, "game_file", key, file)
                 if not os.path.exists(os.path.dirname(cache_file)):
                     os.makedirs(os.path.dirname(cache_file))
                 shutil.copy(base_game_file, cache_file)
 
     def copy_map_object_data(self):
         for file in map_object_data_files:
-            base_game_file = self.game_root_dir + "gfx/map/map_object_data/" + file
+            base_game_file = os.path.join(self.game_root_dir, "gfx", "map", "map_object_data", file)
             # copy to cache dir
-            cache_file = self.cache_dir + "game_file/map_object_data/" + file
+            cache_file = os.path.join(self.cache_dir, "game_file", "map_object_data", file)
             if not os.path.exists(os.path.dirname(cache_file)):
                 os.makedirs(os.path.dirname(cache_file))
             shutil.copy(base_game_file, cache_file)
