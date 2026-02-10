@@ -219,6 +219,11 @@ class Buildings(dict):
         if source is None:
             return
         elif isinstance(source, Tree):
+            buildings_dict = source["BUILDINGS"]
+            if isinstance(buildings_dict, Tree):
+                for dlc_building in buildings_dict.find_all("if"):
+                    if isinstance(dlc_building, Tree):
+                        self["if"] = dlc_building.to_python(duplicate_action="overwrite")
             buildings_dict = source.to_python()
         elif isinstance(source, dict):
             buildings_dict = source
@@ -228,7 +233,6 @@ class Buildings(dict):
             )
         for state_id in buildings_dict["BUILDINGS"].keys():
             if state_id == "if":  # dlc buildings
-                self["if"] = buildings_dict["BUILDINGS"]["if"]  # dlc buildings
                 continue
             print("Reading buildings: " + state_id)
             self[state_id] = {}
@@ -313,8 +317,8 @@ class Buildings(dict):
 
     def get_str(self, state_id:str) -> str:
         if state_id == "if":
-            building_tree = Tree(self[state_id])
-            return building_tree.__str__()
+            building_tree = Tree({"if": self["if"]})
+            return building_tree.prettyprint(level=1)
         building_str = f"    {state_id} = {{\n"
         for tag in self[state_id].keys():
             building_str += f"        {tag} = {{\n"
