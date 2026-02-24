@@ -216,17 +216,16 @@ class StateMerger:
                 with open(os.path.join(base_game_dir, game_file), "r", encoding="utf-8") as file:
                     lines = file.readlines()
                 text = "".join(lines)
-                food_name_found = False
 
                 for diner, food_list in self.merge_dict.items():
                     for food in food_list:
                         # Find all state names in the file
                         if re.search(r"\b" + re.escape(food) + r"\b", text):
-                            food_name_found = True
                             break
-                    if food_name_found:
-                        break
-                if not food_name_found:
+                    else:
+                        continue
+                    break
+                else:
                     continue
 
                 print("Modifying", os.path.join(base_game_dir, game_file))
@@ -267,17 +266,15 @@ class StateMerger:
                 with open(os.path.join(base_game_dir, game_file), "r", encoding="utf-8") as file:
                     lines = file.readlines()
 
-                food_name_found = False
-
                 for diner, food_list in self.merge_dict.items():
                     for food in food_list:
                         # Find all state names in the file
                         if re.search(r"\b" + re.escape(food) + r"\b", "".join(lines)):
-                            food_name_found = True
                             break
-                    if food_name_found:
-                        break
-                if not food_name_found:
+                    else:
+                        continue
+                    break
+                else:
                     continue
 
                 print("Modifying", os.path.join(base_game_dir, game_file))

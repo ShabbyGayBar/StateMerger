@@ -94,19 +94,17 @@ class Building:
             return
         sorted_ownership = []
         for other_ownership in self.building_ownership:
-            found = False
             for this_ownership in sorted_ownership:
                 if (
                     this_ownership["type"] == other_ownership["type"]
                     and this_ownership["country"] == other_ownership["country"]
                     and this_ownership["region"] == other_ownership["region"]
                 ):
-                    found = True
                     this_ownership["levels"] = int(this_ownership["levels"]) + int(
                         other_ownership["levels"]
                     )
                     break
-            if not found:
+            else:
                 sorted_ownership.append(other_ownership)
         self.building_ownership = sorted_ownership
         if not isinstance(self.activate_production_methods, list):
@@ -127,44 +125,38 @@ class Building:
         if self.building != other.building:
             raise ValueError("Cannot add buildings with different types")
         for ownership in other.building_ownership:
-            found = False
             for this_ownership in self.building_ownership:
                 if (
                     this_ownership["type"] == ownership["type"]
                     and this_ownership["country"] == ownership["country"]
                     and this_ownership["region"] == ownership["region"]
                 ):
-                    found = True
                     this_ownership["levels"] = int(this_ownership["levels"]) + int(
                         ownership["levels"]
                     )
                     break
-            if not found:
+            else:
                 self.building_ownership.append(ownership)
         for ownership in other.country_ownership:
-            found = False
             for this_ownership in self.country_ownership:
                 if this_ownership["country"] == ownership["country"]:
-                    found = True
                     this_ownership["levels"] = int(this_ownership["levels"]) + int(
                         ownership["levels"]
                     )
                     break
-            if not found:
+            else:
                 self.country_ownership.append(ownership)
         for ownership in other.company_ownership:
-            found = False
             for this_ownership in self.company_ownership:
                 if (
                     this_ownership["type"] == ownership["type"]
                     and this_ownership["country"] == ownership["country"]
                 ):
-                    found = True
                     this_ownership["levels"] = int(this_ownership["levels"]) + int(
                         ownership["levels"]
                     )
                     break
-            if not found:
+            else:
                 self.company_ownership.append(ownership)
         return self
 
@@ -278,13 +270,11 @@ class Buildings(dict):
                 for other_building in self["s:" + food][tag]:
                     if other_building.is_empty():
                         continue
-                    found = False
                     for this_building in self["s:" + diner][tag]:
                         if this_building.building == other_building.building:
-                            found = True
                             this_building += other_building
                             break
-                    if not found:
+                    else:
                         self["s:" + diner][tag].append(other_building)
             # Remove the food from data
             self.pop("s:" + food)

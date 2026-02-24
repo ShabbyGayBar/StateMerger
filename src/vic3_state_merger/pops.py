@@ -2,7 +2,7 @@ from pyradox import Tree
 
 
 class Pops(dict):
-    def __init__(self, source:dict|Tree|None=None):
+    def __init__(self, source: dict | Tree | None = None):
         super().__init__()
         if source is None:
             return
@@ -18,7 +18,9 @@ class Pops(dict):
         self.format()
 
     def format(self):
-        for state_id in self.keys():  # Restore the original structure of certain pop keys
+        for (
+            state_id
+        ) in self.keys():  # Restore the original structure of certain pop keys
             print(f"Formatting pop data: {state_id}")
             for tag in self[state_id].keys():
                 if not isinstance(self[state_id][tag], dict):
@@ -33,57 +35,44 @@ class Pops(dict):
                         self[state_id][tag]["create_pop"]
                     ]
 
-    def merge_state(self, this:str, other:str):  # this, other are "state_id" strings
+    def merge_state(self, this: str, other: str):  # this, other are "state_id" strings
         for tag in self[other].keys():
-            if tag in self[this].keys():
-                for other_pop in self[other][tag]["create_pop"]:
-                    found = False
-                    hasAttributeType = "pop_type" in other_pop
-                    hasAttributeReligion = "religion" in other_pop
-                    for this_pop in self[this][tag]["create_pop"]:
-                        if other_pop["culture"] != this_pop["culture"]:
-                            continue
-                        if hasAttributeType and "pop_type" in this_pop:
-                            if other_pop["pop_type"] == this_pop["pop_type"]:
-                                if hasAttributeReligion and "religion" in this_pop:
-                                    if other_pop["religion"] == this_pop["religion"]:
-                                        this_pop["size"] = int(this_pop["size"]) + int(
-                                            other_pop["size"]
-                                        )
-                                        found = True
-                                        break
-                                elif (
-                                    not hasAttributeReligion
-                                    and "religion" not in this_pop
-                                ):
-                                    this_pop["size"] = int(this_pop["size"]) + int(
-                                        other_pop["size"]
-                                    )
-                                    found = True
-                                    break
-                            continue
-                        elif not hasAttributeType and "pop_type" not in this_pop:
-                            if hasAttributeReligion and "religion" in this_pop:
-                                if other_pop["religion"] == this_pop["religion"]:
-                                    this_pop["size"] = int(this_pop["size"]) + int(
-                                        other_pop["size"]
-                                    )
-                                    found = True
-                                    break
-                            elif (
-                                not hasAttributeReligion and "religion" not in this_pop
-                            ):
-                                this_pop["size"] = int(this_pop["size"]) + int(
-                                    other_pop["size"]
-                                )
-                                found = True
-                                break
-                    if not found:
-                        self[this][tag]["create_pop"].append(other_pop)
-            else:
+            if tag not in self[this].keys():
                 self[this][tag] = self[other][tag]
+                return
+            for other_pop in self[other][tag]["create_pop"]:
+                hasAttributeType = "pop_type" in other_pop
+                hasAttributeReligion = "religion" in other_pop
+                for this_pop in self[this][tag]["create_pop"]:
+                    # if culture does not match, skip
+                    if other_pop["culture"] != this_pop["culture"]:
+                        continue
+                    # if pop_type does not match, skip
+                    if hasAttributeType:
+                        if "pop_type" not in this_pop:
+                            continue
+                        if other_pop["pop_type"] != this_pop["pop_type"]:
+                            continue
+                    else:
+                        if "pop_type" in this_pop:
+                            continue
+                    # if religion does not match, skip
+                    if hasAttributeReligion:
+                        if "religion" not in this_pop:
+                            continue
+                        if other_pop["religion"] != this_pop["religion"]:
+                            continue
+                    else:
+                        if "religion" in this_pop:
+                            continue
+                    # pops match. add the sizes together and break out of the loop
+                    this_pop["size"] = int(this_pop["size"]) + int(other_pop["size"])
+                    break
+                # if the loop completes without finding a match, add the other pop to this state
+                else:
+                    self[this][tag]["create_pop"].append(other_pop)
 
-    def get_str(self, state_id:str) -> str:
+    def get_str(self, state_id: str) -> str:
         state_str = f"    {state_id} = {{\n"
         for tag in self[state_id].keys():
             state_str += f"        {tag} = {{\n"
@@ -97,7 +86,7 @@ class Pops(dict):
 
         return state_str
 
-    def merge_states(self, merge_dict:dict):
+    def merge_states(self, merge_dict: dict):
         for diner, food_list in merge_dict.items():
             for food in food_list:
                 if ("s:" + food) in self.keys():

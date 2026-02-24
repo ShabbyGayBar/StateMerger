@@ -53,13 +53,11 @@ class States(dict):
     def merge_state(self, this:str, other:str):  # this, other are "state_id" strings
         # Merge create_state
         for province in self[other]["create_state"]:
-            found = False
             for province_ref in self[this]["create_state"]:
                 if province["country"] == province_ref["country"]:
-                    found = True
                     province_ref["owned_provinces"] += province["owned_provinces"]
                     break
-            if not found:
+            else:
                 self[this]["create_state"].append(province)
         # Merge add_homeland
         if "add_homeland" in self[other].keys():
