@@ -18,15 +18,13 @@ class Pops(dict):
         self.format()
 
     def format(self):
-        for (
-            state_id
-        ) in self.keys():  # Restore the original structure of certain pop keys
+        # Restore the original structure of certain pop keys
+        for state_id in self.keys():
             print(f"Formatting pop data: {state_id}")
             for tag in self[state_id].keys():
                 if not isinstance(self[state_id][tag], dict):
                     self[state_id][tag] = {"create_pop": []}
-                    continue
-                if isinstance(self[state_id][tag]["create_pop"], tuple):
+                elif isinstance(self[state_id][tag]["create_pop"], tuple):
                     self[state_id][tag]["create_pop"] = list(
                         self[state_id][tag]["create_pop"]
                     )
@@ -39,7 +37,7 @@ class Pops(dict):
         for tag in self[other].keys():
             if tag not in self[this].keys():
                 self[this][tag] = self[other][tag]
-                return
+                continue
             for other_pop in self[other][tag]["create_pop"]:
                 hasAttributeType = "pop_type" in other_pop
                 hasAttributeReligion = "religion" in other_pop
