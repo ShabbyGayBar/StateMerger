@@ -22,6 +22,16 @@ class Pops(dict):
         for state_id in self.keys():
             print(f"Formatting pop data: {state_id}")
             for tag in self[state_id].keys():
+                if isinstance(self[state_id][tag], list):
+                    raw_pop_list = self[state_id][tag]
+                    self[state_id][tag] = {"create_pop": []}
+                    for pop in raw_pop_list:
+                        if "create_pop" in pop:
+                            self[state_id][tag]["create_pop"].extend(pop["create_pop"])
+                        else:
+                            raise ValueError(
+                                f"Unexpected pop format in state {state_id}, tag {tag}: {pop}"
+                            )
                 if not isinstance(self[state_id][tag], dict):
                     self[state_id][tag] = {"create_pop": []}
                 elif isinstance(self[state_id][tag]["create_pop"], tuple):
@@ -79,6 +89,8 @@ class Pops(dict):
                 for key, value in pop.items():
                     state_str += f"                {key} = {value}\n"
                 state_str += f"            }}\n"
+            if len(self[state_id][tag]["create_pop"]) == 0:
+                state_str += f"            create_pop = {{}}\n"
             state_str += f"        }}\n"
         state_str += f"    }}\n"
 
