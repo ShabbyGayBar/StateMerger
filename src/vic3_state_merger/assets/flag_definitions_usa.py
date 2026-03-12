@@ -1,4 +1,5 @@
-﻿@usa_canton_width = 0.5
+﻿str = """
+@usa_canton_width = 0.5
 @usa_canton_height = @[ 1 / 13 * 7 ]
 
 REPLACE:USA = {	# United States of America
@@ -1005,3 +1006,4 @@ REPLACE:USA = {	# United States of America
 		}
 	}
 }
+"""

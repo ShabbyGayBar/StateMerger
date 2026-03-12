@@ -1,4 +1,5 @@
-﻿# 两州整合
+﻿str = """
+# 两州整合
 INJECT_OR_CREATE:state_trait_two_states_integration= {
     icon = "gfx/interface/icons/state_trait_icons/great_plains.dds"
 
@@ -133,3 +134,4 @@ INJECT_OR_CREATE:state_trait_six_coast_integration= {
         state_building_naval_base_max_level_add = 100 # 州海军基地数量上限
     }
 }
+"""

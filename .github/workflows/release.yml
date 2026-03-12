@@ -31,7 +31,7 @@ jobs:
           pip install pyinstaller build
 
       - name: Build GUI EXE
-        run: pyinstaller -F -n state-merger --collect-all vic3_state_merger.assets -p "src" -w -i "docs/images/states.dds" -y --clean src/vic3_state_merger/gui.py
+        run: pyinstaller -F -n state-merger -p "src" -w -i "docs/images/states.dds" -y --clean src/vic3_state_merger/gui.py
 
       - name: Build wheel and sdist
         run: python -m build

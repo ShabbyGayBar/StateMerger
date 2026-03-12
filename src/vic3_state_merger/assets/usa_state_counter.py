@@ -1,4 +1,5 @@
-﻿# Count number of actual incorporated states in USA
+﻿str = '''
+# Count number of actual incorporated states in USA
 REPLACE_OR_CREATE:usa_state_counter = {
     value = 2
 
@@ -80,3 +81,4 @@ REPLACE_OR_CREATE:usa_state_counter = {
         }
     }
 }
+'''

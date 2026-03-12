@@ -3,6 +3,9 @@ import re
 import yaml
 import shutil
 import pyradox
+import vic3_state_merger.assets.flag_definitions_usa
+import vic3_state_merger.assets.state_traits
+import vic3_state_merger.assets.usa_state_counter
 from vic3_state_merger.state_regions import StateRegion
 from vic3_state_merger.buildings import Buildings
 from vic3_state_merger.pops import Pops
@@ -13,8 +16,6 @@ try:
     from importlib.resources import files, as_file
 except ImportError:  # Python 3.8 / 3.7
     from importlib_resources import files, as_file  # pyright: ignore[reportMissingImports]
-
-assets = files("vic3_state_merger") / "assets"
 
 state_file_dir = {
     "map_data": r"map_data/state_regions",
@@ -184,7 +185,7 @@ class StateMerger:
 
         # Copy state_trait file to mod directory
         dir = os.path.join(self.write_dir, "common", "state_traits")
-        file_str = (assets / "state_traits.txt").read_text(encoding="utf-8")
+        file_str = vic3_state_merger.assets.state_traits.str
         if not os.path.exists(dir):
             os.makedirs(dir)
         # Delete the file in dir if it exists
@@ -293,7 +294,7 @@ class StateMerger:
 
         # Copy USA flag adaptation file to mod directory
         dir = os.path.join(self.write_dir, "common", "flag_definitions")
-        file_str = (assets / "01_flag_definitions_usa.txt").read_text(encoding="utf-8")
+        file_str = vic3_state_merger.assets.flag_definitions_usa.str
         if not os.path.exists(dir):
             os.makedirs(dir)
         # Delete the file in dir if it exists
@@ -304,7 +305,7 @@ class StateMerger:
 
         # Copy USA state counting file to mod directory
         dir = os.path.join(self.write_dir, "common", "script_values")
-        file_str = (assets / "usa_state_counter.txt").read_text(encoding="utf-8")
+        file_str = vic3_state_merger.assets.usa_state_counter.str
         if not os.path.exists(dir):
             os.makedirs(dir)
         # Delete the file in dir if it exists
