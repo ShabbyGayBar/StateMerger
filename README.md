@@ -33,6 +33,8 @@ It generates the following files that can be used in a Victoria 3 mod:
 
 The `merge_state.json` file contains the rules for merging states. You can download this file from the [release page](https://github.com/ShabbyGayBar/StateMerger/releases) which contains a list of vanilla game states, and customize your own state merging rules.
 
+#### Basic format (list)
+
 The keys in the `merge_state.json` file are strings representing a state id. The values are lists of strings representing state id.
 
 All states in the value list will be merged into the state in the key.
@@ -43,6 +45,26 @@ For example, the following rule merges `state_1`, `state_2`, and `state_3` into 
     "state_0": ["state_1", "state_2", "state_3"]
 }
 ```
+
+#### Extended format (dict) – specifying hub inheritance
+
+By default the merged state inherits each hub (city, port, mine, farm, wood) from whichever source state provides it first. You can override this behaviour for individual hub types by using a dict value instead of a list:
+
+```json
+{
+    "state_0": {
+        "merge": ["state_1", "state_2", "state_3"],
+        "city": "state_1",
+        "port": "state_2",
+        "mine": "state_3"
+    }
+}
+```
+
+* The `"merge"` key lists the states to be merged (same as the basic list value).
+* Each optional hub key (`"city"`, `"port"`, `"farm"`, `"mine"`, `"wood"`) names the **source state** whose original hub province will be used for the merged state.
+* Hub types not listed fall back to the default merge behaviour.
+* Both formats can be mixed freely in the same file – entries that need no hub customisation can still use the simple list form.
 
 ### Step 2: Run the Script
 

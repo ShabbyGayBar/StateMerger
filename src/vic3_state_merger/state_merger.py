@@ -109,12 +109,13 @@ def clean_v3_yml_numbered_keys(yml_path:str) -> str:
 
 
 class StateMerger:
-    def __init__(self, game_root_dir:str, write_dir:str, merge_dict:dict, cache_dir:str="./data"):
+    def __init__(self, game_root_dir:str, write_dir:str, merge_dict:dict, cache_dir:str="./data", hub_overrides:dict|None=None):
         self.base_game_dir = {}
         self.mod_dir = {}
         self.game_root_dir = game_root_dir
         self.write_dir = write_dir
         self.merge_dict = merge_dict
+        self.hub_overrides = hub_overrides or {}
         self.cache_dir = cache_dir
 
         # Set the base game and mod directories
@@ -166,6 +167,7 @@ class StateMerger:
         # Merge map_data
         self.map_data.merge_states(
             self.merge_dict,
+            hub_overrides=self.hub_overrides or None,
             ignoreSmallStates=ignoreSmallStates,
             smallStateLimit=smallStateLimit,
         )
@@ -347,8 +349,14 @@ class StateMerger:
                             continue
                         # If not found, add a missing hub name entry
                         print(f"Missing HUB_NAME_{diner}_{attr} in {lang}")
-                        # Search for attribute in the food_list
-                        for food in food_list:
+                        # Build search order: prefer the hub override source state (if any),
+                        # then fall back to the food_list order.
+                        override_source = self.hub_overrides.get(diner, {}).get(attr)
+                        search_order = []
+                        if override_source and override_source != diner:
+                            search_order.append(override_source)
+                        search_order.extend(food_list)
+                        for food in search_order:
                             if f"HUB_NAME_{food}_{attr}" in data.keys():
                                 miss_dict[f"HUB_NAME_{diner}_{attr}"] = (
                                     '"' + data[f"HUB_NAME_{food}_{attr}"] + '"'
