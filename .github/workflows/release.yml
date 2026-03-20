@@ -2,6 +2,11 @@ name: Release
 
 on:
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Existing tag to publish/update (for example: v1.2.3)"
+        required: true
+        type: string
   push:
     tags:
       - "v*"
@@ -14,32 +19,37 @@ jobs:
     runs-on: windows-latest
     permissions:
       contents: read
+    env:
+      TAG_NAME: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.release_tag || github.ref_name }}
+      ARTIFACT_NAME: state-merger-${{ github.run_id }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          ref: ${{ env.TAG_NAME }}
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install .
-          pip install pyinstaller build
+          uv sync
+          uv pip install pyinstaller
+          uv pip install -e .
 
       - name: Build GUI EXE
-        run: pyinstaller -F -n state-merger -p "src" -w -i "docs/images/states.dds" -y --clean src/vic3_state_merger/gui.py
+        run: uv run pyinstaller -F -n state-merger -p "src" -w -i "docs/images/states.dds" -y --clean src/vic3_state_merger/gui.py
 
       - name: Build wheel and sdist
-        run: python -m build
+        run: uv build
 
       - name: Upload workflow artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: state-merger-${{ github.ref_name }}
+          name: ${{ env.ARTIFACT_NAME }}
           path: |
             dist/state-merger.exe
             dist/*.whl
@@ -51,21 +61,28 @@ jobs:
     needs: build-gui-windows
     permissions:
       contents: write
+    env:
+      TAG_NAME: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.release_tag || github.ref_name }}
+      ARTIFACT_NAME: state-merger-${{ github.run_id }}
 
     steps:
       - name: Checkout tag contents
         uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG_NAME }}
 
       - name: Download workflow artifacts
         uses: actions/download-artifact@v4
         with:
-          name: state-merger-${{ github.ref_name }}
+          name: ${{ env.ARTIFACT_NAME }}
           path: release-assets
 
       - name: Publish GitHub Release Assets
         uses: softprops/action-gh-release@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{ env.TAG_NAME }}
+          overwrite_files: true
           files: |
             release-assets/**/*.exe
             release-assets/**/*.whl
