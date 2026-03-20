@@ -1,7 +1,11 @@
+[build-system]
+requires = ["setuptools>=69", "setuptools-scm[toml]>=8", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "vic3-state-merger"
 authors = [{ name = "Brian Li", email = "brianlizsy@qq.com" }]
-version = "2.0.4"
+dynamic = ["version"]
 description = "Victoria 3 States Merging Automation Script & Tutorial"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -22,6 +26,17 @@ state-merger-cli = "vic3_state_merger.cli:main"
 
 [project.gui-scripts]
 state-merger = "vic3_state_merger.gui:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools_scm]
+tag_regex = "^v(?P<version>\\d+\\.\\d+\\.\\d+)$"
+local_scheme = "no-local-version"
+fallback_version = "0.0.0"
 
 [dependency-groups]
 dev = ["pytest>=9.0.2", "pytest-cov>=7.0.0"]
