@@ -155,7 +155,7 @@ class StateMerger:
         # Write cleared base game data to mod directory
         for key, value in self.base_game_dir.items():
             for file in os.listdir(value):
-                if file == "00_states_merging.txt":
+                if file == "state_merging.txt":
                     continue
                 with open(os.path.join(self.mod_dir[key], file), "w", encoding="utf-8-sig") as file:
                     file.write("")
@@ -169,13 +169,13 @@ class StateMerger:
             ignoreSmallStates=ignoreSmallStates,
             smallStateLimit=smallStateLimit,
         )
-        self.map_data.dump(os.path.join(self.mod_dir["map_data"], "00_states_merging.txt"))
+        self.map_data.dump(os.path.join(self.mod_dir["map_data"], "state_merging.txt"))
         # Merge buildings
         self.buildings.merge_states(self.merge_dict)
-        self.buildings.dump(os.path.join(self.mod_dir["buildings"], "00_states_merging.txt"))
+        self.buildings.dump(os.path.join(self.mod_dir["buildings"], "state_merging.txt"))
         # Merge pops
         self.pops.merge_states(self.merge_dict)
-        self.pops.dump(os.path.join(self.mod_dir["pops"], "00_states_merging.txt"))
+        self.pops.dump(os.path.join(self.mod_dir["pops"], "state_merging.txt"))
         # Merge states
         self.states.merge_states(self.merge_dict)
         self.states.dump(os.path.join(self.mod_dir["state"], "00_states.txt"))
@@ -189,9 +189,9 @@ class StateMerger:
         if not os.path.exists(dir):
             os.makedirs(dir)
         # Delete the file in dir if it exists
-        if os.path.exists(os.path.join(dir, "00_states_merging.txt")):
-            os.remove(os.path.join(dir, "00_states_merging.txt"))
-        with open(os.path.join(dir, "00_states_merging.txt"), "w", encoding="utf-8") as file:
+        if os.path.exists(os.path.join(dir, "state_merging.txt")):
+            os.remove(os.path.join(dir, "state_merging.txt"))
+        with open(os.path.join(dir, "state_merging.txt"), "w", encoding="utf-8") as file:
             file.write(file_str)
 
     def merge_misc_data(self):
@@ -298,9 +298,9 @@ class StateMerger:
         if not os.path.exists(dir):
             os.makedirs(dir)
         # Delete the file in dir if it exists
-        if os.path.exists(os.path.join(dir, "00_states_merging.txt")):
-            os.remove(os.path.join(dir, "00_states_merging.txt"))
-        with open(os.path.join(dir, "00_states_merging.txt"), "w", encoding="utf-8") as file:
+        if os.path.exists(os.path.join(dir, "state_merging.txt")):
+            os.remove(os.path.join(dir, "state_merging.txt"))
+        with open(os.path.join(dir, "state_merging.txt"), "w", encoding="utf-8") as file:
             file.write(file_str)
 
         # Copy USA state counting file to mod directory
@@ -309,9 +309,9 @@ class StateMerger:
         if not os.path.exists(dir):
             os.makedirs(dir)
         # Delete the file in dir if it exists
-        if os.path.exists(os.path.join(dir, "00_states_merging.txt")):
-            os.remove(os.path.join(dir, "00_states_merging.txt"))
-        with open(os.path.join(dir, "00_states_merging.txt"), "w", encoding="utf-8") as file:
+        if os.path.exists(os.path.join(dir, "state_merging.txt")):
+            os.remove(os.path.join(dir, "state_merging.txt"))
+        with open(os.path.join(dir, "state_merging.txt"), "w", encoding="utf-8") as file:
             file.write(file_str)
 
     def merge_loc_data(self):
