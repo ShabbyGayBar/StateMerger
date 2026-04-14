@@ -77,6 +77,63 @@ def print_version() -> None:
     print(f"state-merger {__version__}")
 
 
+_HUB_TYPES = {"city", "port", "farm", "mine", "wood"}
+
+
+def load_merge_config(path: str) -> tuple[dict, dict]:
+    """Load a merge configuration file and return ``(merge_dict, hub_overrides)``.
+
+    The file must be a JSON file whose keys are state IDs. Each value may be:
+
+    * A **list** of state IDs to merge into the key state (original format,
+      fully backward-compatible)::
+
+        {
+            "STATE_A": ["STATE_B", "STATE_C"]
+        }
+
+    * A **dict** with a ``"merge"`` key (list of states to merge) and optional
+      hub-type keys (``"city"``, ``"port"``, ``"farm"``, ``"mine"``, ``"wood"``)
+      whose values are the state ID whose original hub province should be used for
+      the merged state::
+
+        {
+            "STATE_A": {
+                "merge": ["STATE_B", "STATE_C"],
+                "city": "STATE_B",
+                "port": "STATE_C"
+            }
+        }
+
+    Hub types not listed use the default merge behavior (diner's hub is kept
+    unless it is empty, in which case the food state's hub is used).
+
+    Returns:
+        merge_dict:    {diner: [food_list]}
+        hub_overrides: {diner: {hub_type: source_state}}
+    """
+    with open(path, "r", encoding="utf-8") as f:
+        raw = json.load(f)
+
+    merge_dict: dict = {}
+    hub_overrides: dict = {}
+
+    for state, value in raw.items():
+        if isinstance(value, list):
+            merge_dict[state] = value
+        elif isinstance(value, dict):
+            merge_dict[state] = value.get("merge", [])
+            overrides = {k: v for k, v in value.items() if k in _HUB_TYPES}
+            if overrides:
+                hub_overrides[state] = overrides
+        else:
+            raise ValueError(
+                f"Invalid merge config value for state '{state}': expected list or dict, got {type(value).__name__}"
+            )
+
+    return merge_dict, hub_overrides
+
+
 def run_merge(
     merge_file: str,
     mod_dir: str,
@@ -85,8 +142,7 @@ def run_merge(
     small_state_limit: int,
     ignore_small_states: bool,
 ) -> None:
-    with open(merge_file, "r", encoding="utf-8") as file:
-        merge_dict = json.load(file)
+    merge_dict, hub_overrides = load_merge_config(merge_file)
 
     resolved_data_dir = data_dir or _default_data_dir(mod_dir)
 
@@ -95,6 +151,7 @@ def run_merge(
         _ensure_trailing_sep(mod_dir),
         merge_dict,
         _ensure_trailing_sep(resolved_data_dir),
+        hub_overrides=hub_overrides,
     )
     state_merger.merge_state_data(ignoreSmallStates=ignore_small_states, smallStateLimit=small_state_limit)
     state_merger.merge_misc_data()
