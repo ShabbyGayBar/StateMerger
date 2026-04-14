@@ -100,7 +100,7 @@ def clear_mod_dir(dir_dict:dict[str, str]):
 
 
 def clean_v3_yml_numbered_keys(yml_path:str) -> str:
-    with open(yml_path, "r", encoding="utf-8") as f:
+    with open(yml_path, "r", encoding="utf-8-sig") as f:
         raw = f.read()
     # Replace :<number> (optionally with spaces) before a quote or non-quote value
     cleaned = re.sub(r':\d+\s*"', ': "', raw)
@@ -191,7 +191,7 @@ class StateMerger:
         # Delete the file in dir if it exists
         if os.path.exists(os.path.join(dir, "state_merging.txt")):
             os.remove(os.path.join(dir, "state_merging.txt"))
-        with open(os.path.join(dir, "state_merging.txt"), "w", encoding="utf-8") as file:
+        with open(os.path.join(dir, "state_merging.txt"), "w", encoding="utf-8-sig") as file:
             file.write(file_str)
 
     def merge_misc_data(self):
@@ -214,7 +214,7 @@ class StateMerger:
                     continue
 
                 # Read game file
-                with open(os.path.join(base_game_dir, game_file), "r", encoding="utf-8") as file:
+                with open(os.path.join(base_game_dir, game_file), "r", encoding="utf-8-sig") as file:
                     lines = file.readlines()
                 text = "".join(lines)
 
@@ -235,7 +235,7 @@ class StateMerger:
                 # Create the output directory if it doesn't exist
                 if not os.path.exists(os.path.dirname(output_file)):
                     os.makedirs(os.path.dirname(output_file))
-                with open(output_file, "w", encoding="utf-8") as file:
+                with open(output_file, "w", encoding="utf-8-sig") as file:
                     for line in lines:
                         for diner, food_list in self.merge_dict.items():
                             for food in food_list:
@@ -264,7 +264,7 @@ class StateMerger:
                     continue
 
                 # Read game file
-                with open(os.path.join(base_game_dir, game_file), "r", encoding="utf-8") as file:
+                with open(os.path.join(base_game_dir, game_file), "r", encoding="utf-8-sig") as file:
                     lines = file.readlines()
 
                 for diner, food_list in self.merge_dict.items():
@@ -284,7 +284,7 @@ class StateMerger:
                 # Create the output directory if it doesn't exist
                 if not os.path.exists(os.path.dirname(output_file)):
                     os.makedirs(os.path.dirname(output_file))
-                with open(output_file, "w", encoding="utf-8") as file:
+                with open(output_file, "w", encoding="utf-8-sig") as file:
                     for line in lines:
                         for diner, food_list in self.merge_dict.items():
                             for food in food_list:
@@ -300,7 +300,7 @@ class StateMerger:
         # Delete the file in dir if it exists
         if os.path.exists(os.path.join(dir, "state_merging.txt")):
             os.remove(os.path.join(dir, "state_merging.txt"))
-        with open(os.path.join(dir, "state_merging.txt"), "w", encoding="utf-8") as file:
+        with open(os.path.join(dir, "state_merging.txt"), "w", encoding="utf-8-sig") as file:
             file.write(file_str)
 
         # Copy USA state counting file to mod directory
@@ -311,7 +311,7 @@ class StateMerger:
         # Delete the file in dir if it exists
         if os.path.exists(os.path.join(dir, "state_merging.txt")):
             os.remove(os.path.join(dir, "state_merging.txt"))
-        with open(os.path.join(dir, "state_merging.txt"), "w", encoding="utf-8") as file:
+        with open(os.path.join(dir, "state_merging.txt"), "w", encoding="utf-8-sig") as file:
             file.write(file_str)
 
     def merge_loc_data(self):
@@ -322,7 +322,7 @@ class StateMerger:
                 self.game_root_dir, loc_dir, f"hub_names_{lang}.yml"
             )
             miss_dict = {}
-            with open(hub_file, "r", encoding="utf-8") as f:
+            with open(hub_file, "r", encoding="utf-8-sig") as f:
                 cleaned_yml = clean_v3_yml_numbered_keys(hub_file)
                 data = yaml.safe_load(cleaned_yml)[lang]
                 # Process the localization data as needed
