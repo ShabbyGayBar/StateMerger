@@ -28,7 +28,6 @@ state_file_dir = {
 replace_file_dir = [
     "common/ai_strategies",
     "common/buildings",
-    "common/canals",
     "common/character_templates",
     "common/company_types",
     "common/country_creation",
@@ -82,6 +81,9 @@ def parse_merge(path, merge_levels:int=0):
 
     result = pyradox.Tree()
     for filename in sorted(os.listdir(path)):
+        # Skip non-.txt files
+        if not filename.endswith(".txt"):
+            continue
         fullpath = os.path.join(path, filename)
         if os.path.isfile(fullpath):
             tree = pyradox.parse_file(fullpath, game='HoI4', path_relative_to_game=False)
