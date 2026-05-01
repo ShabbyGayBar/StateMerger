@@ -29,6 +29,7 @@ replace_file_dir = [
     "common/ai_strategies",
     "common/buildings",
     "common/character_templates",
+    "common/coat_of_arms/template_lists",
     "common/company_types",
     "common/country_creation",
     "common/country_definitions",
@@ -48,6 +49,7 @@ replace_file_dir = [
     "common/political_movements",
     "common/scripted_buttons",
     "common/scripted_effects",
+    "common/scripted_progress_bars",
     "common/scripted_triggers",
     "events",
     "events/agitators_events",
@@ -56,6 +58,7 @@ replace_file_dir = [
     "events/brazil",
     "events/iberia_events",
     "events/india_events",
+    "events/japan_events",
     "events/soi_events",
     "gfx/map/city_data/city_types",
 ]

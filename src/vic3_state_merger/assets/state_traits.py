@@ -89,49 +89,4 @@ INJECT_OR_CREATE:state_trait_eight_states_integration= {
         state_building_conscription_center_max_level_add = 350 # 征兵上限
     }
 }
-
-# 两州海岸整合
-INJECT_OR_CREATE:state_trait_two_coast_integration= {
-    icon = "gfx/interface/icons/state_trait_icons/natural_harbors.dds"
-
-    modifier = {
-        state_building_naval_base_max_level_add = 20 # 州海军基地数量上限
-    }
-}
-
-# 三州海岸整合
-INJECT_OR_CREATE:state_trait_three_coast_integration= {
-    icon = "gfx/interface/icons/state_trait_icons/natural_harbors.dds"
-
-    modifier = {
-        state_building_naval_base_max_level_add = 40 # 州海军基地数量上限
-    }
-}
-
-# 四州海岸整合
-INJECT_OR_CREATE:state_trait_four_coast_integration= {
-    icon = "gfx/interface/icons/state_trait_icons/natural_harbors.dds"
-
-    modifier = {
-        state_building_naval_base_max_level_add = 60 # 州海军基地数量上限
-    }
-}
-
-# 五州海岸整合
-INJECT_OR_CREATE:state_trait_five_coast_integration= {
-    icon = "gfx/interface/icons/state_trait_icons/natural_harbors.dds"
-
-    modifier = {
-        state_building_naval_base_max_level_add = 80 # 州海军基地数量上限
-    }
-}
-
-# 六州海岸整合
-INJECT_OR_CREATE:state_trait_six_coast_integration= {
-    icon = "gfx/interface/icons/state_trait_icons/natural_harbors.dds"
-
-    modifier = {
-        state_building_naval_base_max_level_add = 100 # 州海军基地数量上限
-    }
-}
 """

@@ -140,17 +140,6 @@ class StateRegionItem:
                 return i
         return 1
 
-    def merge_coast_cnt(self):
-        """Determine the number of coast states merged in the state"""
-        if self.is_sea_node():
-            return 0
-        if self.naval_exit_id == -1:
-            return 0
-        for i in range(2, 7):
-            if f"state_trait_{seq_str[i]}_coast_integration" in self.traits:
-                return i
-        return 1
-
     def is_sea_node(self):
         """Determine if the state is a sea node"""
         if self.subsistence_building == "":
@@ -183,43 +172,29 @@ class StateRegionItem:
         # traits: list append, remove "state_trait_two_states_integration", "state_trait_three_states_integration", "state_trait_four_states_integration", etc., and add the corresponding trait according to merge_states_cnt(convert to string)
         thisMergeStatesCnt = self.merge_states_cnt()
         otherMergeStatesCnt = other.merge_states_cnt()
-        thisCoastCnt = self.merge_coast_cnt()
-        otherCoastCnt = other.merge_coast_cnt()
         if thisMergeStatesCnt > 1:
             self.traits.remove(
                 f"state_trait_{seq_str[thisMergeStatesCnt]}_states_integration"
             )
-        if thisCoastCnt > 1:
-            self.traits.remove(f"state_trait_{seq_str[thisCoastCnt]}_coast_integration")
         for trait in other.traits:
             if (
                 trait
                 != f"state_trait_{seq_str[otherMergeStatesCnt]}_states_integration"
-                and trait != f"state_trait_{seq_str[otherCoastCnt]}_coast_integration"
                 and trait not in self.traits
             ):
                 self.traits.append(trait)
         totalMergeStatesCnt = thisMergeStatesCnt + otherMergeStatesCnt
-        totalCoastCnt = thisCoastCnt + otherCoastCnt
         if ignoreSmallStates:
             if self.is_small_state(limit=smallStateLimit):
                 totalMergeStatesCnt -= 1
-                totalCoastCnt -= 1
             if other.is_small_state(limit=smallStateLimit):
                 totalMergeStatesCnt -= 1
-                totalCoastCnt -= 1
         if (totalMergeStatesCnt > 1) and (totalMergeStatesCnt < 8):
             self.traits.append(
                 f"state_trait_{seq_str[totalMergeStatesCnt]}_states_integration"
             )
         elif totalMergeStatesCnt >= 8:
             self.traits.append("state_trait_eight_states_integration")
-        if (totalCoastCnt > 1) and (totalCoastCnt < 6):
-            self.traits.append(
-                f"state_trait_{seq_str[totalCoastCnt]}_coast_integration"
-            )
-        elif totalCoastCnt >= 6:
-            self.traits.append("state_trait_six_coast_integration")
         # arable_land: int sum
         self.arable_land += other.arable_land
         # arable_resources: list append
