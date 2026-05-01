@@ -401,7 +401,38 @@ class StateRegion(dict):
         )
         self.pop(food)
 
-    def merge_states(self, merge_dict:dict, ignoreSmallStates:bool=False, smallStateLimit:int=4):
+    def merge_states(
+        self,
+        merge_dict: dict,
+        hub_overrides: dict | None = None,
+        ignoreSmallStates: bool = False,
+        smallStateLimit: int = 4,
+    ):
+        """Merge states according to merge_dict and apply optional hub overrides.
+
+        hub_overrides: {diner_state: {"city": source_state, "port": source_state, ...}}
+        Each hub type value is the name of the state whose original hub province ID
+        should be used for the merged state. States not listed use the default merge
+        behavior (keep diner's hub unless empty, then take food's hub).
+        """
+        _HUB_TYPES = ("city", "port", "farm", "mine", "wood")
+
+        # Snapshot hub province IDs for every state referenced in hub_overrides
+        # before any merging begins, because food states are removed after merge.
+        saved_hubs: dict[str, dict[str, str]] = {}
+        if hub_overrides:
+            referenced = {
+                src
+                for overrides in hub_overrides.values()
+                for src in overrides.values()
+            }
+            for state_name in referenced:
+                if state_name in self:
+                    saved_hubs[state_name] = {
+                        hub: getattr(self[state_name], hub, "")
+                        for hub in _HUB_TYPES
+                    }
+
         for diner, food_list in merge_dict.items():
             for food in food_list:
                 self.merge_state(
@@ -410,6 +441,24 @@ class StateRegion(dict):
                     ignoreSmallStates=ignoreSmallStates,
                     smallStateLimit=smallStateLimit,
                 )
+
+            # Apply hub overrides after all food states have been merged into diner
+            if hub_overrides and diner in hub_overrides and diner in self:
+                for hub_type, source_state in hub_overrides[diner].items():
+                    if hub_type not in _HUB_TYPES:
+                        print(f"Warning: Unknown hub type '{hub_type}' in hub_overrides for '{diner}', skipping")
+                        continue
+                    if source_state in saved_hubs:
+                        hub_value = saved_hubs[source_state].get(hub_type, "")
+                    elif source_state in self:
+                        hub_value = getattr(self[source_state], hub_type, "")
+                    else:
+                        print(
+                            f"Warning: Hub override source state '{source_state}' not found"
+                            f" for '{diner}.{hub_type}', skipping"
+                        )
+                        continue
+                    setattr(self[diner], hub_type, hub_value)
 
     def __str__(self, include_sea_nodes:bool=False):
         state_str = ""
