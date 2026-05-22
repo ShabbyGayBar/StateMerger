@@ -228,45 +228,46 @@ class StateMerger:
                         continue
                     os.remove(os.path.join(mod_dir, file))
 
+            # Build lookup and compiled pattern for one-pass replacement
+            lookup = {}
+            for diner, foods in self.merge_dict.items():
+                for food in foods:
+                    lookup[food] = diner
+
+            if not lookup:
+                continue
+
+            # Prefer longest keys first to avoid partial matches
+            keys = sorted(lookup.keys(), key=len, reverse=True)
+            pattern = re.compile(r'(?<!\w)(' + '|'.join(map(re.escape, keys)) + r')(?!\w)')
+
+            if not os.path.exists(base_game_dir):
+                # nothing to do if base dir missing
+                continue
+
             for game_file in os.listdir(base_game_dir):
-                if os.path.isdir(
-                    os.path.join(base_game_dir, game_file)
-                ):  # If is folder
+                base_path = os.path.join(base_game_dir, game_file)
+                if os.path.isdir(base_path):
                     continue
 
-                # Read game file
-                with open(
-                    os.path.join(base_game_dir, game_file), "r", encoding="utf-8-sig"
-                ) as file:
-                    lines = file.readlines()
-                text = "".join(lines)
-
-                for diner, food_list in self.merge_dict.items():
-                    for food in food_list:
-                        # Find all state names in the file
-                        if re.search(r"\b" + re.escape(food) + r"\b", text):
-                            break
-                    else:
-                        continue
-                    break
-                else:
+                if not game_file.endswith(".txt"):
                     continue
 
-                print("Modifying", os.path.join(base_game_dir, game_file))
-                # Replace all state names with their merged counterparts
+                with open(base_path, 'r', encoding='utf-8-sig') as f:
+                    text = f.read()
+
+                if not pattern.search(text):
+                    continue
+
+                print("Processing", base_path)
+                modified = pattern.sub(lambda m: lookup[m.group(1)], text)
+
                 output_file = os.path.join(mod_dir, game_file)
-                # Create the output directory if it doesn't exist
+                print("Writing modified copy to", output_file)
                 if not os.path.exists(os.path.dirname(output_file)):
                     os.makedirs(os.path.dirname(output_file))
-                with open(output_file, "w", encoding="utf-8-sig") as file:
-                    for line in lines:
-                        for diner, food_list in self.merge_dict.items():
-                            for food in food_list:
-                                # Replace "food" with "diner"
-                                line = re.sub(
-                                    r"\b" + re.escape(food) + r"\b", diner, line
-                                )
-                        file.write(line)
+                with open(output_file, 'w', encoding='utf-8-sig') as f:
+                    f.write(modified)
 
         for dir in remove_file_dir:
             base_game_dir = os.path.join(self.game_root_dir, dir)
@@ -282,42 +283,44 @@ class StateMerger:
                         continue
                     os.remove(os.path.join(mod_dir, file))
 
+            # Build lookup and compiled pattern for one-pass removal
+            lookup = {}
+            for diner, foods in self.merge_dict.items():
+                for food in foods:
+                    lookup[food] = ''
+
+            if not lookup:
+                continue
+
+            keys = sorted(lookup.keys(), key=len, reverse=True)
+            pattern = re.compile(r'(?<!\w)(' + '|'.join(map(re.escape, keys)) + r')(?!\w)')
+
+            if not os.path.exists(base_game_dir):
+                continue
+
             for game_file in os.listdir(base_game_dir):
-                if os.path.isdir(
-                    os.path.join(base_game_dir, game_file)
-                ):  # If is folder
+                base_path = os.path.join(base_game_dir, game_file)
+                if os.path.isdir(base_path):
                     continue
 
-                # Read game file
-                with open(
-                    os.path.join(base_game_dir, game_file), "r", encoding="utf-8-sig"
-                ) as file:
-                    lines = file.readlines()
-
-                for diner, food_list in self.merge_dict.items():
-                    for food in food_list:
-                        # Find all state names in the file
-                        if re.search(r"\b" + re.escape(food) + r"\b", "".join(lines)):
-                            break
-                    else:
-                        continue
-                    break
-                else:
+                if not game_file.endswith(".txt"):
                     continue
 
-                print("Modifying", os.path.join(base_game_dir, game_file))
-                # Replace all state names with ""
+                with open(base_path, 'r', encoding='utf-8-sig') as f:
+                    text = f.read()
+
+                if not pattern.search(text):
+                    continue
+
+                print("Processing removal for", base_path)
+                modified = pattern.sub("", text)
+
                 output_file = os.path.join(mod_dir, game_file)
-                # Create the output directory if it doesn't exist
+                print("Writing modified copy to", output_file)
                 if not os.path.exists(os.path.dirname(output_file)):
                     os.makedirs(os.path.dirname(output_file))
-                with open(output_file, "w", encoding="utf-8-sig") as file:
-                    for line in lines:
-                        for diner, food_list in self.merge_dict.items():
-                            for food in food_list:
-                                # Replace "food" with ""
-                                line = re.sub(r"\b" + re.escape(food) + r"\b", "", line)
-                        file.write(line)
+                with open(output_file, 'w', encoding='utf-8-sig') as f:
+                    f.write(modified)
 
         # Copy USA flag adaptation file to mod directory
         dir = os.path.join(self.write_dir, "common", "flag_definitions")
