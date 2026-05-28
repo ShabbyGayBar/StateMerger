@@ -30,7 +30,6 @@ replace_keyword_file_dir = [
     "common/ai_strategies",
     "common/buildings",
     "common/character_templates",
-    "common/company_types",
     "common/country_creation",
     "common/country_definitions",
     "common/country_formation",
@@ -48,6 +47,7 @@ replace_keyword_file_dir = [
 
 replace_copy_file_dir = [
     "common/coat_of_arms/template_lists",
+    "common/company_types",
     "common/history/countries",
     "common/history/global",
     "common/history/diplomatic_plays",
@@ -118,12 +118,13 @@ def _prefix_replace(text: str) -> str:
     """
     out = []
     for ln in text.splitlines(True):
-        # skip empty lines, comments, indented lines, and already-prefixed
+        # skip empty lines, comments, indented lines, macros, and already-prefixed
         if (
             not ln.strip()
             or ln.startswith("#")
             or ln.startswith((" ", "\t"))
             or ln.startswith("REPLACE:")
+            or ln.startswith("@")
         ):
             out.append(ln)
             continue
