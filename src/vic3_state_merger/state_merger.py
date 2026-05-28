@@ -1,5 +1,6 @@
 import os
 import re
+import copy
 import yaml
 import shutil
 import pyradox
@@ -25,11 +26,10 @@ state_file_dir = {
     "trade": r"common/history/trade",
 }
 
-replace_file_dir = [
+replace_keyword_file_dir = [
     "common/ai_strategies",
     "common/buildings",
     "common/character_templates",
-    "common/coat_of_arms/template_lists",
     "common/company_types",
     "common/country_creation",
     "common/country_definitions",
@@ -39,17 +39,21 @@ replace_file_dir = [
     "common/dynamic_country_names",
     "common/geographic_regions",
     "common/flag_definitions",
+    "common/journal_entries",
+    "common/mobilization_options",
+    "common/political_movements",
+    "common/scripted_buttons",
+    "common/scripted_progress_bars",
+]
+
+replace_copy_file_dir = [
+    "common/coat_of_arms/template_lists",
     "common/history/countries",
     "common/history/global",
     "common/history/diplomatic_plays",
     "common/history/military_formations",
-    "common/journal_entries",
-    "common/mobilization_options",
     "common/on_actions",
-    "common/political_movements",
-    "common/scripted_buttons",
     "common/scripted_effects",
-    "common/scripted_progress_bars",
     "common/scripted_triggers",
     "events",
     "events/agitators_events",
@@ -63,7 +67,7 @@ replace_file_dir = [
     "gfx/map/city_data/city_types",
 ]
 
-remove_file_dir = ["common/strategic_regions"]
+remove_keyword_file_dir = ["common/strategic_regions"]
 
 loc_file_dir = {
     "l_english": r"localization/english",
@@ -78,10 +82,7 @@ map_object_data_files = [
     "generated_map_object_locators_wood.txt",
 ]
 
-invalid_hub_names = [
-    "NAME",
-    "名称"
-]
+invalid_hub_names = ["NAME", "名称"]
 
 
 def parse_merge(path, merge_levels: int = 0):
@@ -101,16 +102,6 @@ def parse_merge(path, merge_levels: int = 0):
     return result
 
 
-def clear_mod_dir(dir_dict: dict[str, str]):
-    # Clear the output directory
-    for dir in dir_dict.values():
-        if not os.path.exists(dir):
-            os.makedirs(dir)
-        else:
-            for file in os.listdir(dir):
-                os.remove(os.path.join(dir, file))
-
-
 def clean_v3_yml_numbered_keys(yml_path: str) -> str:
     with open(yml_path, "r", encoding="utf-8-sig") as f:
         raw = f.read()
@@ -118,6 +109,108 @@ def clean_v3_yml_numbered_keys(yml_path: str) -> str:
     cleaned = re.sub(r':\d+\s*"', ': "', raw)
     cleaned = re.sub(r':\d+\s+([^\n"]+)', r": \1", cleaned)
     return cleaned
+
+
+def _prefix_replace(text: str) -> str:
+    """Prefix 'REPLACE:' on first-level assignment lines (no extra newlines).
+
+    Leaves comments, indented lines, blank lines, and already-prefixed lines alone.
+    """
+    out = []
+    for ln in text.splitlines(True):
+        # skip empty lines, comments, indented lines, and already-prefixed
+        if (
+            not ln.strip()
+            or ln.startswith("#")
+            or ln.startswith((" ", "\t"))
+            or ln.startswith("REPLACE:")
+        ):
+            out.append(ln)
+            continue
+        # if the line contains an '=' assume it's a first-level assignment and prefix
+        if "=" in ln:
+            out.append("REPLACE:" + ln)
+        else:
+            out.append(ln)
+    return "".join(out)
+
+
+def _clear_output_dir(dir_path: str):
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
+        return
+    for file in os.listdir(dir_path):
+        if os.path.isdir(os.path.join(dir_path, file)):
+            continue
+        os.remove(os.path.join(dir_path, file))
+
+
+def _build_keyword_pattern(merge_dict: dict):
+    lookup = {}
+    for target, sources in merge_dict.items():
+        for source in sources:
+            lookup[source] = target
+
+    if not lookup:
+        return lookup, None
+
+    keys = sorted(lookup.keys(), key=len, reverse=True)
+    pattern = re.compile(r"(?<!\w)(" + "|".join(map(re.escape, keys)) + r")(?!\w)")
+    return lookup, pattern
+
+
+def _iter_txt_files(base_game_dir: str):
+    if not os.path.exists(base_game_dir):
+        return
+    for game_file in os.listdir(base_game_dir):
+        base_path = os.path.join(base_game_dir, game_file)
+        if os.path.isdir(base_path):
+            continue
+        if not game_file.endswith(".txt"):
+            continue
+        yield game_file, base_path
+
+
+def _write_text_file(output_file: str, text: str):
+    if not os.path.exists(os.path.dirname(output_file)):
+        os.makedirs(os.path.dirname(output_file))
+    with open(output_file, "w", encoding="utf-8-sig") as f:
+        f.write(text)
+
+
+def _process_keyword_directory(
+    base_game_dir: str,
+    mod_dir: str,
+    lookup: dict,
+    pattern,
+    transform,
+    aggregate: bool = False,
+):
+    if not os.path.exists(base_game_dir):
+        return
+
+    aggregated = []
+    for game_file, base_path in _iter_txt_files(base_game_dir):
+        with open(base_path, "r", encoding="utf-8-sig") as f:
+            text = f.read()
+
+        if not pattern.search(text):
+            continue
+
+        print("Processing", base_path)
+        modified = transform(text, lookup, pattern)
+        if aggregate:
+            modified = _prefix_replace(modified)
+            aggregated.append(f"# ---- {game_file} ----\n" + modified)
+        else:
+            output_file = os.path.join(mod_dir, game_file)
+            print("Writing modified copy to", output_file)
+            _write_text_file(output_file, modified)
+
+    if aggregate and aggregated:
+        output_file = os.path.join(mod_dir, "state_merging.txt")
+        print("Writing aggregated output to", output_file)
+        _write_text_file(output_file, "\n\n".join(aggregated))
 
 
 class StateMerger:
@@ -139,7 +232,7 @@ class StateMerger:
         for key, value in state_file_dir.items():
             self.base_game_dir[key] = os.path.join(game_root_dir, value)
             self.mod_dir[key] = os.path.join(write_dir, value)
-        clear_mod_dir(self.mod_dir)
+            _clear_output_dir(self.mod_dir[key])
 
         # Parse State Regions data
         parser = parse_merge(self.base_game_dir["map_data"], merge_levels=1)
@@ -214,113 +307,60 @@ class StateMerger:
             file.write(file_str)
 
     def merge_misc_data(self):
-        for dir in replace_file_dir:
+        for dir in replace_copy_file_dir:
+            base_game_dir = os.path.join(self.game_root_dir, dir)
+            mod_dir = os.path.join(self.write_dir, dir)
+            print("Scanning", base_game_dir)
+            _clear_output_dir(mod_dir)
+            lookup, pattern = _build_keyword_pattern(self.merge_dict)
+            if not lookup or pattern is None:
+                continue
+
+            _process_keyword_directory(
+                base_game_dir,
+                mod_dir,
+                lookup,
+                pattern,
+                lambda text, lookup, pattern: pattern.sub(lambda m: lookup[m.group(1)], text),
+            )
+
+        for dir in replace_keyword_file_dir:
             base_game_dir = os.path.join(self.game_root_dir, dir)
             mod_dir = os.path.join(self.write_dir, dir)
             print("Scanning", base_game_dir)
 
-            # Clear the output directory
-            if not os.path.exists(mod_dir):
-                os.makedirs(mod_dir)
-            else:
-                for file in os.listdir(mod_dir):
-                    if os.path.isdir(os.path.join(mod_dir, file)):  # If is folder
-                        continue
-                    os.remove(os.path.join(mod_dir, file))
-
-            # Build lookup and compiled pattern for one-pass replacement
-            lookup = {}
-            for diner, foods in self.merge_dict.items():
-                for food in foods:
-                    lookup[food] = diner
-
-            if not lookup:
+            _clear_output_dir(mod_dir)
+            lookup, pattern = _build_keyword_pattern(self.merge_dict)
+            if not lookup or pattern is None:
                 continue
 
-            # Prefer longest keys first to avoid partial matches
-            keys = sorted(lookup.keys(), key=len, reverse=True)
-            pattern = re.compile(r'(?<!\w)(' + '|'.join(map(re.escape, keys)) + r')(?!\w)')
+            _process_keyword_directory(
+                base_game_dir,
+                mod_dir,
+                lookup,
+                pattern,
+                lambda text, lookup, pattern: pattern.sub(lambda m: lookup[m.group(1)], text),
+                aggregate=True,
+            )
 
-            if not os.path.exists(base_game_dir):
-                # nothing to do if base dir missing
-                continue
-
-            for game_file in os.listdir(base_game_dir):
-                base_path = os.path.join(base_game_dir, game_file)
-                if os.path.isdir(base_path):
-                    continue
-
-                if not game_file.endswith(".txt"):
-                    continue
-
-                with open(base_path, 'r', encoding='utf-8-sig') as f:
-                    text = f.read()
-
-                if not pattern.search(text):
-                    continue
-
-                print("Processing", base_path)
-                modified = pattern.sub(lambda m: lookup[m.group(1)], text)
-
-                output_file = os.path.join(mod_dir, game_file)
-                print("Writing modified copy to", output_file)
-                if not os.path.exists(os.path.dirname(output_file)):
-                    os.makedirs(os.path.dirname(output_file))
-                with open(output_file, 'w', encoding='utf-8-sig') as f:
-                    f.write(modified)
-
-        for dir in remove_file_dir:
+        for dir in remove_keyword_file_dir:
             base_game_dir = os.path.join(self.game_root_dir, dir)
             mod_dir = os.path.join(self.write_dir, dir)
             print("Scanning", base_game_dir)
 
-            # Clear the output directory
-            if not os.path.exists(mod_dir):
-                os.makedirs(mod_dir)
-            else:
-                for file in os.listdir(mod_dir):
-                    if os.path.isdir(os.path.join(mod_dir, file)):  # If is folder
-                        continue
-                    os.remove(os.path.join(mod_dir, file))
-
-            # Build lookup and compiled pattern for one-pass removal
-            lookup = {}
-            for diner, foods in self.merge_dict.items():
-                for food in foods:
-                    lookup[food] = ''
-
-            if not lookup:
+            _clear_output_dir(mod_dir)
+            lookup, pattern = _build_keyword_pattern(self.merge_dict)
+            if not lookup or pattern is None:
                 continue
 
-            keys = sorted(lookup.keys(), key=len, reverse=True)
-            pattern = re.compile(r'(?<!\w)(' + '|'.join(map(re.escape, keys)) + r')(?!\w)')
-
-            if not os.path.exists(base_game_dir):
-                continue
-
-            for game_file in os.listdir(base_game_dir):
-                base_path = os.path.join(base_game_dir, game_file)
-                if os.path.isdir(base_path):
-                    continue
-
-                if not game_file.endswith(".txt"):
-                    continue
-
-                with open(base_path, 'r', encoding='utf-8-sig') as f:
-                    text = f.read()
-
-                if not pattern.search(text):
-                    continue
-
-                print("Processing removal for", base_path)
-                modified = pattern.sub("", text)
-
-                output_file = os.path.join(mod_dir, game_file)
-                print("Writing modified copy to", output_file)
-                if not os.path.exists(os.path.dirname(output_file)):
-                    os.makedirs(os.path.dirname(output_file))
-                with open(output_file, 'w', encoding='utf-8-sig') as f:
-                    f.write(modified)
+            _process_keyword_directory(
+                base_game_dir,
+                mod_dir,
+                lookup,
+                pattern,
+                lambda text, lookup, pattern: pattern.sub("", text),
+                aggregate=True,
+            )
 
         # Copy USA flag adaptation file to mod directory
         dir = os.path.join(self.write_dir, "common", "flag_definitions")
