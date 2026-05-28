@@ -369,10 +369,10 @@ class StateMerger:
         if not os.path.exists(dir):
             os.makedirs(dir)
         # Delete the file in dir if it exists
-        if os.path.exists(os.path.join(dir, "state_merging.txt")):
-            os.remove(os.path.join(dir, "state_merging.txt"))
+        if os.path.exists(os.path.join(dir, "state_merging_flag_definition_usa.txt")):
+            os.remove(os.path.join(dir, "state_merging_flag_definition_usa.txt"))
         with open(
-            os.path.join(dir, "state_merging.txt"), "w", encoding="utf-8-sig"
+            os.path.join(dir, "state_merging_flag_definition_usa.txt"), "w", encoding="utf-8-sig"
         ) as file:
             file.write(file_str)
 
@@ -382,10 +382,10 @@ class StateMerger:
         if not os.path.exists(dir):
             os.makedirs(dir)
         # Delete the file in dir if it exists
-        if os.path.exists(os.path.join(dir, "state_merging.txt")):
-            os.remove(os.path.join(dir, "state_merging.txt"))
+        if os.path.exists(os.path.join(dir, "state_merging_usa_state_counter.txt")):
+            os.remove(os.path.join(dir, "state_merging_usa_state_counter.txt"))
         with open(
-            os.path.join(dir, "state_merging.txt"), "w", encoding="utf-8-sig"
+            os.path.join(dir, "state_merging_usa_state_counter.txt"), "w", encoding="utf-8-sig"
         ) as file:
             file.write(file_str)
 
