@@ -156,7 +156,13 @@ def _build_keyword_pattern(merge_dict: dict):
         return lookup, None
 
     keys = sorted(lookup.keys(), key=len, reverse=True)
-    pattern = re.compile(r"(?<!\w)(" + "|".join(map(re.escape, keys)) + r")(?!\w)")
+    # Treat underscores as separators so tokens inside identifiers like
+    # STATE_HIGHLANDS_state_name_assign are still replaced.
+    pattern = re.compile(
+        r"(?<![0-9A-Za-z])("
+        + "|".join(map(re.escape, keys))
+        + r")(?![0-9A-Za-z])"
+    )
     return lookup, pattern
 
 
