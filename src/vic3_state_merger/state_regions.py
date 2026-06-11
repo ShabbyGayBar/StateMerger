@@ -22,7 +22,7 @@ class StateRegionItem:
     naval_exit_id: int, corresponding sea node id for the state
     """
 
-    def __init__(self, name, dict:dict):
+    def __init__(self, name, dict: dict):
         """Initialize the state object with a dictionary"""
         self.name = ""
         self.id = 0
@@ -150,7 +150,7 @@ class StateRegionItem:
         """Return the number of provinces in the state"""
         return len(self.provinces)
 
-    def is_small_state(self, limit:int=4):
+    def is_small_state(self, limit: int = 4):
         """Determine if the state is a small state"""
         if self.is_sea_node():
             return False
@@ -158,7 +158,7 @@ class StateRegionItem:
             return True
         return False
 
-    def merge(self, other, ignoreSmallStates:bool=False, smallStateLimit:int=4):
+    def merge(self, other, ignoreSmallStates: bool = False, smallStateLimit: int = 4):
         """Merge two state objects."""
         if self.is_sea_node() or other.is_sea_node():
             print(f"Error: Cannot merge sea node with other state")
@@ -214,8 +214,12 @@ class StateRegionItem:
         self.rubber[1] += other.rubber[1]
         self.oil += other.oil
         # city, port, farm, mine, wood, naval_exit_id: keep the value of self except they are '' or -1, in which case update them with the value of other
+        if self.city == "":
+            self.city = other.city
         if self.port == "":
             self.port = other.port
+        if self.farm == "":
+            self.farm = other.farm
         if self.mine == "":
             self.mine = other.mine
         if self.wood == "":
@@ -376,7 +380,7 @@ class StateRegion(dict):
     Dictionary of StateRegionItem objects
     """
 
-    def __init__(self, source:dict|Tree|None=None):
+    def __init__(self, source: dict | Tree | None = None):
         if source is None:
             super().__init__()
         elif isinstance(source, Tree):
@@ -392,7 +396,7 @@ class StateRegion(dict):
             )
 
     def merge_state(
-        self, diner, food, ignoreSmallStates:bool=False, smallStateLimit:int=4
+        self, diner, food, ignoreSmallStates: bool = False, smallStateLimit: int = 4
     ):
         self[diner].merge(
             self[food],
@@ -401,17 +405,26 @@ class StateRegion(dict):
         )
         self.pop(food)
 
-    def merge_states(self, merge_dict:dict, ignoreSmallStates:bool=False, smallStateLimit:int=4):
+    def merge_states(
+        self,
+        merge_dict: dict,
+        ignoreSmallStates: bool = False,
+        smallStateLimit: int = 4,
+    ) -> dict[int, list[int]]:
+        id_dict = {}
         for diner, food_list in merge_dict.items():
+            id_dict[int(self[diner].id)] = []
             for food in food_list:
+                id_dict[int(self[diner].id)].append(int(self[food].id))
                 self.merge_state(
                     diner,
                     food,
                     ignoreSmallStates=ignoreSmallStates,
                     smallStateLimit=smallStateLimit,
                 )
+        return id_dict
 
-    def __str__(self, include_sea_nodes:bool=False):
+    def __str__(self, include_sea_nodes: bool = False):
         state_str = ""
         for state_region_item in self.values():
             if not include_sea_nodes and state_region_item.is_sea_node():
@@ -419,7 +432,7 @@ class StateRegion(dict):
             state_str += str(state_region_item)
         return state_str
 
-    def dump(self, dir, include_sea_nodes:bool=False):
+    def dump(self, dir, include_sea_nodes: bool = False):
         with open(dir, "w", encoding="utf-8-sig") as file:
             file.write(self.__str__(include_sea_nodes=include_sea_nodes))
 

@@ -7,6 +7,7 @@ import pyradox
 import vic3_state_merger.assets.flag_definitions_usa
 import vic3_state_merger.assets.state_traits
 import vic3_state_merger.assets.usa_state_counter
+from vic3_state_merger.map_object_data import MapObjectData
 from vic3_state_merger.state_regions import StateRegion
 from vic3_state_merger.buildings import Buildings
 from vic3_state_merger.pops import Pops
@@ -74,13 +75,13 @@ loc_file_dir = {
     "l_simp_chinese": r"localization/simp_chinese",
 }
 
-map_object_data_files = [
-    "generated_map_object_locators_city.txt",
-    "generated_map_object_locators_farm.txt",
-    "generated_map_object_locators_mine.txt",
-    "generated_map_object_locators_port.txt",
-    "generated_map_object_locators_wood.txt",
-]
+map_object_data_files = {
+    "city": "generated_map_object_locators_city.txt",
+    "farm": "generated_map_object_locators_farm.txt",
+    "mine": "generated_map_object_locators_mine.txt",
+    "port": "generated_map_object_locators_port.txt",
+    "wood": "generated_map_object_locators_wood.txt",
+}
 
 invalid_hub_names = ["NAME", "名称"]
 
@@ -264,6 +265,17 @@ class StateMerger:
     def merge_state_data(
         self, ignoreSmallStates: bool = False, smallStateLimit: int = 4
     ):
+        original_map_data = {
+            state_name: {
+                "id": state.id,
+                "city": state.city,
+                "farm": state.farm,
+                "mine": state.mine,
+                "port": state.port,
+                "wood": state.wood,
+            }
+            for state_name, state in self.map_data.items()
+        }
         # Write cleared base game data to mod directory
         for key, value in self.base_game_dir.items():
             for file in os.listdir(value):
@@ -299,6 +311,7 @@ class StateMerger:
         self.trade.merge_states(self.merge_dict)
         self.trade.dump(os.path.join(self.mod_dir["trade"], "00_historical_trade.txt"))
         # Merge map_object_data
+        self._merge_map_object_data(id_dict, original_map_data)
 
         # Copy state_trait file to mod directory
         dir = os.path.join(self.write_dir, "common", "state_traits")
@@ -312,6 +325,70 @@ class StateMerger:
             os.path.join(dir, "state_merging.txt"), "w", encoding="utf-8-sig"
         ) as file:
             file.write(file_str)
+
+    def _merge_map_object_data(
+        self,
+        id_dict: dict[int, list[int]],
+        original_map_data: dict[str, dict[str, str | int]],
+    ):
+        output_dir = os.path.join(self.write_dir, "gfx", "map", "map_object_data")
+        _clear_output_dir(output_dir)
+
+        for file in map_object_data_files.values():
+            base_game_file = os.path.join(
+                self.game_root_dir, "gfx", "map", "map_object_data", file
+            )
+            if not os.path.exists(base_game_file):
+                continue
+
+            parser = pyradox.parse_file(
+                base_game_file, game="HoI4", path_relative_to_game=False
+            )
+            if not isinstance(parser, pyradox.Tree):
+                parser = parser[0]
+
+            map_object_data = MapObjectData(parser)
+            for diner, food_list in self.merge_dict.items():
+                diner_data = original_map_data.get(diner)
+                if not diner_data:
+                    continue
+
+                locator_attr = None
+                for attr, locator_file in map_object_data_files.items():
+                    if locator_file == file:
+                        locator_attr = attr
+                        break
+
+                if locator_attr is None:
+                    continue
+
+                source_ids = [int(diner_data["id"])]
+                for food in food_list:
+                    food_data = original_map_data.get(food)
+                    if food_data is not None:
+                        source_ids.append(int(food_data["id"]))
+
+                diner_has_locator = bool(diner_data.get(locator_attr, ""))
+                target_id = int(diner_data["id"])
+                source_id = target_id
+
+                if not diner_has_locator:
+                    for food in food_list:
+                        food_data = original_map_data.get(food)
+                        if food_data and food_data.get(locator_attr, ""):
+                            source_id = int(food_data["id"])
+                            break
+
+                if source_id != target_id:
+                    map_object_data.retarget_instance_id(source_id, target_id)
+
+                removal_ids = {state_id for state_id in source_ids if state_id != target_id}
+                if source_id != target_id:
+                    removal_ids.discard(source_id)
+                if removal_ids:
+                    map_object_data.remove_instances_by_id(removal_ids)
+
+            _write_text_file(os.path.join(output_dir, file), str(map_object_data))
 
     def merge_misc_data(self):
         for dir in replace_copy_file_dir:
@@ -471,7 +548,7 @@ class StateMerger:
                 shutil.copy(base_game_file, cache_file)
 
     def copy_map_object_data(self):
-        for file in map_object_data_files:
+        for file in map_object_data_files.values():
             base_game_file = os.path.join(
                 self.game_root_dir, "gfx", "map", "map_object_data", file
             )
