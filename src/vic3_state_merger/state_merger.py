@@ -113,7 +113,7 @@ def clean_v3_yml_numbered_keys(yml_path: str) -> str:
 
 
 def _prefix_replace(text: str) -> str:
-    """Prefix 'REPLACE:' on first-level assignment lines (no extra newlines).
+    """Prefix 'REPLACE_OR_CREATE:' on first-level assignment lines (no extra newlines).
 
     Leaves comments, indented lines, blank lines, and already-prefixed lines alone.
     """
@@ -125,13 +125,14 @@ def _prefix_replace(text: str) -> str:
             or ln.startswith("#")
             or ln.startswith((" ", "\t"))
             or ln.startswith("REPLACE:")
+            or ln.startswith("REPLACE_OR_CREATE:")
             or ln.startswith("@")
         ):
             out.append(ln)
             continue
         # if the line contains an '=' assume it's a first-level assignment and prefix
         if "=" in ln:
-            out.append("REPLACE:" + ln)
+            out.append("REPLACE_OR_CREATE:" + ln)
         else:
             out.append(ln)
     return "".join(out)
