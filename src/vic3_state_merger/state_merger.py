@@ -159,13 +159,42 @@ def _build_keyword_pattern(merge_dict: dict):
 
     keys = sorted(lookup.keys(), key=len, reverse=True)
     # Treat underscores as separators so tokens inside identifiers like
-    # STATE_HIGHLANDS_state_name_assign are still replaced.
+    # STATE_HIGHLANDS_state_name_assign are still replaced, but avoid
+    # replacing state IDs that are part of compound state-region identifiers
+    # like STATE_MAINE_ANJOU. Context validation is handled by the caller
+    # using _keyword_replace() rather than the regex alone.
     pattern = re.compile(
         r"(?<![0-9A-Za-z])("
         + "|".join(map(re.escape, keys))
         + r")(?![0-9A-Za-z])"
     )
     return lookup, pattern
+
+
+def _keyword_replace(match, lookup, text):
+    key = match.group(1)
+    start = match.start(1)
+    end = match.end(1)
+    if end < len(text) and text[end] == "_" and end + 1 < len(text) and text[end + 1].isupper():
+        return key
+    if start >= 2 and text[start - 1] == "_" and text[start - 2].isupper():
+        prefix = text[:start]
+        if re.search(r"STATE_[A-Z0-9_]*_$", prefix):
+            return key
+    return lookup[key]
+
+
+def _keyword_remove(match, lookup, text):
+    key = match.group(1)
+    start = match.start(1)
+    end = match.end(1)
+    if end < len(text) and text[end] == "_" and end + 1 < len(text) and text[end + 1].isupper():
+        return key
+    if start >= 2 and text[start - 1] == "_" and text[start - 2].isupper():
+        prefix = text[:start]
+        if re.search(r"STATE_[A-Z0-9_]*_$", prefix):
+            return key
+    return ""
 
 
 def _iter_txt_files(base_game_dir: str):
@@ -406,7 +435,7 @@ class StateMerger:
                 mod_dir,
                 lookup,
                 pattern,
-                lambda text, lookup, pattern: pattern.sub(lambda m: lookup[m.group(1)], text),
+                lambda text, lookup, pattern: pattern.sub(lambda m: _keyword_replace(m, lookup, text), text),
             )
 
         for dir in replace_keyword_file_dir:
@@ -424,7 +453,7 @@ class StateMerger:
                 mod_dir,
                 lookup,
                 pattern,
-                lambda text, lookup, pattern: pattern.sub(lambda m: lookup[m.group(1)], text),
+                lambda text, lookup, pattern: pattern.sub(lambda m: _keyword_replace(m, lookup, text), text),
                 aggregate=True,
             )
 
@@ -443,7 +472,7 @@ class StateMerger:
                 mod_dir,
                 lookup,
                 pattern,
-                lambda text, lookup, pattern: pattern.sub("", text),
+                lambda text, lookup, pattern: pattern.sub(lambda m: _keyword_remove(m, lookup, text), text),
                 aggregate=True,
             )
 
