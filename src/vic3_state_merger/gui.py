@@ -77,28 +77,36 @@ def main() -> None:
 
     main_tab.columnconfigure(1, weight=1)
 
-    ttk.Label(main_tab, text="Merge file (merge_states.json)").grid(row=0, column=0, sticky="w")
+    ttk.Label(main_tab, text="Merge file (merge_states.json)").grid(
+        row=0, column=0, sticky="w"
+    )
     merge_entry = ttk.Entry(main_tab, textvariable=merge_file_var)
     merge_entry.grid(row=0, column=1, sticky="ew", padx=(8, 8))
-    ttk.Button(main_tab, text="Browse...", command=lambda: _browse_file(merge_file_var)).grid(
-        row=0, column=2, sticky="e"
-    )
+    ttk.Button(
+        main_tab, text="Browse...", command=lambda: _browse_file(merge_file_var)
+    ).grid(row=0, column=2, sticky="e")
 
-    ttk.Label(main_tab, text="Game root folder").grid(row=1, column=0, sticky="w", pady=(8, 0))
+    ttk.Label(main_tab, text="Game root folder").grid(
+        row=1, column=0, sticky="w", pady=(8, 0)
+    )
     game_root_entry = ttk.Entry(main_tab, textvariable=game_root_var)
     game_root_entry.grid(row=1, column=1, sticky="ew", padx=(8, 8), pady=(8, 0))
-    ttk.Button(main_tab, text="Browse...", command=lambda: _browse_folder(game_root_var)).grid(
-        row=1, column=2, sticky="e", pady=(8, 0)
-    )
+    ttk.Button(
+        main_tab, text="Browse...", command=lambda: _browse_folder(game_root_var)
+    ).grid(row=1, column=2, sticky="e", pady=(8, 0))
 
-    ttk.Label(main_tab, text="Mod output folder").grid(row=2, column=0, sticky="w", pady=(8, 0))
+    ttk.Label(main_tab, text="Mod output folder").grid(
+        row=2, column=0, sticky="w", pady=(8, 0)
+    )
     mod_entry = ttk.Entry(main_tab, textvariable=mod_dir_var)
     mod_entry.grid(row=2, column=1, sticky="ew", padx=(8, 8), pady=(8, 0))
-    ttk.Button(main_tab, text="Browse...", command=lambda: _browse_folder(mod_dir_var)).grid(
-        row=2, column=2, sticky="e", pady=(8, 0)
-    )
+    ttk.Button(
+        main_tab, text="Browse...", command=lambda: _browse_folder(mod_dir_var)
+    ).grid(row=2, column=2, sticky="e", pady=(8, 0))
 
-    ttk.Label(main_tab, text="Small state limit").grid(row=3, column=0, sticky="w", pady=(8, 0))
+    ttk.Label(main_tab, text="Small state limit").grid(
+        row=3, column=0, sticky="w", pady=(8, 0)
+    )
     small_limit_entry = ttk.Entry(main_tab, textvariable=small_state_limit_var, width=8)
     small_limit_entry.grid(row=3, column=1, sticky="w", padx=(8, 8), pady=(8, 0))
 

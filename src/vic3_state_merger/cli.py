@@ -13,6 +13,7 @@ def _ensure_trailing_sep(path: str) -> str:
         return path
     return path + "/"
 
+
 def _default_data_dir(mod_dir: str) -> str:
     import os
 
@@ -96,7 +97,9 @@ def run_merge(
         merge_dict,
         _ensure_trailing_sep(resolved_data_dir),
     )
-    state_merger.merge_state_data(ignoreSmallStates=ignore_small_states, smallStateLimit=small_state_limit)
+    state_merger.merge_state_data(
+        ignoreSmallStates=ignore_small_states, smallStateLimit=small_state_limit
+    )
     state_merger.merge_misc_data()
     state_merger.merge_loc_data()
 
