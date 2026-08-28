@@ -399,25 +399,28 @@ class Buildings(dict):
             food: The absorbed state ID (without the ``s:`` prefix),
                 e.g. ``"STATE_456"``.
         """
-        if ("s:" + food) in self.keys():
-            for tag in self["s:" + food].keys():
-                if tag not in self["s:" + diner].keys():
-                    # Transfer all buildings for tags not present in diner
-                    self["s:" + diner][tag] = self["s:" + food][tag]
+        if ("s:" + food) not in self.keys():
+            return
+        if ("s:" + diner) not in self.keys():
+            self["s:" + diner] = {}
+        for tag in self["s:" + food].keys():
+            if tag not in self["s:" + diner].keys():
+                # Transfer all buildings for tags not present in diner
+                self["s:" + diner][tag] = self["s:" + food][tag]
+                continue
+            for other_building in self["s:" + food][tag]:
+                if other_building.is_empty():
                     continue
-                for other_building in self["s:" + food][tag]:
-                    if other_building.is_empty():
-                        continue
-                    # Try to find a matching building type in diner and merge
-                    for this_building in self["s:" + diner][tag]:
-                        if this_building.building == other_building.building:
-                            this_building += other_building
-                            break
-                    else:
-                        # No matching building type found; append as new
-                        self["s:" + diner][tag].append(other_building)
-            # Remove the food state after merging
-            self.pop("s:" + food)
+                # Try to find a matching building type in diner and merge
+                for this_building in self["s:" + diner][tag]:
+                    if this_building.building == other_building.building:
+                        this_building += other_building
+                        break
+                else:
+                    # No matching building type found; append as new
+                    self["s:" + diner][tag].append(other_building)
+        # Remove the food state after merging
+        self.pop("s:" + food)
 
     def merge_states(self, merge_dict: dict):
         """Merge buildings according to a state merge plan.

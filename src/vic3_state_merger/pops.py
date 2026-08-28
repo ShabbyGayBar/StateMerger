@@ -147,6 +147,10 @@ class Pops(dict):
             other: The absorbed (food) state ID **with** the ``s:`` prefix
                 (e.g. ``"s:STATE_456"``).
         """
+        if other not in self.keys():
+            return
+        if this not in self.keys():
+            self[this] = {}
         for tag in self[other].keys():
             if tag not in self[this].keys():
                 self[this][tag] = self[other][tag]
