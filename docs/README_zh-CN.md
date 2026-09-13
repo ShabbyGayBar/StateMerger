@@ -1,5 +1,11 @@
 # 维多利亚3省份合并工具&教程
 
+![Python Version from PEP 621 TOML](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2FShabbyGayBar%2FStateMerger%2Frefs%2Fheads%2Fmaster%2Fpyproject.toml)
+
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ShabbyGayBar/StateMerger/release.yml)
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ab10a6c25b77466d9b009f92c3b31fd9)](https://app.codacy.com/gh/ShabbyGayBar/StateMerger/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
 作者的[省份合并 mod](https://github.com/ShabbyGayBar/StateMerging) 已经发布在 [Steam 创意工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3371693463)！
 
 ## 简介
