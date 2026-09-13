@@ -211,14 +211,14 @@ class Pops(dict):
         for tag in self[state_id].keys():
             state_str += f"        {tag} = {{\n"
             for pop in self[state_id][tag]["create_pop"]:
-                state_str += f"            create_pop = {{\n"
+                state_str += "            create_pop = {\n"
                 for key, value in pop.items():
                     state_str += f"                {key} = {value}\n"
-                state_str += f"            }}\n"
+                state_str += "            }\n"
             if len(self[state_id][tag]["create_pop"]) == 0:
-                state_str += f"            create_pop = {{}}\n"
-            state_str += f"        }}\n"
-        state_str += f"    }}\n"
+                state_str += "            create_pop = {}\n"
+            state_str += "        }\n"
+        state_str += "    }\n"
 
         return state_str
 

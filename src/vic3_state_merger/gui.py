@@ -168,7 +168,11 @@ def main() -> None:
                     ignore_small_states=ignore_small_states_var.get(),
                 )
             except Exception as exc:  # pragma: no cover - UI error display
-                root.after(0, lambda: messagebox.showerror("Merge failed", str(exc)))
+                error_message = str(exc)
+                root.after(
+                    0,
+                    lambda: messagebox.showerror("Merge failed", error_message),
+                )
                 root.after(0, lambda: status_var.set("Failed"))
             else:
                 root.after(0, lambda: status_var.set("Completed"))

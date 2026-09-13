@@ -27,7 +27,6 @@ modules as well.
 
 import os
 import re
-import copy
 import yaml
 import shutil
 import pyradox
@@ -40,11 +39,6 @@ from vic3_state_merger.buildings import Buildings
 from vic3_state_merger.pops import Pops
 from vic3_state_merger.states import States
 from vic3_state_merger.trade import Trade
-
-try:
-    from importlib.resources import files, as_file
-except ImportError:  # Python 3.8 / 3.7
-    from importlib_resources import files, as_file  # pyright: ignore[reportMissingImports]
 
 # Mapping of logical category names to relative paths under the game root.
 # Each key corresponds to one of the five core data categories parsed and

@@ -14,3 +14,13 @@ from vic3_state_merger.buildings import Buildings
 from vic3_state_merger.pops import Pops
 from vic3_state_merger.states import States
 from vic3_state_merger.trade import Trade
+
+__all__ = [
+    "Buildings",
+    "Pops",
+    "StateMerger",
+    "StateRegion",
+    "States",
+    "Trade",
+    "__version__",
+]

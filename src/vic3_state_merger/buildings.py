@@ -240,47 +240,47 @@ class Building:
             ownership entries, reserves, and production methods in the
             game's expected script syntax.
         """
-        building_str = f"            create_building = {{\n"
+        building_str = "            create_building = {\n"
         if self.is_empty():
             building_str += "            }\n"
             return building_str
         building_str += f"                building = {self.building}\n"
         if self.isMonument:
-            building_str += f"                level = 1\n"
+            building_str += "                level = 1\n"
             building_str += "            }\n"
             return building_str
-        building_str += f"                add_ownership = {{\n"
+        building_str += "                add_ownership = {\n"
         for ownership in self.building_ownership:
-            building_str += f"                    building = {{\n"
+            building_str += "                    building = {\n"
             building_str += f"                        type = {ownership['type']}\n"
             building_str += (
                 f"                        country = {ownership['country']}\n"
             )
             building_str += f"                        levels = {ownership['levels']}\n"
             building_str += f"                        region = {ownership['region']}\n"
-            building_str += f"                    }}\n"
+            building_str += "                    }\n"
         for ownership in self.country_ownership:
-            building_str += f"                    country = {{\n"
+            building_str += "                    country = {\n"
             building_str += (
                 f"                        country = {ownership['country']}\n"
             )
             building_str += f"                        levels = {ownership['levels']}\n"
-            building_str += f"                    }}\n"
+            building_str += "                    }\n"
         for ownership in self.company_ownership:
-            building_str += f"                    company = {{\n"
+            building_str += "                    company = {\n"
             building_str += f"                        type = {ownership['type']}\n"
             building_str += (
                 f"                        country = {ownership['country']}\n"
             )
             building_str += f"                        levels = {ownership['levels']}\n"
-            building_str += f"                    }}\n"
-        building_str += f"                }}\n"
+            building_str += "                    }\n"
+        building_str += "                }\n"
         building_str += f"                reserves = {self.reserves}\n"
-        building_str += f"                activate_production_methods = {{\n"
+        building_str += "                activate_production_methods = {\n"
         for method in self.activate_production_methods:
             building_str += f"                    {method}\n"
-        building_str += f"                }}\n"
-        building_str += f"            }}\n"
+        building_str += "                }\n"
+        building_str += "            }\n"
         return building_str
 
 
@@ -488,8 +488,8 @@ class Buildings(dict):
             building_str += f"        {tag} = {{\n"
             for building in self[state_id][tag]:
                 building_str += str(building)
-            building_str += f"        }}\n"
-        building_str += f"    }}\n"
+            building_str += "        }\n"
+        building_str += "    }\n"
 
         return building_str
 

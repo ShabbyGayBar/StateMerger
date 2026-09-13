@@ -298,7 +298,7 @@ class StateRegionItem:
             nodes cannot be merged.
         """
         if self.is_sea_node() or other.is_sea_node():
-            print(f"Error: Cannot merge sea node with other state")
+            print("Error: Cannot merge sea node with other state")
             return
 
         # Additive list fields: simply concatenate.
@@ -398,32 +398,32 @@ class StateRegionItem:
         state_str = f"{self.name} = {{\n"
         state_str += f"    id = {self.id}\n"
         if self.is_sea_node():
-            state_str += f"    provinces = {{ "
+            state_str += "    provinces = { "
             for province in self.provinces:
                 state_str += f"{province} "
-            state_str += f"}}\n"
-            state_str += f"}}\n\n"
+            state_str += "}\n"
+            state_str += "}\n\n"
             return state_str
         state_str += f"    subsistence_building = {self.subsistence_building}\n"
-        state_str += f"    provinces = {{ "
+        state_str += "    provinces = { "
         for province in self.provinces:
             state_str += f"{province} "
-        state_str += f"}}\n"
+        state_str += "}\n"
         if self.impassable != []:
-            state_str += f"    impassable = {{ "
+            state_str += "    impassable = { "
             for province in self.impassable:
                 state_str += f"{province} "
-            state_str += f"}}\n"
+            state_str += "}\n"
         if self.prime_land != []:
-            state_str += f"    prime_land = {{ "
+            state_str += "    prime_land = { "
             for province in self.prime_land:
                 state_str += f"{province} "
-            state_str += f"}}\n"
+            state_str += "}\n"
         if self.traits != []:
-            state_str += f"    traits = {{ "
+            state_str += "    traits = { "
             for trait in self.traits:
                 state_str += f"{trait} "
-            state_str += f"}}\n"
+            state_str += "}\n"
         if self.city != "":
             state_str += f"    city = {self.city}\n"
         if self.port != "":
@@ -435,41 +435,41 @@ class StateRegionItem:
         if self.wood != "":
             state_str += f"    wood = {self.wood}\n"
         state_str += f"    arable_land = {self.arable_land}\n"
-        state_str += f"    arable_resources = {{ "
+        state_str += "    arable_resources = { "
         for resource in self.arable_resources:
             state_str += f"{resource} "
-        state_str += f"}}\n"
+        state_str += "}\n"
         if self.capped_resources:
-            state_str += f"    capped_resources = {{\n"
+            state_str += "    capped_resources = {\n"
             for resource, amount in self.capped_resources.items():
                 state_str += f"        {resource} = {amount}\n"
-            state_str += f"    }}\n"
+            state_str += "    }\n"
         # Discoverable resource blocks — only written when amounts are non-zero.
         if self.gold != [0, 0]:
-            state_str += f"    resource = {{\n"
-            state_str += f'        type = "building_gold_field"\n'
-            state_str += f'        depleted_type = "building_gold_mine"\n'
+            state_str += "    resource = {\n"
+            state_str += '        type = "building_gold_field"\n'
+            state_str += '        depleted_type = "building_gold_mine"\n'
             if self.gold[0] != 0:
                 state_str += f"        undiscovered_amount = {self.gold[0]}\n"
             if self.gold[1] != 0:
                 state_str += f"        discovered_amount = {self.gold[1]}\n"
-            state_str += f"    }}\n"
+            state_str += "    }\n"
         if self.rubber != [0, 0]:
-            state_str += f"    resource = {{\n"
-            state_str += f'        type = "building_rubber_plantation"\n'
+            state_str += "    resource = {\n"
+            state_str += '        type = "building_rubber_plantation"\n'
             if self.rubber[0] != 0:
                 state_str += f"        undiscovered_amount = {self.rubber[0]}\n"
             if self.rubber[1] != 0:
                 state_str += f"        discovered_amount = {self.rubber[1]}\n"
-            state_str += f"    }}\n"
+            state_str += "    }\n"
         if self.oil != 0:
-            state_str += f"    resource = {{\n"
-            state_str += f'        type = "building_oil_rig"\n'
+            state_str += "    resource = {\n"
+            state_str += '        type = "building_oil_rig"\n'
             state_str += f"        undiscovered_amount = {self.oil}\n"
-            state_str += f"    }}\n"
+            state_str += "    }\n"
         if self.naval_exit_id != -1:
             state_str += f"    naval_exit_id = {self.naval_exit_id}\n"
-        state_str += f"}}\n\n"
+        state_str += "}\n\n"
 
         return state_str
 

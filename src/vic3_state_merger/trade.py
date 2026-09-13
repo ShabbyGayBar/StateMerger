@@ -268,11 +268,11 @@ class Trade(dict):
                         f'                add_imports = {good_data["add_imports"]}\n'
                     )
 
-                state_str += f"            }}\n"
+                state_str += "            }\n"
 
-            state_str += f"        }}\n"
+            state_str += "        }\n"
 
-        state_str += f"    }}\n"
+        state_str += "    }\n"
         return state_str
 
     def __str__(self) -> str:

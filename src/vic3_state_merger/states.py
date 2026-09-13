@@ -177,9 +177,9 @@ class States(dict):
         """
         state_str = f"    {state_id} = {{\n"
         for province in self[state_id]["create_state"]:
-            state_str += f"        create_state = {{\n"
+            state_str += "        create_state = {\n"
             state_str += f'            country = {province["country"]}\n'
-            state_str += f"            owned_provinces = {{ "
+            state_str += "            owned_provinces = { "
             for owned_province in province["owned_provinces"]:
                 state_str += f"{owned_province} "
             state_str += "}\n"
