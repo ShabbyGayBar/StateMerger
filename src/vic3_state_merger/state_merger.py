@@ -652,14 +652,14 @@ class StateMerger:
 
         # Write the bundled state-traits override (replaces merged states'
         # trait lists to account for changed province counts).
-        dir = os.path.join(self.write_dir, "common", "state_traits")
-        file_str = vic3_state_merger.assets.state_traits.str
-        if not os.path.exists(dir):
-            os.makedirs(dir)
-        if os.path.exists(os.path.join(dir, "state_merging.txt")):
-            os.remove(os.path.join(dir, "state_merging.txt"))
+        output_dir = os.path.join(self.write_dir, "common", "state_traits")
+        file_str = vic3_state_merger.assets.state_traits.CONTENT
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+        if os.path.exists(os.path.join(output_dir, "state_merging.txt")):
+            os.remove(os.path.join(output_dir, "state_merging.txt"))
         with open(
-            os.path.join(dir, "state_merging.txt"), "w", encoding="utf-8-sig"
+            os.path.join(output_dir, "state_merging.txt"), "w", encoding="utf-8-sig"
         ) as file:
             file.write(file_str)
 
@@ -774,9 +774,9 @@ class StateMerger:
         definitions and USA state counter are written to the mod directory.
         """
         # Phase 1: Copy-replace directories – write individual modified files
-        for dir in replace_copy_file_dir:
-            base_game_dir = os.path.join(self.game_root_dir, dir)
-            mod_dir = os.path.join(self.write_dir, dir)
+        for relative_dir in replace_copy_file_dir:
+            base_game_dir = os.path.join(self.game_root_dir, relative_dir)
+            mod_dir = os.path.join(self.write_dir, relative_dir)
             print("Scanning", base_game_dir)
             _clear_output_dir(mod_dir)
             lookup, pattern = _build_keyword_pattern(self.merge_dict)
@@ -794,9 +794,9 @@ class StateMerger:
             )
 
         # Phase 2: Aggregated-replace directories – merge into state_merging.txt
-        for dir in replace_keyword_file_dir:
-            base_game_dir = os.path.join(self.game_root_dir, dir)
-            mod_dir = os.path.join(self.write_dir, dir)
+        for relative_dir in replace_keyword_file_dir:
+            base_game_dir = os.path.join(self.game_root_dir, relative_dir)
+            mod_dir = os.path.join(self.write_dir, relative_dir)
             print("Scanning", base_game_dir)
 
             _clear_output_dir(mod_dir)
@@ -816,9 +816,9 @@ class StateMerger:
             )
 
         # Phase 3: Aggregated-remove directories – delete matched keys
-        for dir in remove_keyword_file_dir:
-            base_game_dir = os.path.join(self.game_root_dir, dir)
-            mod_dir = os.path.join(self.write_dir, dir)
+        for relative_dir in remove_keyword_file_dir:
+            base_game_dir = os.path.join(self.game_root_dir, relative_dir)
+            mod_dir = os.path.join(self.write_dir, relative_dir)
             print("Scanning", base_game_dir)
 
             _clear_output_dir(mod_dir)
@@ -838,30 +838,36 @@ class StateMerger:
             )
 
         # Copy USA flag adaptation file to mod directory
-        dir = os.path.join(self.write_dir, "common", "flag_definitions")
-        file_str = vic3_state_merger.assets.flag_definitions_usa.str
-        if not os.path.exists(dir):
-            os.makedirs(dir)
-        # Delete the file in dir if it exists
-        if os.path.exists(os.path.join(dir, "state_merging_flag_definition_usa.txt")):
-            os.remove(os.path.join(dir, "state_merging_flag_definition_usa.txt"))
+        output_dir = os.path.join(self.write_dir, "common", "flag_definitions")
+        file_str = vic3_state_merger.assets.flag_definitions_usa.CONTENT
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+        # Delete the file in output_dir if it exists
+        if os.path.exists(
+            os.path.join(output_dir, "state_merging_flag_definition_usa.txt")
+        ):
+            os.remove(
+                os.path.join(output_dir, "state_merging_flag_definition_usa.txt")
+            )
         with open(
-            os.path.join(dir, "state_merging_flag_definition_usa.txt"),
+            os.path.join(output_dir, "state_merging_flag_definition_usa.txt"),
             "w",
             encoding="utf-8-sig",
         ) as file:
             file.write(file_str)
 
         # Copy USA state counting file to mod directory
-        dir = os.path.join(self.write_dir, "common", "script_values")
-        file_str = vic3_state_merger.assets.usa_state_counter.str
-        if not os.path.exists(dir):
-            os.makedirs(dir)
-        # Delete the file in dir if it exists
-        if os.path.exists(os.path.join(dir, "state_merging_usa_state_counter.txt")):
-            os.remove(os.path.join(dir, "state_merging_usa_state_counter.txt"))
+        output_dir = os.path.join(self.write_dir, "common", "script_values")
+        file_str = vic3_state_merger.assets.usa_state_counter.CONTENT
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+        # Delete the file in output_dir if it exists
+        if os.path.exists(
+            os.path.join(output_dir, "state_merging_usa_state_counter.txt")
+        ):
+            os.remove(os.path.join(output_dir, "state_merging_usa_state_counter.txt"))
         with open(
-            os.path.join(dir, "state_merging_usa_state_counter.txt"),
+            os.path.join(output_dir, "state_merging_usa_state_counter.txt"),
             "w",
             encoding="utf-8-sig",
         ) as file:

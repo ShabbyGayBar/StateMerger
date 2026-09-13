@@ -1,4 +1,4 @@
-﻿str = """
+﻿CONTENT = """
 # 两州整合
 INJECT_OR_CREATE:state_trait_two_states_integration= {
     icon = "gfx/interface/icons/state_trait_icons/great_plains.dds"

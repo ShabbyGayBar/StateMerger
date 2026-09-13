@@ -235,14 +235,14 @@ class States(dict):
         states_str += "}\n"
         return states_str
 
-    def dump(self, dir):
+    def dump(self, output_path):
         """Write the serialized ``STATES`` block to a file.
 
         Parameters
         ----------
-        dir : str
+        output_path : str
             Output file path.  The file is written with UTF-8 BOM encoding
             (``utf-8-sig``) as required by Victoria 3.
         """
-        with open(dir, "w", encoding="utf-8-sig") as file:
+        with open(output_path, "w", encoding="utf-8-sig") as file:
             file.write(str(self))

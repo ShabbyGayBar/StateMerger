@@ -255,14 +255,14 @@ class Pops(dict):
         pops_str += "}\n"
         return pops_str
 
-    def dump(self, dir):
+    def dump(self, output_path):
         """Write the entire POPS tree to a file in Victoria 3 script format.
 
         The output file is written with UTF-8 BOM encoding (``utf-8-sig``),
         as required by Victoria 3.
 
         Args:
-            dir: The output file path to write to.
+            output_path: The output file path to write to.
         """
-        with open(dir, "w", encoding="utf-8-sig") as file:
+        with open(output_path, "w", encoding="utf-8-sig") as file:
             file.write(str(self))

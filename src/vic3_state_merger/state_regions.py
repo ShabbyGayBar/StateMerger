@@ -66,7 +66,7 @@ class StateRegionItem:
             region, or ``-1`` if the region is landlocked.
     """
 
-    def __init__(self, name, dict: dict):
+    def __init__(self, name, region_data: dict):
         """Initialize the state region from a parsed game data dictionary.
 
         The constructor extracts every optional field safely — missing keys
@@ -76,7 +76,7 @@ class StateRegionItem:
 
         Args:
             name: The region identifier (key) in the source dictionary.
-            dict: A dictionary whose sole key is ``name`` and whose value
+            region_data: A dictionary whose sole key is ``name`` and whose value
                 contains the region's fields (``id``, ``provinces``,
                 ``subsistence_building``, etc.) as parsed by *pyradox*.
         """
@@ -101,7 +101,7 @@ class StateRegionItem:
         self.naval_exit_id = -1
 
         self.name = name
-        dict_data = dict[name]
+        dict_data = region_data[name]
         self.id = int(dict_data["id"])
 
         # Sea nodes only have id and provinces — skip all economic fields.
@@ -661,17 +661,17 @@ class StateRegion(dict):
             state_str += str(state_region_item)
         return state_str
 
-    def dump(self, dir, include_sea_nodes: bool = False):
+    def dump(self, output_path, include_sea_nodes: bool = False):
         """Write all state regions to a file in Vic3 script format.
 
         The file is written with UTF-8 BOM encoding (``utf-8-sig``), matching
         the game's expected encoding.
 
         Args:
-            dir: Output file path.
+            output_path: Output file path.
             include_sea_nodes: If ``True``, sea nodes are included.
         """
-        with open(dir, "w", encoding="utf-8-sig") as file:
+        with open(output_path, "w", encoding="utf-8-sig") as file:
             file.write(self.__str__(include_sea_nodes=include_sea_nodes))
 
     def provinces_count_dict(self):

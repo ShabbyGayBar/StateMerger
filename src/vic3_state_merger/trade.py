@@ -289,7 +289,7 @@ class Trade(dict):
         trade_str += "}\n"
         return trade_str
 
-    def dump(self, dir):
+    def dump(self, output_path):
         """Write the full trade data to a file in Vic3 script format.
 
         The file is encoded as UTF-8 with BOM (``utf-8-sig``), matching
@@ -297,8 +297,8 @@ class Trade(dict):
 
         Parameters
         ----------
-        dir : str
+        output_path : str
             Destination file path.
         """
-        with open(dir, "w", encoding="utf-8-sig") as file:
+        with open(output_path, "w", encoding="utf-8-sig") as file:
             file.write(str(self))

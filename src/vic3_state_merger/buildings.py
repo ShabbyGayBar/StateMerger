@@ -33,17 +33,17 @@ class Building:
             no ownership entries.
     """
 
-    def __init__(self, dict: dict):
+    def __init__(self, building_data: dict):
         """Initialize the building from a parsed ``create_building`` dictionary.
 
         Args:
-            dict: A dictionary parsed from a ``create_building`` block.  Expected
+            building_data: A dictionary parsed from a ``create_building`` block.  Expected
                 keys include ``building``, ``add_ownership``, ``reserves``,
                 ``activate_production_methods``, and optionally ``level`` (which
                 indicates a monument).
         """
-        if "building" in dict.keys():
-            self.building = dict["building"]
+        if "building" in building_data.keys():
+            self.building = building_data["building"]
         else:
             self.building = None
         self.building_ownership = []
@@ -52,19 +52,21 @@ class Building:
         self.reserves = 0
         self.activate_production_methods = []
         # Monuments use "level" instead of ownership entries
-        self.isMonument = "level" in dict.keys()
+        self.isMonument = "level" in building_data.keys()
         if self.isMonument:
             return
-        if "add_ownership" in dict.keys():
-            if isinstance(dict["add_ownership"], list):
-                for ownership_dict in dict["add_ownership"]:
+        if "add_ownership" in building_data.keys():
+            if isinstance(building_data["add_ownership"], list):
+                for ownership_dict in building_data["add_ownership"]:
                     self.add_ownership(ownership_dict)
             else:
-                self.add_ownership(dict["add_ownership"])
-        if "reserves" in dict.keys():
-            self.reserves = int(dict["reserves"])
-        if "activate_production_methods" in dict.keys():
-            self.activate_production_methods = dict["activate_production_methods"]
+                self.add_ownership(building_data["add_ownership"])
+        if "reserves" in building_data.keys():
+            self.reserves = int(building_data["reserves"])
+        if "activate_production_methods" in building_data.keys():
+            self.activate_production_methods = building_data[
+                "activate_production_methods"
+            ]
         self.refresh()
 
     def add_ownership(self, ownership_dict: dict):
@@ -506,16 +508,16 @@ class Buildings(dict):
         building_str += "}\n"
         return building_str
 
-    def dump(self, dir):
+    def dump(self, output_path):
         """Write the entire BUILDINGS tree to a file in Victoria 3 script format.
 
         The output file is written with UTF-8 BOM encoding (``utf-8-sig``),
         as required by Victoria 3.
 
         Args:
-            dir: The output file path to write to.
+            output_path: The output file path to write to.
         """
-        with open(dir, "w", encoding="utf-8-sig") as file:
+        with open(output_path, "w", encoding="utf-8-sig") as file:
             file.write("BUILDINGS = {\n")
             for state_id in self.keys():
                 print("Exporting building data: " + state_id)
