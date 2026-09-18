@@ -24,7 +24,7 @@ It generates the following files that can be used in a Victoria 3 mod:
 - **Either:**
   - Download the latest GUI executable file from the [release page](https://github.com/ShabbyGayBar/StateMerger/releases). (Recommended but Windows only)
   - **Or:**
-  - Install [Python 3.10 or later](https://www.python.org/downloads/).
+  - Install [Python 3.14 or later](https://www.python.org/downloads/).
   - Run
     `pip install "https://github.com/ShabbyGayBar/StateMerger/releases/download/v2.1.2/vic3_state_merger-2.1.2-py3-none-any.whl"`
     to install the package via pip.

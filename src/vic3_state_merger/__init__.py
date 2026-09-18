@@ -1,7 +1,4 @@
-try:
-    from importlib.metadata import version, PackageNotFoundError
-except ImportError:  # Python <3.8 fallback if needed
-    from importlib_metadata import version, PackageNotFoundError  # type: ignore
+from importlib.metadata import PackageNotFoundError, version
 
 try:
     __version__ = version("vic3_state_merger")

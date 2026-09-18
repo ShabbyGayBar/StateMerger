@@ -1,6 +1,5 @@
 import argparse
 import json
-from typing import Optional
 
 from vic3_state_merger import __version__
 from vic3_state_merger.state_merger import StateMerger
@@ -68,7 +67,7 @@ def get_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def print_help(parser: Optional[argparse.ArgumentParser] = None) -> None:
+def print_help(parser: argparse.ArgumentParser | None = None) -> None:
     if parser is None:
         parser = get_parser()
     parser.print_help()
@@ -82,7 +81,7 @@ def run_merge(
     merge_file: str,
     mod_dir: str,
     game_root: str,
-    data_dir: Optional[str],
+    data_dir: str | None,
     small_state_limit: int,
     ignore_small_states: bool,
 ) -> None:

@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=69", "setuptools-scm[toml]>=8", "wheel"]
+requires = ["setuptools==84.0.0", "setuptools-scm[toml]==10.2.3"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,9 +8,10 @@ authors = [{ name = "Brian Li", email = "brianlizsy@qq.com" }]
 dynamic = ["version"]
 description = "Victoria 3 States Merging Automation Script & Tutorial"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.14"
 classifiers = [
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.14",
     "Operating System :: OS Independent",
 ]
 dependencies = [
@@ -43,7 +44,8 @@ local_scheme = "no-local-version"
 fallback_version = "0.0.0"
 
 [dependency-groups]
-dev = ["pytest>=9.0.2", "pytest-cov>=7.0.0"]
+build = ["pyinstaller>=6.22.3"]
+dev = ["pytest>=9.1.1", "pytest-cov>=7.1.0"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
