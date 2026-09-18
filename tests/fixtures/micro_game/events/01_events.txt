@@ -1,0 +1,1 @@
+test_event = { trigger = { has_state = STATE_BETA } }

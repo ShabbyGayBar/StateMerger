@@ -1,0 +1,7 @@
+game_object_locator = {
+ instances = {
+  { id = 1 position = { 1 1 } }
+  { id = 2 position = { 2 2 } }
+  { id = 77 position = { 7 7 } }
+ }
+}

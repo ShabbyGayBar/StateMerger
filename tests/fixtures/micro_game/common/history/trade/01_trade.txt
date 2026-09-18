@@ -1,0 +1,8 @@
+TRADE = {
+ s:STATE_ALPHA = {
+  REGION_TEST = { grain = { add_exports = 2 add_imports = 3 } }
+ }
+ s:STATE_BETA = {
+  REGION_TEST = { grain = { add_exports = 4 add_imports = 5 } coal = { add_exports = 1 add_imports = 0 } }
+ }
+}

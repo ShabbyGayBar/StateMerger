@@ -6,6 +6,8 @@ from vic3_state_merger.state_merger import (
     _keyword_replace,
 )
 
+pytestmark = pytest.mark.unit
+
 
 def _do_replace(text, merge_dict):
     lookup, pattern = _build_keyword_pattern(merge_dict)

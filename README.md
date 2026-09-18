@@ -1,7 +1,8 @@
 # Victoria 3 States Merging Automation Script & Tutorial
 
 ![Python Version from PEP 621 TOML](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2FShabbyGayBar%2FStateMerger%2Frefs%2Fheads%2Fmaster%2Fpyproject.toml)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ShabbyGayBar/StateMerger/release.yml)
+![GitHub Actions CI](https://img.shields.io/github/actions/workflow/status/ShabbyGayBar/StateMerger/ci.yml?label=CI)
+![GitHub Actions Release](https://img.shields.io/github/actions/workflow/status/ShabbyGayBar/StateMerger/release.yml)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ab10a6c25b77466d9b009f92c3b31fd9)](https://app.codacy.com/gh/ShabbyGayBar/StateMerger/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 [简体中文](docs/README_zh-CN.md)
@@ -90,6 +91,30 @@ state-merger-cli merge_states.json "C:/Program Files (x86)/Steam/steamapps/commo
 ```
 
 You can also type `state-merger-cli --help` to see all available options.
+
+### Development checks
+
+This project targets Python 3.14 or later and uses [uv](https://docs.astral.sh/uv/).
+From a checkout, install the locked development environment and run the same checks
+used by continuous integration:
+
+```sh
+uv sync --locked --group dev
+uv run --locked pytest -m "not live"
+uv run --locked ruff check .
+uv run --locked ruff format --check .
+uv build
+```
+
+The test suite enforces branch coverage of at least 75% for the core merger
+modules. Tests marked `live` require a local Victoria 3 installation and are not
+run by the standard CI job. Pyright runs in CI as an informational check.
+
+Run the optional installed-game smoke test with:
+
+```sh
+VIC3_GAME_ROOT="/path/to/Victoria 3/game" uv run --locked pytest -m live --no-cov
+```
 
 ### Step 3: Edit Spline Network
 

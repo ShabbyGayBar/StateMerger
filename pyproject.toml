@@ -59,6 +59,29 @@ python_functions = ["test_*"]
 addopts = [
     "--strict-markers",
     "--strict-config",
-    "--cov=src",
+    "--cov=vic3_state_merger",
+    "--cov-branch",
     "--cov-report=term-missing",
+    "--cov-fail-under=75",
+]
+markers = [
+    "unit: fast isolated tests",
+    "integration: tests spanning multiple merger components",
+    "smoke: lightweight import and entry-point checks",
+    "live: tests requiring an installed Victoria 3 game or external data",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["vic3_state_merger"]
+omit = [
+    "src/vic3_state_merger/gui.py",
+    "src/vic3_state_merger/__main__.py",
+    "src/vic3_state_merger/assets/*",
+]
+
+[tool.coverage.report]
+exclude_also = [
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
 ]

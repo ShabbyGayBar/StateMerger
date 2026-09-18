@@ -1,9 +1,8 @@
 # 维多利亚3省份合并工具&教程
 
 ![Python Version from PEP 621 TOML](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2FShabbyGayBar%2FStateMerger%2Frefs%2Fheads%2Fmaster%2Fpyproject.toml)
-
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ShabbyGayBar/StateMerger/release.yml)
-
+![GitHub Actions CI](https://img.shields.io/github/actions/workflow/status/ShabbyGayBar/StateMerger/ci.yml?label=CI)
+![GitHub Actions Release](https://img.shields.io/github/actions/workflow/status/ShabbyGayBar/StateMerger/release.yml)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ab10a6c25b77466d9b009f92c3b31fd9)](https://app.codacy.com/gh/ShabbyGayBar/StateMerger/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 作者的[省份合并 mod](https://github.com/ShabbyGayBar/StateMerging) 已经发布在 [Steam 创意工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3371693463)！
@@ -90,6 +89,28 @@ state-merger-cli merge_states.json "C:/Program Files (x86)/Steam/steamapps/commo
 ```
 
 你也可以输入 `state-merger-cli --help` 查看所有可用选项。
+
+### 开发检查
+
+本项目需要 Python 3.14 或更高版本，并使用 [uv](https://docs.astral.sh/uv/)。
+在代码仓库目录中执行以下命令，可以安装锁定的开发环境并运行持续集成中的检查：
+
+```sh
+uv sync --locked --group dev
+uv run --locked pytest -m "not live"
+uv run --locked ruff check .
+uv run --locked ruff format --check .
+uv build
+```
+
+测试会对核心合并模块强制要求至少 75% 的分支覆盖率。标记为 `live` 的测试需要
+本地安装维多利亚3，因此不会在标准 CI 任务中运行。Pyright 在 CI 中只作为提示性检查。
+
+可以使用以下命令运行可选的本地游戏冒烟测试：
+
+```sh
+VIC3_GAME_ROOT="/path/to/Victoria 3/game" uv run --locked pytest -m live --no-cov
+```
   
 ### 3. 编辑 Spline Network
 

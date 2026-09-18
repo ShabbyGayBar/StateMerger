@@ -1,0 +1,5 @@
+decision_test = {
+ potential = { has_state = STATE_BETA }
+ compound = STATE_BETA_state_name_assign
+ protected = STATE_BETA_ANJOU
+}

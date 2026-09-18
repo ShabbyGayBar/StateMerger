@@ -1,0 +1,27 @@
+STATE_ALPHA = {
+ id = 1
+ provinces = { xA1 xA2 }
+ subsistence_building = building_subsistence_farms
+ city = xA1
+ farm = xA2
+ wood = xA2
+ arable_land = 3
+ arable_resources = bg_grain
+ capped_resources = { building_iron_mine = 4 }
+ resource = { type = building_gold_field undiscovered_amount = 2 discovered_amount = 1 }
+ traits = { state_trait_fertile_plains }
+}
+STATE_BETA = {
+ id = 2
+ provinces = { xB1 xB2 }
+ subsistence_building = building_subsistence_farms
+ city = xB1
+ mine = xB2
+ port = xB2
+ arable_land = 5
+ arable_resources = bg_ranch
+ capped_resources = { building_coal_mine = 7 }
+ resource = { type = building_oil_rig undiscovered_amount = 3 }
+ traits = { state_trait_coastal }
+}
+SEA_TEST = { id = 99 provinces = { sea1 } }

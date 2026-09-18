@@ -1,0 +1,13 @@
+POPS = {
+ s:STATE_ALPHA = {
+  c:TEST = {
+   create_pop = { culture = cul_alpha religion = rel_test pop_type = laborers size = 100 }
+  }
+ }
+ s:STATE_BETA = {
+  c:TEST = {
+   create_pop = { culture = cul_alpha religion = rel_test pop_type = laborers size = 50 }
+   create_pop = { culture = cul_beta religion = rel_test pop_type = farmers size = 25 }
+  }
+ }
+}

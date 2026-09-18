@@ -1,0 +1,13 @@
+STATES = {
+ s:STATE_ALPHA = {
+  create_state = { country = c:TEST owned_provinces = { xA1 xA2 } }
+  add_homeland = cul_alpha
+  add_claim = c:CLAIM_A
+ }
+ s:STATE_BETA = {
+  create_state = { country = c:TEST owned_provinces = { xB1 xB2 } }
+  add_homeland = cul_beta
+  add_claim = c:CLAIM_A
+  add_claim = c:CLAIM_B
+ }
+}

@@ -20,7 +20,8 @@ Victoria 3 state merging tool. Reads a merge plan JSON and game data files, outp
 - **Core:** `state_merger.py` — `StateMerger` class orchestrates all merging
 - **Data modules:** `states.py`, `buildings.py`, `pops.py`, `trade.py`, `state_regions.py`, `map_object_data.py` — each parses a game data category and implements merge logic
 - **Bundled assets:** `assets/` — static game data overrides shipped as Python string constants (state traits, USA flag definitions, USA state counter)
-- **Tests:** `tests/` — currently only `__init__.py`; pytest configured with `--cov=src`
+- **Tests:** `tests/` — unit, synthetic integration, smoke, and optional live-game tests
+- **Testing rules:** Follow [`docs/rules/testing.md`](docs/rules/testing.md) for required checks, fixtures, coverage, xfail policy, and live/manual validation
 
 ## Key conventions
 

@@ -1,0 +1,1 @@
+region_test = { states = { STATE_ALPHA STATE_BETA STATE_BETA_ANJOU } }
