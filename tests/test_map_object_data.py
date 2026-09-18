@@ -1,3 +1,5 @@
+from typing import Any, cast
+
 import pytest
 
 from vic3_state_merger.map_object_data import MapObjectData
@@ -23,7 +25,7 @@ def test_locator_validation():
     with pytest.raises(TypeError):
         MapObjectData({"game_object_locator": "bad"})
     with pytest.raises(TypeError):
-        MapObjectData([])
+        MapObjectData(cast(Any, []))
 
 
 def test_locator_dump_bom(tmp_path, locator_data):

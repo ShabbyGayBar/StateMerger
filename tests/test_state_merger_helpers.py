@@ -37,6 +37,7 @@ def test_keyword_context_and_empty_pattern():
     )
     assert result == "STATE_LONG STATE_X_ANJOU"
     lookup, pattern = _build_keyword_pattern({"A": ["B"]})
+    assert pattern is not None
     assert pattern.sub(lambda m: _keyword_remove(m, lookup, "B"), "B") == ""
 
 
