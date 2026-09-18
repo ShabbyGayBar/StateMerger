@@ -103,11 +103,11 @@ class Trade(dict):
                 self[state_id] = merge_dict
 
             # --- Coerce numeric fields to int ------------------------------
-            for region_state in self[state_id].keys():
+            for region_state in self[state_id]:
                 if not isinstance(self[state_id][region_state], dict):
                     continue
 
-                for trade_good in self[state_id][region_state].keys():
+                for trade_good in self[state_id][region_state]:
                     if isinstance(self[state_id][region_state][trade_good], dict):
                         good_data = self[state_id][region_state][trade_good]
 
@@ -117,7 +117,7 @@ class Trade(dict):
                         ):
                             try:
                                 good_data["add_exports"] = int(good_data["add_exports"])
-                            except (ValueError, TypeError):
+                            except ValueError, TypeError:
                                 good_data["add_exports"] = 0
 
                         # Ensure add_imports is an integer
@@ -126,7 +126,7 @@ class Trade(dict):
                         ):
                             try:
                                 good_data["add_imports"] = int(good_data["add_imports"])
-                            except (ValueError, TypeError):
+                            except ValueError, TypeError:
                                 good_data["add_imports"] = 0
 
     def merge_state(self, this: str, other: str):
@@ -158,11 +158,11 @@ class Trade(dict):
         if this not in self:
             self[this] = {}
 
-        for region_state in self[other].keys():
+        for region_state in self[other]:
             if region_state not in self[this]:
                 self[this][region_state] = {}
 
-            for trade_good in self[other][region_state].keys():
+            for trade_good in self[other][region_state]:
                 if trade_good not in self[this][region_state]:
                     # Trade good only exists in the consumed state –
                     # copy it wholesale.
@@ -260,12 +260,12 @@ class Trade(dict):
 
                 if "add_exports" in good_data and good_data["add_exports"] > 0:
                     state_str += (
-                        f'                add_exports = {good_data["add_exports"]}\n'
+                        f"                add_exports = {good_data['add_exports']}\n"
                     )
 
                 if "add_imports" in good_data and good_data["add_imports"] > 0:
                     state_str += (
-                        f'                add_imports = {good_data["add_imports"]}\n'
+                        f"                add_imports = {good_data['add_imports']}\n"
                     )
 
                 state_str += "            }\n"

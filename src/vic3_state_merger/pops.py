@@ -97,7 +97,7 @@ class Pops(dict):
         """
         for state_id in self.keys():
             print(f"Formatting pop data: {state_id}")
-            for tag in self[state_id].keys():
+            for tag in self[state_id]:
                 # Case 1: parser merged multiple create_pop blocks into a list
                 if isinstance(self[state_id][tag], list):
                     raw_pop_list = self[state_id][tag]
@@ -151,8 +151,8 @@ class Pops(dict):
             return
         if this not in self.keys():
             self[this] = {}
-        for tag in self[other].keys():
-            if tag not in self[this].keys():
+        for tag in self[other]:
+            if tag not in self[this]:
                 self[this][tag] = self[other][tag]
                 continue
             for other_pop in self[other][tag]["create_pop"]:
@@ -208,7 +208,7 @@ class Pops(dict):
             A script-format string for the requested state.
         """
         state_str = f"    {state_id} = {{\n"
-        for tag in self[state_id].keys():
+        for tag in self[state_id]:
             state_str += f"        {tag} = {{\n"
             for pop in self[state_id][tag]["create_pop"]:
                 state_str += "            create_pop = {\n"

@@ -42,28 +42,25 @@ class Building:
                 ``activate_production_methods``, and optionally ``level`` (which
                 indicates a monument).
         """
-        if "building" in building_data.keys():
-            self.building = building_data["building"]
-        else:
-            self.building = None
+        self.building = building_data.get("building", None)
         self.building_ownership = []
         self.country_ownership = []
         self.company_ownership = []
         self.reserves = 0
         self.activate_production_methods = []
         # Monuments use "level" instead of ownership entries
-        self.isMonument = "level" in building_data.keys()
+        self.isMonument = "level" in building_data
         if self.isMonument:
             return
-        if "add_ownership" in building_data.keys():
+        if "add_ownership" in building_data:
             if isinstance(building_data["add_ownership"], list):
                 for ownership_dict in building_data["add_ownership"]:
                     self.add_ownership(ownership_dict)
             else:
                 self.add_ownership(building_data["add_ownership"])
-        if "reserves" in building_data.keys():
+        if "reserves" in building_data:
             self.reserves = int(building_data["reserves"])
-        if "activate_production_methods" in building_data.keys():
+        if "activate_production_methods" in building_data:
             self.activate_production_methods = building_data[
                 "activate_production_methods"
             ]
@@ -80,17 +77,17 @@ class Building:
                 ``country``, and/or ``company``, each containing ownership
                 entry dicts or lists thereof.
         """
-        if "building" in ownership_dict.keys():
+        if "building" in ownership_dict:
             if not isinstance(ownership_dict["building"], list):
                 self.building_ownership.append(ownership_dict["building"])
             else:
                 self.building_ownership.extend(ownership_dict["building"])
-        if "country" in ownership_dict.keys():
+        if "country" in ownership_dict:
             if not isinstance(ownership_dict["country"], list):
                 self.country_ownership.append(ownership_dict["country"])
             else:
                 self.country_ownership.extend(ownership_dict["country"])
-        if "company" in ownership_dict.keys():
+        if "company" in ownership_dict:
             if not isinstance(ownership_dict["company"], list):
                 self.company_ownership.append(ownership_dict["company"])
             else:
@@ -107,13 +104,11 @@ class Building:
             return True
         if self.isMonument:
             return False
-        if (
+        return bool(
             not self.building_ownership
             and not self.country_ownership
             and not self.company_ownership
-        ):
-            return True
-        return False
+        )
 
     def refresh(self):
         """Sort and deduplicate building ownership entries.
@@ -340,18 +335,17 @@ class Buildings(dict):
             raise TypeError(
                 "Buildings can only be initialized with a Tree object, a dict, or None"
             )
-        for state_id in buildings_dict["BUILDINGS"].keys():
+        for state_id in buildings_dict["BUILDINGS"]:
             if state_id == "if":  # dlc buildings
                 continue
             print("Reading buildings: " + state_id)
             self[state_id] = {}
-            for tag in buildings_dict["BUILDINGS"][state_id].keys():
+            for tag in buildings_dict["BUILDINGS"][state_id]:
                 self[state_id][tag] = []
                 if (
                     not isinstance(buildings_dict["BUILDINGS"][state_id][tag], dict)
                 ) or (
-                    "create_building"
-                    not in buildings_dict["BUILDINGS"][state_id][tag].keys()
+                    "create_building" not in buildings_dict["BUILDINGS"][state_id][tag]
                 ):
                     continue
                 # Normalize single create_building entries to a list
@@ -376,7 +370,7 @@ class Buildings(dict):
         for state_id in self.keys():
             if state_id == "if":
                 continue
-            for tag in self[state_id].keys():
+            for tag in self[state_id]:
                 # Iterate in reverse to safely remove by index
                 for i in range(len(self[state_id][tag]), 0, -1):
                     if self[state_id][tag][i - 1].is_empty():
@@ -405,8 +399,8 @@ class Buildings(dict):
             return
         if ("s:" + diner) not in self.keys():
             self["s:" + diner] = {}
-        for tag in self["s:" + food].keys():
-            if tag not in self["s:" + diner].keys():
+        for tag in self["s:" + food]:
+            if tag not in self["s:" + diner]:
                 # Transfer all buildings for tags not present in diner
                 self["s:" + diner][tag] = self["s:" + food][tag]
                 continue
@@ -447,7 +441,7 @@ class Buildings(dict):
         for state_id in self.keys():
             if state_id == "if":  # dlc buildings
                 continue
-            for tag in self[state_id].keys():
+            for tag in self[state_id]:
                 if not isinstance(self[state_id][tag], list):
                     continue
                 for building in self[state_id][tag]:
@@ -486,7 +480,7 @@ class Buildings(dict):
             building_tree = Tree({"if": self["if"]})
             return building_tree.prettyprint(level=1)
         building_str = f"    {state_id} = {{\n"
-        for tag in self[state_id].keys():
+        for tag in self[state_id]:
             building_str += f"        {tag} = {{\n"
             for building in self[state_id][tag]:
                 building_str += str(building)

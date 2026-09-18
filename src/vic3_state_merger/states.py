@@ -88,13 +88,13 @@ class States(dict):
                     state["owned_provinces"] = list(state["owned_provinces"])
                 elif not isinstance(state["owned_provinces"], list):
                     state["owned_provinces"] = [state["owned_provinces"]]
-                if "state_type" in state.keys():
+                if "state_type" in state:
                     if isinstance(state["state_type"], tuple):
                         state["state_type"] = list(state["state_type"])
                     elif not isinstance(state["state_type"], list):
                         state["state_type"] = [state["state_type"]]
             # Normalize top-level add_homeland cultures
-            if "add_homeland" in self[state_id].keys():
+            if "add_homeland" in self[state_id]:
                 if isinstance(self[state_id]["add_homeland"], tuple):
                     self[state_id]["add_homeland"] = list(
                         self[state_id]["add_homeland"]
@@ -102,7 +102,7 @@ class States(dict):
                 elif not isinstance(self[state_id]["add_homeland"], list):
                     self[state_id]["add_homeland"] = [self[state_id]["add_homeland"]]
             # Normalize top-level add_claim countries
-            if "add_claim" in self[state_id].keys():
+            if "add_claim" in self[state_id]:
                 if isinstance(self[state_id]["add_claim"], tuple):
                     self[state_id]["add_claim"] = list(self[state_id]["add_claim"])
                 elif not isinstance(self[state_id]["add_claim"], list):
@@ -148,15 +148,15 @@ class States(dict):
                 # Different country — add as a new create_state block
                 self[this]["create_state"].append(province)
         # Merge add_homeland (deduplicate cultures)
-        if "add_homeland" in self[other].keys():
+        if "add_homeland" in self[other]:
             for culture in self[other]["add_homeland"]:
                 if culture not in self[this]["add_homeland"]:
                     self[this]["add_homeland"].append(culture)
         # Merge add_claim (deduplicate countries)
-        if "add_claim" not in self[this].keys():
-            if "add_claim" in self[other].keys():
+        if "add_claim" not in self[this]:
+            if "add_claim" in self[other]:
                 self[this]["add_claim"] = self[other]["add_claim"]
-        elif "add_claim" in self[other].keys():
+        elif "add_claim" in self[other]:
             for country in self[other]["add_claim"]:
                 if country not in self[this]["add_claim"]:
                     self[this]["add_claim"].append(country)
@@ -178,19 +178,19 @@ class States(dict):
         state_str = f"    {state_id} = {{\n"
         for province in self[state_id]["create_state"]:
             state_str += "        create_state = {\n"
-            state_str += f'            country = {province["country"]}\n'
+            state_str += f"            country = {province['country']}\n"
             state_str += "            owned_provinces = { "
             for owned_province in province["owned_provinces"]:
                 state_str += f"{owned_province} "
             state_str += "}\n"
-            if "state_type" in province.keys():
+            if "state_type" in province:
                 for state_type in province["state_type"]:
                     state_str += f"            state_type = {state_type}\n"
             state_str += "        }\n\n"
-        if "add_homeland" in self[state_id].keys():
+        if "add_homeland" in self[state_id]:
             for culture in self[state_id]["add_homeland"]:
                 state_str += f"        add_homeland = {culture}\n"
-        if "add_claim" in self[state_id].keys():
+        if "add_claim" in self[state_id]:
             for country in self[state_id]["add_claim"]:
                 state_str += f"        add_claim = {country}\n"
         state_str += "    }\n"

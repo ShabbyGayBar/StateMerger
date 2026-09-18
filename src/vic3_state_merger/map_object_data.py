@@ -19,6 +19,7 @@ Output is written in Vic3 script format with UTF-8 BOM encoding.
 
 from collections.abc import Iterable
 from typing import cast
+
 from pyradox import Tree
 
 
@@ -47,9 +48,9 @@ class MapObjectData(Tree):
                 key whose value is a ``pyradox.Tree`` (or nested dict).
 
         Raises:
-            TypeError: If *source* is neither a ``Tree`` nor a ``dict``.
-            ValueError: If the tree is missing the ``game_object_locator``
-                key or its value is not a ``Tree``.
+            TypeError: If *source* is neither a ``Tree`` nor a ``dict``, or if
+                the ``game_object_locator`` value is not a ``Tree``.
+            ValueError: If the tree is missing the ``game_object_locator`` key.
         """
         super().__init__()
 
@@ -70,7 +71,7 @@ class MapObjectData(Tree):
         self.update(tree_source)
         game_object_locator_tree = cast(Tree, self["game_object_locator"])
         if not isinstance(game_object_locator_tree, Tree):
-            raise ValueError(
+            raise TypeError(
                 "Invalid map object data: 'game_object_locator' must be a Tree"
             )
         self.game_object_locator_tree: Tree = game_object_locator_tree
@@ -102,7 +103,7 @@ class MapObjectData(Tree):
         for instance in locator_dict.get("instances", []):
             try:
                 instance_id = int(instance["id"])
-            except (KeyError, TypeError, ValueError):
+            except KeyError, TypeError, ValueError:
                 filtered_instances.append(instance)
                 continue
             if instance_id not in state_id_set:
@@ -134,7 +135,7 @@ class MapObjectData(Tree):
         for instance in locator_dict.get("instances", []):
             try:
                 instance_id = int(instance["id"])
-            except (KeyError, TypeError, ValueError):
+            except KeyError, TypeError, ValueError:
                 retargeted_instances.append(instance)
                 continue
             if instance_id == source_id:

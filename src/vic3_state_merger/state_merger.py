@@ -27,16 +27,18 @@ modules as well.
 
 import os
 import re
-import yaml
 import shutil
+
 import pyradox
+import yaml
+
 import vic3_state_merger.assets.flag_definitions_usa
 import vic3_state_merger.assets.state_traits
 import vic3_state_merger.assets.usa_state_counter
-from vic3_state_merger.map_object_data import MapObjectData
-from vic3_state_merger.state_regions import StateRegion
 from vic3_state_merger.buildings import Buildings
+from vic3_state_merger.map_object_data import MapObjectData
 from vic3_state_merger.pops import Pops
+from vic3_state_merger.state_regions import StateRegion
 from vic3_state_merger.states import States
 from vic3_state_merger.trade import Trade
 
@@ -215,13 +217,7 @@ def _prefix_replace(text: str) -> str:
     out = []
     for ln in text.splitlines(True):
         # skip empty lines, comments, indented lines, macros, and already-prefixed
-        if (
-            not ln.strip()
-            or ln.startswith("#")
-            or ln.startswith((" ", "\t"))
-            or ln.startswith("REPLACE:")
-            or ln.startswith("@")
-        ):
+        if not ln.strip() or ln.startswith(("#", " ", "\t", "REPLACE:", "@")):
             out.append(ln)
             continue
         # if the line contains an '=' assume it's a first-level assignment and prefix
@@ -846,9 +842,7 @@ class StateMerger:
         if os.path.exists(
             os.path.join(output_dir, "state_merging_flag_definition_usa.txt")
         ):
-            os.remove(
-                os.path.join(output_dir, "state_merging_flag_definition_usa.txt")
-            )
+            os.remove(os.path.join(output_dir, "state_merging_flag_definition_usa.txt"))
         with open(
             os.path.join(output_dir, "state_merging_flag_definition_usa.txt"),
             "w",
@@ -915,13 +909,13 @@ class StateMerger:
                         # Skip hub types the diner doesn't possess on the map
                         if getattr(self.map_data[diner], attr, "") == "":
                             continue
-                        if f"HUB_NAME_{diner}_{attr}" in data.keys():
+                        if f"HUB_NAME_{diner}_{attr}" in data:
                             continue
                         # If not found, add a missing hub name entry
                         print(f"Missing HUB_NAME_{diner}_{attr} in {lang}")
                         # Search for attribute in the food_list
                         for food in food_list:
-                            if f"HUB_NAME_{food}_{attr}" in data.keys():
+                            if f"HUB_NAME_{food}_{attr}" in data:
                                 if data[f"HUB_NAME_{food}_{attr}"] in invalid_hub_names:
                                     continue
                                 # Wrap the value in double quotes so PyYAML
@@ -961,7 +955,7 @@ class StateMerger:
         ``99_seas`` or ``100_pops_example`` in their name are skipped.
         This is useful for diffing the mod output against the vanilla data.
         """
-        for key in state_file_dir.keys():
+        for key in state_file_dir:
             for file in os.listdir(self.base_game_dir[key]):
                 if "99_seas" in file or "100_pops_example" in file:
                     continue

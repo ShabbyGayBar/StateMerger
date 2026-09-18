@@ -105,7 +105,7 @@ class StateRegionItem:
         self.id = int(dict_data["id"])
 
         # Sea nodes only have id and provinces — skip all economic fields.
-        if "subsistence_building" not in dict_data.keys():
+        if "subsistence_building" not in dict_data:
             self.subsistence_building = ""
             self.provinces = dict_data["provinces"]
             return
@@ -116,7 +116,7 @@ class StateRegionItem:
         # Normalise list-or-scalar fields: pyradox may return a single value
         # instead of a list when there is exactly one element, or an empty
         # dict ``{}`` when the block is empty.
-        if "impassable" in dict_data.keys():
+        if "impassable" in dict_data:
             if isinstance(dict_data["impassable"], (list, tuple)):
                 self.impassable = dict_data["impassable"]
             elif dict_data["impassable"] == {}:
@@ -126,7 +126,7 @@ class StateRegionItem:
         else:
             self.impassable = []
 
-        if "prime_land" in dict_data.keys():
+        if "prime_land" in dict_data:
             if isinstance(dict_data["prime_land"], (list, tuple)):
                 self.prime_land = dict_data["prime_land"]
             elif dict_data["prime_land"] == {}:
@@ -136,7 +136,7 @@ class StateRegionItem:
         else:
             self.prime_land = []
 
-        if "traits" in dict_data.keys():
+        if "traits" in dict_data:
             if isinstance(dict_data["traits"], (list, tuple)):
                 self.traits = dict_data["traits"]
             elif dict_data["traits"] == {}:
@@ -147,23 +147,23 @@ class StateRegionItem:
             self.traits = []
 
         # Hub province assignments — optional per region type.
-        if "city" in dict_data.keys():
+        if "city" in dict_data:
             self.city = dict_data["city"]
         else:
             self.city = ""
-        if "port" in dict_data.keys():
+        if "port" in dict_data:
             self.port = dict_data["port"]
         else:
             self.port = ""
-        if "farm" in dict_data.keys():
+        if "farm" in dict_data:
             self.farm = dict_data["farm"]
         else:
             self.farm = ""
-        if "mine" in dict_data.keys():
+        if "mine" in dict_data:
             self.mine = dict_data["mine"]
         else:
             self.mine = ""
-        if "wood" in dict_data.keys():
+        if "wood" in dict_data:
             self.wood = dict_data["wood"]
         else:
             self.wood = ""
@@ -178,31 +178,31 @@ class StateRegionItem:
 
         # capped_resources: {building_type: max_level}
         self.capped_resources = {}
-        if "capped_resources" in dict_data.keys():
+        if "capped_resources" in dict_data:
             for resource, amount in dict_data["capped_resources"].items():
                 self.capped_resources[resource] = int(amount)
 
         # Discoverable resources (gold, rubber, oil) live under the
         # ``resource`` key, which may be a single dict or a list of dicts.
-        if "resource" in dict_data.keys():
+        if "resource" in dict_data:
             if not isinstance(dict_data["resource"], list):
                 dict_data["resource"] = [dict_data["resource"]]
             for resource in dict_data["resource"]:
                 if resource["type"] == "building_gold_field":
                     self.gold[0] = int(resource["undiscovered_amount"])
-                    if "discovered_amount" in resource.keys():
+                    if "discovered_amount" in resource:
                         self.gold[1] = int(resource["discovered_amount"])
                 elif resource["type"] == "building_rubber_plantation":
-                    if "undiscovered_amount" in resource.keys():
+                    if "undiscovered_amount" in resource:
                         self.rubber[0] = int(resource["undiscovered_amount"])
-                    if "discovered_amount" in resource.keys():
+                    if "discovered_amount" in resource:
                         self.rubber[1] = int(resource["discovered_amount"])
                 elif resource["type"] == "building_oil_rig":
                     self.oil = int(resource["undiscovered_amount"])
                 else:
-                    print(f'Unknown resource type: {resource["type"]}')
+                    print(f"Unknown resource type: {resource['type']}")
 
-        if "naval_exit_id" in dict_data.keys():
+        if "naval_exit_id" in dict_data:
             self.naval_exit_id = dict_data["naval_exit_id"]
         else:
             self.naval_exit_id = -1
@@ -234,9 +234,7 @@ class StateRegionItem:
         Returns:
             ``True`` if this is a sea node, ``False`` otherwise.
         """
-        if self.subsistence_building == "":
-            return True
-        return False
+        return self.subsistence_building == ""
 
     def province_cnt(self):
         """Return the number of provinces in this region.
@@ -264,9 +262,7 @@ class StateRegionItem:
         """
         if self.is_sea_node():
             return False
-        if self.province_cnt() < limit:
-            return True
-        return False
+        return self.province_cnt() < limit
 
     def merge(self, other, ignoreSmallStates: bool = False, smallStateLimit: int = 4):
         """Merge another :class:`StateRegionItem` into this one.
@@ -346,7 +342,7 @@ class StateRegionItem:
 
         # Capped resources: sum levels for shared keys, add new keys.
         for resource, amount in other.capped_resources.items():
-            if resource in self.capped_resources.keys():
+            if resource in self.capped_resources:
                 self.capped_resources[resource] += int(amount)
             else:
                 self.capped_resources[resource] = int(amount)
@@ -577,10 +573,10 @@ class StateRegion(dict):
             super().__init__()
         elif isinstance(source, Tree):
             source_dict = source.to_python()
-            for state_id in source_dict.keys():
+            for state_id in source_dict:
                 self[state_id] = StateRegionItem(state_id, source_dict)
         elif isinstance(source, dict):
-            for state_id in source.keys():
+            for state_id in source:
                 self[state_id] = StateRegionItem(state_id, source)
         else:
             raise TypeError(

@@ -8,7 +8,7 @@ from vic3_state_merger.state_merger import StateMerger
 def _ensure_trailing_sep(path: str) -> str:
     if not path:
         return path
-    if path.endswith("/") or path.endswith("\\"):
+    if path.endswith(("/", "\\")):
         return path
     return path + "/"
 

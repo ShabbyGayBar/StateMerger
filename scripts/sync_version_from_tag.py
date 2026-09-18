@@ -5,8 +5,7 @@ import re
 
 def normalize_tag(tag: str) -> str:
     value = tag.strip()
-    if value.startswith("v"):
-        value = value[1:]
+    value = value.removeprefix("v")
     if not re.fullmatch(r"\d+\.\d+\.\d+", value):
         raise ValueError(f"Unsupported tag format: {tag}. Expected vX.Y.Z or X.Y.Z")
     return value
@@ -15,7 +14,7 @@ def normalize_tag(tag: str) -> str:
 def update_readme(readme_path: pathlib.Path, version: str) -> None:
     text = readme_path.read_text(encoding="utf-8")
     pattern = re.compile(
-        r'https://github\.com/ShabbyGayBar/StateMerger/releases/download/v[0-9]+\.[0-9]+\.[0-9]+/vic3_state_merger-[0-9]+\.[0-9]+\.[0-9]+-py3-none-any\.whl'
+        r"https://github\.com/ShabbyGayBar/StateMerger/releases/download/v[0-9]+\.[0-9]+\.[0-9]+/vic3_state_merger-[0-9]+\.[0-9]+\.[0-9]+-py3-none-any\.whl"
     )
     new_link = (
         f"https://github.com/ShabbyGayBar/StateMerger/releases/download/v{version}/"

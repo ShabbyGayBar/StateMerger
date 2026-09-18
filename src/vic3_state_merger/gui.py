@@ -167,7 +167,7 @@ def main() -> None:
                     small_state_limit=limit,
                     ignore_small_states=ignore_small_states_var.get(),
                 )
-            except Exception as exc:  # pragma: no cover - UI error display
+            except Exception as exc:  # noqa: BLE001  # pragma: no cover - UI boundary
                 error_message = str(exc)
                 root.after(
                     0,

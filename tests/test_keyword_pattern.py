@@ -34,9 +34,7 @@ class TestKeywordReplace:
         assert result == "STATE_MASSACHUSETTS = { }"
 
     def test_replaces_in_lowercase_compound(self, merge_dict):
-        result = _do_replace(
-            "STATE_HIGHLANDS_state_name_assign = yes", merge_dict
-        )
+        result = _do_replace("STATE_HIGHLANDS_state_name_assign = yes", merge_dict)
         assert result == "STATE_SCOTLAND_state_name_assign = yes"
 
     def test_replaces_multi_word_state_in_prefixed_compound(self, merge_dict):
@@ -57,9 +55,7 @@ class TestKeywordReplace:
         assert result == "STATE_MAINE_ANJOU"
 
     def test_replaces_in_mixed_case_compound(self, merge_dict):
-        result = _do_replace(
-            "STATE_HIGHLANDS_city_data = 1", merge_dict
-        )
+        result = _do_replace("STATE_HIGHLANDS_city_data = 1", merge_dict)
         assert result == "STATE_SCOTLAND_city_data = 1"
 
     def test_multiple_replacements_in_text(self, merge_dict):

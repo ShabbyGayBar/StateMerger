@@ -5,10 +5,10 @@ try:
 except PackageNotFoundError:
     __version__ = "0.0.0"
 
-from vic3_state_merger.state_merger import StateMerger
-from vic3_state_merger.state_regions import StateRegion
 from vic3_state_merger.buildings import Buildings
 from vic3_state_merger.pops import Pops
+from vic3_state_merger.state_merger import StateMerger
+from vic3_state_merger.state_regions import StateRegion
 from vic3_state_merger.states import States
 from vic3_state_merger.trade import Trade
 
