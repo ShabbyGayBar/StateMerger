@@ -20,7 +20,7 @@ dependencies = [
     "pyyaml>=6.0.3",
 ]
 license = "MIT"
-license-files = ["LICEN[CS]E*"]
+license-files = ["LICEN[CS]E*", "THIRD_PARTY_NOTICES.md"]
 
 [project.urls]
 Homepage = "https://github.com/ShabbyGayBar/StateMerger"

@@ -145,4 +145,12 @@ Please report any bugs you encounter in the Issues tab using the bug report temp
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Except for the third-party materials identified in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), the original source code and
+documentation in this repository are licensed under the [MIT License](LICENSE).
+
+The MIT License does not apply to material copied or adapted from Victoria 3.
+Generated mods may also contain or be derived from Victoria 3 game data and are
+not automatically covered by the project's MIT License. See
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for provenance, ownership, and
+applicable terms.

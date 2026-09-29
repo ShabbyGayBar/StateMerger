@@ -138,4 +138,6 @@ jobs:
             release-assets/**/*.exe
             release-assets/**/*.whl
             release-assets/**/*.tar.gz
+            LICENSE
+            THIRD_PARTY_NOTICES.md
             merge_states.json

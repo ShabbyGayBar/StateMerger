@@ -140,4 +140,6 @@ VIC3_GAME_ROOT="/path/to/Victoria 3/game" uv run --locked pytest -m live --no-co
 
 # 开源许可
 
-本项目采用 MIT 许可证。详见 [LICENSE](LICENSE) 文件。
+除 [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md) 中列明的第三方材料外，本仓库中的原创源代码和文档均采用 [MIT 许可证](../LICENSE)。
+
+MIT 许可证不适用于从《维多利亚3》复制或改编的材料。生成的 mod 也可能包含或衍生自《维多利亚3》的游戏数据，因此不会自动适用本项目的 MIT 许可证。有关材料来源、权利归属和适用条款，请参阅 [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md)。
