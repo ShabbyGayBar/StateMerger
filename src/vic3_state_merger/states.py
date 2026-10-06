@@ -1,3 +1,6 @@
+# Copyright (C) 2025-2026 Brian Li
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """State data parser and merger for Victoria 3.
 
 Handles reading, normalizing, merging, and serializing the game's ``STATES``

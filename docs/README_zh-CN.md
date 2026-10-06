@@ -140,6 +140,6 @@ VIC3_GAME_ROOT="/path/to/Victoria 3/game" uv run --locked pytest -m live --no-co
 
 # 开源许可
 
-除 [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md) 中列明的第三方材料外，本仓库中的原创源代码和文档均采用 [MIT 许可证](../LICENSE)。
+除 [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md) 中列明的第三方文件外，本仓库中的原创源代码、文档、数据和图稿均采用 [GNU 通用公共许可证第 3 版或后续版本](../LICENSE)，其中包括 `docs/images/icon.png` 和 `merge_states.json`。
 
-MIT 许可证不适用于从《维多利亚3》复制或改编的材料。生成的 mod 也可能包含或衍生自《维多利亚3》的游戏数据，因此不会自动适用本项目的 MIT 许可证。有关材料来源、权利归属和适用条款，请参阅 [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md)。
+GPL 不适用于 `src/vic3_state_merger/assets/flag_definitions_usa.py`，该文件改编自《维多利亚3》。生成文件中包含的 StateMerger 原创内置模板仍受 GPL 约束；但使用本工具处理用户提供的游戏数据，并不会自动使这些输入数据适用 GPL。有关材料来源、权利归属和适用条款，请参阅 [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md)。

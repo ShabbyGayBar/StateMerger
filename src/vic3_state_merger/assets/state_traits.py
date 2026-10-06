@@ -1,3 +1,6 @@
+# Copyright (C) 2025-2026 Brian Li
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 CONTENT = """
 # 两州整合
 INJECT_OR_CREATE:state_trait_two_states_integration= {

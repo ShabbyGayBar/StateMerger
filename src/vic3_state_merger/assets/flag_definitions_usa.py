@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: LicenseRef-Paradox-UGC
+# See THIRD_PARTY_NOTICES.md for provenance and applicable terms.
+
 CONTENT = """
 @usa_canton_width = 0.5
 @usa_canton_height = @[ 1 / 13 * 7 ]

@@ -1,3 +1,6 @@
+# Copyright (C) 2025-2026 Brian Li
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """End-to-end tests for the committed synthetic Victoria 3 corpus."""
 
 import json

@@ -1,3 +1,6 @@
+# Copyright (C) 2025-2026 Brian Li
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Headless-safe CLI and GUI boundary tests."""
 
 import sys
@@ -18,6 +21,30 @@ def test_cli_parser_and_version(capsys):
         parser.parse_args(["--version"])
     assert exc.value.code == 0
     assert "state-merger" in capsys.readouterr().out
+
+
+def test_cli_license(capsys):
+    parser = cli.get_parser()
+    with pytest.raises(SystemExit) as exc:
+        parser.parse_args(["--license"])
+    assert exc.value.code == 0
+    output = capsys.readouterr().out
+    assert "Copyright (C) 2025-2026 Brian Li" in output
+    assert "GPL-3.0-or-later" in output
+    assert "GNU General Public License" in output
+    assert "ABSOLUTELY NO WARRANTY" in output
+    assert "LicenseRef-Paradox-UGC" in output
+    assert "THIRD_PARTY_NOTICES.md" in output
+
+
+def test_gui_license_text():
+    text = gui._build_license_text()
+    assert "Copyright (C) 2025-2026 Brian Li" in text
+    assert "GPL-3.0-or-later" in text
+    assert "GNU General Public License" in text
+    assert "ABSOLUTELY NO WARRANTY" in text
+    assert "LicenseRef-Paradox-UGC" in text
+    assert "THIRD_PARTY_NOTICES.md" in text
 
 
 @pytest.mark.parametrize(

@@ -1,3 +1,6 @@
+# Copyright (C) 2025-2026 Brian Li
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Population data parsing and merging for Victoria 3 state merging.
 
 This module provides the :class:`Pops` class used to parse, merge, and

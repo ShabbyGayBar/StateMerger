@@ -19,7 +19,7 @@ dependencies = [
     "pyradox-txt-parser>=5.0.1",
     "pyyaml>=6.0.3",
 ]
-license = "MIT"
+license = "GPL-3.0-or-later"
 license-files = ["LICEN[CS]E*", "THIRD_PARTY_NOTICES.md"]
 
 [project.urls]

@@ -92,7 +92,7 @@ jobs:
         run: uv sync --locked --group build
 
       - name: Build GUI EXE
-        run: uv run --locked --group build pyinstaller -F -n state-merger -p "src" -w -i "docs/images/states.dds" -y --clean src/vic3_state_merger/gui.py
+        run: uv run --locked --group build pyinstaller -F -n state-merger -p "src" -w -i "docs/images/icon.png" -y --clean src/vic3_state_merger/gui.py
 
       - name: Build wheel and sdist
         run: uv build

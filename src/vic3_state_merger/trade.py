@@ -1,3 +1,6 @@
+# Copyright (C) 2025-2026 Brian Li
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Trade route data handling for Victoria 3 state merging.
 
 This module provides the :class:`Trade` class, which parses, formats,

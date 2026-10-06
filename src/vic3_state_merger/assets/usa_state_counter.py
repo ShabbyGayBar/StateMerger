@@ -1,3 +1,6 @@
+# Copyright (C) 2025-2026 Brian Li
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 CONTENT = """
 # Count number of actual incorporated states in USA
 REPLACE_OR_CREATE:usa_state_counter = {

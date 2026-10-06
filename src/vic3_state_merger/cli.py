@@ -1,7 +1,11 @@
+# Copyright (C) 2025-2026 Brian Li
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 import argparse
 import json
 
 from vic3_state_merger import __version__
+from vic3_state_merger.legal import LICENSE_NOTICE
 from vic3_state_merger.state_merger import StateMerger
 
 
@@ -63,6 +67,12 @@ def get_parser() -> argparse.ArgumentParser:
         "--version",
         action="version",
         version=f"%(prog)s {__version__}",
+    )
+    parser.add_argument(
+        "--license",
+        action="version",
+        version=LICENSE_NOTICE,
+        help="Show license, warranty, and third-party notice information.",
     )
     return parser
 

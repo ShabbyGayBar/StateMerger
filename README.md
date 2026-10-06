@@ -145,12 +145,15 @@ Please report any bugs you encounter in the Issues tab using the bug report temp
 
 ## License
 
-Except for the third-party materials identified in
-[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), the original source code and
-documentation in this repository are licensed under the [MIT License](LICENSE).
+Except for the third-party file identified in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), the original source code,
+documentation, data, and artwork in this repository are licensed under the
+[GNU General Public License version 3 or later](LICENSE).
+This includes `docs/images/icon.png` and `merge_states.json`.
 
-The MIT License does not apply to material copied or adapted from Victoria 3.
-Generated mods may also contain or be derived from Victoria 3 game data and are
-not automatically covered by the project's MIT License. See
+The GPL does not apply to `src/vic3_state_merger/assets/flag_definitions_usa.py`,
+which is adapted from Victoria 3. Generated files containing StateMerger's
+original bundled templates remain GPL-covered, while processing user-provided
+game data does not automatically place that input under the GPL. See
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for provenance, ownership, and
 applicable terms.

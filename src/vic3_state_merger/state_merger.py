@@ -1,3 +1,6 @@
+# Copyright (C) 2025-2026 Brian Li
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 """Core orchestration module for Victoria 3 state merging.
 
 This module contains the :class:`StateMerger` class which drives the full

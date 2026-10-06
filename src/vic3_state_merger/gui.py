@@ -1,8 +1,12 @@
+# Copyright (C) 2025-2026 Brian Li
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 import threading
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 
 from vic3_state_merger.cli import _default_data_dir, run_merge
+from vic3_state_merger.legal import LICENSE_NOTICE
 
 
 def _browse_file(var: tk.StringVar) -> None:
@@ -32,6 +36,10 @@ def _build_help_text() -> str:
         "Run:\n"
         "- Click Run to execute the merge with the provided settings.\n"
     )
+
+
+def _build_license_text() -> str:
+    return LICENSE_NOTICE
 
 
 def _validate_inputs(
@@ -64,8 +72,10 @@ def main() -> None:
     notebook = ttk.Notebook(root)
     main_tab = ttk.Frame(notebook, padding=12)
     help_tab = ttk.Frame(notebook, padding=12)
+    license_tab = ttk.Frame(notebook, padding=12)
     notebook.add(main_tab, text="Merge")
     notebook.add(help_tab, text="Help")
+    notebook.add(license_tab, text="License")
     notebook.pack(fill="both", expand=True)
 
     merge_file_var = tk.StringVar()
@@ -127,6 +137,11 @@ def main() -> None:
     help_text.insert("1.0", _build_help_text())
     help_text.configure(state="disabled")
     help_text.pack(fill="both", expand=True)
+
+    license_text = tk.Text(license_tab, wrap="word", height=10)
+    license_text.insert("1.0", _build_license_text())
+    license_text.configure(state="disabled")
+    license_text.pack(fill="both", expand=True)
 
     def _set_running(is_running: bool) -> None:
         state = "disabled" if is_running else "normal"

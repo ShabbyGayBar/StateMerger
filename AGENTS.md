@@ -11,7 +11,7 @@ Victoria 3 state merging tool. Reads a merge plan JSON and game data files, outp
 - **Run GUI:** `uv run state-merger` (tkinter GUI)
 - **Run tests:** `uv run pytest`
 - **Build wheel/sdist:** `uv build`
-- **Build Windows EXE:** `uv run pyinstaller -F -n state-merger -p "src" -w -i "docs/images/states.dds" -y --clean src/vic3_state_merger/gui.py`
+- **Build Windows EXE:** `uv run pyinstaller -F -n state-merger -p "src" -w -i "docs/images/icon.png" -y --clean src/vic3_state_merger/gui.py`
 
 ## Architecture
 
