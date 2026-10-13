@@ -1,10 +1,14 @@
 # Copyright (C) 2025-2026 Brian Li
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+import argparse
+import json
 import threading
 import tkinter as tk
+from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 
+from vic3_state_merger import __version__
 from vic3_state_merger.cli import _default_data_dir, run_merge
 from vic3_state_merger.legal import LICENSE_NOTICE
 
@@ -63,7 +67,38 @@ def _validate_inputs(
     return True, ""
 
 
+def _finish_startup(root: tk.Tk, report: Path | None) -> None:
+    if report is None:
+        root.mainloop()
+        return
+    # Tk normally prints callback exceptions and keeps running. Diagnostic mode
+    # must instead fail, without leaving a success report behind.
+    errors = []
+    root.report_callback_exception = lambda *error: errors.append(error)
+    try:
+        root.update_idletasks()
+        root.update()
+        if errors:
+            raise RuntimeError("GUI startup callback failed") from errors[0][1]
+    finally:
+        root.destroy()
+    report.write_text(
+        json.dumps({"status": "ok", "version": __version__}) + "\n",
+        encoding="utf-8",
+    )
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser(description="State Merger GUI")
+    parser.add_argument(
+        "--smoke-test",
+        type=Path,
+        metavar="REPORT_PATH",
+        help="Construct the GUI, check startup, write a JSON report, and exit",
+    )
+    report = parser.parse_args().smoke_test
+    if report is not None:
+        report.unlink(missing_ok=True)
     root = tk.Tk()
     root.title("State Merger")
     root.geometry("640x420")
@@ -198,7 +233,7 @@ def main() -> None:
 
     run_button.configure(command=_run_merge)
 
-    root.mainloop()
+    _finish_startup(root, report)
 
 
 if __name__ == "__main__":

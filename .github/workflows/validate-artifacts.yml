@@ -1,0 +1,60 @@
+name: Validate delivered artifacts
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        required: true
+        type: string
+      tag:
+        default: ""
+        type: string
+      run_id:
+        required: true
+        type: string
+      artifact_id:
+        required: true
+        type: string
+      manifest_sha256:
+        default: ""
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  validate:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      SOURCE_SHA: ${{ inputs.ref }}
+      RELEASE_TAG: ${{ inputs.tag }}
+      ORIGINAL_RUN_ID: ${{ inputs.run_id }}
+      MANIFEST_SHA256: ${{ inputs.manifest_sha256 }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ inputs.ref }}
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: true
+          python-version: "3.14"
+      - uses: actions/download-artifact@v8.0.1
+        with:
+          artifact-ids: ${{ inputs.artifact_id }}
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+          path: release-bundle
+      - name: Verify bundle provenance, contents, and package versions
+        shell: bash
+        run: uv run --no-project --python 3.14 python scripts/release_pipeline.py verify --tag "$RELEASE_TAG" --sha "$SOURCE_SHA" --run-id "$ORIGINAL_RUN_ID" --manifest-sha256 "$MANIFEST_SHA256"
+      - name: Validate wheel in a clean environment outside the checkout
+        run: uv run --no-project --python 3.14 python scripts/validate_artifacts.py wheel --bundle release-bundle --fixture tests/fixtures/micro_game
+      - name: Validate original packaged GUI startup on Windows
+        if: runner.os == 'Windows'
+        run: uv run --no-project --python 3.14 python scripts/validate_artifacts.py exe --bundle release-bundle

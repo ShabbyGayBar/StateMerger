@@ -1,0 +1,56 @@
+name: Build release bundle
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        required: true
+        type: string
+      tag:
+        description: Empty for unpublished PR/manual validation builds
+        default: ""
+        type: string
+    outputs:
+      artifact_id:
+        value: ${{ jobs.build.outputs.artifact_id }}
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    outputs:
+      artifact_id: ${{ steps.upload.outputs.artifact-id }}
+    env:
+      SOURCE_SHA: ${{ inputs.ref }}
+      RELEASE_TAG: ${{ inputs.tag }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ inputs.ref }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: true
+          python-version: "3.14"
+      - name: Install locked build dependencies
+        run: uv sync --locked --group build
+      - name: Build GUI EXE
+        run: uv run --locked --group build pyinstaller -F -n state-merger -p "src" -w --copy-metadata vic3-state-merger -i "docs/images/icon.png" -y --clean src/vic3_state_merger/gui.py
+      - name: Build wheel and sdist
+        run: uv build
+      - name: Stage and validate release bundle
+        shell: bash
+        run: uv run --locked --group build python scripts/release_pipeline.py bundle --tag "$RELEASE_TAG" --sha "$SOURCE_SHA"
+      - name: Validate packaged GUI startup
+        run: uv run --locked --group build python scripts/validate_artifacts.py exe --bundle release-bundle
+      - name: Store original release bundle
+        id: upload
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: release-bundle-${{ github.run_id }}-${{ github.run_attempt }}
+          path: release-bundle/
+          if-no-files-found: error
+          retention-days: 90

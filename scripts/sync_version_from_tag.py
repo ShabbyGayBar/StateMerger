@@ -14,12 +14,14 @@ def normalize_tag(tag: str) -> str:
     return value
 
 
-def update_readme(readme_path: pathlib.Path, version: str) -> None:
+def update_readme(
+    readme_path: pathlib.Path, version: str, wheel_url: str | None = None
+) -> None:
     text = readme_path.read_text(encoding="utf-8")
     pattern = re.compile(
         r"https://github\.com/ShabbyGayBar/StateMerger/releases/download/v[0-9]+\.[0-9]+\.[0-9]+/vic3_state_merger-[0-9]+\.[0-9]+\.[0-9]+-py3-none-any\.whl"
     )
-    new_link = (
+    new_link = wheel_url or (
         f"https://github.com/ShabbyGayBar/StateMerger/releases/download/v{version}/"
         f"vic3_state_merger-{version}-py3-none-any.whl"
     )

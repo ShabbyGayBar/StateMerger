@@ -44,8 +44,10 @@ at least 75%. Static bundled assets, `__main__.py`, and the Tkinter GUI module a
 outside that core coverage calculation. GUI validation and help helpers are still
 tested without starting a graphical event loop.
 
-Pyright is currently informational. Its existing dependency-resolution and typing
-diagnostics do not block CI and must not be described as a passing required check.
+Run `uv run --locked pyright` to check `src`, `tests`, and `scripts`. Its project
+configuration resolves installed dependencies from `.venv`; install the locked
+development environment first. Pyright remains informational in CI and must not be
+described as a required check.
 
 ## Unit-test expectations
 
@@ -131,10 +133,32 @@ in-game pass.
 
 ## CI policy
 
-`.github/workflows/ci.yml` runs the non-live suite, Ruff lint and formatting checks,
-the package build, and an import/CLI smoke check on pushes and pull requests. Pyright
-runs with `continue-on-error` until its configuration and existing diagnostics are
-addressed separately.
+`.github/workflows/ci.yml` calls `checks.yml` on pushes and pull requests (and manual
+dispatch). Release calls the same required checks with the resolved release commit.
+The non-live suite, Ruff lint and formatting checks, package build, and import/CLI
+smoke check must succeed. Pyright runs with `continue-on-error`; changing that CI
+policy requires a separate decision.
+
+Pull requests and manual CI dispatches also build the Windows EXE, wheel, and sdist
+without publishing anything. The delivered wheel is installed into a new Python 3.14
+environment outside the checkout on Ubuntu and Windows. Validation removes
+`PYTHONPATH`, verifies imports come from that environment, runs installed CLI
+help/version/license commands, and merges the original synthetic micro-game. It
+checks merged-state semantics, bundled overrides, parseability, and UTF-8 BOM output.
+
+The built Windows EXE is run with `--smoke-test REPORT_PATH`. This constructs all
+normal GUI tabs, processes startup events, destroys the window, writes a JSON report
+with the package version, and exits. A nonzero exit, missing/incorrect report, or
+60-second timeout fails validation; timeout cleanup terminates the Windows process
+tree. This is a packaged startup check, not an interactive GUI merge or in-game pass.
+
+Release-policy tests use synthetic archives and an in-memory GitHub API to exercise
+interrupted draft uploads, source/asset conflicts, tag movement, original-artifact
+expiry, published-release no-ops, and README synchronization retries. Tagging tests
+cover bump arithmetic, default-branch selection, persisted intent recovery, annotated
+tag ownership, interrupted reference creation, and concurrent allocation conflicts.
+They never create real GitHub tags or releases. See [release operation](releasing.md)
+for dropdown operation and recovery.
 
 Do not lower the coverage threshold, remove assertions, broaden exclusions, or add
 xfails merely to make CI pass. Any intentional testing-policy change must be explained

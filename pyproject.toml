@@ -52,6 +52,11 @@ dev = [
     "ruff>=0.16.8",
 ]
 
+[tool.pyright]
+include = ["src", "tests", "scripts"]
+venvPath = "."
+venv = ".venv"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]

@@ -3,12 +3,24 @@ name: Release
 on:
   workflow_dispatch:
     inputs:
-      release_tag:
-        description: "Existing tag to publish/update (for example: v1.2.3)"
+      operation:
+        description: "Create a bumped release, or publish/resume an existing tag"
         required: true
+        default: new
+        type: choice
+        options: [new, existing]
+      bump:
+        description: "Version increment for a new release (ignored for existing tags)"
+        required: true
+        default: patch
+        type: choice
+        options: [patch, minor, major]
+      release_tag:
+        description: "Required for existing; leave empty for new"
+        required: false
         type: string
       sync_readme:
-        description: "Sync README release links and commit to default branch"
+        description: "Sync README links to the latest published stable release"
         required: false
         default: false
         type: boolean
@@ -18,126 +30,175 @@ on:
 
 permissions:
   contents: read
+  actions: read
+
+concurrency:
+  group: release-${{ github.repository }}
+  cancel-in-progress: false
 
 jobs:
-  sync-readme-version:
-    name: "Sync README Version"
+  prepare:
+    name: Select release and create its tag
     runs-on: ubuntu-latest
-    if: ${{ startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && github.event.inputs.sync_readme == 'true') }}
     permissions:
       contents: write
+      actions: read
+    outputs:
+      tag: ${{ steps.intent.outputs.tag || steps.selection.outputs.tag }}
+      operation: ${{ steps.selection.outputs.operation }}
+      bump: ${{ steps.selection.outputs.bump }}
+      sha: ${{ steps.selection.outputs.sha }}
     env:
-      TAG_NAME: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.release_tag || github.ref_name }}
-
+      GITHUB_TOKEN: ${{ github.token }}
     steps:
-      - name: Checkout default branch
-        uses: actions/checkout@v7.0.1
+      - uses: actions/checkout@v7.0.1
         with:
-          ref: ${{ github.event.repository.default_branch }}
-
-      - name: Setup uv
-        uses: astral-sh/setup-uv@v10.2.0
-        with:
-          enable-cache: true
-          python-version: "3.14"
-
-      - name: Sync version from tag
-        run: uv run --locked python scripts/sync_version_from_tag.py --tag "${TAG_NAME}"
-
-      - name: Check for README changes
-        id: readme_changes
-        run: |
-          if git diff --quiet -- README.md docs/README_zh-CN.md; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Commit and push README changes
-        if: steps.readme_changes.outputs.changed == 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md docs/README_zh-CN.md
-          git commit -m "docs: sync README release links for ${TAG_NAME}"
-          git push origin "${{ github.event.repository.default_branch }}"
-
-  build-gui-windows:
-    runs-on: windows-latest
-    needs: sync-readme-version
-    if: ${{ always() && (needs.sync-readme-version.result == 'success' || needs.sync-readme-version.result == 'skipped') }}
-    permissions:
-      contents: read
-    env:
-      TAG_NAME: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.release_tag || github.ref_name }}
-      ARTIFACT_NAME: state-merger-${{ github.run_id }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7.0.1
-        with:
-          ref: ${{ github.event.repository.default_branch }}
-
-      - name: Setup uv
-        uses: astral-sh/setup-uv@v10.2.0
-        with:
-          enable-cache: true
-          python-version: "3.14"
-
-      - name: Set package version
-        shell: bash
-        run: echo "SETUPTOOLS_SCM_PRETEND_VERSION=${TAG_NAME#v}" >> "$GITHUB_ENV"
-
-      - name: Install dependencies
-        run: uv sync --locked --group build
-
-      - name: Build GUI EXE
-        run: uv run --locked --group build pyinstaller -F -n state-merger -p "src" -w -i "docs/images/icon.png" -y --clean src/vic3_state_merger/gui.py
-
-      - name: Build wheel and sdist
-        run: uv build
-
-      - name: Upload workflow artifacts
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Validate release inputs and pin dispatch source
+        id: selection
+        run: python3 scripts/release_pipeline.py select
+      - name: Locate this run's original release intent
+        id: original
+        if: steps.selection.outputs.operation == 'new'
+        run: python3 scripts/release_pipeline.py find-intent --run-id "$GITHUB_RUN_ID" --attempt "$GITHUB_RUN_ATTEMPT"
+      - name: Download and verify original intent archive
+        if: steps.selection.outputs.operation == 'new' && steps.original.outputs.artifact_id != ''
+        env:
+          ORIGINAL_INTENT: ${{ steps.original.outputs.artifact_id }}
+        run: python3 scripts/release_pipeline.py download-intent --artifact-id "$ORIGINAL_INTENT" --run-id "$GITHUB_RUN_ID"
+      - name: Select next version or validate the saved intent
+        id: intent
+        if: steps.selection.outputs.operation == 'new'
+        env:
+          SOURCE_SHA: ${{ steps.selection.outputs.sha }}
+          RELEASE_BUMP: ${{ steps.selection.outputs.bump }}
+          ORIGINAL_INTENT: ${{ steps.original.outputs.artifact_id }}
+        run: python3 scripts/release_pipeline.py prepare-intent --run-id "$GITHUB_RUN_ID" --sha "$SOURCE_SHA" --bump "$RELEASE_BUMP" --artifact-id "$ORIGINAL_INTENT"
+      - name: Save intent before creating any tag
         uses: actions/upload-artifact@v7.0.1
+        if: steps.selection.outputs.operation == 'new' && steps.original.outputs.artifact_id == ''
         with:
-          name: ${{ env.ARTIFACT_NAME }}
-          path: |
-            dist/state-merger.exe
-            dist/*.whl
-            dist/*.tar.gz
+          name: release-intent-${{ github.run_id }}
+          path: release-intent/release-intent.json
+          if-no-files-found: error
+          retention-days: 90
+      - name: Create annotated tag or reuse this run's matching tag
+        if: steps.selection.outputs.operation == 'new'
+        env:
+          SOURCE_SHA: ${{ steps.selection.outputs.sha }}
+          RELEASE_BUMP: ${{ steps.selection.outputs.bump }}
+        run: python3 scripts/release_pipeline.py create-tag --run-id "$GITHUB_RUN_ID" --sha "$SOURCE_SHA" --bump "$RELEASE_BUMP"
 
-  release-assets:
-    name: "Add GitHub Release Assets"
+  resolve:
+    needs: prepare
     runs-on: ubuntu-latest
-    needs: build-gui-windows
+    outputs:
+      tag: ${{ steps.source.outputs.tag }}
+      sha: ${{ steps.source.outputs.sha }}
+      mode: ${{ steps.source.outputs.mode }}
+      run_id: ${{ steps.source.outputs.run_id }}
+      artifact_id: ${{ steps.source.outputs.artifact_id }}
+      manifest_sha256: ${{ steps.source.outputs.manifest_sha256 }}
+    env:
+      RELEASE_TAG: ${{ needs.prepare.outputs.tag }}
+      RELEASE_BUMP: ${{ needs.prepare.outputs.bump }}
+      EXPECTED_SHA: ${{ needs.prepare.outputs.operation == 'new' && needs.prepare.outputs.sha || '' }}
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Resolve existing remote tag and release state
+        id: source
+        run: python3 scripts/release_pipeline.py resolve --tag "$RELEASE_TAG" --sha "$EXPECTED_SHA"
+
+  checks:
+    needs: resolve
+    if: needs.resolve.outputs.mode != 'published'
+    uses: ./.github/workflows/checks.yml
+    with:
+      ref: ${{ needs.resolve.outputs.sha }}
+
+  build:
+    needs: [resolve, checks]
+    if: needs.resolve.outputs.mode == 'new'
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ needs.resolve.outputs.sha }}
+      tag: ${{ needs.resolve.outputs.tag }}
+
+  validate:
+    needs: [resolve, checks, build]
+    if: >-
+      !cancelled() && needs.resolve.result == 'success' &&
+      needs.checks.result == 'success' &&
+      (needs.build.result == 'success' || needs.build.result == 'skipped') &&
+      needs.resolve.outputs.mode != 'published'
+    uses: ./.github/workflows/validate-artifacts.yml
+    with:
+      ref: ${{ needs.resolve.outputs.sha }}
+      tag: ${{ needs.resolve.outputs.tag }}
+      run_id: ${{ needs.resolve.outputs.run_id || format('{0}', github.run_id) }}
+      artifact_id: ${{ needs.resolve.outputs.artifact_id || needs.build.outputs.artifact_id }}
+      manifest_sha256: ${{ needs.resolve.outputs.manifest_sha256 }}
+
+  publish:
+    needs: [resolve, checks, build, validate]
+    if: >-
+      !cancelled() && needs.resolve.result == 'success' &&
+      (needs.resolve.outputs.mode == 'published' ||
+      (needs.checks.result == 'success' && needs.validate.result == 'success' &&
+      (needs.build.result == 'success' || needs.build.result == 'skipped')))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    env:
+      RELEASE_TAG: ${{ needs.resolve.outputs.tag }}
+      SOURCE_SHA: ${{ needs.resolve.outputs.sha }}
+      ARTIFACT_ID: ${{ needs.resolve.outputs.artifact_id || needs.build.outputs.artifact_id }}
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - name: Published release is unchanged
+        if: needs.resolve.outputs.mode == 'published'
+        run: echo "Already published; skipping builds and asset changes."
+      - uses: actions/checkout@v7.0.1
+        if: needs.resolve.outputs.mode != 'published'
+        with:
+          ref: ${{ needs.resolve.outputs.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@v8.0.1
+        if: needs.resolve.outputs.mode != 'published'
+        with:
+          artifact-ids: ${{ env.ARTIFACT_ID }}
+          run-id: ${{ needs.resolve.outputs.run_id || format('{0}', github.run_id) }}
+          github-token: ${{ github.token }}
+          path: release-bundle
+      - name: Resume matching draft, verify all assets, and publish
+        if: needs.resolve.outputs.mode != 'published'
+        run: python3 scripts/release_pipeline.py publish --tag "$RELEASE_TAG" --sha "$SOURCE_SHA" --artifact-id "$ARTIFACT_ID"
+
+  sync-readme-version:
+    name: Sync README links after publication
+    needs: [prepare, publish]
+    if: github.event_name == 'push' || needs.prepare.outputs.operation == 'new' || inputs.sync_readme
+    runs-on: ubuntu-latest
+    concurrency:
+      group: readme-release-links-${{ github.repository }}
+      cancel-in-progress: false
     permissions:
       contents: write
     env:
-      TAG_NAME: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.release_tag || github.ref_name }}
-      ARTIFACT_NAME: state-merger-${{ github.run_id }}
-
+      DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+      GITHUB_TOKEN: ${{ github.token }}
     steps:
-      - name: Checkout default branch
-        uses: actions/checkout@v7.0.1
+      - uses: actions/checkout@v7.0.1
         with:
           ref: ${{ github.event.repository.default_branch }}
-
-      - name: Download workflow artifacts
-        uses: actions/download-artifact@v8.0.1
-        with:
-          name: ${{ env.ARTIFACT_NAME }}
-          path: release-assets
-
-      - name: Publish GitHub Release Assets
-        uses: softprops/action-gh-release@v3.0.3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: ${{ env.TAG_NAME }}
-          overwrite_files: true
-          files: |
-            release-assets/**/*.exe
-            release-assets/**/*.whl
-            release-assets/**/*.tar.gz
-            LICENSE
-            THIRD_PARTY_NOTICES.md
-            merge_states.json
+      - name: Sync latest stable wheel links and retry concurrent branch updates
+        run: python3 scripts/release_pipeline.py sync-readme --branch "$DEFAULT_BRANCH"
+      - name: Report README synchronization failure separately
+        if: failure()
+        run: echo "::error::Release publication succeeded. README synchronization failed; rerun this job after resolving the branch or token error."

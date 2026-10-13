@@ -26,10 +26,10 @@ Victoria 3 state merging tool. Reads a merge plan JSON and game data files, outp
 ## Key conventions
 
 - Uses `pyradox` (pyradox-txt-parser) for Paradox `.txt` file parsing; `pyyaml` for localization YML
-- Versioning via `setuptools_scm` from git tags (`vX.Y.Z`); `SETUPTOOLS_SCM_PRETEND_VERSION` used in CI when not on a tag
+- Versioning via `setuptools_scm` from git tags (`vX.Y.Z`); builds use Git history and tags without pretend-version overrides
 - All output files written with UTF-8 BOM (`utf-8-sig`)
 - `merge_states.json` at repo root is the default vanilla state list (no merges); values are empty arrays
-- Release workflow (`.github/workflows/release.yml`) builds EXE + wheel on tag push or manual dispatch
+- Release workflow (`.github/workflows/release.yml`) builds EXE + wheel + sdist on tag push or manual dispatch; new releases use a patch/minor/major dropdown and automatically tag the dispatch commit on the default branch. Use `operation: existing` and `release_tag` for recovery; see `docs/rules/releasing.md`
 
 ## Gotchas
 
