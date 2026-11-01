@@ -31,7 +31,7 @@ jobs:
           ref: ${{ inputs.ref }}
           fetch-depth: 0
           persist-credentials: false
-      - uses: astral-sh/setup-uv@v10.2.0
+      - uses: astral-sh/setup-uv@v10.3.3
         with:
           enable-cache: true
           python-version: "3.14"
@@ -48,7 +48,7 @@ jobs:
         run: uv run --locked --group build python scripts/validate_artifacts.py exe --bundle release-bundle
       - name: Store original release bundle
         id: upload
-        uses: actions/upload-artifact@v7.0.1
+        uses: actions/upload-artifact@v7.0.2
         with:
           name: release-bundle-${{ github.run_id }}-${{ github.run_attempt }}
           path: release-bundle/
