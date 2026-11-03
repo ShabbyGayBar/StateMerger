@@ -5,6 +5,27 @@ import pytest
 
 
 @pytest.fixture
+def application_logging():
+    """Restore package logging after testing an application entry point."""
+    import logging
+
+    from vic3_state_merger import logging_config
+
+    logger = logging.getLogger("vic3_state_merger")
+    handlers = logger.handlers[:]
+    owned = logging_config._owned_handlers[:]
+    level, propagate = logger.level, logger.propagate
+    yield logger
+    for handler in logging_config._owned_handlers:
+        if handler not in owned:
+            handler.close()
+    logger.handlers[:] = handlers
+    logging_config._owned_handlers[:] = owned
+    logger.setLevel(level)
+    logger.propagate = propagate
+
+
+@pytest.fixture
 def building_data():
     return {
         "BUILDINGS": {

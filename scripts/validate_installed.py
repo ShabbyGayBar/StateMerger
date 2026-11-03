@@ -4,6 +4,7 @@
 """Copied to a temporary directory and executed by the wheel's isolated Python."""
 
 import codecs
+import os
 import subprocess
 import sys
 from importlib.metadata import version
@@ -14,6 +15,25 @@ import pyradox
 import vic3_state_merger
 
 
+def run_cli(cli, *args):
+    result = subprocess.run(
+        [cli, *args],
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        env={**os.environ, "PYTHONIOENCODING": "utf-8"},
+        timeout=60,
+    )
+    if result.returncode:
+        raise RuntimeError(
+            f"CLI failed with exit code {result.returncode}\n"
+            f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+    return result.stdout
+
+
 def main():
     cli, expected, venv = sys.argv[1:]
     package = Path(vic3_state_merger.__file__).resolve()
@@ -21,9 +41,7 @@ def main():
     assert version("vic3-state-merger") == vic3_state_merger.__version__ == expected
 
     def run(*args):
-        return subprocess.run(
-            [cli, *args], check=True, capture_output=True, text=True, timeout=60
-        ).stdout
+        return run_cli(cli, *args)
 
     assert "merge_file" in run("--help")
     assert run("--version").strip() == f"state-merger {expected}"

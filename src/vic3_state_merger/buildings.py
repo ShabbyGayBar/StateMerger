@@ -12,7 +12,11 @@ levels summed, while non-matching buildings are appended.
 The output is written in Vic3 script format with UTF-8 BOM encoding.
 """
 
+import logging
+
 from pyradox import Tree
+
+logger = logging.getLogger(__name__)
 
 
 class Building:
@@ -341,7 +345,7 @@ class Buildings(dict):
         for state_id in buildings_dict["BUILDINGS"]:
             if state_id == "if":  # dlc buildings
                 continue
-            print("Reading buildings: " + state_id)
+            logger.debug("Reading buildings: %s", state_id)
             self[state_id] = {}
             for tag in buildings_dict["BUILDINGS"][state_id]:
                 self[state_id][tag] = []
@@ -500,7 +504,7 @@ class Buildings(dict):
         """
         building_str = "BUILDINGS = {\n"
         for state_id in self.keys():
-            print("Exporting building data: " + state_id)
+            logger.debug("Exporting building data: %s", state_id)
             building_str += self.get_str(state_id)
         building_str += "}\n"
         return building_str
@@ -517,6 +521,6 @@ class Buildings(dict):
         with open(output_path, "w", encoding="utf-8-sig") as file:
             file.write("BUILDINGS = {\n")
             for state_id in self.keys():
-                print("Exporting building data: " + state_id)
+                logger.debug("Exporting building data: %s", state_id)
                 file.write(self.get_str(state_id))
             file.write("}\n")

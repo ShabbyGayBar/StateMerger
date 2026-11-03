@@ -22,7 +22,11 @@ export/import volumes of every *food* (consumed state) so that the
 merged state retains the total trade throughput.
 """
 
+import logging
+
 from pyradox import Tree
+
+logger = logging.getLogger(__name__)
 
 
 class Trade(dict):
@@ -85,7 +89,7 @@ class Trade(dict):
            failure.
         """
         for state_id in self.keys():
-            print(f"Formatting trade data: {state_id}")
+            logger.debug("Formatting trade data: %s", state_id)
 
             # --- Flatten list-valued states --------------------------------
             # When multiple .txt files contribute to the same state the
@@ -212,7 +216,7 @@ class Trade(dict):
                 diner_key = f"s:{diner}"
 
                 if food_key in self:
-                    print(f"Merging {food} trade data into {diner}")
+                    logger.debug("Merging %s trade data into %s", food, diner)
                     self.merge_state(diner_key, food_key)
                     self.pop(food_key)
 

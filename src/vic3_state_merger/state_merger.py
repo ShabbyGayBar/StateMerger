@@ -28,6 +28,7 @@ The module also provides :func:`_parse_merge` and
 modules as well.
 """
 
+import logging
 import os
 import re
 import shutil
@@ -44,6 +45,8 @@ from vic3_state_merger.pops import Pops
 from vic3_state_merger.state_regions import StateRegion
 from vic3_state_merger.states import States
 from vic3_state_merger.trade import Trade
+
+logger = logging.getLogger(__name__)
 
 # Mapping of logical category names to relative paths under the game root.
 # Each key corresponds to one of the five core data categories parsed and
@@ -472,19 +475,19 @@ def _process_keyword_directory(
         if not pattern.search(text):
             continue
 
-        print("Processing", base_path)
+        logger.debug("Processing %s", base_path)
         modified = transform(text, lookup, pattern)
         if aggregate:
             modified = _prefix_replace(modified)
             aggregated.append(f"# ---- {game_file} ----\n" + modified)
         else:
             output_file = os.path.join(mod_dir, game_file)
-            print("Writing modified copy to", output_file)
+            logger.debug("Writing modified copy to %s", output_file)
             _write_text_file(output_file, modified)
 
     if aggregate and aggregated:
         output_file = os.path.join(mod_dir, "state_merging.txt")
-        print("Writing aggregated output to", output_file)
+        logger.debug("Writing aggregated output to %s", output_file)
         _write_text_file(output_file, "\n\n".join(aggregated))
 
 
@@ -542,6 +545,7 @@ class StateMerger:
         merge_dict: dict,
         cache_dir: str = "./data",
     ):
+        logger.info("Loading game data from %s", game_root_dir)
         self.base_game_dir = {}
         self.mod_dir = {}
         self.game_root_dir = game_root_dir
@@ -598,6 +602,7 @@ class StateMerger:
             Minimum number of provinces a state must have to be considered
             for merging when *ignoreSmallStates* is ``True``.  Default ``4``.
         """
+        logger.info("Merging state data")
         original_map_data = {
             state_name: {
                 "id": state.id,
@@ -772,11 +777,12 @@ class StateMerger:
         After keyword processing, bundled asset overrides for the USA flag
         definitions and USA state counter are written to the mod directory.
         """
+        logger.info("Processing miscellaneous files")
         # Phase 1: Copy-replace directories – write individual modified files
         for relative_dir in replace_copy_file_dir:
             base_game_dir = os.path.join(self.game_root_dir, relative_dir)
             mod_dir = os.path.join(self.write_dir, relative_dir)
-            print("Scanning", base_game_dir)
+            logger.debug("Scanning %s", base_game_dir)
             _clear_output_dir(mod_dir)
             lookup, pattern = _build_keyword_pattern(self.merge_dict)
             if not lookup or pattern is None:
@@ -796,7 +802,7 @@ class StateMerger:
         for relative_dir in replace_keyword_file_dir:
             base_game_dir = os.path.join(self.game_root_dir, relative_dir)
             mod_dir = os.path.join(self.write_dir, relative_dir)
-            print("Scanning", base_game_dir)
+            logger.debug("Scanning %s", base_game_dir)
 
             _clear_output_dir(mod_dir)
             lookup, pattern = _build_keyword_pattern(self.merge_dict)
@@ -818,7 +824,7 @@ class StateMerger:
         for relative_dir in remove_keyword_file_dir:
             base_game_dir = os.path.join(self.game_root_dir, relative_dir)
             mod_dir = os.path.join(self.write_dir, relative_dir)
-            print("Scanning", base_game_dir)
+            logger.debug("Scanning %s", base_game_dir)
 
             _clear_output_dir(mod_dir)
             lookup, pattern = _build_keyword_pattern(self.merge_dict)
@@ -882,9 +888,10 @@ class StateMerger:
         Output is written as per-language YML files
         (``hub_names_states_merging_<lang>.yml``) in the mod directory.
         """
+        logger.info("Processing localization")
         # Read localization yml files
         for lang, loc_dir in loc_file_dir.items():
-            print(f"Reading localization files for {lang}...")
+            logger.debug("Reading localization files for %s...", lang)
             hub_file = os.path.join(
                 self.game_root_dir, loc_dir, f"hub_names_{lang}.yml"
             )
@@ -893,7 +900,7 @@ class StateMerger:
                 cleaned_yml = _clean_v3_yml_numbered_keys(hub_file)
                 data = yaml.safe_load(cleaned_yml)[lang]
                 # Process the localization data as needed
-                print(f"Processing {hub_file} for {lang}")
+                logger.debug("Processing %s for %s", hub_file, lang)
                 for diner, food_list in self.merge_dict.items():
                     # Skip states with empty food lists (no merging needed)
                     if not food_list:
@@ -901,8 +908,9 @@ class StateMerger:
 
                     # Check if the diner state exists in map data
                     if diner not in self.map_data:
-                        print(
-                            f"Warning: {diner} not found in map data, skipping localization processing"
+                        logger.warning(
+                            "%s not found in map data, skipping localization processing",
+                            diner,
                         )
                         continue
 
@@ -915,7 +923,7 @@ class StateMerger:
                         if f"HUB_NAME_{diner}_{attr}" in data:
                             continue
                         # If not found, add a missing hub name entry
-                        print(f"Missing HUB_NAME_{diner}_{attr} in {lang}")
+                        logger.debug("Missing HUB_NAME_%s_%s in %s", diner, attr, lang)
                         # Search for attribute in the food_list
                         for food in food_list:
                             if f"HUB_NAME_{food}_{attr}" in data:
@@ -927,14 +935,17 @@ class StateMerger:
                                 miss_dict[f"HUB_NAME_{diner}_{attr}"] = (
                                     '"' + data[f"HUB_NAME_{food}_{attr}"] + '"'
                                 )
-                                print(miss_dict[f"HUB_NAME_{diner}_{attr}"])
+                                logger.debug(
+                                    "Inherited localization: %s",
+                                    miss_dict[f"HUB_NAME_{diner}_{attr}"],
+                                )
                                 break
             # Write the missing hub names to the localization file
             write_file = os.path.join(
                 self.write_dir, loc_dir, f"hub_names_states_merging_{lang}.yml"
             )
             if miss_dict:
-                print(f"Modifying {write_file}")
+                logger.debug("Modifying %s", write_file)
                 # Create the output directory if it doesn't exist
                 if not os.path.exists(os.path.dirname(write_file)):
                     os.makedirs(os.path.dirname(write_file))

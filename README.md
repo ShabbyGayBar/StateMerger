@@ -81,7 +81,7 @@ For example, the following rule merges `state_1`, `state_2`, and `state_3` into 
 Run the CLI with required positional arguments:
 
 ```
-state-merger-cli <merge_file> <game_root> <mod_dir> [--data-dir <path>] [--small-state-limit <int>] [--ignore-small-states]
+state-merger-cli <merge_file> <game_root> <mod_dir> [--data-dir <path>] [--small-state-limit <int>] [--ignore-small-states] [--log-level INFO] [--log-file <path>]
 ```
 
 Example:
@@ -91,6 +91,21 @@ state-merger-cli merge_states.json "C:/Program Files (x86)/Steam/steamapps/commo
 ```
 
 You can also type `state-merger-cli --help` to see all available options.
+
+The CLI writes progress and warnings to stderr. Use `--log-level DEBUG` for detailed
+per-state, per-file, and localization diagnostics, or `--log-level WARNING` for quieter
+output. Add `--log-file <path>` to also save diagnostics at the selected level.
+Console output escapes characters unsupported by the terminal's encoding.
+
+GUI file logging is off by default. Check **Enable log file** at the bottom of the
+Merge tab, then type a file path or use **Browse...** to save DEBUG diagnostics.
+The suggested `state-merger.log` is in the resolved cache/data directory: the sibling
+`data` folder of the mod output folder if it exists, otherwise `data` in the working
+directory. Selected paths are retained when toggling logging within a session;
+settings are not saved between launches. Merge failure dialogs show the log path
+when a log file was successfully opened.
+Log files use UTF-8 and rotate at 5 MiB, keeping three backups. Logs should be stored
+outside the generated mod directory.
 
 ### Development checks
 

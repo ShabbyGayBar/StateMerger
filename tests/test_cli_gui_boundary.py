@@ -68,7 +68,7 @@ def test_gui_valid_input():
     assert gui._validate_inputs("plan", "/game", "/mod", "0") == (True, "")
 
 
-def test_cli_main_dispatch(monkeypatch):
+def test_cli_main_dispatch(monkeypatch, application_logging):
     called = {}
 
     def fake_run_merge(**kwargs):
