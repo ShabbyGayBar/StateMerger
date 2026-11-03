@@ -33,7 +33,11 @@ After parsing, the internal dictionary has the form::
   ``pop_type`` and ``religion``.
 """
 
+import logging
+
 from pyradox import Tree
+
+logger = logging.getLogger(__name__)
 
 
 class Pops(dict):
@@ -99,7 +103,7 @@ class Pops(dict):
                 a ``"create_pop"`` key, indicating unexpected data format.
         """
         for state_id in self.keys():
-            print(f"Formatting pop data: {state_id}")
+            logger.debug("Formatting pop data: %s", state_id)
             for tag in self[state_id]:
                 # Case 1: parser merged multiple create_pop blocks into a list
                 if isinstance(self[state_id][tag], list):
@@ -242,7 +246,7 @@ class Pops(dict):
         for diner, food_list in merge_dict.items():
             for food in food_list:
                 if ("s:" + food) in self.keys():
-                    print(f"Merging {food} pop data into {diner}")
+                    logger.debug("Merging %s pop data into %s", food, diner)
                     self.merge_state(("s:" + diner), ("s:" + food))
                     self.pop("s:" + food)
 

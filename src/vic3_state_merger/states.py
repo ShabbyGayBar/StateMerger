@@ -13,7 +13,11 @@ contains.  The :class:`States` class normalizes everything to plain Python
 lists so that merge logic can safely append without type-checking everywhere.
 """
 
+import logging
+
 from pyradox import Tree
+
+logger = logging.getLogger(__name__)
 
 
 class States(dict):
@@ -75,7 +79,7 @@ class States(dict):
         they don't cause KeyErrors later.
         """
         for state_id in self.keys():
-            print(f"Formatting state data: {state_id}")
+            logger.debug("Formatting state data: %s", state_id)
             # Guard against malformed entries that aren't dicts
             if not isinstance(self[state_id], dict):
                 self[state_id] = {"create_state": []}
@@ -219,7 +223,7 @@ class States(dict):
         for diner, food_list in merge_dict.items():
             for food in food_list:
                 if ("s:" + food) in self.keys():
-                    print(f"Merging {food} state data into {diner}")
+                    logger.debug("Merging %s state data into %s", food, diner)
                     self.merge_state(("s:" + diner), ("s:" + food))
                     self.pop("s:" + food)
 

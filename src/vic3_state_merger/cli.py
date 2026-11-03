@@ -3,10 +3,14 @@
 
 import argparse
 import json
+import logging
 
 from vic3_state_merger import __version__
 from vic3_state_merger.legal import LICENSE_NOTICE
+from vic3_state_merger.logging_config import configure_logging
 from vic3_state_merger.state_merger import StateMerger
+
+logger = logging.getLogger(__name__)
 
 
 def _ensure_trailing_sep(path: str) -> str:
@@ -74,6 +78,15 @@ def get_parser() -> argparse.ArgumentParser:
         version=LICENSE_NOTICE,
         help="Show license, warranty, and third-party notice information.",
     )
+    parser.add_argument(
+        "--log-level",
+        choices=("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"),
+        default="INFO",
+        help="Diagnostic verbosity for stderr and the optional log file (default: INFO).",
+    )
+    parser.add_argument(
+        "--log-file", help="Also save diagnostics to a rotating UTF-8 log file."
+    )
     return parser
 
 
@@ -111,16 +124,24 @@ def run_merge(
     )
     state_merger.merge_misc_data()
     state_merger.merge_loc_data()
+    logger.info("Merge completed: %s", mod_dir)
 
 
 def main() -> None:
     parser = get_parser()
     args = parser.parse_args()
-    run_merge(
-        merge_file=args.merge_file,
-        mod_dir=args.mod_dir,
-        game_root=args.game_root,
-        data_dir=args.data_dir,
-        small_state_limit=args.small_state_limit,
-        ignore_small_states=args.ignore_small_states,
-    )
+    configure_logging(args.log_level)
+    try:
+        if args.log_file:
+            configure_logging(args.log_level, log_file=args.log_file)
+        run_merge(
+            merge_file=args.merge_file,
+            mod_dir=args.mod_dir,
+            game_root=args.game_root,
+            data_dir=args.data_dir,
+            small_state_limit=args.small_state_limit,
+            ignore_small_states=args.ignore_small_states,
+        )
+    except Exception:
+        logger.critical("Merge or logging setup failed", exc_info=True)
+        raise SystemExit(1) from None

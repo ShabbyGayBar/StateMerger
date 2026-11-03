@@ -20,7 +20,11 @@ total number of merged states.
 The output is written in Vic3 script format with UTF-8 BOM encoding.
 """
 
+import logging
+
 from pyradox import Tree
+
+logger = logging.getLogger(__name__)
 
 # English word equivalents for the integer suffix in state-trait identifiers.
 # Index ``i`` gives the word for ``i`` (e.g. ``seq_str[3] == "three"``),
@@ -203,7 +207,7 @@ class StateRegionItem:
                 elif resource["type"] == "building_oil_rig":
                     self.oil = int(resource["undiscovered_amount"])
                 else:
-                    print(f"Unknown resource type: {resource['type']}")
+                    logger.warning("Unknown resource type: %s", resource["type"])
 
         if "naval_exit_id" in dict_data:
             self.naval_exit_id = dict_data["naval_exit_id"]
@@ -293,11 +297,11 @@ class StateRegionItem:
                 "small" (default ``4``).
 
         Raises:
-            Prints an error message if either region is a sea node — sea
+            Logs an error message if either region is a sea node — sea
             nodes cannot be merged.
         """
         if self.is_sea_node() or other.is_sea_node():
-            print("Error: Cannot merge sea node with other state")
+            logger.error("Cannot merge sea node with other state")
             return
 
         # Additive list fields: simply concatenate.
