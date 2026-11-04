@@ -1,0 +1,11 @@
+# Original synthetic DLC script for integration tests.
+synthetic_city = {
+ city_type = city
+ trigger = {
+  has_dlc_feature = synthetic_cosmetics
+  any_scope_state = { state_region = s:STATE_BETA }
+ }
+ weight = 1
+ rich_building_meshes = { "synthetic_residence_mesh" }
+ protected = STATE_BETA_ANJOU
+}

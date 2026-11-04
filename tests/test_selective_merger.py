@@ -13,7 +13,11 @@ import yaml
 
 from vic3_state_merger.cli import _execution_options, main, run_merge
 from vic3_state_merger.sources import ASSETS, STAGES
-from vic3_state_merger.state_merger import StateMerger, _clean_v3_yml_numbered_keys
+from vic3_state_merger.state_merger import (
+    STATE_FILE_DIR,
+    StateMerger,
+    _clean_v3_yml_numbered_keys,
+)
 
 pytestmark = pytest.mark.integration
 FIXTURE = Path(__file__).parent / "fixtures" / "micro_game"
@@ -101,6 +105,7 @@ def test_selected_cleanup_and_repeated_runs(tmp_path):
         "localization/english/copied.yml": "copied name",
         "common/state_traits/custom.txt": "custom trait",
         "gfx/map/map_object_data/copied.txt": "copied locator",
+        "gfx/map/city_data/city_types/copied.txt": "copied city type",
     }
     for name, content in untouched.items():
         write(out, name, content)
@@ -276,6 +281,66 @@ def test_misc_overlays_and_cleanup_do_not_require_map(tmp_path):
     assert "REPLACE:overlay_decision" in decision
     assert not (out / "events/stale.txt").exists()
     assert not (out / "map_data").exists()
+
+
+def test_misc_dlc_outputs_are_deterministic_and_inputs_unchanged(tmp_path):
+    before = inventory(FIXTURE)
+    first, second = tmp_path / "first", tmp_path / "second"
+    city = "gfx/map/city_data/city_types/synthetic_city.txt"
+    merger = StateMerger(FIXTURE, first, PLAN)
+    merger.run(["misc"])
+    expected = inventory(first)
+    assert "s:STATE_ALPHA" in (first / city).read_text(encoding="utf-8-sig")
+    assert not (first / "map_data").exists()
+    write(first, "gfx/map/city_data/city_types/stale.txt", "stale")
+    merger.run(["misc"])
+    StateMerger(FIXTURE, second, PLAN).run(["misc"])
+    assert inventory(first) == inventory(second) == expected
+    assert inventory(FIXTURE) == before
+
+
+@pytest.mark.parametrize("include_game", [False, True])
+def test_misc_explicit_sources_and_empty_override_hide_dlc(tmp_path, include_game):
+    mod, out = tmp_path / "mod", tmp_path / "out"
+    city = "gfx/map/city_data/city_types/synthetic_city.txt"
+    write(mod, city, "")
+    write(mod, "events/custom.txt", "custom = { state = s:STATE_BETA }")
+    roots = [FIXTURE, mod] if include_game else [mod]
+    StateMerger(FIXTURE, out, PLAN, sources={"misc": roots}).run(["misc"])
+    assert not (out / city).exists()
+    assert "s:STATE_ALPHA" in (out / "events/custom.txt").read_text(
+        encoding="utf-8-sig"
+    )
+    assert (out / "common/decisions/state_merging.txt").exists() == include_game
+
+
+def test_non_misc_stages_and_cache_ignore_nested_dlc(tmp_path):
+    game = tmp_path / "game"
+    shutil.copytree(FIXTURE, game)
+    directories = [
+        *STATE_FILE_DIR.values(),
+        "gfx/map/map_object_data",
+        "localization/english",
+        "localization/simp_chinese",
+    ]
+    for directory in directories:
+        for path in (FIXTURE / directory).iterdir():
+            write(game / "dlc/shadow_pack", f"{directory}/{path.name}", "invalid = 42")
+    baseline, actual = tmp_path / "baseline", tmp_path / "actual"
+    baseline_cache, actual_cache = (
+        tmp_path / "baseline-cache",
+        tmp_path / "actual-cache",
+    )
+    for root, out, cache in (
+        (FIXTURE, baseline, baseline_cache),
+        (game, actual, actual_cache),
+    ):
+        merger = StateMerger(root, out, PLAN, cache)
+        merger.run()
+        merger.copy_state_data()
+        merger.copy_map_object_data()
+    assert inventory(actual) == inventory(baseline)
+    assert inventory(actual_cache) == inventory(baseline_cache)
 
 
 def test_localization_layer_priority_and_quote_preservation(tmp_path):

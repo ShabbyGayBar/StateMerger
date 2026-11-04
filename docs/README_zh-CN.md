@@ -115,6 +115,14 @@ state-merger-cli merge_states.json /games/Victoria3/game /build/output \
 多次使用 `--source 阶段=根目录`，按优先级从低到高排列。未指定来源的阶段使用位置参数
 中的游戏根目录。`misc` 仍使用现有的脚本目录范围。
 
+`misc` 阶段自动读取这些目录中的已安装 DLC 脚本，包括城市类型脚本。每个来源根目录
+先读取直接文件，再按文件夹名称顺序读取直属 `dlc/<pack>/` 文件夹；后面的 DLC 覆盖
+同名文件。后面的来源根目录覆盖前面的根目录及其 DLC 文件，包括用空文件覆盖。
+输出使用游戏内相对路径，不包含 DLC 文件夹前缀，并保留功能条件和图形定义。
+扫描不解析启动器中的启用状态或所有权信息。其他阶段和缓存复制方法不会自动扫描
+DLC 文件夹。若只需 mod 脚本，为 `misc` 仅指定该 mod 根目录；需要原版及其 DLC
+脚本时，将游戏根目录放在来源列表首位。
+
 ```python
 from vic3_state_merger import StateMerger
 

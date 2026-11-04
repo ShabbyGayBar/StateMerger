@@ -1,0 +1,2 @@
+# Original synthetic DLC script for integration tests.
+synthetic_dlc_region = { states = { STATE_ALPHA STATE_BETA STATE_BETA_ANJOU } }

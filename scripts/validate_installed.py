@@ -96,6 +96,14 @@ def main():
         encoding="utf-8-sig"
     )
     assert "STATE_BETA_ANJOU" in protected
+    city = output / "gfx/map/city_data/city_types/synthetic_city.txt"
+    assert city.read_bytes().startswith(codecs.BOM_UTF8)
+    city_text = city.read_text(encoding="utf-8-sig")
+    assert "s:STATE_ALPHA" in city_text and "s:STATE_BETA" not in city_text
+    assert "has_dlc_feature = synthetic_cosmetics" in city_text
+    assert '"synthetic_residence_mesh"' in city_text
+    assert "STATE_BETA_ANJOU" in city_text
+    assert not (output / "dlc").exists()
     print(
         f"Installed wheel {expected}: CLI, merge semantics, bundled overrides, and BOM checks passed"
     )

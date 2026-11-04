@@ -38,6 +38,74 @@ def test_file_overlays_empty_winners_and_sorted_order(tmp_path):
     assert resolver.files("map_data", "missing") == {}
 
 
+def test_dlc_discovery_order_overrides_and_opt_out(tmp_path):
+    root = tmp_path / "game"
+    relative = "gfx/map/city_data/city_types"
+
+    def write(prefix, name, text):
+        path = root / prefix / relative / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text)
+        return path
+
+    base = write("", "shared.txt", "base")
+    # Create in reverse order so filesystem iteration cannot define precedence.
+    winner = write("dlc/z_pack", "shared.txt", "last pack")
+    write("dlc/a_pack", "shared.txt", "first pack")
+    only_dlc = write("dlc/a_pack", "a.txt", "DLC only")
+    empty = write("dlc/z_pack", "empty.txt", "")
+    write("", "empty.txt", "base")
+    write("dlc/a_pack", "ignored.yml", "ignored")
+    write("dlc/a_pack", "nested/ignored.txt", "ignored")
+    write("dlc/a_pack/dlc/nested_pack", "ignored.txt", "ignored")
+    (root / "dlc/not_a_pack.txt").write_text("ignored")
+    (root / "dlc/z_pack" / relative / "directory.txt").mkdir()
+    resolver = SourceResolver(root)
+    assert resolver.files("misc", relative) == {
+        "a.txt": only_dlc,
+        "empty.txt": empty,
+        "shared.txt": winner,
+    }
+    assert list(resolver.files("misc", relative)) == [
+        "a.txt",
+        "empty.txt",
+        "shared.txt",
+    ]
+    assert resolver.files("misc", relative, include_dlc=False) == {
+        "empty.txt": root / relative / "empty.txt",
+        "shared.txt": base,
+    }
+    assert resolver.files("misc", "missing") == {}
+
+
+def test_later_source_root_overrides_earlier_dlc_including_empty_files(tmp_path):
+    game, mod = tmp_path / "game", tmp_path / "mod"
+    relative = "events"
+    for root in (game, mod):
+        (root / relative).mkdir(parents=True)
+        (root / "dlc/z_pack" / relative).mkdir(parents=True)
+    early = game / "dlc/z_pack" / relative
+    (early / "a.txt").write_text("earlier DLC")
+    (early / "z.txt").write_text("earlier DLC")
+    (early / "shared.txt").write_text("earlier DLC")
+    (mod / relative / "shared.txt").write_text("")
+    (mod / relative / "b.txt").write_text("later root")
+    (mod / "dlc/z_pack" / relative / "b.txt").write_text("later DLC")
+    resolver = SourceResolver(game, {"misc": [game, mod]})
+    files = resolver.files("misc", relative)
+    assert files["shared.txt"] == mod / relative / "shared.txt"
+    assert files["shared.txt"].read_text() == ""
+    assert files["b.txt"].read_text() == "later DLC"
+    assert files["z.txt"] == early / "z.txt"
+    assert list(files) == ["a.txt", "b.txt", "shared.txt", "z.txt"]
+    assert list(resolver.files("misc", relative, by_layer=True)) == [
+        "a.txt",
+        "z.txt",
+        "b.txt",
+        "shared.txt",
+    ]
+
+
 @pytest.mark.parametrize(
     "sources",
     [

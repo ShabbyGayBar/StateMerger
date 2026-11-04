@@ -14,6 +14,40 @@ from vic3_state_merger.state_merger import StateMerger
 FIXTURE = Path(__file__).parent / "fixtures" / "micro_game"
 PLAN = {"STATE_ALPHA": ["STATE_BETA"]}
 pytestmark = pytest.mark.integration
+DLC_CITY = "gfx/map/city_data/city_types/synthetic_city.txt"
+
+
+def _assert_dlc_outputs(out):
+    city = (out / DLC_CITY).read_text(encoding="utf-8-sig")
+    original = (FIXTURE / "dlc/synthetic_pack" / DLC_CITY).read_text(
+        encoding="utf-8-sig"
+    )
+    assert city == original.replace("s:STATE_BETA", "s:STATE_ALPHA")
+    assert "has_dlc_feature = synthetic_cosmetics" in city
+    assert '"synthetic_residence_mesh"' in city
+    assert "STATE_BETA_ANJOU" in city
+    assert not (out / "dlc").exists()
+    decisions = (out / "common/decisions/state_merging.txt").read_text(
+        encoding="utf-8-sig"
+    )
+    assert "REPLACE:synthetic_dlc_decision" in decisions
+    assert "has_state = STATE_ALPHA" in decisions
+    assert "has_state = STATE_BETA" not in decisions
+    regions = (out / "common/strategic_regions/state_merging.txt").read_text(
+        encoding="utf-8-sig"
+    )
+    assert "REPLACE:synthetic_dlc_region" in regions
+    assert "STATE_BETA " not in regions
+    assert "STATE_ALPHA" in regions and "STATE_BETA_ANJOU" in regions
+    assert (out / DLC_CITY).read_bytes().startswith(b"\xef\xbb\xbf")
+    parsed = pyradox.parse_file(
+        str(out / DLC_CITY), game="HoI4", path_relative_to_game=False
+    )
+    assert isinstance(parsed, pyradox.Tree)
+    tree = parsed.to_python()
+    assert tree["synthetic_city"]["trigger"]["any_scope_state"] == {
+        "state_region": "s:STATE_ALPHA"
+    }
 
 
 def _run(root: Path, out: Path, cache: Path) -> None:
@@ -26,6 +60,7 @@ def _run(root: Path, out: Path, cache: Path) -> None:
 def test_micro_game_pipeline_semantics(tmp_path):
     out = tmp_path / "mod"
     _run(FIXTURE, out, tmp_path / "cache")
+    _assert_dlc_outputs(out)
 
     region = (out / "map_data/state_regions/state_merging.txt").read_text(
         encoding="utf-8-sig"
@@ -180,3 +215,4 @@ def test_cli_run_merge_micro_game(tmp_path):
         str(plan), str(output), str(FIXTURE), str(tmp_path / "cli-cache"), 4, False
     )
     assert (output / "common/history/states/00_states.txt").exists()
+    _assert_dlc_outputs(output)

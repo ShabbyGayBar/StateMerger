@@ -75,22 +75,36 @@ class SourceResolver:
         return " -> ".join(map(str, self.roots[stage]))
 
     def files(
-        self, stage, relative_dir, suffix=".txt", *, by_layer=False
+        self, stage, relative_dir, suffix=".txt", *, by_layer=False, include_dlc=True
     ) -> dict[str, Path]:
-        """Resolve immediate files in a known data directory, sorted by filename."""
+        """Resolve immediate files, optionally overlaying installed DLC packs.
+
+        Each root is followed by its immediate ``dlc/<pack>`` directories in
+        pack-name order. Later configured roots override earlier roots and
+        their packs, including with empty files. Launcher metadata is ignored.
+        Results sort by filename, or by configured root then filename when
+        ``by_layer`` is true.
+        """
         result = {}
         layers = {}
         for layer, root in enumerate(self.roots[stage]):
-            directory = root / relative_dir
-            if not directory.is_dir():
-                continue
-            for path in sorted(directory.iterdir()):
-                if not path.is_file() or path.suffix != suffix:
+            data_roots = [root]
+            dlc = root / "dlc"
+            if include_dlc and dlc.is_dir():
+                data_roots.extend(
+                    pack for pack in sorted(dlc.iterdir()) if pack.is_dir()
+                )
+            for data_root in data_roots:
+                directory = data_root / relative_dir
+                if not directory.is_dir():
                     continue
-                if path.name in result:
-                    logger.debug("Override %s with %s", result[path.name], path)
-                result[path.name] = path
-                layers[path.name] = layer
+                for path in sorted(directory.iterdir()):
+                    if not path.is_file() or path.suffix != suffix:
+                        continue
+                    if path.name in result:
+                        logger.debug("Override %s with %s", result[path.name], path)
+                    result[path.name] = path
+                    layers[path.name] = layer
         names = sorted(
             result, key=lambda name: (layers[name], name) if by_layer else name
         )

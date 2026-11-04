@@ -537,7 +537,9 @@ class StateMerger:
     def _load_model(self, stage):
         if stage not in self._models:
             self._resolver.validate([stage])
-            files = self._resolver.files(stage, STATE_FILE_DIR[stage])
+            files = self._resolver.files(
+                stage, STATE_FILE_DIR[stage], include_dlc=False
+            )
             if not files:
                 raise ValueError(
                     f"{stage}: no .txt input files in {STATE_FILE_DIR[stage]}; "
@@ -826,7 +828,7 @@ class StateMerger:
         for lang, directory in LOC_FILE_DIR.items():
             data = {}
             files = self._resolver.files(
-                "localization", directory, ".yml", by_layer=True
+                "localization", directory, ".yml", by_layer=True, include_dlc=False
             )
             for path in files.values():
                 # Vic3 localization is not general YAML: unrelated flavor text
@@ -925,7 +927,9 @@ class StateMerger:
         self._resolver.validate(directories)
         self._resolver.check_destination(self.cache_dir, directories)
         for stage, relative in directories.items():
-            for name, source in self._resolver.files(stage, relative).items():
+            for name, source in self._resolver.files(
+                stage, relative, include_dlc=False
+            ).items():
                 if stage == "map_objects":
                     if name not in MAP_OBJECT_DATA_FILES.values():
                         continue
@@ -955,7 +959,7 @@ class StateMerger:
         """
         outputs = {}
         directory = "gfx/map/map_object_data"
-        files = self._resolver.files("map_objects", directory)
+        files = self._resolver.files("map_objects", directory, include_dlc=False)
         for file in MAP_OBJECT_DATA_FILES.values():
             base_game_file = files.get(file)
             if base_game_file is None:

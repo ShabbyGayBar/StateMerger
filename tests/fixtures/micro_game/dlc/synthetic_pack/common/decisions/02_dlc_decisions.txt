@@ -1,0 +1,4 @@
+# Original synthetic DLC script for integration tests.
+synthetic_dlc_decision = {
+ potential = { has_dlc_feature = synthetic_cosmetics has_state = STATE_BETA }
+}

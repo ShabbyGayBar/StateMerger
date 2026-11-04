@@ -134,6 +134,17 @@ source list replaces the default `[game_root]` for that stage. Repeat
 `--source STAGE=ROOT` in increasing priority order; unspecified stages use the
 positional game root. `misc` retains its existing supported script directories.
 
+The `misc` stage automatically includes installed DLC scripts in those directories,
+including city-type scripts. Within each source root, direct files load first,
+followed by immediate `dlc/<pack>/` folders in pack-name order; later packs win
+matching filenames. A later configured source root overrides earlier roots and
+their DLC files, including with empty files. Generated overrides use game-relative
+paths without the DLC folder prefix and preserve feature guards and graphics
+definitions. Discovery scans installed folders without interpreting launcher
+activation or ownership metadata. Other stages and cache helpers do not scan DLC
+folders automatically. To use only a mod's scripts, specify only its root for
+`misc`; include the game root first when its base and DLC scripts are needed.
+
 ```python
 from vic3_state_merger import StateMerger
 
