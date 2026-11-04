@@ -5,19 +5,36 @@
 
 Handles reading, normalizing, merging, and serializing the game's ``STATES``
 block, which defines the initial political geography of the map (country
-ownership, provinces, homelands, and claims).
+ownership, provinces, homelands, claims, and initialization scripts).
 
 The on-disk format parsed by **pyradox** uses heterogeneous container types
 (tuples vs. lists vs. scalars) depending on how many elements a collection
 contains.  The :class:`States` class normalizes everything to plain Python
-lists so that merge logic can safely append without type-checking everywhere.
+lists for the modeled fields. Additional state-level clauses retain their
+ordered parser trees, including repeated effects and nested script operators.
 """
 
 import logging
+from copy import deepcopy
+from dataclasses import dataclass
+from decimal import Decimal
 
 from pyradox import Tree
+from pyradox.token import primitive_type_of
 
 logger = logging.getLogger(__name__)
+
+_MODELED_CLAUSES = ("create_state", "add_homeland", "add_claim")
+
+
+@dataclass(frozen=True)
+class _ScriptLiteral:
+    """A preformatted scalar for the parser's tree writer."""
+
+    text: str
+
+    def __str__(self) -> str:
+        return self.text
 
 
 class States(dict):
@@ -47,22 +64,91 @@ class States(dict):
         Raw game data.  A :class:`pyradox.Tree` (from parsing a ``.txt``
         file), a plain dict (with a top-level ``"STATES"`` key), or
         ``None`` to create an empty collection.
+
+    Additional clauses are captured at construction and serialized after the
+    modeled fields. Merges append their scripts in survivor/donor order without
+    deduplication, conflict resolution, or reference rewriting. Dictionary
+    inputs use list/tuple values for repeated assignments at every nesting level;
+    use a Tree to retain original list syntax, operators, and clause ordering.
     """
 
     def __init__(self, source: dict | Tree | None = None):
         super().__init__()
+        self._script_clauses: dict[str, Tree] = {}
         if source is None:
             return
         if isinstance(source, Tree):
+            self._capture_script_clauses(source["STATES"])
             states_dict = source.to_python()
         elif isinstance(source, dict):
-            states_dict = source
+            self._capture_script_clauses(source["STATES"])
+            states_dict = deepcopy(source)
         else:
             raise TypeError(
                 "States can only be initialized with a Tree object, a dict, or None"
             )
         self.update(states_dict["STATES"])
         self.format()
+
+    @staticmethod
+    def _script_tree(clauses: dict) -> Tree:
+        """Convert dictionary scripts, interpreting sequences as repeated keys."""
+        result = Tree()
+        for key, values in clauses.items():
+            if not isinstance(values, (list, tuple)):
+                values = [values]
+            for value in values:
+                if isinstance(value, dict):
+                    value = States._script_tree(value)
+                result.append(key, deepcopy(value))
+        return result
+
+    def _capture_script_clauses(self, states):
+        """Copy unmodeled clauses before conversion loses order and operators."""
+        for state_id, state in states.items():
+            if isinstance(state, Tree):
+                clauses = Tree(state)
+                for key in _MODELED_CLAUSES:
+                    while key in clauses:
+                        del clauses[key]
+            elif isinstance(state, dict):
+                clauses = self._script_tree(
+                    {k: v for k, v in state.items() if k not in _MODELED_CLAUSES}
+                )
+            else:
+                continue
+            self._script_clauses[state_id] = clauses
+
+    def _merge_script_clauses(self, this: str, other: str):
+        """Append independent donor scripts, retaining repeats and conflicts."""
+        target = self._script_clauses.setdefault(this, Tree())
+        target += self._script_clauses.get(other, Tree())
+        self[this].update(target.to_python())
+
+    def _serialize_script_clauses(self, state_id: str) -> str:
+        """Render the captured scripts inside a state block."""
+        clauses = Tree(self._script_clauses.get(state_id))
+        self._protect_script_literals(clauses)
+        return clauses.prettyprint(level=2)
+
+    @staticmethod
+    def _protect_script_literals(clauses: Tree):
+        """Avoid the upstream writer's string coercion and float rounding.
+
+        Tree has no public indexed value setter. Touch its items only on the
+        serialization copy, retaining all grouping/operator/comment metadata.
+        """
+        for item in clauses._data:
+            value = item.value
+            if isinstance(value, Tree):
+                States._protect_script_literals(value)
+            elif isinstance(value, str) and primitive_type_of(value) not in (
+                None,
+                "str",
+            ):
+                item.value = _ScriptLiteral(f'"{value}"')
+            elif isinstance(value, float):
+                item.value = _ScriptLiteral(format(Decimal(str(value)), "f"))
 
     def format(self):
         """Normalize all container fields to plain Python lists.
@@ -85,6 +171,7 @@ class States(dict):
                 self[state_id] = {"create_state": []}
                 continue
             # Normalize create_state to a list of state dicts
+            self[state_id].setdefault("create_state", [])
             if isinstance(self[state_id]["create_state"], tuple):
                 self[state_id]["create_state"] = list(self[state_id]["create_state"])
             elif not isinstance(self[state_id]["create_state"], list):
@@ -143,6 +230,11 @@ class States(dict):
             Claims from *other* are appended to *this* if not already
             present.  If *this* has no claims at all, the entire list is
             copied from *other*.
+
+        **Additional clauses:**
+            Append *other*'s scripts after *this*'s scripts, preserving their
+            order and duplicates. Later variable assignments may overwrite
+            earlier ones when the game executes the resulting script.
         """
         # Merge create_state entries (country ownership + provinces)
         for province in self[other]["create_state"]:
@@ -167,6 +259,7 @@ class States(dict):
             for country in self[other]["add_claim"]:
                 if country not in self[this]["add_claim"]:
                     self[this]["add_claim"].append(country)
+        self._merge_script_clauses(this, other)
 
     def get_str(self, state_id: str) -> str:
         """Serialize a single state back to Victoria 3 ``.txt`` format.
@@ -200,6 +293,7 @@ class States(dict):
         if "add_claim" in self[state_id]:
             for country in self[state_id]["add_claim"]:
                 state_str += f"        add_claim = {country}\n"
+        state_str += self._serialize_script_clauses(state_id)
         state_str += "    }\n"
 
         return state_str
@@ -226,6 +320,7 @@ class States(dict):
                     logger.debug("Merging %s state data into %s", food, diner)
                     self.merge_state(("s:" + diner), ("s:" + food))
                     self.pop("s:" + food)
+                    self._script_clauses.pop("s:" + food, None)
 
     def __str__(self) -> str:
         """Serialize the full ``STATES`` block to Victoria 3 ``.txt`` format.

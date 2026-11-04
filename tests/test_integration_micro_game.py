@@ -104,6 +104,23 @@ def test_micro_game_pipeline_semantics(tmp_path):
     assert "s:STATE_ALPHA" in states and "s:STATE_BETA" not in states
     assert states.count("c:CLAIM_A") == 1
     assert "c:CLAIM_B" in states and "cul_beta" in states
+    state_path = out / "common/history/states/00_states.txt"
+    assert state_path.read_bytes().startswith(b"\xef\xbb\xbf")
+    state_tree = pyradox.parse_file(
+        str(state_path), game="HoI4", path_relative_to_game=False
+    )["STATES"]
+    assert list(state_tree.keys()) == ["s:STATE_ALPHA"]
+    survivor = state_tree["s:STATE_ALPHA"]
+    assert [block.to_python() for block in survivor.find_all("set_variable")] == [
+        {"name": "synthetic_counter", "value": 1},
+        {"name": "daimyo_chain_id", "value": 0},
+    ]
+    assert list(survivor.keys())[-3:] == ["set_variable", "set_variable", "if"]
+    assert survivor["if"]["limit"].get_operator("var:daimyo_chain_id") == ">="
+    assert survivor["if"]["set_variable"].to_python() == {
+        "name": "synthetic_counter",
+        "value": 2,
+    }
 
     buildings = (out / "common/history/buildings/state_merging.txt").read_text(
         encoding="utf-8-sig"

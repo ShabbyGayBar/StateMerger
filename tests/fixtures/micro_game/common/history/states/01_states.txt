@@ -3,11 +3,17 @@ STATES = {
   create_state = { country = c:TEST owned_provinces = { xA1 xA2 } }
   add_homeland = cul_alpha
   add_claim = c:CLAIM_A
+  set_variable = { name = synthetic_counter value = 1 }
  }
  s:STATE_BETA = {
   create_state = { country = c:TEST owned_provinces = { xB1 xB2 } }
   add_homeland = cul_beta
   add_claim = c:CLAIM_A
   add_claim = c:CLAIM_B
+  set_variable = { name = daimyo_chain_id value = 0 }
+  if = {
+   limit = { var:daimyo_chain_id >= 0 }
+   set_variable = { name = synthetic_counter value = 2 }
+  }
  }
 }
