@@ -39,6 +39,30 @@ def test_micro_game_pipeline_semantics(tmp_path):
     assert "SEA_TEST" in region and "SEA_OTHER" not in region
     assert "provinces = { sea1 }" in region
 
+    region_path = out / "map_data/state_regions/state_merging.txt"
+    assert region_path.read_bytes().startswith(b"\xef\xbb\xbf")
+    parsed_region = pyradox.parse_file(
+        str(region_path), game="HoI4", path_relative_to_game=False
+    ).to_python()["STATE_ALPHA"]
+    assert parsed_region["resource"] == [
+        {
+            "type": "building_gold_field",
+            "depleted_type": "building_gold_mine",
+            "undiscovered_amount": 2,
+            "discovered_amount": 5,
+        },
+        {
+            "type": "building_iron_mine",
+            "undiscovered_amount": 13,
+            "discovered_amount": 3,
+        },
+        {"type": "building_oil_rig", "undiscovered_amount": 3},
+    ]
+    assert parsed_region["capped_resources"] == {
+        "building_iron_mine": 4,
+        "building_coal_mine": 7,
+    }
+
     states = (out / "common/history/states/00_states.txt").read_text(
         encoding="utf-8-sig"
     )

@@ -7,7 +7,7 @@ This module provides the :class:`StateRegionItem` and :class:`StateRegion`
 classes used to parse, merge, and serialize Victoria 3 state region data from
 ``map_data/state_regions/``.  Each state region defines geographic and economic
 properties — provinces, impassable areas, arable land, capped resources,
-discoverable resources (gold, rubber, oil), and hub assignments (city, port,
+discoverable resources (including mod-defined types), and hub assignments (city, port,
 farm, mine, wood).
 
 When states are merged, the absorbing (\"diner\") state accumulates provinces,
@@ -21,6 +21,8 @@ The output is written in Vic3 script format with UTF-8 BOM encoding.
 """
 
 import logging
+from copy import deepcopy
+from textwrap import indent
 
 from pyradox import Tree
 
@@ -30,6 +32,33 @@ logger = logging.getLogger(__name__)
 # Index ``i`` gives the word for ``i`` (e.g. ``SEQ_STR[3] == "three"``),
 # used to construct trait names like ``state_trait_three_states_integration``.
 SEQ_STR = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"]
+
+
+def _merge_resources(
+    resources: dict[str, dict], blocks, states: str
+) -> dict[str, dict]:
+    """Return independent resources with additive quantities and compatible metadata.
+
+    Missing quantity fields contribute zero without synthesizing output fields.
+    Metadata is compared as a whole value, including nested structures.
+    """
+    result = deepcopy(resources)
+    for block in blocks:
+        kind = block["type"]
+        target = result.setdefault(kind, {})
+        for field, value in block.items():
+            if field == "type":
+                continue
+            if field in ("discovered_amount", "undiscovered_amount"):
+                target[field] = target.get(field, 0) + int(value)
+            elif field in target and target[field] != value:
+                raise ValueError(
+                    f"Conflicting resource metadata in {states}: {kind}.{field} "
+                    f"({target[field]!r} != {value!r})"
+                )
+            else:
+                target[field] = deepcopy(value)
+    return result
 
 
 class StateRegionItem:
@@ -63,12 +92,11 @@ class StateRegionItem:
             (e.g. ``"bg_plantations"``).
         capped_resources: Mapping of capped resource building types to their
             maximum levels (e.g. ``{"building_iron_mine": 24}``).
-        gold: Two-element list ``[undiscovered, discovered]`` gold resource
-            amounts.  Gold uses a depletion mechanic: ``building_gold_field``
-            depletes into ``building_gold_mine``.
-        rubber: Two-element list ``[undiscovered, discovered]`` rubber
-            resource amounts.  Rubber can be undiscovered in some states.
-        oil: Integer amount of undiscovered oil (``building_oil_rig``).
+        resources: Mapping of discoverable resource building types to their
+            supplied integer quantities and metadata, excluding ``type``.
+            For example, ``{"building_coal_mine": {"discovered_amount": 2}}``.
+            Missing quantities count as zero; depletion metadata is preserved
+            as supplied rather than inferred from the building type.
         naval_exit_id: ID of the sea node that connects to this coastal
             region, or ``-1`` if the region is landlocked.
     """
@@ -102,13 +130,11 @@ class StateRegionItem:
         self.arable_land = 0
         self.arable_resources = []
         self.capped_resources = {}
-        self.gold = [0, 0]  # gold[0]: undiscovered, gold[1]: discovered
-        self.rubber = [0, 0]  # rubber[0]: undiscovered, rubber[1]: discovered
-        self.oil = 0
+        self.resources: dict[str, dict] = {}
         self.naval_exit_id = -1
 
         self.name = name
-        dict_data = region_data[name]
+        dict_data = deepcopy(region_data[name])
         self.id = int(dict_data["id"])
 
         # Sea nodes only have id and provinces — skip all economic fields.
@@ -196,25 +222,10 @@ class StateRegionItem:
             for resource, amount in dict_data["capped_resources"].items():
                 self.capped_resources[resource] = int(amount)
 
-        # Discoverable resources (gold, rubber, oil) live under the
-        # ``resource`` key, which may be a single dict or a list of dicts.
-        if "resource" in dict_data:
-            if not isinstance(dict_data["resource"], list):
-                dict_data["resource"] = [dict_data["resource"]]
-            for resource in dict_data["resource"]:
-                if resource["type"] == "building_gold_field":
-                    self.gold[0] = int(resource["undiscovered_amount"])
-                    if "discovered_amount" in resource:
-                        self.gold[1] = int(resource["discovered_amount"])
-                elif resource["type"] == "building_rubber_plantation":
-                    if "undiscovered_amount" in resource:
-                        self.rubber[0] = int(resource["undiscovered_amount"])
-                    if "discovered_amount" in resource:
-                        self.rubber[1] = int(resource["discovered_amount"])
-                elif resource["type"] == "building_oil_rig":
-                    self.oil = int(resource["undiscovered_amount"])
-                else:
-                    logger.warning("Unknown resource type: %s", resource["type"])
+        blocks = dict_data.get("resource", [])
+        if isinstance(blocks, dict):
+            blocks = [blocks]
+        self.resources = _merge_resources({}, blocks, self.name)
 
         if "naval_exit_id" in dict_data:
             self.naval_exit_id = dict_data["naval_exit_id"]
@@ -290,7 +301,7 @@ class StateRegionItem:
 
         The *diner* (``self``) absorbs all data from the *food* (``other``):
         - **Additive fields** (provinces, impassable, prime_land, arable_land,
-          capped_resources, gold, rubber, oil) are summed.
+          capped_resources, resource quantities) are summed.
         - **Set-like fields** (arable_resources, traits) are unioned —
           duplicates are dropped.
         - **Fallback fields** (city, port, farm, mine, wood, naval_exit_id)
@@ -314,12 +325,16 @@ class StateRegionItem:
                 without injecting or removing integration compensation.
 
         Raises:
-            Logs an error message if either region is a sea node — sea
-            nodes cannot be merged.
+            ValueError: If resource metadata conflicts, before modifying either
+                state. Sea nodes cannot be merged and log an error instead.
         """
         if self.is_sea_node() or other.is_sea_node():
             logger.error("Cannot merge sea node with other state")
             return
+
+        resources = _merge_resources(
+            self.resources, other._resource_blocks(), f"{self.name} and {other.name}"
+        )
 
         # Additive list fields: simply concatenate.
         self.provinces += other.provinces
@@ -379,11 +394,7 @@ class StateRegionItem:
                 self.capped_resources[resource] = int(amount)
 
         # Discoverable resources: sum undiscovered and discovered amounts.
-        self.gold[0] += other.gold[0]
-        self.gold[1] += other.gold[1]
-        self.rubber[0] += other.rubber[0]
-        self.rubber[1] += other.rubber[1]
-        self.oil += other.oil
+        self.resources = resources
 
         # Fallback fields: inherit from other only when self has no value.
         if self.city == "":
@@ -407,9 +418,14 @@ class StateRegionItem:
         other.arable_land = 0
         other.arable_resources = []
         other.capped_resources = {}
-        other.gold = [0, 0]
-        other.rubber = [0, 0]
-        other.oil = 0
+        other.resources = {}
+
+    def _resource_blocks(self) -> list[dict]:
+        """Reconstruct independent script blocks in first-seen resource order."""
+        return [
+            {"type": kind, **deepcopy(payload)}
+            for kind, payload in self.resources.items()
+        ]
 
     def __str__(self):
         """Export the state region to a Vic3 script-format string.
@@ -471,28 +487,9 @@ class StateRegionItem:
             for resource, amount in self.capped_resources.items():
                 state_str += f"        {resource} = {amount}\n"
             state_str += "    }\n"
-        # Discoverable resource blocks — only written when amounts are non-zero.
-        if self.gold != [0, 0]:
+        for resource in self._resource_blocks():
             state_str += "    resource = {\n"
-            state_str += '        type = "building_gold_field"\n'
-            state_str += '        depleted_type = "building_gold_mine"\n'
-            if self.gold[0] != 0:
-                state_str += f"        undiscovered_amount = {self.gold[0]}\n"
-            if self.gold[1] != 0:
-                state_str += f"        discovered_amount = {self.gold[1]}\n"
-            state_str += "    }\n"
-        if self.rubber != [0, 0]:
-            state_str += "    resource = {\n"
-            state_str += '        type = "building_rubber_plantation"\n'
-            if self.rubber[0] != 0:
-                state_str += f"        undiscovered_amount = {self.rubber[0]}\n"
-            if self.rubber[1] != 0:
-                state_str += f"        discovered_amount = {self.rubber[1]}\n"
-            state_str += "    }\n"
-        if self.oil != 0:
-            state_str += "    resource = {\n"
-            state_str += '        type = "building_oil_rig"\n'
-            state_str += f"        undiscovered_amount = {self.oil}\n"
+            state_str += indent(str(Tree(resource)), "        ")
             state_str += "    }\n"
         if self.naval_exit_id != -1:
             state_str += f"    naval_exit_id = {self.naval_exit_id}\n"
@@ -538,30 +535,8 @@ class StateRegionItem:
             state_dict["capped_resources"] = self.capped_resources
 
         # Reconstruct discoverable resource entries.
-        resources_list = []
-        if self.gold != [0, 0]:
-            gold_resource = {}
-            gold_resource["type"] = "building_gold_field"
-            gold_resource["depleted_type"] = "building_gold_mine"
-            if self.gold[0] != 0:
-                gold_resource["undiscovered_amount"] = self.gold[0]
-            if self.gold[1] != 0:
-                gold_resource["discovered_amount"] = self.gold[1]
-            resources_list.append(gold_resource)
-        if self.rubber != [0, 0]:
-            rubber_resource = {}
-            rubber_resource["type"] = "building_rubber_plantation"
-            if self.rubber[0] != 0:
-                rubber_resource["undiscovered_amount"] = self.rubber[0]
-            if self.rubber[1] != 0:
-                rubber_resource["discovered_amount"] = self.rubber[1]
-            resources_list.append(rubber_resource)
-        if self.oil != 0:
-            oil_resource = {}
-            oil_resource["type"] = "building_oil_rig"
-            oil_resource["undiscovered_amount"] = self.oil
-            resources_list.append(oil_resource)
-        if resources_list != []:
+        resources_list = self._resource_blocks()
+        if resources_list:
             state_dict["resource"] = resources_list
         if self.naval_exit_id != -1:
             state_dict["naval_exit_id"] = self.naval_exit_id
