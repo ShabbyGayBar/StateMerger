@@ -114,7 +114,14 @@ class StateRegionItem:
         # Sea nodes only have id and provinces — skip all economic fields.
         if "subsistence_building" not in dict_data:
             self.subsistence_building = ""
-            self.provinces = dict_data["provinces"]
+            provinces = dict_data["provinces"]
+            self.provinces = (
+                list(provinces)
+                if isinstance(provinces, (list, tuple))
+                else []
+                if provinces == {}
+                else [provinces]
+            )
             return
 
         self.subsistence_building = dict_data["subsistence_building"]
@@ -271,7 +278,14 @@ class StateRegionItem:
             return False
         return self.province_cnt() < limit
 
-    def merge(self, other, ignoreSmallStates: bool = False, smallStateLimit: int = 4):
+    def merge(
+        self,
+        other,
+        ignoreSmallStates: bool = False,
+        smallStateLimit: int = 4,
+        *,
+        integration_traits: bool = True,
+    ):
         """Merge another :class:`StateRegionItem` into this one.
 
         The *diner* (``self``) absorbs all data from the *food* (``other``):
@@ -295,6 +309,9 @@ class StateRegionItem:
                 absorbing tiny states.
             smallStateLimit: Province count below which a state is considered
                 "small" (default ``4``).
+            integration_traits: Recompute compensation traits when ``True``
+                (the legacy default). When ``False``, union existing traits
+                without injecting or removing integration compensation.
 
         Raises:
             Logs an error message if either region is a sea node — sea
@@ -309,35 +326,42 @@ class StateRegionItem:
         self.impassable += other.impassable
         self.prime_land += other.prime_land
 
-        # Traits: remove the old integration trait from self, copy unique
-        # traits from other, then compute and add the new integration trait.
-        thisMergeStatesCnt = self.merge_states_cnt()
-        otherMergeStatesCnt = other.merge_states_cnt()
-        if thisMergeStatesCnt > 1:
-            self.traits.remove(
-                f"state_trait_{SEQ_STR[thisMergeStatesCnt]}_states_integration"
-            )
-        for trait in other.traits:
-            if (
-                trait
-                != f"state_trait_{SEQ_STR[otherMergeStatesCnt]}_states_integration"
-                and trait not in self.traits
-            ):
-                self.traits.append(trait)
-        totalMergeStatesCnt = thisMergeStatesCnt + otherMergeStatesCnt
+        # Compensation is optional; plain geographic merging preserves all traits.
+        if integration_traits:
+            # Traits: remove the old integration trait from self, copy unique
+            # traits from other, then compute and add the new integration trait.
+            thisMergeStatesCnt = self.merge_states_cnt()
+            otherMergeStatesCnt = other.merge_states_cnt()
+            if thisMergeStatesCnt > 1:
+                self.traits.remove(
+                    f"state_trait_{SEQ_STR[thisMergeStatesCnt]}_states_integration"
+                )
+            for trait in other.traits:
+                if (
+                    trait
+                    != f"state_trait_{SEQ_STR[otherMergeStatesCnt]}_states_integration"
+                    and trait not in self.traits
+                ):
+                    self.traits.append(trait)
+            totalMergeStatesCnt = thisMergeStatesCnt + otherMergeStatesCnt
 
-        # Optionally exclude small states from the merge count.
-        if ignoreSmallStates:
-            if self.is_small_state(limit=smallStateLimit):
-                totalMergeStatesCnt -= 1
-            if other.is_small_state(limit=smallStateLimit):
-                totalMergeStatesCnt -= 1
-        if (totalMergeStatesCnt > 1) and (totalMergeStatesCnt < 8):
-            self.traits.append(
-                f"state_trait_{SEQ_STR[totalMergeStatesCnt]}_states_integration"
-            )
-        elif totalMergeStatesCnt >= 8:
-            self.traits.append("state_trait_eight_states_integration")
+            # Optionally exclude small states from the merge count.
+            if ignoreSmallStates:
+                if self.is_small_state(limit=smallStateLimit):
+                    totalMergeStatesCnt -= 1
+                if other.is_small_state(limit=smallStateLimit):
+                    totalMergeStatesCnt -= 1
+            if (totalMergeStatesCnt > 1) and (totalMergeStatesCnt < 8):
+                self.traits.append(
+                    f"state_trait_{SEQ_STR[totalMergeStatesCnt]}_states_integration"
+                )
+            elif totalMergeStatesCnt >= 8:
+                self.traits.append("state_trait_eight_states_integration")
+
+        else:
+            for trait in other.traits:
+                if trait not in self.traits:
+                    self.traits.append(trait)
 
         # Additive numeric fields.
         self.arable_land += other.arable_land
@@ -591,7 +615,13 @@ class StateRegion(dict):
             )
 
     def merge_state(
-        self, diner, food, ignoreSmallStates: bool = False, smallStateLimit: int = 4
+        self,
+        diner,
+        food,
+        ignoreSmallStates: bool = False,
+        smallStateLimit: int = 4,
+        *,
+        integration_traits: bool = True,
     ):
         """Merge a single food state region into a diner state region.
 
@@ -602,11 +632,13 @@ class StateRegion(dict):
             food: Key of the absorbed state region (removed after merging).
             ignoreSmallStates: Forwarded to :meth:`StateRegionItem.merge`.
             smallStateLimit: Forwarded to :meth:`StateRegionItem.merge`.
+            integration_traits: Forwarded to :meth:`StateRegionItem.merge`.
         """
         self[diner].merge(
             self[food],
             ignoreSmallStates=ignoreSmallStates,
             smallStateLimit=smallStateLimit,
+            integration_traits=integration_traits,
         )
         self.pop(food)
 
@@ -615,6 +647,8 @@ class StateRegion(dict):
         merge_dict: dict,
         ignoreSmallStates: bool = False,
         smallStateLimit: int = 4,
+        *,
+        integration_traits: bool = True,
     ) -> dict[int, list[int]]:
         """Merge multiple state regions according to a merge plan.
 
@@ -627,6 +661,7 @@ class StateRegion(dict):
                 which state regions to absorb and into which surviving region.
             ignoreSmallStates: Forwarded to :meth:`merge_state`.
             smallStateLimit: Forwarded to :meth:`merge_state`.
+            integration_traits: Forwarded to :meth:`merge_state`.
 
         Returns:
             A mapping of ``diner_id -> [food_id, ...]`` using the **numeric**
@@ -644,6 +679,7 @@ class StateRegion(dict):
                     food,
                     ignoreSmallStates=ignoreSmallStates,
                     smallStateLimit=smallStateLimit,
+                    integration_traits=integration_traits,
                 )
         return id_dict
 

@@ -28,10 +28,15 @@ The module also provides :func:`_parse_merge` and
 modules as well.
 """
 
+import json
 import logging
 import os
 import re
 import shutil
+from collections.abc import Mapping, Sequence
+from copy import deepcopy
+from pathlib import Path
+from typing import Any
 
 import pyradox
 import yaml
@@ -42,6 +47,7 @@ import vic3_state_merger.assets.usa_state_counter
 from vic3_state_merger.buildings import Buildings
 from vic3_state_merger.map_object_data import MapObjectData
 from vic3_state_merger.pops import Pops
+from vic3_state_merger.sources import ASSETS, STAGES, SourceResolver, validate_names
 from vic3_state_merger.state_regions import StateRegion
 from vic3_state_merger.states import States
 from vic3_state_merger.trade import Trade
@@ -148,9 +154,10 @@ def _parse_merge(path, merge_levels: int = 0):
     path : str
         Directory containing Paradox ``.txt`` files.
     merge_levels : int, optional
-        Depth passed to :meth:`pyradox.Tree.merge`.  ``0`` keeps all keys
-        (appending duplicates), ``1`` overwrites at the first level, ``2``
-        overwrites at the first two levels, etc.  Default is ``0``.
+        Depth passed to :meth:`pyradox.Tree.merge`. ``0`` appends entries,
+        including duplicates; higher values recursively combine tree values
+        for that many levels before appending. This is not definition-level
+        last-wins loading. Default is ``0``.
 
     Returns
     -------
@@ -174,7 +181,7 @@ def _parse_merge(path, merge_levels: int = 0):
     return result
 
 
-def _clean_v3_yml_numbered_keys(yml_path: str) -> str:
+def _clean_v3_yml_numbered_keys(yml_path: str | os.PathLike) -> str:
     """Strip Vic3-style numbered keys from a localization YML file.
 
     Victoria 3 localization files use ``:0 "text"`` instead of the standard
@@ -403,7 +410,7 @@ def _iter_txt_files(base_game_dir: str):
     """
     if not os.path.exists(base_game_dir):
         return
-    for game_file in os.listdir(base_game_dir):
+    for game_file in sorted(os.listdir(base_game_dir)):
         base_path = os.path.join(base_game_dir, game_file)
         if os.path.isdir(base_path):
             continue
@@ -464,214 +471,474 @@ def _process_keyword_directory(
         top-level entries.  If ``False``, each modified file is written
         individually.  Default is ``False``.
     """
-    if not os.path.exists(base_game_dir):
-        return
+    outputs = _keyword_outputs(
+        _iter_txt_files(base_game_dir), lookup, pattern, transform, aggregate
+    )
+    for filename, text in outputs.items():
+        _write_text_file(os.path.join(mod_dir, filename), text)
 
+
+def _keyword_outputs(files, lookup, pattern, transform, aggregate=False):
+    """Prepare modified files without writing or cleaning any output."""
+    outputs = {}
     aggregated = []
-    for game_file, base_path in _iter_txt_files(base_game_dir):
-        with open(base_path, "r", encoding="utf-8-sig") as f:
-            text = f.read()
-
+    for filename, path in files:
+        with open(path, encoding="utf-8-sig") as handle:
+            text = handle.read()
         if not pattern.search(text):
             continue
-
-        logger.debug("Processing %s", base_path)
+        logger.debug("Processing %s", path)
         modified = transform(text, lookup, pattern)
         if aggregate:
-            modified = _prefix_replace(modified)
-            aggregated.append(f"# ---- {game_file} ----\n" + modified)
+            aggregated.append(f"# ---- {filename} ----\n" + _prefix_replace(modified))
         else:
-            output_file = os.path.join(mod_dir, game_file)
-            logger.debug("Writing modified copy to %s", output_file)
-            _write_text_file(output_file, modified)
-
-    if aggregate and aggregated:
-        output_file = os.path.join(mod_dir, "state_merging.txt")
-        logger.debug("Writing aggregated output to %s", output_file)
-        _write_text_file(output_file, "\n\n".join(aggregated))
+            outputs[filename] = modified
+    if aggregated:
+        outputs["state_merging.txt"] = "\n\n".join(aggregated)
+    return outputs
 
 
 class StateMerger:
-    """Orchestrates the full Victoria 3 state-merge pipeline.
+    """Compose independent merge stages over ordered game-layout source roots.
 
-    A *merge dict* defines which states are consumed ("food") and which
-    state survives ("diner").  For each merge, the diner absorbs the food's
-    territory, buildings, population, trade routes, and map pins, while the
-    food's data is discarded.
-
-    The class parses the five core data categories at construction time and
-    exposes three public methods that should be called in order:
-
-    1. :meth:`merge_state_data` – merge core state data and map objects.
-    2. :meth:`merge_misc_data` – keyword replacement across misc game files.
-    3. :meth:`merge_loc_data` – patch localization hub names.
-
-    Additionally, :meth:`copy_state_data` and :meth:`copy_map_object_data`
-    can be used to cache vanilla files for later comparison.
-
-    Parameters
-    ----------
-    game_root_dir : str
-        Path to the Victoria 3 installation directory (containing
-        ``common/``, ``map_data/``, etc.).
-    write_dir : str
-        Path to the mod output directory.  Merged files are written here,
-        mirroring the game's directory structure.
-    merge_dict : dict
-        ``{target_state: [source_state, …]}`` mapping.  Each key is a diner
-        state; its value is the list of food states to merge into it.
-    cache_dir : str, optional
-        Directory used for caching vanilla game files.  Defaults to
-        ``"./data"``.
-
-    Attributes
-    ----------
-    map_data : StateRegion
-        Parsed state-region (map) data.
-    buildings : Buildings
-        Parsed buildings data.
-    pops : Pops
-        Parsed population data.
-    states : States
-        Parsed state history data.
-    trade : Trade
-        Parsed trade route data.
+    Construction never writes output or parses data. ``sources`` maps stage
+    names to root lists, with later roots replacing matching relative filenames.
+    Unspecified stages use ``game_root_dir``. Parsed-data attributes load lazily;
+    every execution reloads fresh models. ``run`` defaults to all stages without
+    injected compensation or bundled assets. The three legacy merge methods
+    retain their original compensation and asset defaults.
     """
 
     def __init__(
         self,
-        game_root_dir: str,
-        write_dir: str,
+        game_root_dir: str | os.PathLike,
+        write_dir: str | os.PathLike,
         merge_dict: dict,
-        cache_dir: str = "./data",
+        cache_dir: str | os.PathLike = "./data",
+        *,
+        sources: Mapping[str, Sequence[str | os.PathLike]] | None = None,
     ):
-        logger.info("Loading game data from %s", game_root_dir)
-        self.base_game_dir = {}
-        self.mod_dir = {}
         self.game_root_dir = game_root_dir
         self.write_dir = write_dir
-        self.merge_dict = merge_dict
+        self.merge_dict = deepcopy(merge_dict)
         self.cache_dir = cache_dir
+        self.base_game_dir = {
+            key: os.path.join(game_root_dir, value)
+            for key, value in STATE_FILE_DIR.items()
+        }
+        self.mod_dir = {
+            key: os.path.join(write_dir, value) for key, value in STATE_FILE_DIR.items()
+        }
+        self._resolver = SourceResolver(game_root_dir, sources)
+        self._models: dict[str, Any] = {}
+        self._core_files: dict[str, dict[str, Path]] = {}
+        self._core_trees: dict[str, dict[str, Any]] = {}
 
-        # Set the base game and mod directories
-        for key, value in STATE_FILE_DIR.items():
-            self.base_game_dir[key] = os.path.join(game_root_dir, value)
-            self.mod_dir[key] = os.path.join(write_dir, value)
-            _clear_output_dir(self.mod_dir[key])
+    def _load_model(self, stage):
+        if stage not in self._models:
+            self._resolver.validate([stage])
+            files = self._resolver.files(stage, STATE_FILE_DIR[stage])
+            if not files:
+                raise ValueError(
+                    f"{stage}: no .txt input files in {STATE_FILE_DIR[stage]}; "
+                    f"searched roots: {self._resolver.describe(stage)}"
+                )
+            trees = {}
+            combined = pyradox.Tree()
+            try:
+                for name, path in files.items():
+                    tree = pyradox.parse_file(
+                        str(path), game="HoI4", path_relative_to_game=False
+                    )
+                    trees[name] = tree
+                    combined.merge(tree, 1 if stage == "map_data" else 2)
+                model_type = {
+                    "map_data": StateRegion,
+                    "state": States,
+                    "pops": Pops,
+                    "buildings": Buildings,
+                    "trade": Trade,
+                }[stage]
+                self._models[stage] = model_type(combined if len(combined) else None)
+            except (KeyError, TypeError, ValueError, AttributeError) as exc:
+                raise ValueError(
+                    f"{stage}: cannot load inputs from {self._resolver.describe(stage)}: {exc}"
+                ) from exc
+            self._core_files[stage] = files
+            self._core_trees[stage] = trees
+        return self._models[stage]
 
-        # Parse State Regions data (merge_levels=1 because map_data files
-        # have top-level keys that should overwrite rather than append)
-        parser = _parse_merge(self.base_game_dir["map_data"], merge_levels=1)
-        self.map_data = StateRegion(parser)
+    @property
+    def map_data(self) -> StateRegion:
+        return self._load_model("map_data")
 
-        # Parse Buildings, Pops, States, and Trade data (merge_levels=2
-        # because these files nest state entries under a second-level key
-        # and we want per-state overwrites at that depth)
-        parser = _parse_merge(self.base_game_dir["buildings"], merge_levels=2)
-        self.buildings = Buildings(parser)
-        parser = _parse_merge(self.base_game_dir["pops"], merge_levels=2)
-        self.pops = Pops(parser)
-        parser = _parse_merge(self.base_game_dir["state"], merge_levels=2)
-        self.states = States(parser)
-        parser = _parse_merge(self.base_game_dir["trade"], merge_levels=2)
-        self.trade = Trade(parser)
+    @map_data.setter
+    def map_data(self, value):
+        self._models["map_data"] = value
+
+    @property
+    def states(self) -> States:
+        return self._load_model("state")
+
+    @states.setter
+    def states(self, value):
+        self._models["state"] = value
+
+    @property
+    def pops(self) -> Pops:
+        return self._load_model("pops")
+
+    @pops.setter
+    def pops(self, value):
+        self._models["pops"] = value
+
+    @property
+    def buildings(self) -> Buildings:
+        return self._load_model("buildings")
+
+    @buildings.setter
+    def buildings(self, value):
+        self._models["buildings"] = value
+
+    @property
+    def trade(self) -> Trade:
+        return self._load_model("trade")
+
+    @trade.setter
+    def trade(self, value):
+        self._models["trade"] = value
+
+    def _validate_plan(self):
+        if not isinstance(self.merge_dict, dict):
+            raise TypeError(
+                "Merge plan must be an object mapping targets to source lists"
+            )
+        consumed = set()
+        active_targets = set()
+        for target, foods in self.merge_dict.items():
+            if not isinstance(target, str) or not target or not isinstance(foods, list):
+                raise ValueError(
+                    "Merge plan requires nonempty target names and source lists"
+                )
+            if foods:
+                active_targets.add(target)
+            for food in foods:
+                if not isinstance(food, str) or not food or food == target:
+                    raise ValueError(f"Invalid source state for {target}: {food!r}")
+                if food in consumed:
+                    raise ValueError(f"Source state appears more than once: {food}")
+                consumed.add(food)
+        if active_targets & consumed:
+            raise ValueError(
+                "Merge targets cannot also be consumed states (chained merges)"
+            )
+
+    def run(
+        self,
+        stages=STAGES,
+        *,
+        integration_traits: bool = False,
+        assets=(),
+        ignore_small_states: bool = False,
+        small_state_limit: int = 4,
+    ) -> None:
+        """Prepare all selected outputs before clearing their directories.
+
+        ``map_objects`` and ``localization`` read/project ``map_data`` without
+        emitting it. Missing history entries are allowed for sparse datasets;
+        map references must exist. Selected directories lose existing regular
+        files; disabled stages and unrelated asset files remain untouched.
+        """
+        selected = validate_names(stages, STAGES, "stages")
+        requested_assets = set(validate_names(assets, ASSETS, "assets"))
+        if not isinstance(integration_traits, bool):
+            raise TypeError("integration_traits must be a boolean")
+        if not isinstance(small_state_limit, int) or small_state_limit < 0:
+            raise ValueError("small_state_limit must be a nonnegative integer")
+        self._validate_plan()
+        needed = set(selected)
+        if needed & {"map_objects", "localization"}:
+            needed.add("map_data")
+        ordered_needed = [stage for stage in STAGES if stage in needed]
+        logger.info("Selected merge stages: %s", ", ".join(selected))
+        self._resolver.validate(ordered_needed)
+        self._resolver.check_destination(self.write_dir, STAGES)
+        previous_map = self._models.get("map_data")
+        for stage in needed & STATE_FILE_DIR.keys():
+            self._models.pop(stage, None)
+            self._core_files.pop(stage, None)
+            self._core_trees.pop(stage, None)
+        outputs: dict[str, str] = {}
+        clear_dirs: list[str] = []
+        original_map_data = {}
+        if "map_data" in needed:
+            regions = self.map_data
+            for target, foods in self.merge_dict.items():
+                for name in [target, *foods]:
+                    if name not in regions or regions[name].is_sea_node():
+                        raise ValueError(
+                            f"map_data: merge reference is missing or a sea node: {name}; "
+                            f"searched roots: {self._resolver.describe('map_data')}"
+                        )
+            original_map_data = {
+                name: {
+                    attr: getattr(region, attr)
+                    for attr in ("id", *MAP_OBJECT_DATA_FILES)
+                }
+                for name, region in regions.items()
+            }
+            regions.merge_states(
+                {target: foods for target, foods in self.merge_dict.items() if foods},
+                ignoreSmallStates=ignore_small_states,
+                smallStateLimit=small_state_limit,
+                integration_traits=integration_traits,
+            )
+        for stage in STAGES:
+            if stage not in selected:
+                continue
+            if stage in STATE_FILE_DIR:
+                logger.info("Merging %s data", stage)
+                model = self._load_model(stage)
+                if stage != "map_data":
+                    try:
+                        model.merge_states(self.merge_dict)
+                    except (KeyError, TypeError, ValueError) as exc:
+                        raise ValueError(
+                            f"{stage}: invalid merge references/data in "
+                            f"{self._resolver.describe(stage)}: {exc}"
+                        ) from exc
+                outputs.update(self._core_outputs(stage))
+                clear_dirs.append(STATE_FILE_DIR[stage])
+            elif stage == "map_objects":
+                outputs.update(self._map_object_outputs(original_map_data))
+                clear_dirs.append("gfx/map/map_object_data")
+            elif stage == "misc":
+                logger.info("Processing miscellaneous files")
+                misc_outputs, directories = self._misc_outputs()
+                outputs.update(misc_outputs)
+                clear_dirs.extend(directories)
+            elif stage == "localization":
+                logger.info("Processing localization")
+                outputs.update(self._localization_outputs())
+                clear_dirs.extend(LOC_FILE_DIR.values())
+        if integration_traits:
+            requested_assets.add("state_traits")
+        outputs.update(self._asset_outputs(requested_assets))
+        # All parsing, reference validation, transformations and serialization have
+        # succeeded. Only selected stages own broad directory cleanup.
+        for relative_dir in dict.fromkeys(clear_dirs):
+            logger.info("Clearing selected output directory: %s", relative_dir)
+            _clear_output_dir(os.path.join(self.write_dir, relative_dir))
+        for relative_file, text in sorted(outputs.items()):
+            _write_text_file(os.path.join(self.write_dir, relative_file), text)
+        if "map_data" not in selected and previous_map is not None:
+            # A read-only dependency must not replace the last exposed map
+            # result, which callers may inspect after the legacy pipeline.
+            self._models["map_data"] = previous_map
+
+    def _core_outputs(self, stage):
+        directory = STATE_FILE_DIR[stage]
+        filename = {
+            "map_data": "state_merging.txt",
+            "state": "00_states.txt",
+            "pops": "state_merging.txt",
+            "buildings": "state_merging.txt",
+            "trade": "00_historical_trade.txt",
+        }[stage]
+        outputs = {}
+        sea_names = set()
+        for name in self._core_files[stage]:
+            if stage == "map_data":
+                entries = self._core_trees[stage][name].to_python()
+                land = any("subsistence_building" in data for data in entries.values())
+                # Pure sea files continue to be inherited, except when their
+                # filename is also our generated filename and will be replaced.
+                if entries and not land and name != filename:
+                    continue
+                sea_names.update(
+                    key
+                    for key, data in entries.items()
+                    if "subsistence_building" not in data
+                )
+            if name != filename:
+                outputs[f"{directory}/{name}"] = ""
+        if stage == "map_data":
+            text = "".join(
+                str(region)
+                for name, region in self.map_data.items()
+                if not region.is_sea_node() or name in sea_names
+            )
+        else:
+            text = str(self._models[stage])
+        outputs[f"{directory}/{filename}"] = text
+        return outputs
 
     def merge_state_data(
         self, ignoreSmallStates: bool = False, smallStateLimit: int = 4
     ):
-        """Merge the five core data categories and map-object data.
+        """Legacy core/map-object pipeline, including integration compensation."""
+        self.run(
+            stages=(*STATE_FILE_DIR, "map_objects"),
+            integration_traits=True,
+            ignore_small_states=ignoreSmallStates,
+            small_state_limit=smallStateLimit,
+        )
 
-        This method performs the following steps in order:
+    def merge_misc_data(self):
+        """Legacy miscellaneous pipeline, including the two USA overrides."""
+        self.run(stages=["misc"], assets=["usa_flag", "usa_state_counter"])
 
-        1. Snapshots the original map data (IDs and hub assignments) so
-           map-object locators can be retargeted later.
-        2. Clears all output files in the mod directory so that only merged
-           data is present (vanilla entries for consumed states must not
-           persist).
-        3. Merges each core category (map regions, buildings, pops, states,
-           trade) and writes the results.
-        4. Retargets map-object locator instances for merged states.
-        5. Writes the bundled state-traits override file.
+    def merge_loc_data(self):
+        """Legacy localization pipeline; computes its map dependency internally."""
+        self.run(stages=["localization"])
 
-        Parameters
-        ----------
-        ignoreSmallStates : bool, optional
-            If ``True``, states with fewer provinces than *smallStateLimit*
-            are skipped during map-region merging.  Default ``False``.
-        smallStateLimit : int, optional
-            Minimum number of provinces a state must have to be considered
-            for merging when *ignoreSmallStates* is ``True``.  Default ``4``.
-        """
-        logger.info("Merging state data")
-        original_map_data = {
-            state_name: {
-                "id": state.id,
-                "city": state.city,
-                "farm": state.farm,
-                "mine": state.mine,
-                "port": state.port,
-                "wood": state.wood,
-            }
-            for state_name, state in self.map_data.items()
-        }
-        # Blank out every existing .txt file in each output category so that
-        # only the merged data (written below) remains.  Without this step,
-        # vanilla entries for consumed states would persist alongside the
-        # merged output.
-        for key, value in self.base_game_dir.items():
-            for file in os.listdir(value):
-                if file == "state_merging.txt":
+    def _misc_outputs(self):
+        outputs = {}
+        directories = []
+        lookup, pattern = _build_keyword_pattern(self.merge_dict)
+        groups = (
+            (REPLACE_COPY_FILE_DIR, False, _keyword_replace),
+            (REPLACE_KEYWORD_FILE_DIR, True, _keyword_replace),
+            (REMOVE_KEYWORD_FILE_DIR, True, _keyword_remove),
+        )
+        for relatives, aggregate, callback in groups:
+            for relative in relatives:
+                directories.append(relative)
+                files = self._resolver.files("misc", relative)
+                if pattern is None:
                     continue
-                with open(
-                    os.path.join(self.mod_dir[key], file), "w", encoding="utf-8-sig"
-                ) as file:
-                    file.write("")
-        # Remove the seas file – it should not be overridden by the mod
-        if os.path.exists(os.path.join(self.mod_dir["map_data"], "99_seas.txt")):
-            os.remove(os.path.join(self.mod_dir["map_data"], "99_seas.txt"))
+                transformed = _keyword_outputs(
+                    files.items(),
+                    lookup,
+                    pattern,
+                    lambda text, lookup, pattern, callback=callback: pattern.sub(
+                        lambda match: callback(match, lookup, text), text
+                    ),
+                    aggregate,
+                )
+                outputs.update(
+                    {f"{relative}/{name}": text for name, text in transformed.items()}
+                )
+        return outputs, directories
 
-        # Merge map_data
-        id_dict = self.map_data.merge_states(
-            self.merge_dict,
-            ignoreSmallStates=ignoreSmallStates,
-            smallStateLimit=smallStateLimit,
-        )
-        self.map_data.dump(os.path.join(self.mod_dir["map_data"], "state_merging.txt"))
-        # Merge buildings
-        self.buildings.merge_states(self.merge_dict)
-        self.buildings.dump(
-            os.path.join(self.mod_dir["buildings"], "state_merging.txt")
-        )
-        # Merge pops
-        self.pops.merge_states(self.merge_dict)
-        self.pops.dump(os.path.join(self.mod_dir["pops"], "state_merging.txt"))
-        # Merge states
-        self.states.merge_states(self.merge_dict)
-        self.states.dump(os.path.join(self.mod_dir["state"], "00_states.txt"))
-        # Merge trade
-        self.trade.merge_states(self.merge_dict)
-        self.trade.dump(os.path.join(self.mod_dir["trade"], "00_historical_trade.txt"))
-        # Merge map_object_data
-        self._merge_map_object_data(id_dict, original_map_data)
+    def _localization_outputs(self):
+        outputs = {}
+        for lang, directory in LOC_FILE_DIR.items():
+            data = {}
+            files = self._resolver.files(
+                "localization", directory, ".yml", by_layer=True
+            )
+            for path in files.values():
+                # Vic3 localization is not general YAML: unrelated flavor text
+                # may contain unescaped quotes. Only hub names are consumed by
+                # this stage, so do not parse unrelated localization values.
+                cleaned = _clean_v3_yml_numbered_keys(path)
+                relevant = "\n".join(
+                    re.sub(
+                        r'"(?:\\.|[^"\\])*"|#[^\n]*|\t',
+                        lambda match: (
+                            " "
+                            if match[0] == "\t"
+                            else ""
+                            if match[0].startswith("#")
+                            else match[0]
+                        ),
+                        line,
+                    )
+                    for line in cleaned.splitlines()
+                    if re.match(r"^\s*(?:l_[a-z_]+|HUB_NAME_[A-Za-z0-9_]+)\s*:", line)
+                )
+                try:
+                    parsed = yaml.safe_load(relevant)
+                except yaml.YAMLError as exc:
+                    raise ValueError(
+                        f"localization: invalid hub entries in {path}: {exc}"
+                    ) from exc
+                if parsed is None:
+                    continue
+                if (
+                    isinstance(parsed, dict)
+                    and parsed.get(lang) is None
+                    and lang in parsed
+                ):
+                    continue  # A header-only language file has no hub entries.
+                if not isinstance(parsed, dict) or not isinstance(
+                    parsed.get(lang), dict
+                ):
+                    raise TypeError(f"localization: expected {lang} mapping in {path}")
+                data.update(parsed[lang])
+            missing = {}
+            for diner, food_list in self.merge_dict.items():
+                if not food_list:
+                    continue
+                for attr in MAP_OBJECT_DATA_FILES:
+                    if not getattr(self.map_data[diner], attr):
+                        continue
+                    key = f"HUB_NAME_{diner}_{attr}"
+                    if key in data:
+                        continue
+                    for food in food_list:
+                        value = data.get(f"HUB_NAME_{food}_{attr}")
+                        if value and value not in INVALID_HUB_NAMES:
+                            missing[key] = str(value)
+                            logger.debug("Inherited localization: %s", value)
+                            break
+            if missing:
+                # JSON-quoted scalars also form valid Vic3 localization values;
+                # this preserves apostrophes and embedded double quotes.
+                lines = [f"{lang}:"] + [
+                    f" {key}:0 {json.dumps(value, ensure_ascii=False)}"
+                    for key, value in sorted(missing.items())
+                ]
+                outputs[f"{directory}/hub_names_states_merging_{lang}.yml"] = (
+                    "\n".join(lines) + "\n"
+                )
+        return outputs
 
-        # Write the bundled state-traits override (replaces merged states'
-        # trait lists to account for changed province counts).
-        output_dir = os.path.join(self.write_dir, "common", "state_traits")
-        file_str = vic3_state_merger.assets.state_traits.CONTENT
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
-        if os.path.exists(os.path.join(output_dir, "state_merging.txt")):
-            os.remove(os.path.join(output_dir, "state_merging.txt"))
-        with open(
-            os.path.join(output_dir, "state_merging.txt"), "w", encoding="utf-8-sig"
-        ) as file:
-            file.write(file_str)
+    @staticmethod
+    def _asset_outputs(assets):
+        definitions = {
+            "state_traits": (
+                "common/state_traits/state_merging.txt",
+                vic3_state_merger.assets.state_traits.CONTENT,
+            ),
+            "usa_flag": (
+                "common/flag_definitions/state_merging_flag_definition_usa.txt",
+                vic3_state_merger.assets.flag_definitions_usa.CONTENT,
+            ),
+            "usa_state_counter": (
+                "common/script_values/state_merging_usa_state_counter.txt",
+                vic3_state_merger.assets.usa_state_counter.CONTENT,
+            ),
+        }
+        return dict(definitions[name] for name in sorted(assets))
 
-    def _merge_map_object_data(
-        self,
-        id_dict: dict[int, list[int]],
-        original_map_data: dict[str, dict[str, str | int]],
-    ):
+    def copy_state_data(self):
+        """Cache resolved core files, retaining the legacy example/sea exclusions."""
+        self._copy_resolved(STATE_FILE_DIR, "game_file")
+
+    def copy_map_object_data(self):
+        """Cache winning locator files; absent optional locators are skipped."""
+        self._copy_resolved({"map_objects": "gfx/map/map_object_data"}, "game_file")
+
+    def _copy_resolved(self, directories, prefix):
+        self._resolver.validate(directories)
+        self._resolver.check_destination(self.cache_dir, directories)
+        for stage, relative in directories.items():
+            for name, source in self._resolver.files(stage, relative).items():
+                if stage == "map_objects":
+                    if name not in MAP_OBJECT_DATA_FILES.values():
+                        continue
+                    category = "map_object_data"
+                else:
+                    if "99_seas" in name or "100_pops_example" in name:
+                        continue
+                    category = stage
+                target = Path(self.cache_dir) / prefix / category / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(source, target)
+
+    def _map_object_outputs(self, original_map_data):
         """Retarget and clean up map-object locator instances for merged states.
 
         When states merge, the surviving (diner) state may not have a
@@ -682,28 +949,26 @@ class StateMerger:
 
         Parameters
         ----------
-        id_dict : dict[int, list[int]]
-            Mapping from diner state ID to the list of food state IDs
-            produced by :meth:`StateRegion.merge_states`.
         original_map_data : dict[str, dict[str, str | int]]
             Snapshot of each state's ID and hub assignments taken before
             merging (from :attr:`map_data`).
         """
-        output_dir = os.path.join(self.write_dir, "gfx", "map", "map_object_data")
-        _clear_output_dir(output_dir)
-
+        outputs = {}
+        directory = "gfx/map/map_object_data"
+        files = self._resolver.files("map_objects", directory)
         for file in MAP_OBJECT_DATA_FILES.values():
-            base_game_file = os.path.join(
-                self.game_root_dir, "gfx", "map", "map_object_data", file
-            )
-            if not os.path.exists(base_game_file):
+            base_game_file = files.get(file)
+            if base_game_file is None:
                 continue
 
             # pyradox does not natively support Victoria 3, but Vic3 uses a
             # scripting language similar to HoI4, so game="HoI4" works here.
             parser = pyradox.parse_file(
-                base_game_file, game="HoI4", path_relative_to_game=False
+                str(base_game_file), game="HoI4", path_relative_to_game=False
             )
+            if isinstance(parser, pyradox.Tree) and not len(parser):
+                outputs[f"{directory}/{file}"] = ""
+                continue
             # Some map-object files wrap the tree in a list; unwrap if needed
             if not isinstance(parser, pyradox.Tree):
                 parser = parser[0]
@@ -759,241 +1024,5 @@ class StateMerger:
                 if removal_ids:
                     map_object_data.remove_instances_by_id(removal_ids)
 
-            _write_text_file(os.path.join(output_dir, file), str(map_object_data))
-
-    def merge_misc_data(self):
-        """Apply keyword replacement and removal across miscellaneous game directories.
-
-        Three categories of directories are processed:
-
-        * **Copy-replace directories** – individual files are copied with
-          source→target keyword substitution.
-        * **Aggregated-replace directories** – matching entries are
-          extracted, substituted, prefixed with ``REPLACE:``, and
-          aggregated into a single ``state_merging.txt``.
-        * **Aggregated-remove directories** – same as above, but matched
-          source keys are deleted rather than replaced.
-
-        After keyword processing, bundled asset overrides for the USA flag
-        definitions and USA state counter are written to the mod directory.
-        """
-        logger.info("Processing miscellaneous files")
-        # Phase 1: Copy-replace directories – write individual modified files
-        for relative_dir in REPLACE_COPY_FILE_DIR:
-            base_game_dir = os.path.join(self.game_root_dir, relative_dir)
-            mod_dir = os.path.join(self.write_dir, relative_dir)
-            logger.debug("Scanning %s", base_game_dir)
-            _clear_output_dir(mod_dir)
-            lookup, pattern = _build_keyword_pattern(self.merge_dict)
-            if not lookup or pattern is None:
-                continue
-
-            _process_keyword_directory(
-                base_game_dir,
-                mod_dir,
-                lookup,
-                pattern,
-                lambda text, lookup, pattern: pattern.sub(
-                    lambda m: _keyword_replace(m, lookup, text), text
-                ),
-            )
-
-        # Phase 2: Aggregated-replace directories – merge into state_merging.txt
-        for relative_dir in REPLACE_KEYWORD_FILE_DIR:
-            base_game_dir = os.path.join(self.game_root_dir, relative_dir)
-            mod_dir = os.path.join(self.write_dir, relative_dir)
-            logger.debug("Scanning %s", base_game_dir)
-
-            _clear_output_dir(mod_dir)
-            lookup, pattern = _build_keyword_pattern(self.merge_dict)
-            if not lookup or pattern is None:
-                continue
-
-            _process_keyword_directory(
-                base_game_dir,
-                mod_dir,
-                lookup,
-                pattern,
-                lambda text, lookup, pattern: pattern.sub(
-                    lambda m: _keyword_replace(m, lookup, text), text
-                ),
-                aggregate=True,
-            )
-
-        # Phase 3: Aggregated-remove directories – delete matched keys
-        for relative_dir in REMOVE_KEYWORD_FILE_DIR:
-            base_game_dir = os.path.join(self.game_root_dir, relative_dir)
-            mod_dir = os.path.join(self.write_dir, relative_dir)
-            logger.debug("Scanning %s", base_game_dir)
-
-            _clear_output_dir(mod_dir)
-            lookup, pattern = _build_keyword_pattern(self.merge_dict)
-            if not lookup or pattern is None:
-                continue
-
-            _process_keyword_directory(
-                base_game_dir,
-                mod_dir,
-                lookup,
-                pattern,
-                lambda text, lookup, pattern: pattern.sub(
-                    lambda m: _keyword_remove(m, lookup, text), text
-                ),
-                aggregate=True,
-            )
-
-        # Copy USA flag adaptation file to mod directory
-        output_dir = os.path.join(self.write_dir, "common", "flag_definitions")
-        file_str = vic3_state_merger.assets.flag_definitions_usa.CONTENT
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
-        # Delete the file in output_dir if it exists
-        if os.path.exists(
-            os.path.join(output_dir, "state_merging_flag_definition_usa.txt")
-        ):
-            os.remove(os.path.join(output_dir, "state_merging_flag_definition_usa.txt"))
-        with open(
-            os.path.join(output_dir, "state_merging_flag_definition_usa.txt"),
-            "w",
-            encoding="utf-8-sig",
-        ) as file:
-            file.write(file_str)
-
-        # Copy USA state counting file to mod directory
-        output_dir = os.path.join(self.write_dir, "common", "script_values")
-        file_str = vic3_state_merger.assets.usa_state_counter.CONTENT
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
-        # Delete the file in output_dir if it exists
-        if os.path.exists(
-            os.path.join(output_dir, "state_merging_usa_state_counter.txt")
-        ):
-            os.remove(os.path.join(output_dir, "state_merging_usa_state_counter.txt"))
-        with open(
-            os.path.join(output_dir, "state_merging_usa_state_counter.txt"),
-            "w",
-            encoding="utf-8-sig",
-        ) as file:
-            file.write(file_str)
-
-    def merge_loc_data(self):
-        """Patch localization hub-name files for merged states.
-
-        When a diner state absorbs food states, it may gain new hub types
-        (e.g. a port or mine) that it did not have before.  This method
-        checks whether the diner's hub names exist in the localization
-        data and, if missing, copies the name from the first food state
-        that provides a valid (non-placeholder) name.
-
-        Output is written as per-language YML files
-        (``hub_names_states_merging_<lang>.yml``) in the mod directory.
-        """
-        logger.info("Processing localization")
-        # Read localization yml files
-        for lang, loc_dir in LOC_FILE_DIR.items():
-            logger.debug("Reading localization files for %s...", lang)
-            hub_file = os.path.join(
-                self.game_root_dir, loc_dir, f"hub_names_{lang}.yml"
-            )
-            miss_dict = {}
-            with open(hub_file, "r", encoding="utf-8-sig") as f:
-                cleaned_yml = _clean_v3_yml_numbered_keys(hub_file)
-                data = yaml.safe_load(cleaned_yml)[lang]
-                # Process the localization data as needed
-                logger.debug("Processing %s for %s", hub_file, lang)
-                for diner, food_list in self.merge_dict.items():
-                    # Skip states with empty food lists (no merging needed)
-                    if not food_list:
-                        continue
-
-                    # Check if the diner state exists in map data
-                    if diner not in self.map_data:
-                        logger.warning(
-                            "%s not found in map data, skipping localization processing",
-                            diner,
-                        )
-                        continue
-
-                    # Check each hub type the diner has on the map; if its
-                    # localization key is missing, try to inherit from a food.
-                    for attr in ["city", "wood", "mine", "farm", "port"]:
-                        # Skip hub types the diner doesn't possess on the map
-                        if getattr(self.map_data[diner], attr, "") == "":
-                            continue
-                        if f"HUB_NAME_{diner}_{attr}" in data:
-                            continue
-                        # If not found, add a missing hub name entry
-                        logger.debug("Missing HUB_NAME_%s_%s in %s", diner, attr, lang)
-                        # Search for attribute in the food_list
-                        for food in food_list:
-                            if f"HUB_NAME_{food}_{attr}" in data:
-                                if data[f"HUB_NAME_{food}_{attr}"] in INVALID_HUB_NAMES:
-                                    continue
-                                # Wrap the value in double quotes so PyYAML
-                                # emits it as a plain scalar rather than adding
-                                # its own quoting style.
-                                miss_dict[f"HUB_NAME_{diner}_{attr}"] = (
-                                    '"' + data[f"HUB_NAME_{food}_{attr}"] + '"'
-                                )
-                                logger.debug(
-                                    "Inherited localization: %s",
-                                    miss_dict[f"HUB_NAME_{diner}_{attr}"],
-                                )
-                                break
-            # Write the missing hub names to the localization file
-            write_file = os.path.join(
-                self.write_dir, loc_dir, f"hub_names_states_merging_{lang}.yml"
-            )
-            if miss_dict:
-                logger.debug("Modifying %s", write_file)
-                # Create the output directory if it doesn't exist
-                if not os.path.exists(os.path.dirname(write_file)):
-                    os.makedirs(os.path.dirname(write_file))
-                with open(write_file, "w", encoding="utf-8-sig") as f:
-                    content = yaml.dump(
-                        {lang: miss_dict},
-                        allow_unicode=True,
-                        default_style="",
-                        default_flow_style=False,
-                    )
-                    # Remove single quotes inserted by PyYAML – Vic3 expects
-                    # unquoted or double-quoted values in localization YML.
-                    content = content.replace("'", "")
-                    f.write(content)
-
-    def copy_state_data(self):
-        """Cache vanilla state data files to the cache directory.
-
-        Each ``.txt`` file from the five core data directories is copied
-        to ``<cache_dir>/game_file/<category>/``.  Files containing
-        ``99_seas`` or ``100_pops_example`` in their name are skipped.
-        This is useful for diffing the mod output against the vanilla data.
-        """
-        for key in STATE_FILE_DIR:
-            for file in os.listdir(self.base_game_dir[key]):
-                if "99_seas" in file or "100_pops_example" in file:
-                    continue
-                base_game_file = os.path.join(self.base_game_dir[key], file)
-                # copy to cache dir
-                cache_file = os.path.join(self.cache_dir, "game_file", key, file)
-                if not os.path.exists(os.path.dirname(cache_file)):
-                    os.makedirs(os.path.dirname(cache_file))
-                shutil.copy(base_game_file, cache_file)
-
-    def copy_map_object_data(self):
-        """Cache vanilla map-object locator files to the cache directory.
-
-        Each locator file listed in :data:`MAP_OBJECT_DATA_FILES` is copied
-        to ``<cache_dir>/game_file/map_object_data/``.
-        """
-        for file in MAP_OBJECT_DATA_FILES.values():
-            base_game_file = os.path.join(
-                self.game_root_dir, "gfx", "map", "map_object_data", file
-            )
-            # copy to cache dir
-            cache_file = os.path.join(
-                self.cache_dir, "game_file", "map_object_data", file
-            )
-            if not os.path.exists(os.path.dirname(cache_file)):
-                os.makedirs(os.path.dirname(cache_file))
-            shutil.copy(base_game_file, cache_file)
+            outputs[f"{directory}/{file}"] = str(map_object_data)
+        return outputs

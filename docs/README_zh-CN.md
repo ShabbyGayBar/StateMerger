@@ -90,6 +90,93 @@ state-merger-cli merge_states.json "C:/Program Files (x86)/Steam/steamapps/commo
 
 你也可以输入 `state-merger-cli --help` 查看所有可用选项。
 
+### 选择处理阶段并组合 mod 数据（Python API 和 CLI）
+
+支持的阶段为 `map_data`、`state`、`pops`、`buildings`、`trade`、
+`map_objects`、`misc` 和 `localization`。例如，仅合并 mod 地图，
+无需提供原版历史数据：
+
+```sh
+state-merger-cli merge_states.json /mods/resource-mod /build/output --stages map_data
+```
+
+使用 mod 覆盖原版地图，其余阶段使用原版，运行全部阶段：
+
+```sh
+state-merger-cli merge_states.json /games/Victoria3/game /build/output \
+  --source map_data=/games/Victoria3/game --source map_data=/mods/resource-mod
+```
+
+每个阶段使用一个有序的**游戏目录结构根目录**列表，根目录内应包含 `common/`、
+`map_data/` 等目录。后面的根目录覆盖相同相对路径的文件（包括空文件），前面根目录中
+其他文件仍然有效。选出的文件按文件名顺序使用现有解析合并规则处理。
+这不模拟启动器元数据、`replace_path` 或定义级 mod 加载，也不补全定义内缺失字段。
+显式指定的来源列表会替换该阶段默认的 `[game_root]`；需要原版时应主动加入。
+多次使用 `--source 阶段=根目录`，按优先级从低到高排列。未指定来源的阶段使用位置参数
+中的游戏根目录。`misc` 仍使用现有的脚本目录范围。
+
+```python
+from vic3_state_merger import StateMerger
+
+merger = StateMerger(
+    game_root,
+    output_dir,
+    merge_plan,
+    sources={"map_data": [game_root, resource_mod_root]},
+)
+merger.run(stages=["map_data"])
+# merger.run() 运行全部阶段，其他阶段仍读取原版。
+```
+
+构造对象不读取数据或修改输出；`map_data`、`states`、`pops`、`buildings` 和 `trade`
+属性按需加载。每次执行重新读取所需模型，因此手动修改这些属性不会改变后续执行。
+`map_objects` 和 `localization` 可以在内部计算合并后的地图，但不会生成或清理地图输出。
+历史数据与 `misc` 阶段不依赖地图。缺失的可选定位器、本地化文件会跳过。
+英语和简体中文本地化读取所有选出 YML 文件中的地点名称条目：重复键优先使用较后的来源层，
+同一层内使用文件名较后的值。缓存复制方法也使用解析后的文件来源。
+
+**选中的阶段会清空各自输出目录内已有的普通文件。** 子目录保留，未选阶段保持不变。
+仅地图模式因此只清理 `map_data/state_regions/`，保留已复制的历史、脚本、定位器和
+本地化。必要的空白覆盖文件会抑制原始核心数据；被覆盖的陆地/海洋混合文件中的海洋节点
+会保留。验证与输出内容准备完成后才开始清理。输入目录树与目标目录树不能重叠。
+
+新的 `run()` 调用及使用任意新增配置选项的 CLI 调用，默认不注入合并补偿或附带静态资源。
+使用 `integration_traits=True` 或 `--integration-traits` 启用补偿，并自动输出对应定义。
+`ignore_small_states` 和 `small_state_limit` 影响补偿计算，不决定是否合并省份。
+关闭补偿时保留已有特质。可单独使用 `assets=["usa_flag"]` 或 `--assets usa_flag`
+选择资源：`state_traits`、`usa_flag`、`usa_state_counter`；`--assets none` 不选择资源。
+显式资源只替换自身文件，不清理其他文件。不使用新增选项的原有 CLI、GUI 及
+`merge_state_data()`、`merge_misc_data()`、`merge_loc_data()` 保留原有补偿和资源默认行为。
+
+重复构建时可保留原有合并方案 JSON，另外创建执行配置 `build.json`：
+
+```json
+{
+  "stages": ["map_data", "state", "pops", "buildings", "trade", "map_objects", "misc", "localization"],
+  "sources": {"map_data": ["../game", "../resource-mod"]},
+  "integration_traits": false,
+  "assets": []
+}
+```
+
+```sh
+state-merger-cli merge_states.json /games/Victoria3/game /build/output --config build.json
+```
+
+配置中的来源路径相对于配置文件；命令行路径相对于当前工作目录。
+命令行选项替换对应配置字段；来源选项只替换指定阶段的整个来源列表。
+`--no-integration-traits` 可以覆盖配置中的 `true`。
+Python `run_merge()` 以仅关键字参数接受 `stages`、`sources`、`integration_traits`、
+`assets` 和 `config`。包同时导出 `STAGES` 和 `ASSETS` 常量。
+
+部分输出用于其他 mod 的构建流程；其余内容需要自行组合或启用相应来源 mod。
+工具不会自动调和复制的所有权历史与独立修改后的地理数据，不复制无关 mod 内容，
+也不生成启动器元数据。当前地图模型仍不支持通用资源块、未知地图字段、`center_province`
+和缺失字段修复。**RWR 的可发现资源仍需要适配器以避免数据丢失**；选择 mod 来源
+并不消除这一限制。
+不同文件中重复的定义仍按现有解析器的合并语义处理，可能被拒绝；需要定义级覆盖时，
+应替换同名文件或预先整理输入数据。
+
 ### 开发检查
 
 本项目需要 Python 3.14 或更高版本，并使用 [uv](https://docs.astral.sh/uv/)。

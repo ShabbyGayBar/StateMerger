@@ -34,7 +34,10 @@ def test_micro_game_pipeline_semantics(tmp_path):
     assert "STATE_BETA" not in region
     assert "xA1" in region and "xB2" in region
     assert "arable_land = 8" in region
-    assert "SEA_TEST" not in region and "SEA_OTHER" not in region
+    # A mixed land/sea file is shadowed, so its sea node must be re-emitted.
+    # Pure sea files remain inherited from the underlying input.
+    assert "SEA_TEST" in region and "SEA_OTHER" not in region
+    assert "provinces = { sea1 }" in region
 
     states = (out / "common/history/states/00_states.txt").read_text(
         encoding="utf-8-sig"

@@ -1,0 +1,7 @@
+STATE_GAMMA = {
+ id = 3
+ provinces = { xC1 xC2 }
+ subsistence_building = building_subsistence_farms
+ arable_land = 2
+ arable_resources = bg_grain
+}

@@ -107,6 +107,108 @@ when a log file was successfully opened.
 Log files use UTF-8 and rotate at 5 MiB, keeping three backups. Logs should be stored
 outside the generated mod directory.
 
+### Select stages and combine mod inputs (Python API and CLI)
+
+Available stages are `map_data`, `state`, `pops`, `buildings`, `trade`,
+`map_objects`, `misc`, and `localization`. Merge only a mod's map, without
+requiring vanilla history files:
+
+```sh
+state-merger-cli merge_states.json /mods/resource-mod /build/output --stages map_data
+```
+
+Run all stages using a mod map over vanilla, with vanilla data elsewhere:
+
+```sh
+state-merger-cli merge_states.json /games/Victoria3/game /build/output \
+  --source map_data=/games/Victoria3/game --source map_data=/mods/resource-mod
+```
+
+Each stage reads an ordered list of **game-layout roots** containing `common/`,
+`map_data/`, etc. Later roots replace matching relative filenames, including
+empty files; differently named files from earlier roots remain available. The
+resolved files are parsed in filename order using the existing merge rules.
+This does not implement launcher metadata, `replace_path`, or definition-level
+mod loading, and does not fill missing fields inside definitions. An explicit
+source list replaces the default `[game_root]` for that stage. Repeat
+`--source STAGE=ROOT` in increasing priority order; unspecified stages use the
+positional game root. `misc` retains its existing supported script directories.
+
+```python
+from vic3_state_merger import StateMerger
+
+merger = StateMerger(
+    game_root,
+    output_dir,
+    merge_plan,
+    sources={"map_data": [game_root, resource_mod_root]},
+)
+merger.run(stages=["map_data"])
+# merger.run() selects all stages; other stages still read vanilla.
+```
+
+Construction is read-only. `map_data`, `states`, `pops`, `buildings`, and `trade`
+load lazily; every execution reloads the models it needs from the inputs. Editing
+these attributes does not customize a subsequent execution. `map_objects` and
+`localization` compute a merged map internally without generating or clearing map
+output. History and `misc` stages do not require map input. Missing optional
+locator/localization files are skipped. English and Simplified Chinese
+localization reads hub entries from all resolved YML files: later layers win duplicate keys, then
+later filenames within a layer. Cache-copy helpers also use resolved inputs.
+
+**Selected stages clear existing regular files in their output directories.**
+Subdirectories remain; disabled stages are untouched. Map-only therefore clears
+`map_data/state_regions/` while preserving copied history, scripts, locators,
+and localization. Required blank overrides suppress original core files. Sea
+nodes in replaced mixed land/sea files are preserved. Validation and output
+preparation finish before cleanup. Input and destination trees must not overlap.
+
+New `run()` calls and CLI invocations using any new configuration option default
+to no injected compensation or bundled assets. Enable compensation with
+`integration_traits=True` or `--integration-traits`; its definitions are included
+automatically. `ignore_small_states` and `small_state_limit` affect compensation,
+not which states merge. Without compensation, existing traits are preserved.
+Choose assets independently with `assets=["usa_flag"]` or `--assets usa_flag`.
+Choices are `state_traits`, `usa_flag`, and `usa_state_counter`; `--assets none`
+requests none. Explicit assets replace their own files without clearing unrelated
+files. Existing CLI commands without new options, GUI operations, and legacy
+`merge_state_data()`, `merge_misc_data()`, `merge_loc_data()` methods retain
+their compensation and asset defaults.
+
+For reusable builds, keep the merge plan unchanged and create a separate execution
+configuration, for example `build.json`:
+
+```json
+{
+  "stages": ["map_data", "state", "pops", "buildings", "trade", "map_objects", "misc", "localization"],
+  "sources": {"map_data": ["../game", "../resource-mod"]},
+  "integration_traits": false,
+  "assets": []
+}
+```
+
+```sh
+state-merger-cli merge_states.json /games/Victoria3/game /build/output --config build.json
+```
+
+Config source paths resolve relative to the config file; CLI paths resolve relative
+to the working directory. Flags replace corresponding config fields. Source flags
+replace the whole stack only for the specified stage. Use
+`--no-integration-traits` to override a true config value. Library `run_merge()`
+accepts `stages`, `sources`, `integration_traits`, `assets`, and `config` as
+keyword-only additions. `STAGES` and `ASSETS` are also exported by the package.
+
+Partial output is a component for another mod build: assemble the remaining files
+or enable the required source mods yourself. The tool does not reconcile copied
+ownership history with independently modified geography, copy unrelated mod
+contents, or create launcher metadata. Generic resource blocks, unknown map fields,
+`center_province`, and missing-field repair remain unsupported by the existing map
+model. **RWR-style discoverable resources still require an adapter** to prevent
+data loss; selecting mod sources does not remove that requirement.
+Definitions repeated under different filenames still use the existing parser's
+merge semantics and may be rejected; rename/replace matching files or prepare
+compatible inputs when definition-level overrides are needed.
+
 ### Development checks
 
 This project targets Python 3.14 or later and uses [uv](https://docs.astral.sh/uv/).

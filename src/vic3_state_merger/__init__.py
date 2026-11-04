@@ -11,6 +11,7 @@ except PackageNotFoundError:
 
 from vic3_state_merger.buildings import Buildings
 from vic3_state_merger.pops import Pops
+from vic3_state_merger.sources import ASSETS, STAGES
 from vic3_state_merger.state_merger import StateMerger
 from vic3_state_merger.state_regions import StateRegion
 from vic3_state_merger.states import States
@@ -19,6 +20,8 @@ from vic3_state_merger.trade import Trade
 logging.getLogger(__name__).addHandler(logging.NullHandler())
 
 __all__ = [
+    "ASSETS",
+    "STAGES",
     "Buildings",
     "Pops",
     "StateMerger",
