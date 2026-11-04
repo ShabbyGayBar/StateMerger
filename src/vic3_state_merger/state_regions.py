@@ -27,9 +27,9 @@ from pyradox import Tree
 logger = logging.getLogger(__name__)
 
 # English word equivalents for the integer suffix in state-trait identifiers.
-# Index ``i`` gives the word for ``i`` (e.g. ``seq_str[3] == "three"``),
+# Index ``i`` gives the word for ``i`` (e.g. ``SEQ_STR[3] == "three"``),
 # used to construct trait names like ``state_trait_three_states_integration``.
-seq_str = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"]
+SEQ_STR = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight"]
 
 
 class StateRegionItem:
@@ -228,7 +228,7 @@ class StateRegionItem:
         if self.is_sea_node():
             return 0
         for i in range(2, 9):
-            if f"state_trait_{seq_str[i]}_states_integration" in self.traits:
+            if f"state_trait_{SEQ_STR[i]}_states_integration" in self.traits:
                 return i
         return 1
 
@@ -315,12 +315,12 @@ class StateRegionItem:
         otherMergeStatesCnt = other.merge_states_cnt()
         if thisMergeStatesCnt > 1:
             self.traits.remove(
-                f"state_trait_{seq_str[thisMergeStatesCnt]}_states_integration"
+                f"state_trait_{SEQ_STR[thisMergeStatesCnt]}_states_integration"
             )
         for trait in other.traits:
             if (
                 trait
-                != f"state_trait_{seq_str[otherMergeStatesCnt]}_states_integration"
+                != f"state_trait_{SEQ_STR[otherMergeStatesCnt]}_states_integration"
                 and trait not in self.traits
             ):
                 self.traits.append(trait)
@@ -334,7 +334,7 @@ class StateRegionItem:
                 totalMergeStatesCnt -= 1
         if (totalMergeStatesCnt > 1) and (totalMergeStatesCnt < 8):
             self.traits.append(
-                f"state_trait_{seq_str[totalMergeStatesCnt]}_states_integration"
+                f"state_trait_{SEQ_STR[totalMergeStatesCnt]}_states_integration"
             )
         elif totalMergeStatesCnt >= 8:
             self.traits.append("state_trait_eight_states_integration")

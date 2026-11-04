@@ -51,7 +51,7 @@ logger = logging.getLogger(__name__)
 # Mapping of logical category names to relative paths under the game root.
 # Each key corresponds to one of the five core data categories parsed and
 # merged by :class:`StateMerger`.
-state_file_dir = {
+STATE_FILE_DIR = {
     "map_data": r"map_data/state_regions",
     "state": r"common/history/states",
     "pops": r"common/history/pops",
@@ -63,7 +63,7 @@ state_file_dir = {
 # and whose output should be **aggregated** into a single ``state_merging.txt``
 # file with ``REPLACE:`` prefixes.  These are game-script directories where
 # only the modified entries need to override the base game.
-replace_keyword_file_dir = [
+REPLACE_KEYWORD_FILE_DIR = [
     "common/ai_strategies",
     "common/buildings",
     "common/character_templates",
@@ -86,7 +86,7 @@ replace_keyword_file_dir = [
 # but whose output is written as **individual files** (one per input file)
 # rather than aggregated.  These are typically data directories where each
 # file stands alone and should be copied with substitutions applied.
-replace_copy_file_dir = [
+REPLACE_COPY_FILE_DIR = [
     "common/coat_of_arms/template_lists",
     "common/company_types",
     "common/history/countries",
@@ -111,11 +111,11 @@ replace_copy_file_dir = [
 # Game directories whose .txt files need **keyword removal** – any matched
 # source state ID is deleted rather than replaced.  Output is aggregated
 # into a single ``state_merging.txt`` with ``REPLACE:`` prefixes.
-remove_keyword_file_dir = ["common/strategic_regions"]
+REMOVE_KEYWORD_FILE_DIR = ["common/strategic_regions"]
 
 # Localization language codes mapped to their relative directory paths under
 # the game root.
-loc_file_dir = {
+LOC_FILE_DIR = {
     "l_english": r"localization/english",
     "l_simp_chinese": r"localization/simp_chinese",
 }
@@ -123,7 +123,7 @@ loc_file_dir = {
 # Map-object locator categories and their corresponding game data filenames.
 # Each key (``city``, ``farm``, …) maps to the file that defines map-pin
 # positions for that hub type.
-map_object_data_files = {
+MAP_OBJECT_DATA_FILES = {
     "city": "generated_map_object_locators_city.txt",
     "farm": "generated_map_object_locators_farm.txt",
     "mine": "generated_map_object_locators_mine.txt",
@@ -134,7 +134,7 @@ map_object_data_files = {
 # Hub names that are placeholders and should not be propagated to merged
 # states.  ``"NAME"`` is the English placeholder; ``"名称"`` is the
 # Simplified Chinese placeholder.
-invalid_hub_names = ["NAME", "名称"]
+INVALID_HUB_NAMES = ["NAME", "名称"]
 
 
 def _parse_merge(path, merge_levels: int = 0):
@@ -554,7 +554,7 @@ class StateMerger:
         self.cache_dir = cache_dir
 
         # Set the base game and mod directories
-        for key, value in state_file_dir.items():
+        for key, value in STATE_FILE_DIR.items():
             self.base_game_dir[key] = os.path.join(game_root_dir, value)
             self.mod_dir[key] = os.path.join(write_dir, value)
             _clear_output_dir(self.mod_dir[key])
@@ -692,7 +692,7 @@ class StateMerger:
         output_dir = os.path.join(self.write_dir, "gfx", "map", "map_object_data")
         _clear_output_dir(output_dir)
 
-        for file in map_object_data_files.values():
+        for file in MAP_OBJECT_DATA_FILES.values():
             base_game_file = os.path.join(
                 self.game_root_dir, "gfx", "map", "map_object_data", file
             )
@@ -715,7 +715,7 @@ class StateMerger:
                     continue
 
                 locator_attr = None
-                for attr, locator_file in map_object_data_files.items():
+                for attr, locator_file in MAP_OBJECT_DATA_FILES.items():
                     if locator_file == file:
                         locator_attr = attr
                         break
@@ -779,7 +779,7 @@ class StateMerger:
         """
         logger.info("Processing miscellaneous files")
         # Phase 1: Copy-replace directories – write individual modified files
-        for relative_dir in replace_copy_file_dir:
+        for relative_dir in REPLACE_COPY_FILE_DIR:
             base_game_dir = os.path.join(self.game_root_dir, relative_dir)
             mod_dir = os.path.join(self.write_dir, relative_dir)
             logger.debug("Scanning %s", base_game_dir)
@@ -799,7 +799,7 @@ class StateMerger:
             )
 
         # Phase 2: Aggregated-replace directories – merge into state_merging.txt
-        for relative_dir in replace_keyword_file_dir:
+        for relative_dir in REPLACE_KEYWORD_FILE_DIR:
             base_game_dir = os.path.join(self.game_root_dir, relative_dir)
             mod_dir = os.path.join(self.write_dir, relative_dir)
             logger.debug("Scanning %s", base_game_dir)
@@ -821,7 +821,7 @@ class StateMerger:
             )
 
         # Phase 3: Aggregated-remove directories – delete matched keys
-        for relative_dir in remove_keyword_file_dir:
+        for relative_dir in REMOVE_KEYWORD_FILE_DIR:
             base_game_dir = os.path.join(self.game_root_dir, relative_dir)
             mod_dir = os.path.join(self.write_dir, relative_dir)
             logger.debug("Scanning %s", base_game_dir)
@@ -890,7 +890,7 @@ class StateMerger:
         """
         logger.info("Processing localization")
         # Read localization yml files
-        for lang, loc_dir in loc_file_dir.items():
+        for lang, loc_dir in LOC_FILE_DIR.items():
             logger.debug("Reading localization files for %s...", lang)
             hub_file = os.path.join(
                 self.game_root_dir, loc_dir, f"hub_names_{lang}.yml"
@@ -927,7 +927,7 @@ class StateMerger:
                         # Search for attribute in the food_list
                         for food in food_list:
                             if f"HUB_NAME_{food}_{attr}" in data:
-                                if data[f"HUB_NAME_{food}_{attr}"] in invalid_hub_names:
+                                if data[f"HUB_NAME_{food}_{attr}"] in INVALID_HUB_NAMES:
                                     continue
                                 # Wrap the value in double quotes so PyYAML
                                 # emits it as a plain scalar rather than adding
@@ -969,7 +969,7 @@ class StateMerger:
         ``99_seas`` or ``100_pops_example`` in their name are skipped.
         This is useful for diffing the mod output against the vanilla data.
         """
-        for key in state_file_dir:
+        for key in STATE_FILE_DIR:
             for file in os.listdir(self.base_game_dir[key]):
                 if "99_seas" in file or "100_pops_example" in file:
                     continue
@@ -983,10 +983,10 @@ class StateMerger:
     def copy_map_object_data(self):
         """Cache vanilla map-object locator files to the cache directory.
 
-        Each locator file listed in :data:`map_object_data_files` is copied
+        Each locator file listed in :data:`MAP_OBJECT_DATA_FILES` is copied
         to ``<cache_dir>/game_file/map_object_data/``.
         """
-        for file in map_object_data_files.values():
+        for file in MAP_OBJECT_DATA_FILES.values():
             base_game_file = os.path.join(
                 self.game_root_dir, "gfx", "map", "map_object_data", file
             )
