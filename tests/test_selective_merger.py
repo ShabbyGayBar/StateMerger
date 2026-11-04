@@ -80,6 +80,33 @@ def test_map_only_uses_mod_root_without_any_vanilla_data(tmp_path):
     assert all(data.startswith(b"\xef\xbb\xbf") for data in inventory(out).values())
 
 
+def test_map_only_normalizes_untouched_states_without_merges(tmp_path):
+    out = tmp_path / "out"
+    before = inventory(FIXTURE)
+    merger = StateMerger(FIXTURE, out, {})
+    merger.run(["map_data"])
+    result = regions(out)
+    alpha = result["STATE_ALPHA"]
+    iron = next(r for r in alpha["resource"] if r["type"] == "building_iron_mine")
+    assert iron == {
+        "type": "building_iron_mine",
+        "discovered_amount": 6,
+        "undiscovered_amount": 8,
+    }
+    assert "capped_resources" not in alpha
+    assert result["STATE_BETA"]["capped_resources"] == {"building_coal_mine": 7}
+    for state in result.values():
+        blocks = state.get("resource", [])
+        if isinstance(blocks, dict):
+            blocks = [blocks]
+        assert not set(state.get("capped_resources", {})) & {r["type"] for r in blocks}
+    assert (out / GENERATED).read_bytes().startswith(b"\xef\xbb\xbf")
+    first = inventory(out)
+    merger.run(["map_data"])
+    assert inventory(out) == first
+    assert inventory(FIXTURE) == before
+
+
 def test_all_stages_overlay_map_and_keep_vanilla_history(tmp_path):
     out = tmp_path / "out"
     before = inventory(FIXTURE), inventory(OVERLAY)

@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from copy import deepcopy
+from itertools import permutations
 
 import pyradox
 import pytest
@@ -157,6 +158,178 @@ def test_absent_or_empty_resources(resources):
     assert "resource =" not in str(a)
 
 
+@pytest.mark.parametrize(
+    "capped,quantities,expected",
+    [
+        (
+            26,
+            {"discovered_amount": 1, "undiscovered_amount": 8},
+            {"discovered_amount": 27, "undiscovered_amount": 8},
+        ),
+        (
+            4,
+            {"undiscovered_amount": 8},
+            {"discovered_amount": 4, "undiscovered_amount": 8},
+        ),
+        (4, {}, {"discovered_amount": 4}),
+        (
+            4,
+            {"discovered_amount": 0, "undiscovered_amount": 0},
+            {"discovered_amount": 4, "undiscovered_amount": 0},
+        ),
+        (0, {}, {"discovered_amount": 0}),
+    ],
+)
+def test_constructor_normalizes_overlapping_resource_quantities(
+    capped, quantities, expected
+):
+    region = StateRegionItem(
+        "A",
+        land(
+            "A",
+            1,
+            ["a"],
+            capped_resources={"building_coal_mine": capped},
+            resource={"type": "building_coal_mine", **quantities},
+        ),
+    )
+    assert region.capped_resources == {}
+    assert region.resources == {"building_coal_mine": expected}
+    assert "capped_resources" not in region.to_python()
+
+
+def test_normalization_preserves_metadata_and_round_trips(tmp_path):
+    metadata = {
+        "depleted_type": "building_custom_gold_mine",
+        "depleted_amount": 2,
+        "amount": 9,
+        "deplete_chance_mult": 0.5,
+        "discover_chance_mult": 1.5,
+        "custom": {"label": "rich deposit", "enabled": True},
+    }
+    source = land(
+        "A",
+        1,
+        ["a", "b"],
+        capped_resources={
+            "building_gold_field": 4,
+            "building_iron_mine": 6,
+            "building_coal_mine": 7,
+        },
+        resource=[
+            {"type": "building_gold_field", "discovered_amount": 1, **metadata},
+            {
+                "type": "building_gold_field",
+                "discovered_amount": 2,
+                "undiscovered_amount": 8,
+                **metadata,
+            },
+            {"type": "building_iron_mine", "undiscovered_amount": 5},
+            {"type": "building_oil_rig", "undiscovered_amount": 3},
+        ],
+    )
+    original = deepcopy(source)
+    regions = StateRegion(source)
+    region = regions["A"]
+    assert source == original
+    assert region.capped_resources == {"building_coal_mine": 7}
+    assert region.resources == {
+        "building_gold_field": {
+            "discovered_amount": 7,
+            "undiscovered_amount": 8,
+            **metadata,
+        },
+        "building_iron_mine": {"discovered_amount": 6, "undiscovered_amount": 5},
+        "building_oil_rig": {"undiscovered_amount": 3},
+    }
+    expected = deepcopy(region.resources)
+    source["A"]["resource"][0]["custom"]["label"] = "changed input"
+    exported = regions.to_python()
+    exported["A"]["resource"][0]["custom"]["label"] = "changed export"
+    assert region.resources == expected
+    reloaded = StateRegion(regions.to_python())
+    assert reloaded["A"].resources == expected
+    assert reloaded["A"].capped_resources == region.capped_resources
+
+    path = tmp_path / "normalized.txt"
+    regions.dump(path)
+    assert path.read_bytes().startswith(b"\xef\xbb\xbf")
+    tree = pyradox.parse_file(str(path), game="HoI4", path_relative_to_game=False)
+    assert isinstance(tree, pyradox.Tree)
+    parsed = StateRegion(tree)
+    assert parsed["A"].resources == expected
+    assert parsed["A"].capped_resources == region.capped_resources
+    assert list(parsed["A"].resources) == list(region.resources)
+    assert str(parsed) == str(regions)
+
+
+@pytest.mark.parametrize("reverse", [False, True])
+@pytest.mark.parametrize(
+    "kind", ["building_coal_mine", "building_gold_field", "building_custom_mine"]
+)
+def test_merge_normalizes_resource_overlap_in_both_directions(kind, reverse):
+    capped = StateRegionItem("A", land("A", 1, ["a"], capped_resources={kind: 26}))
+    discoverable = StateRegionItem(
+        "B",
+        land(
+            "B",
+            2,
+            ["b"],
+            resource={
+                "type": kind,
+                "discovered_amount": 1,
+                "undiscovered_amount": 8,
+                "depleted_type": "building_other_mine",
+                "custom": {"enabled": True},
+            },
+        ),
+    )
+    diner, food = (discoverable, capped) if reverse else (capped, discoverable)
+    old_capped, old_resources = capped.capped_resources, discoverable.resources
+    diner.merge(food)
+    assert diner.capped_resources == {}
+    assert diner.resources == {
+        kind: {
+            "discovered_amount": 27,
+            "undiscovered_amount": 8,
+            "depleted_type": "building_other_mine",
+            "custom": {"enabled": True},
+        }
+    }
+    assert food.capped_resources == {} and food.resources == {}
+    old_capped[kind] = 99
+    old_resources[kind]["custom"]["enabled"] = False
+    assert diner.resources[kind]["discovered_amount"] == 27
+    assert diner.resources[kind]["custom"]["enabled"] is True
+
+
+@pytest.mark.parametrize("order", list(permutations(("A", "B", "C"))))
+def test_successive_merges_conserve_resource_capacity(order):
+    regions = StateRegion(
+        {
+            **land("A", 1, ["a"], capped_resources={"building_coal_mine": 3}),
+            **land("B", 2, ["b"], capped_resources={"building_coal_mine": 23}),
+            **land(
+                "C",
+                3,
+                ["c"],
+                resource={
+                    "type": "building_coal_mine",
+                    "discovered_amount": 1,
+                    "undiscovered_amount": 8,
+                },
+            ),
+        }
+    )
+    diner, *foods = order
+    regions.merge_states({diner: foods})
+    assert list(regions) == [diner]
+    assert regions[diner].capped_resources == {}
+    assert regions[diner].resources == {
+        "building_coal_mine": {"discovered_amount": 27, "undiscovered_amount": 8}
+    }
+
+
 def test_resource_metadata_union_and_isolation():
     source = land(
         "A",
@@ -230,6 +403,7 @@ def test_conflicting_resource_metadata_leaves_both_states_unchanged(field, left,
                 "A",
                 1,
                 ["a"],
+                capped_resources={"building_custom_mine": 3},
                 resource={"type": "building_gold_field", field: left},
             ),
             **land(

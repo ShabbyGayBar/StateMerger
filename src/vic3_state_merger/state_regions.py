@@ -17,6 +17,10 @@ inherited from the food state only when the diner state lacks them.  The
 ``state_trait_<N>_states_integration`` trait is recomputed to reflect the new
 total number of merged states.
 
+Loading and merging land states normalizes overlapping resource types: capped
+capacity becomes discovered capacity, while undiscovered amounts and all resource
+metadata are retained. That metadata also governs the converted capacity.
+
 The output is written in Vic3 script format with UTF-8 BOM encoding.
 """
 
@@ -59,6 +63,25 @@ def _merge_resources(
             else:
                 target[field] = deepcopy(value)
     return result
+
+
+def _normalize_resources(
+    capped_resources: dict[str, int], resources: dict[str, dict]
+) -> tuple[dict[str, int], dict[str, dict]]:
+    """Return independent deposits with capped overlaps moved to discovered.
+
+    Existing resource metadata, including depletion behavior, applies to the
+    converted capacity. Nonoverlapping deposits and undiscovered amounts retain
+    their values and field presence.
+    """
+    capped = deepcopy(capped_resources)
+    discoverable = deepcopy(resources)
+    for kind, payload in discoverable.items():
+        if kind in capped:
+            payload["discovered_amount"] = payload.get(
+                "discovered_amount", 0
+            ) + capped.pop(kind)
+    return capped, discoverable
 
 
 class StateRegionItem:
@@ -108,6 +131,8 @@ class StateRegionItem:
         default to empty collections or sentinel values (``""``, ``-1``).
         Single-value fields that the parser may return as scalars are
         normalised to lists where the game engine expects a list.
+        Overlapping capped resources become discovered capacity, even when this
+        state is not subsequently merged.
 
         Args:
             name: The region identifier (key) in the source dictionary.
@@ -225,7 +250,9 @@ class StateRegionItem:
         blocks = dict_data.get("resource", [])
         if isinstance(blocks, dict):
             blocks = [blocks]
-        self.resources = _merge_resources({}, blocks, self.name)
+        self.capped_resources, self.resources = _normalize_resources(
+            self.capped_resources, _merge_resources({}, blocks, self.name)
+        )
 
         if "naval_exit_id" in dict_data:
             self.naval_exit_id = dict_data["naval_exit_id"]
@@ -310,7 +337,8 @@ class StateRegionItem:
           to reflect the new total.
 
         After merging, the food state's data is cleared to prevent
-        double-counting if it is still referenced elsewhere.
+        double-counting if it is still referenced elsewhere. Overlapping capped
+        capacity becomes discovered capacity with the resource metadata retained.
 
         Args:
             other: The :class:`StateRegionItem` to absorb into this one.
@@ -335,6 +363,10 @@ class StateRegionItem:
         resources = _merge_resources(
             self.resources, other._resource_blocks(), f"{self.name} and {other.name}"
         )
+        capped_resources = deepcopy(self.capped_resources)
+        for resource, amount in other.capped_resources.items():
+            capped_resources[resource] = capped_resources.get(resource, 0) + int(amount)
+        capped_resources, resources = _normalize_resources(capped_resources, resources)
 
         # Additive list fields: simply concatenate.
         self.provinces += other.provinces
@@ -386,14 +418,8 @@ class StateRegionItem:
             if resource not in self.arable_resources:
                 self.arable_resources.append(resource)
 
-        # Capped resources: sum levels for shared keys, add new keys.
-        for resource, amount in other.capped_resources.items():
-            if resource in self.capped_resources:
-                self.capped_resources[resource] += int(amount)
-            else:
-                self.capped_resources[resource] = int(amount)
-
-        # Discoverable resources: sum undiscovered and discovered amounts.
+        # Resource candidates were combined and normalized before any mutation.
+        self.capped_resources = capped_resources
         self.resources = resources
 
         # Fallback fields: inherit from other only when self has no value.

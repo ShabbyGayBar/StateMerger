@@ -89,12 +89,11 @@ def test_micro_game_pipeline_semantics(tmp_path):
         {
             "type": "building_iron_mine",
             "undiscovered_amount": 13,
-            "discovered_amount": 3,
+            "discovered_amount": 7,
         },
         {"type": "building_oil_rig", "undiscovered_amount": 3},
     ]
     assert parsed_region["capped_resources"] == {
-        "building_iron_mine": 4,
         "building_coal_mine": 7,
     }
 
