@@ -445,7 +445,7 @@
     "STATE_AZERBAIJAN": [],
     "STATE_GREATER_CAUCASUS": [],
     "STATE_SAMARA": [],
-    "STATE_TARTARIA": [],
+    "STATE_SARATOV": [],
     "STATE_ASTRAKHAN": [],
     "STATE_UZBEKIA": [],
     "STATE_TAJIKISTAN": [],
@@ -602,7 +602,6 @@
     "STATE_TOBOLSK": [],
     "STATE_UPPER_YENISEYSK": [],
     "STATE_OB": [],
-    "STATE_CHUKOTKA": [],
     "STATE_KAMCHATKA": [],
     "STATE_OKHOTSK": [],
     "STATE_YAKUTSK": [],
@@ -612,7 +611,7 @@
     "STATE_TARTU": [],
     "STATE_RIGA": [],
     "STATE_COURLAND": [],
-    "STATE_KAUNAS": [],
+    "STATE_LITHUANIA": [],
     "STATE_VILNIUS": [],
     "STATE_KUOPIO": [],
     "STATE_UUSIMAA": [],
@@ -637,7 +636,7 @@
     "STATE_KURSK": [],
     "STATE_TVER": [],
     "STATE_CHERSON": [],
-    "STATE_GALICH": [],
+    "STATE_VOLOGDA": [],
     "STATE_MINSK": [],
     "STATE_ROSTOV": [],
     "STATE_PERM": [],
@@ -673,5 +672,7 @@
     "STATE_STAVROPOL": [],
     "STATE_CHUVASHIA": [],
     "STATE_CHERNIHIV": [],
-    "STATE_NENETSIA": []
+    "STATE_NENETSIA": [],
+    "STATE_TULA": [],
+    "STATE_KOSTROMA": []
 }
