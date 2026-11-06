@@ -213,3 +213,27 @@ def test_smoke_launch_creates_no_log(window, tmp_path):
     assert window.workers == []
     window.finish_startup.assert_called_once_with(window.root, window.report)
     assert not list(tmp_path.iterdir())
+
+
+@pytest.mark.parametrize("enabled", [False, True])
+def test_draft_dialog_uses_captured_log_destination(window, monkeypatch, enabled):
+    window.enabled.set(enabled)
+    window.path.set("custom.log")
+    path = Path("custom.log").resolve()
+    monkeypatch.setattr(
+        gui, "_configure_merge_logging", lambda _: path if enabled else None
+    )
+    monkeypatch.setattr(gui, "run_merge", lambda **_: SimpleNamespace(status="draft"))
+    warning = Mock()
+    monkeypatch.setattr(gui.messagebox, "showwarning", warning)
+    window.run.options["command"]()
+    window.workers.pop()()
+    for callback in window.callbacks:
+        callback()
+    title, message = warning.call_args.args
+    assert title == "Draft exported"
+    if enabled:
+        assert str(path) in message
+    else:
+        assert "Enable file logging and rerun" in message
+        assert str(path) not in message

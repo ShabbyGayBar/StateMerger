@@ -52,6 +52,10 @@ from vic3_state_merger.state_regions import StateRegion
 from vic3_state_merger.states import States
 from vic3_state_merger.trade import Trade
 
+from .splines.geography import atomic_write
+from .splines.network import NETWORK_PATH
+from .splines.pipeline import prepare_spline_merge
+
 logger = logging.getLogger(__name__)
 
 # Mapping of logical category names to relative paths under the game root.
@@ -533,6 +537,7 @@ class StateMerger:
         self._models: dict[str, Any] = {}
         self._core_files: dict[str, dict[str, Path]] = {}
         self._core_trees: dict[str, dict[str, Any]] = {}
+        self.spline_result = None
 
     def _load_model(self, stage):
         if stage not in self._models:
@@ -658,7 +663,10 @@ class StateMerger:
         if not isinstance(small_state_limit, int) or small_state_limit < 0:
             raise ValueError("small_state_limit must be a nonnegative integer")
         self._validate_plan()
+        self.spline_result = None
         needed = set(selected)
+        if "spline_network" in needed:
+            needed.add("map_objects")
         if needed & {"map_objects", "localization"}:
             needed.add("map_data")
         ordered_needed = [stage for stage in STAGES if stage in needed]
@@ -670,9 +678,10 @@ class StateMerger:
             self._models.pop(stage, None)
             self._core_files.pop(stage, None)
             self._core_trees.pop(stage, None)
-        outputs: dict[str, str] = {}
+        outputs: dict[str, str | bytes] = {}
         clear_dirs: list[str] = []
         original_map_data = {}
+        original_states = {}
         if "map_data" in needed:
             regions = self.map_data
             for target, foods in self.merge_dict.items():
@@ -689,12 +698,43 @@ class StateMerger:
                 }
                 for name, region in regions.items()
             }
+            original_states = deepcopy(regions.to_python())
             regions.merge_states(
                 {target: foods for target, foods in self.merge_dict.items() if foods},
                 ignoreSmallStates=ignore_small_states,
                 smallStateLimit=small_state_limit,
                 integration_traits=integration_traits,
             )
+        locator_outputs = (
+            self._map_object_outputs(original_map_data)
+            if "map_objects" in needed
+            else {}
+        )
+        spline_result = None
+        prepared_spline = None
+        if "spline_network" in selected:
+            # The default library cache follows the destination, keeping caches
+            # outside playable content and avoiding writes into the working tree.
+            cache = Path(self.cache_dir)
+            if os.fspath(self.cache_dir) == "./data":
+                cache = Path(self.write_dir).resolve().parent / "data"
+            cache = cache.resolve()
+            destination = Path(self.write_dir).resolve()
+            if cache.is_relative_to(destination) or destination.is_relative_to(cache):
+                raise ValueError("Spline cache must be outside the mod output")
+            for roots in self._resolver.roots.values():
+                for root in roots:
+                    if cache.is_relative_to(root) or root.is_relative_to(cache):
+                        raise ValueError("Spline cache overlaps an input root")
+            prepared_spline = prepare_spline_merge(
+                self._resolver,
+                original_states,
+                self.map_data.to_python(),
+                locator_outputs,
+                self.merge_dict,
+                cache,
+            )
+            spline_result = prepared_spline.result
         for stage in STAGES:
             if stage not in selected:
                 continue
@@ -712,8 +752,12 @@ class StateMerger:
                 outputs.update(self._core_outputs(stage))
                 clear_dirs.append(STATE_FILE_DIR[stage])
             elif stage == "map_objects":
-                outputs.update(self._map_object_outputs(original_map_data))
+                outputs.update(locator_outputs)
                 clear_dirs.append("gfx/map/map_object_data")
+            elif stage == "spline_network":
+                if spline_result is None:
+                    raise RuntimeError("Spline stage was not prepared")
+                outputs[NETWORK_PATH] = spline_result.data
             elif stage == "misc":
                 logger.info("Processing miscellaneous files")
                 misc_outputs, directories = self._misc_outputs()
@@ -726,13 +770,26 @@ class StateMerger:
         if integration_traits:
             requested_assets.add("state_traits")
         outputs.update(self._asset_outputs(requested_assets))
+        if prepared_spline is not None:
+            prepared_spline.verify_inputs()
         # All parsing, reference validation, transformations and serialization have
         # succeeded. Only selected stages own broad directory cleanup.
         for relative_dir in dict.fromkeys(clear_dirs):
             logger.info("Clearing selected output directory: %s", relative_dir)
             _clear_output_dir(os.path.join(self.write_dir, relative_dir))
         for relative_file, text in sorted(outputs.items()):
-            _write_text_file(os.path.join(self.write_dir, relative_file), text)
+            if isinstance(text, bytes):
+                atomic_write(Path(self.write_dir) / relative_file, text)
+            else:
+                _write_text_file(os.path.join(self.write_dir, relative_file), text)
+        if spline_result is not None:
+            self.spline_result = spline_result
+            logger.log(
+                logging.WARNING if spline_result.status == "draft" else logging.INFO,
+                "Spline %s exported: %s",
+                spline_result.status,
+                Path(self.write_dir) / NETWORK_PATH,
+            )
         if "map_data" not in selected and previous_map is not None:
             # A read-only dependency must not replace the last exposed map
             # result, which callers may inspect after the legacy pipeline.
@@ -780,7 +837,7 @@ class StateMerger:
     ):
         """Legacy core/map-object pipeline, including integration compensation."""
         self.run(
-            stages=(*STATE_FILE_DIR, "map_objects"),
+            stages=(*STATE_FILE_DIR, "map_objects", "spline_network"),
             integration_traits=True,
             ignore_small_states=ignoreSmallStates,
             small_state_limit=smallStateLimit,

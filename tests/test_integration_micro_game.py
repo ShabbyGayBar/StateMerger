@@ -72,7 +72,7 @@ def test_micro_game_pipeline_semantics(tmp_path):
     # A mixed land/sea file is shadowed, so its sea node must be re-emitted.
     # Pure sea files remain inherited from the underlying input.
     assert "SEA_TEST" in region and "SEA_OTHER" not in region
-    assert "provinces = { sea1 }" in region
+    assert "provinces = { x0000FF }" in region
 
     region_path = out / "map_data/state_regions/state_merging.txt"
     assert region_path.read_bytes().startswith(b"\xef\xbb\xbf")

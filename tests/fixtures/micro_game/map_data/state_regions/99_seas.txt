@@ -1,1 +1,1 @@
-SEA_OTHER = { id = 100 provinces = { sea2 } }
+SEA_OTHER = { id = 100 provinces = { x0000FE } }

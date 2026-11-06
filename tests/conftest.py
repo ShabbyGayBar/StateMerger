@@ -137,3 +137,27 @@ def locator_data():
             "instances": [{"id": 1, "x": 2}, {"id": "2"}, {"name": "malformed"}]
         }
     }
+
+
+@pytest.fixture
+def spline_logs(caplog):
+    """Inspect lazy log arguments without parsing rendered dictionary strings."""
+    import logging
+
+    caplog.set_level(logging.DEBUG, logger="vic3_state_merger")
+
+    def captured(*categories):
+        findings = []
+        for record in caplog.records:
+            if not record.name.startswith("vic3_state_merger.splines."):
+                continue
+            if record.msg == "%s (%s): %s":
+                kind, category, details = record.args
+                if category in categories:
+                    findings.append({"kind": kind, "category": category, **details})
+            elif record.msg in ("route: %s", "node_change: %s"):
+                if record.msg.split(":")[0] in categories:
+                    findings.append(record.args)
+        return findings
+
+    return captured

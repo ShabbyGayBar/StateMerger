@@ -102,6 +102,18 @@ def _validate_inputs(
     return True, ""
 
 
+def _completion_status(result, log_path: Path | None = None):
+    """Headless-safe distinction between a finished run and an incomplete draft."""
+    if result is not None and result.status == "draft":
+        details = (
+            f"Diagnostic log: {log_path}"
+            if log_path is not None
+            else "Enable file logging and rerun for diagnostic details."
+        )
+        return "Draft exported", f"Spline routes need repair or verification. {details}"
+    return "Completed", None
+
+
 def _finish_startup(root: tk.Tk, report: Path | None) -> None:
     if report is None:
         root.mainloop()
@@ -153,6 +165,7 @@ def main() -> None:
     mod_dir_var = tk.StringVar()
     small_state_limit_var = tk.StringVar(value="4")
     ignore_small_states_var = tk.BooleanVar(value=False)
+    spline_network_var = tk.BooleanVar(value=True)
     enable_log_file_var = tk.BooleanVar(value=False)
     log_file_var = tk.StringVar()
     status_var = tk.StringVar(value="Idle")
@@ -198,6 +211,10 @@ def main() -> None:
         variable=ignore_small_states_var,
     )
     ignore_checkbox.grid(row=4, column=0, columnspan=2, sticky="w", pady=(8, 0))
+    spline_checkbox = ttk.Checkbutton(
+        main_tab, text="Merge spline network", variable=spline_network_var
+    )
+    spline_checkbox.grid(row=4, column=2, sticky="w", pady=(8, 0))
 
     status_label = ttk.Label(main_tab, textvariable=status_var)
     status_label.grid(row=5, column=0, columnspan=3, sticky="w", pady=(12, 0))
@@ -255,6 +272,7 @@ def main() -> None:
         mod_entry.configure(state=state)
         small_limit_entry.configure(state=state)
         ignore_checkbox.configure(state=state)
+        spline_checkbox.configure(state=state)
         log_checkbox.configure(state=state)
         _update_log_controls(is_running)
 
@@ -280,6 +298,7 @@ def main() -> None:
         status_var.set("Running...")
         _set_running(True)
         ignore_small_states = ignore_small_states_var.get()
+        spline_network = spline_network_var.get()
 
         def _worker() -> None:
             log_path = None
@@ -289,13 +308,14 @@ def main() -> None:
                 log_path = _configure_merge_logging(
                     log_file if enable_log_file else None
                 )
-                run_merge(
+                result = run_merge(
                     merge_file=merge_file,
                     mod_dir=mod_dir,
                     game_root=game_root,
                     data_dir=data_dir,
                     small_state_limit=limit,
                     ignore_small_states=ignore_small_states,
+                    spline_network=spline_network,
                 )
             except Exception as exc:  # pragma: no cover - UI boundary
                 logger.exception("GUI merge or logging setup failed")
@@ -308,7 +328,12 @@ def main() -> None:
                 )
                 root.after(0, lambda: status_var.set("Failed"))
             else:
-                root.after(0, lambda: status_var.set("Completed"))
+                status, message = _completion_status(result, log_path)
+                root.after(0, lambda: status_var.set(status))
+                if message is not None:
+                    root.after(
+                        0, lambda: messagebox.showwarning("Draft exported", message)
+                    )
             finally:
                 root.after(0, lambda: _set_running(False))
 

@@ -78,6 +78,19 @@ class MapObjectData(Tree):
                 "Invalid map object data: 'game_object_locator' must be a Tree"
             )
         self.game_object_locator_tree: Tree = game_object_locator_tree
+        # Engine-generated floats such as `0.` and `1.` are tokenized by
+        # pyradox as a number followed by a standalone dot. Re-serializing
+        # those tokens inserts whitespace and corrupts numeric vectors.
+        locator_dict = self.game_object_locator_tree.to_python()
+        instances = locator_dict.get("instances", [])
+        if isinstance(instances, dict):
+            instances = [instances] if instances else []
+        for instance in instances:
+            for field in ("position", "rotation", "scale"):
+                if isinstance(instance.get(field), list):
+                    instance[field] = [v for v in instance[field] if v != "."]
+        self.game_object_locator_tree = Tree(locator_dict)
+        self["game_object_locator"] = self.game_object_locator_tree
         self.instances_list = self.get_all_instances()
 
     def get_all_instances(self):
@@ -88,7 +101,10 @@ class MapObjectData(Tree):
             Returns an empty list if the ``instances`` key is absent.
         """
         locator_dict = self.game_object_locator_tree.to_python()
-        return locator_dict.get("instances", [])
+        instances = locator_dict.get("instances", [])
+        if isinstance(instances, dict):
+            return [instances] if instances else []
+        return instances
 
     def remove_instances_by_id(self, state_ids: Iterable[int]):
         """Remove all instances whose ``id`` matches one of the given state IDs.
@@ -103,7 +119,7 @@ class MapObjectData(Tree):
         state_id_set = {int(state_id) for state_id in state_ids}
         locator_dict = self.game_object_locator_tree.to_python()
         filtered_instances = []
-        for instance in locator_dict.get("instances", []):
+        for instance in self.get_all_instances():
             try:
                 instance_id = int(instance["id"])
             except KeyError, TypeError, ValueError:
@@ -135,7 +151,7 @@ class MapObjectData(Tree):
         target_id = int(target_id)
         locator_dict = self.game_object_locator_tree.to_python()
         retargeted_instances = []
-        for instance in locator_dict.get("instances", []):
+        for instance in self.get_all_instances():
             try:
                 instance_id = int(instance["id"])
             except KeyError, TypeError, ValueError:

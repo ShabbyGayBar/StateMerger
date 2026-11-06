@@ -12,6 +12,14 @@ except PackageNotFoundError:
 from vic3_state_merger.buildings import Buildings
 from vic3_state_merger.pops import Pops
 from vic3_state_merger.sources import ASSETS, STAGES
+from vic3_state_merger.splines import (
+    Anchor,
+    Connection,
+    SplineMergeResult,
+    SplineNetwork,
+    Strip,
+    merge_spline_network,
+)
 from vic3_state_merger.state_merger import StateMerger
 from vic3_state_merger.state_regions import StateRegion
 from vic3_state_merger.states import States
@@ -22,11 +30,17 @@ logging.getLogger(__name__).addHandler(logging.NullHandler())
 __all__ = [
     "ASSETS",
     "STAGES",
+    "Anchor",
     "Buildings",
+    "Connection",
     "Pops",
+    "SplineMergeResult",
+    "SplineNetwork",
     "StateMerger",
     "StateRegion",
     "States",
+    "Strip",
     "Trade",
     "__version__",
+    "merge_spline_network",
 ]

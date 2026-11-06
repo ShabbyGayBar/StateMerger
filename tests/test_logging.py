@@ -277,3 +277,34 @@ def test_validator_subprocess_encoding_and_failure_details(monkeypatch, failure)
         assert "stderr:\nfailure details" in str(exc.value)
     else:
         assert run_cli("cli", "--help") == "progress 贝塔港"
+
+
+@pytest.mark.parametrize("level", ["INFO", "DEBUG"])
+@pytest.mark.parametrize("blocking", [False, True])
+def test_spline_diagnostics_use_configured_console_and_file(
+    tmp_path, capsys, level, blocking
+):
+    from tests.test_spline_validation import land_case
+    from vic3_state_merger.splines import merge_spline_network
+
+    path = tmp_path / "诊断.log"
+    configure_logging(level, log_file=path)
+    args = land_case([(100, 101, 1, ())] if blocking else [(100, 200, 1, ())])
+    args[1]["贝塔港"] = args[1].pop("A")
+    args[-1] = args[-1].__class__(required={("B", "贝塔港"): [{"kind": "land"}]})
+    result = merge_spline_network(*args)
+    assert result.status == ("draft" if blocking else "complete")
+    console = capsys.readouterr().err
+    saved = path.read_text(encoding="utf-8")
+    for output in (console, saved):
+        if blocking:
+            assert "ERROR vic3_state_merger.splines.validation" in output
+            assert "unconnected_state (game_rule)" in output
+            assert "missing_state_connection (advisory)" in output
+        else:
+            assert "WARNING vic3_state_merger.splines.validation" in output
+            assert "disconnected_state_hubs (advisory)" in output
+            assert "ERROR vic3_state_merger.splines.validation" not in output
+        assert "贝塔港" in output
+        assert ("route:" in output) == (level == "DEBUG")
+    assert sorted(p.name for p in tmp_path.iterdir()) == ["诊断.log"]

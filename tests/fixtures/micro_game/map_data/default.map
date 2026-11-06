@@ -1,0 +1,4 @@
+provinces = "provinces.png"
+adjacencies = "adjacencies.csv"
+wrap_x = no
+sea_starts = { x0000FF }

@@ -10,6 +10,7 @@ from vic3_state_merger import __version__
 from vic3_state_merger.legal import LICENSE_NOTICE
 from vic3_state_merger.logging_config import configure_logging
 from vic3_state_merger.sources import ASSETS, STAGES, SourceResolver, validate_names
+from vic3_state_merger.splines import SplineMergeResult
 from vic3_state_merger.state_merger import StateMerger
 
 logger = logging.getLogger(__name__)
@@ -28,16 +29,19 @@ def _default_data_dir(mod_dir: str) -> str:
 
     mod_dir = os.path.abspath(mod_dir)
     parent = os.path.dirname(mod_dir.rstrip("/\\"))
-    candidate = os.path.join(parent, "data")
-    if os.path.isdir(candidate):
-        return candidate
-    return os.path.join(os.getcwd(), "data")
+    return os.path.join(parent, "data")
 
 
 def get_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="state-merger",
         description="Merge Victoria 3 states based on a merge plan JSON file.",
+    )
+    parser.add_argument(
+        "--no-splines",
+        dest="spline_network",
+        action="store_false",
+        help="Skip spline reconstruction (enabled by default); existing spline output is untouched.",
     )
     parser.add_argument(
         "merge_file",
@@ -200,7 +204,8 @@ def run_merge(
     integration_traits: bool | None = None,
     assets=None,
     config: str | None = None,
-) -> None:
+    spline_network: bool = True,
+) -> SplineMergeResult | None:
     with open(merge_file, "r", encoding="utf-8") as file:
         merge_dict = json.load(file)
 
@@ -219,14 +224,18 @@ def run_merge(
         _ensure_trailing_sep(resolved_data_dir),
         sources=options.get("sources"),
     )
+    selected = options.get("stages", STAGES)
+    if not spline_network:
+        selected = tuple(stage for stage in selected if stage != "spline_network")
     state_merger.run(
-        stages=options.get("stages", STAGES),
+        stages=selected,
         integration_traits=options.get("integration_traits", not configured),
         assets=options.get("assets", () if configured else ASSETS),
         ignore_small_states=ignore_small_states,
         small_state_limit=small_state_limit,
     )
     logger.info("Merge completed: %s", mod_dir)
+    return state_merger.spline_result
 
 
 def main() -> None:
@@ -241,7 +250,7 @@ def main() -> None:
             sources = {}
             for stage, root in args.source:
                 sources.setdefault(stage, []).append(root)
-        run_merge(
+        result = run_merge(
             merge_file=args.merge_file,
             mod_dir=args.mod_dir,
             game_root=args.game_root,
@@ -253,7 +262,10 @@ def main() -> None:
             integration_traits=args.integration_traits,
             assets=args.assets,
             config=args.config,
+            spline_network=args.spline_network,
         )
+        if result is not None and result.status == "draft":
+            raise SystemExit(3)
     except Exception:
         logger.critical("Merge or logging setup failed", exc_info=True)
         raise SystemExit(1) from None

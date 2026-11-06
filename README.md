@@ -110,7 +110,7 @@ outside the generated mod directory.
 ### Select stages and combine mod inputs (Python API and CLI)
 
 Available stages are `map_data`, `state`, `pops`, `buildings`, `trade`,
-`map_objects`, `misc`, and `localization`. Merge only a mod's map, without
+`map_objects`, `spline_network`, `misc`, and `localization`. Merge only a mod's map, without
 requiring vanilla history files:
 
 ```sh
@@ -191,7 +191,7 @@ configuration, for example `build.json`:
 
 ```json
 {
-  "stages": ["map_data", "state", "pops", "buildings", "trade", "map_objects", "misc", "localization"],
+  "stages": ["map_data", "state", "pops", "buildings", "trade", "map_objects", "spline_network", "misc", "localization"],
   "sources": {"map_data": ["../game", "../resource-mod"]},
   "integration_traits": false,
   "assets": []
@@ -244,16 +244,44 @@ Run the optional installed-game smoke test with:
 VIC3_GAME_ROOT="/path/to/Victoria 3/game" uv run --locked pytest -m live --no-cov
 ```
 
-### Step 3: Edit Spline Network
+### Step 3: Review the reconstructed spline network
 
-Now comes the last **manual** part of the process. You need to edit the spline network to remove the invalid hubs of the merged states and reshape the road network between the new states.
+Spline merging runs by default in the CLI, GUI, `run()`, and legacy core pipeline.
+It reconciles settlement hubs and ports with the final locators, reuses original
+road geometry, and assembles new land connections as railroads. The GUI's
+**Merge spline network** control and CLI `--no-splines` option can disable it.
+
+The stage needs an original unmerged network, original locator files, state
+definitions, `default.map`, `provinces.png`, and `adjacencies.csv`. Configure its
+geography/network sources with `--source spline_network=ROOT`; locator sources
+still use `map_objects`. Do not use a previously merged network as input.
+Spline-only runs project map and locators without emitting those categories.
+Only the `.splnet` file is replaced; styles and textures remain untouched.
+
+Spline diagnostics use the application logging system. The CLI logs to the console;
+use `--log-file run.log` to save diagnostics and `--log-level DEBUG` to include route
+provenance, node changes, and input hashes. Enable **Enable log file** in the GUI
+before running to save these details. No separate spline report is generated.
+Exit code **0** means static completeness, **3** means an incomplete draft was
+exported, and **1** means processing failed. `StateMerger.spline_result` and
+`run_merge()` expose the typed result with `network`, `data`, and `status`.
+Missing routes, unsupported/moved locators and missing harbors are logged instead
+of inventing terrain paths. Binary networks have no UTF-8 BOM.
+
+For an existing mod, `vic3_state_merger.splines.export_spline_review()`
+uses its exact final map and locator files and writes to a separate output.
+See [spline merging](docs/SPLINE_NETWORK.md) for the API and limits.
+
+Inspect the result in the game editor, repair reported gaps, and test movement,
+ports and save/reload before adopting the new network. Automated checks do not
+constitute an in-game pass.
 
 - Open the Victoria 3 game in debug mode.
 - Open the console by pressing `~`.
 - Type `map_editor` and press `Enter`.
 - Click on the `Spline Network` tab or press `9`.
 - Choose the `Edit hub` tool.
-- Select invalid hubs (those without names displayed on top) and press `Delete`.
+- Inspect the hubs and reported unresolved connections.
 - Choose the `Add spline` tool.
 - Redraw the road connections between the remaining state hubs.
 

@@ -19,6 +19,7 @@ STATE_BETA = {
  city = xB1
  mine = xB2
  port = xB2
+ naval_exit_id = 99
  arable_land = 5
  arable_resources = bg_ranch
  capped_resources = { building_coal_mine = 7 }
@@ -27,4 +28,4 @@ STATE_BETA = {
  resource = { type = building_gold_field depleted_type = building_gold_mine discovered_amount = 4 }
  traits = { state_trait_coastal }
 }
-SEA_TEST = { id = 99 provinces = { sea1 } }
+SEA_TEST = { id = 99 provinces = { x0000FF } }

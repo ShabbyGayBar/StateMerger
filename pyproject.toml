@@ -39,6 +39,7 @@ package-dir = {"" = "src"}
 where = ["src"]
 
 [tool.setuptools_scm]
+# Git-tracked files (including docs and binary test fixtures) are included in sdists.
 tag_regex = "^v(?P<version>\\d+\\.\\d+\\.\\d+)$"
 local_scheme = "no-local-version"
 fallback_version = "0.0.0"

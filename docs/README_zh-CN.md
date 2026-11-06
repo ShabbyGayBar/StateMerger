@@ -93,7 +93,7 @@ state-merger-cli merge_states.json "C:/Program Files (x86)/Steam/steamapps/commo
 ### 选择处理阶段并组合 mod 数据（Python API 和 CLI）
 
 支持的阶段为 `map_data`、`state`、`pops`、`buildings`、`trade`、
-`map_objects`、`misc` 和 `localization`。例如，仅合并 mod 地图，
+`map_objects`、`spline_network`、`misc` 和 `localization`。例如，仅合并 mod 地图，
 无需提供原版历史数据：
 
 ```sh
@@ -160,7 +160,7 @@ merger.run(stages=["map_data"])
 
 ```json
 {
-  "stages": ["map_data", "state", "pops", "buildings", "trade", "map_objects", "misc", "localization"],
+  "stages": ["map_data", "state", "pops", "buildings", "trade", "map_objects", "spline_network", "misc", "localization"],
   "sources": {"map_data": ["../game", "../resource-mod"]},
   "integration_traits": false,
   "assets": []
@@ -209,14 +209,21 @@ VIC3_GAME_ROOT="/path/to/Victoria 3/game" uv run --locked pytest -m live --no-co
   
 ### 3. 编辑 Spline Network
 
-接下来是整个过程的最后一个**手动**部分。您需要编辑 spline network 以删除被合并省份的无效城市模型并重绘省份之间的新道路网络。
+现在默认自动重建 spline network，包括陆地枢纽、港口及可复用的道路连接。
+CLI 的 `--no-splines` 或 GUI 的 “Merge spline network” 选项可关闭此步骤。
+缺失路线、港口问题和修复坐标统一通过日志系统输出，不再生成独立的 spline 报告。
+CLI 默认输出到控制台，可用 `--log-file run.log` 保存日志；`--log-level DEBUG`
+还会记录路线来源、节点变化和输入哈希。GUI 中请在运行前勾选 “Enable log file”。
+退出码 0 表示静态检查完整，3 表示已导出不完整草稿，1 表示处理失败。
+程序不会凭空生成跨越地形的新路线；请在地图编辑器中检查、修复日志中指出的缺口，
+并验证单位移动、港口和存读档。详见 [Spline merging](SPLINE_NETWORK.md)。
 
 - 以调试模式打开维多利亚3游戏。
 - 按 `~` 键打开控制台。
 - 输入 `map_editor` 并按 `Enter` 键。
 - 单击 `Spline Network` 选项卡或按 `9` 键。
 - 选择 `Edit hub` 工具。
-- 选择无效的城市模型（在顶部没有显示名称的）并按 `Delete` 键。
+- 检查报告中的枢纽和未连接路线。
 - 选择 `Add spline` 工具。
 - 重新绘制剩余省份之间的道路连接。
 - 详细信息请参考 [此 Steam 教程](https://steamcommunity.com/sharedfiles/filedetails/?id=3165669021)。

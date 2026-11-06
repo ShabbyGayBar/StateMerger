@@ -17,6 +17,7 @@ STAGES = (
     "buildings",
     "trade",
     "map_objects",
+    "spline_network",
     "misc",
     "localization",
 )

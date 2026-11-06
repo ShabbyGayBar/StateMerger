@@ -283,7 +283,7 @@ def test_pure_sea_generated_filename_is_preserved(tmp_path):
     out = tmp_path / "out"
     StateMerger(root, out, PLAN).run(["map_data"])
     result = regions(out)
-    assert result["SEA_TEST"]["provinces"] == "sea1"
+    assert result["SEA_TEST"]["provinces"] == "x0000FF"
     assert result["SEA_THIRD"]["provinces"] == "sea3"
     assert "SEA_OTHER" not in result
     assert (out / MAP / "empty_override.txt").read_text(encoding="utf-8-sig") == ""
@@ -358,6 +358,7 @@ def test_non_misc_stages_and_cache_ignore_nested_dlc(tmp_path):
         tmp_path / "baseline-cache",
         tmp_path / "actual-cache",
     )
+    results = []
     for root, out, cache in (
         (FIXTURE, baseline, baseline_cache),
         (game, actual, actual_cache),
@@ -366,8 +367,15 @@ def test_non_misc_stages_and_cache_ignore_nested_dlc(tmp_path):
         merger.run()
         merger.copy_state_data()
         merger.copy_map_object_data()
+        results.append(merger.spline_result)
     assert inventory(actual) == inventory(baseline)
-    assert inventory(actual_cache) == inventory(baseline_cache)
+    assert inventory(actual_cache / "game_file") == inventory(
+        baseline_cache / "game_file"
+    )
+    assert all(result is not None and result.status == "complete" for result in results)
+    assert results[0].data == results[1].data
+    assert not (actual_cache / "spline-report.json").exists()
+    assert not (baseline_cache / "spline-report.json").exists()
 
 
 def test_localization_layer_priority_and_quote_preservation(tmp_path):
