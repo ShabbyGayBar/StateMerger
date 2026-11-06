@@ -251,6 +251,15 @@ It reconciles settlement hubs and ports with the final locators, reuses original
 road geometry, and assembles new land connections as railroads. The GUI's
 **Merge spline network** control and CLI `--no-splines` option can disable it.
 
+**Repair spline errors** is enabled by default. It relocates misplaced land-port
+anchors to a valid final locator, or the nearest pixel center in their declared
+coastal province, and removes confirmed nonadjacent or incompatible connections.
+Use `--no-repair-splines`, uncheck the GUI control, or set `repair_splines: false`
+in the execution JSON to preserve those anchors and connections. Existing creation
+of missing hubs with placed locators continues in either mode. Repairs leave state
+declarations, visual locators, and naval geometry unchanged; remaining gaps and
+unverified rules still need review.
+
 The stage needs an original unmerged network, original locator files, state
 definitions, `default.map`, `provinces.png`, and `adjacencies.csv`. Configure its
 geography/network sources with `--source spline_network=ROOT`; locator sources

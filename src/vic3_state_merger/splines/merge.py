@@ -11,7 +11,7 @@ from dataclasses import dataclass
 from itertools import pairwise
 from typing import Literal
 
-from .geography import Geography, sequence
+from .geography import Geography, color_code, sequence
 from .network import (
     HUB_TYPES,
     INTERMEDIATE,
@@ -26,8 +26,10 @@ from .network import (
 )
 from .validation import (
     UNPLACED_POSITION,
+    connection_issue,
     is_land,
     port_issues,
+    serialized_position,
     validate_final_network,
 )
 from .validation import Components as _Components
@@ -92,11 +94,15 @@ def merge_spline_network(
     final_locators: dict,
     merge_plan: dict,
     geography: Geography,
+    *,
+    repair_splines: bool = True,
 ) -> SplineMergeResult:
     """Project hubs, reconnect via shortest original paths, and diagnose all gaps.
 
     State values are plain dictionaries, e.g. ``StateRegion.to_python()``.
     Locator arguments are parsed trees keyed by city/farm/mine/port/wood.
+    Repairs relocate confirmed misplaced ports and remove confirmed invalid
+    connections by default. Disable them to preserve authored geometry.
     No input model or source file is modified.
     """
     return _Merger(
@@ -107,13 +113,25 @@ def merge_spline_network(
         final_locators,
         merge_plan,
         geography,
+        repair_splines,
     ).run()
 
 
 class _Merger:
     def __init__(
-        self, original, states, final, old_locators, locators, plan, geography
+        self,
+        original,
+        states,
+        final,
+        old_locators,
+        locators,
+        plan,
+        geography,
+        repair_splines,
     ):
+        if not isinstance(repair_splines, bool):
+            raise TypeError("repair_splines must be a boolean")
+        self.repair_splines = repair_splines
         self.original = original
         self.states = states
         self.final = dict(final)
@@ -315,6 +333,12 @@ class _Merger:
                         anchor=identity,
                         position=list(position),
                     )
+                coordinate_source = "locator" if action == "create" else "donor_spline"
+                if hub == "port" and self.repair_splines:
+                    repaired = self.repair_port(name, state, point, position)
+                    if repaired != point:
+                        coordinate_source = "port_relocation"
+                    point = repaired
                 if (
                     hub == "port"
                     and port_issues(name, state, point, self.geo)
@@ -322,6 +346,19 @@ class _Merger:
                 ):
                     self.unusable_anchors.add(old)
                 self.out.anchors[identity] = point
+                if action == "create":
+                    logger.info(
+                        "hub_added: %s",
+                        {
+                            "reason": "moved_locator"
+                            if old in self.original.anchors
+                            else "missing_placed_hub",
+                            "state": name,
+                            "hub": hub,
+                            "anchor": identity,
+                            "position": [point.x, point.z],
+                        },
+                    )
                 self.hubs[name].append(identity)
                 if action != "create":
                     self.selected[old] = identity
@@ -339,13 +376,98 @@ class _Merger:
                         if position is not None
                         else None,
                         "donor": old,
-                        "coordinate_source": "locator"
-                        if action == "create"
-                        else "donor_spline",
+                        "coordinate_source": coordinate_source,
                     },
                 )
                 if hub == "port":
                     self.reconcile_harbor(name, state, donor)
+
+    def repair_port(self, name, state, point, locator):
+        failures = port_issues(name, state, point, self.geo)
+        if not failures:
+            return point
+        expected = color_code(state.get("port"))
+        reason = "placement_evidence_unavailable"
+        if self.geo.placement_available and expected in self.geo.coastal_provinces:
+            # Only confirmed invalid placements can be repaired; missing samples
+            # are not evidence that authored geometry is wrong.
+            if any(f["kind"] == "invalid_port_placement" for f in failures):
+                target = None
+                source = "locator"
+                if locator is not None and locator != UNPLACED_POSITION:
+                    candidate = serialized_position(*locator)
+                    if self.geo.province_at(*candidate) == expected:
+                        target = candidate
+                if target is None:
+                    source = "nearest_province_pixel"
+                    target = self.geo.nearest_province_position(
+                        expected, point.x, point.z
+                    )
+                if target is not None:
+                    target = serialized_position(*target)
+                    candidate = Anchor(point.id, *target)
+                    if not port_issues(name, state, candidate, self.geo):
+                        logger.info(
+                            "port_relocated: %s",
+                            {
+                                "reason": "invalid_port_placement",
+                                "state": name,
+                                "anchor": point.id,
+                                "old_position": [point.x, point.z],
+                                "position": list(target),
+                                "coordinate_source": source,
+                            },
+                        )
+                        return candidate
+                reason = "no_verified_relocation_position"
+        elif self.geo.placement_available and expected is not None:
+            reason = "noncoastal_port_province"
+        logger.warning(
+            "spline_repair_skipped: %s",
+            {"state": name, "anchor": point.id, "reason": reason},
+        )
+        return point
+
+    def repair_connections(self):
+        removed_strips = set()
+        removed_anchors = set()
+        by_id = {int(state["id"]): name for name, state in self.final.items()}
+        for identity, connection in sorted(self.out.connections.items()):
+            path = self.out.connection_path(connection)
+            failure = connection_issue(
+                identity, path, self.final, self.geo, by_id=by_id
+            )
+            if failure is None:
+                continue
+            if failure["kind"] not in (
+                "nonadjacent_state_connection",
+                "incompatible_anchor_type",
+            ):
+                logger.info(
+                    "spline_repair_skipped: %s",
+                    {"connection": identity, "reason": failure["kind"]},
+                )
+                continue
+            del self.out.connections[identity]
+            removed_strips.update(connection.strips)
+            removed_anchors.update(path)
+            logger.info(
+                "connection_removed: %s",
+                {"connection": identity, "reason": failure["kind"]},
+            )
+        used_strips = {
+            strip
+            for connection in self.out.connections.values()
+            for strip in connection.strips
+        }
+        for identity in removed_strips - used_strips:
+            del self.out.strips[identity]
+        used_anchors = {
+            anchor for strip in self.out.strips.values() for anchor in strip.anchors
+        }
+        for identity in removed_anchors - used_anchors:
+            if identity & INTERMEDIATE:
+                del self.out.anchors[identity]
 
     def reconcile_harbor(self, name, state, donor, *, retain_without_port=False):
         harbor = anchor_id(int(state["id"]) * 100, 1)
@@ -654,6 +776,8 @@ class _Merger:
         self.preserve()
         self.connect_internal()
         self.connect_borders()
+        if self.repair_splines:
+            self.repair_connections()
         for identity in sorted(self.original.anchors):
             if not identity & INTERMEDIATE and identity not in self.remap:
                 logger.debug(

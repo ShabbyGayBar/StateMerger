@@ -75,6 +75,9 @@ class Geography:
     adjacency_available: bool = True
     uncertain: dict[tuple[str, str], list[dict]] = field(default_factory=dict)
     straits: dict[tuple[str, str], list[dict]] = field(default_factory=dict)
+    # Inclusive horizontal runs (row, first column, last column), only for
+    # requested relocation provinces. No raster or filesystem handle is retained.
+    province_spans: dict[int, list[tuple[int, int, int]]] = field(default_factory=dict)
 
     def __post_init__(self):
         # Accept older manually supplied tables without making their straits
@@ -123,9 +126,41 @@ class Geography:
         return (px, py) if 0 <= px < width and 0 <= py < height else None
 
     def province_at(self, x: float, z: float) -> int | None:
-        """Return a sampled province, or None for unsampled/out-of-range points."""
+        """Return sample/span evidence, or None for unknown/out-of-range points."""
         pixel = self.pixel_at(x, z)
-        return self.province_samples.get(pixel) if pixel is not None else None
+        if pixel is None:
+            return None
+        if pixel in self.province_samples:
+            return self.province_samples[pixel]
+        px, py = pixel
+        for province, spans in self.province_spans.items():
+            if any(row == py and first <= px <= last for row, first, last in spans):
+                return province
+        return None
+
+    def nearest_province_position(self, province: int, x: float, z: float):
+        """Nearest pixel center, breaking ties by raster row then column."""
+        width, height = self.size
+        if not all(map(math.isfinite, (x, z))):
+            return None
+        origins = [x]
+        if self.wrap_x and width:
+            x %= width
+            origins = [x - width, x, x + width]
+        candidates = []
+        for row, first, last in self.province_spans.get(province, ()):
+            for origin in origins:
+                # Check both neighbors so half-way ties choose the lower column.
+                for column in (math.floor(origin - 0.5), math.ceil(origin - 0.5)):
+                    column = min(last, max(first, column))
+                    distance = (column + 0.5 - origin) ** 2 + (
+                        height - row - 0.5 - z
+                    ) ** 2
+                    candidates.append((distance, row, column))
+        if not candidates:
+            return None
+        _, row, column = min(candidates)
+        return column + 0.5, height - row - 0.5
 
 
 def _scan_boundaries(path, wrap):
@@ -163,6 +198,8 @@ def build_geography(
     states: dict,
     cache_dir: Path,
     sample_points: Iterable[tuple[float, float]] = (),
+    *,
+    relocation_provinces: Iterable[int] = (),
 ) -> Geography:
     """Resolve physical borders, explicit crossings and province-level blockers."""
     import pyradox
@@ -256,6 +293,30 @@ def build_geography(
                     .tobytes()
                 )
                 result.province_samples[pixel] = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2]
+
+    requested = set(relocation_provinces) & result.coastal_provinces
+    if requested:
+        with Image.open(provinces) as image:
+            for row in range(result.size[1]):
+                raw = (
+                    image.crop((0, row, result.size[0], row + 1))
+                    .convert("RGB")
+                    .tobytes()
+                )
+                start, previous = 0, None
+                for column in range(result.size[0] + 1):
+                    offset = column * 3
+                    color = (
+                        int.from_bytes(raw[offset : offset + 3], "big")
+                        if column < result.size[0]
+                        else None
+                    )
+                    if color != previous:
+                        if previous in requested:
+                            result.province_spans.setdefault(previous, []).append(
+                                (row, start, column - 1)
+                            )
+                        start, previous = column, color
 
     explicit = {}
     with adjacencies.open(encoding="utf-8-sig", newline="") as handle:

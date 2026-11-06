@@ -11,7 +11,7 @@ from pathlib import Path, PurePosixPath
 
 import pyradox
 
-from .geography import atomic_write, build_geography, file_hash
+from .geography import atomic_write, build_geography, color_code, file_hash
 from .merge import SplineMergeResult, locator_positions, merge_spline_network
 from .network import HUB_TYPES, INTERMEDIATE, NETWORK_PATH, SplineNetwork
 from .validation import serialized_position
@@ -66,6 +66,8 @@ def prepare_spline_merge(
     final_locator_outputs,
     merge_plan,
     cache_dir,
+    *,
+    repair_splines: bool = True,
 ) -> _PreparedSplineMerge:
     """Resolve independent source stacks and prepare bytes before output cleanup."""
     source = _resolve(resolver, "spline_network", NETWORK_PATH)
@@ -127,7 +129,21 @@ def prepare_spline_merge(
         for x, z in locator_positions(final_locators)["port"].values()
     )
     geography = build_geography(
-        raster, default, adjacency, states, Path(cache_dir), sample_points=samples
+        raster,
+        default,
+        adjacency,
+        states,
+        Path(cache_dir),
+        sample_points=samples,
+        relocation_provinces=(
+            [
+                color
+                for state in states.values()
+                if (color := color_code(state.get("port"))) is not None
+            ]
+            if repair_splines
+            else ()
+        ),
     )
     result = merge_spline_network(
         original,
@@ -137,6 +153,7 @@ def prepare_spline_merge(
         final_locators,
         merge_plan,
         geography,
+        repair_splines=repair_splines,
     )
     for path in resolver.files(
         "map_data", "map_data/state_regions", include_dlc=False
@@ -158,7 +175,9 @@ def prepare_spline_merge(
     return prepared
 
 
-def export_spline_review(game_root, final_mod, merge_plan, output, data_dir):
+def export_spline_review(
+    game_root, final_mod, merge_plan, output, data_dir, *, repair_splines: bool = True
+):
     """Export only a review network using an existing mod's exact final locators.
 
     ``output`` and ``data_dir`` must be outside both inputs and one another.
@@ -206,6 +225,7 @@ def export_spline_review(game_root, final_mod, merge_plan, output, data_dir):
         locator_outputs,
         merge_plan,
         data_dir,
+        repair_splines=repair_splines,
     )
     prepared.inputs.update(final_inputs)
     for filename, digest in sorted(final_inputs.items()):

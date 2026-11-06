@@ -128,7 +128,7 @@ def test_impassable_province_still_blocks_an_explicit_strait(tmp_path, spline_lo
     args[-1] = build_geography(*files, args[2], tmp_path / "cache")
     assert args[-1].required == {} and args[-1].straits == {}
     assert args[-1].adjacent("A", "B") is False
-    result = merge_spline_network(*args)
+    result = merge_spline_network(*args, repair_splines=False)
     assert result.status == "draft"
     assert "nonadjacent_state_connection" in {
         i["kind"] for i in spline_logs("game_rule")
@@ -243,7 +243,7 @@ def test_land_exemption_does_not_waive_independent_checks(
         sid = args[0].connections[cid].strips[0]
         args[0].anchors[NAVAL | 10] = Anchor(NAVAL | 10, 1, 1)
         args[0].strips[sid] = Strip(sid, (100, NAVAL | 10, 203))
-    result = merge_spline_network(*args)
+    result = merge_spline_network(*args, repair_splines=False)
     assert result.status == "draft"
     expected = {
         "hub": "locator_validation_unavailable",

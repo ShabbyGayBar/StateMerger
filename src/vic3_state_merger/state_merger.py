@@ -648,6 +648,7 @@ class StateMerger:
         assets=(),
         ignore_small_states: bool = False,
         small_state_limit: int = 4,
+        repair_splines: bool = True,
     ) -> None:
         """Prepare all selected outputs before clearing their directories.
 
@@ -660,6 +661,8 @@ class StateMerger:
         requested_assets = set(validate_names(assets, ASSETS, "assets"))
         if not isinstance(integration_traits, bool):
             raise TypeError("integration_traits must be a boolean")
+        if not isinstance(repair_splines, bool):
+            raise TypeError("repair_splines must be a boolean")
         if not isinstance(small_state_limit, int) or small_state_limit < 0:
             raise ValueError("small_state_limit must be a nonnegative integer")
         self._validate_plan()
@@ -733,6 +736,7 @@ class StateMerger:
                 locator_outputs,
                 self.merge_dict,
                 cache,
+                repair_splines=repair_splines,
             )
             spline_result = prepared_spline.result
         for stage in STAGES:

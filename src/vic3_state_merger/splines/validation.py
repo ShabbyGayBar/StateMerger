@@ -47,6 +47,41 @@ def serialized_position(x, z):
     return struct.unpack("<ff", struct.pack("<ff", x, z))
 
 
+def connection_issue(identity, path, states, geo, *, by_id=None):
+    """Classify route semantics identically for repairs and final validation."""
+    a, b, kind = endpoints(identity)
+    if kind not in (0, 1, 2, 3):
+        return {
+            "kind": "unsupported_spline_type",
+            "category": "unverified",
+            "rule": "route_semantics",
+            "spline_type": kind,
+        }
+    if any(((node >> 23) & 31) != (0 if kind < 2 else 1) for node in path):
+        return {"kind": "incompatible_anchor_type"}
+    if kind >= 2:
+        return None
+    if by_id is None:
+        by_id = {int(state["id"]): name for name, state in states.items()}
+    owners = [
+        None if node & INTERMEDIATE else by_id.get((node & (NAVAL - 1)) // 100)
+        for node in (a, b)
+    ]
+    if any(name is None or not is_land(states[name]) for name in owners):
+        return {"kind": "unknown_land_endpoint", "category": "implementation"}
+    adjacent = geo.adjacent(*owners)
+    if adjacent is not True:
+        return {
+            "kind": "nonadjacent_state_connection"
+            if adjacent is False
+            else "unverified_state_connection",
+            "category": "game_rule" if adjacent is False else "unverified",
+            "rule": "land_adjacency",
+            "states": owners,
+        }
+    return None
+
+
 def port_issues(
     name: str, state: dict, point: Anchor | None, geo: Geography
 ) -> list[dict]:
@@ -86,7 +121,7 @@ def port_issues(
             }
         ]
     issues = []
-    if point is not None and pixel is not None and pixel not in geo.province_samples:
+    if point is not None and pixel is not None and province is None:
         issues.append(
             {
                 "kind": "port_validation_unavailable",
@@ -270,14 +305,10 @@ def validate_final_network(
     for identity, connection in sorted(network.connections.items()):
         a, b, kind = endpoints(identity)
         path = network.connection_path(connection)
+        failure = connection_issue(identity, path, states, geo, by_id=by_id)
+        if failure is not None:
+            issue(**failure, connection=identity)
         if kind not in (0, 1, 2, 3):
-            issue(
-                "unsupported_spline_type",
-                category="unverified",
-                rule="route_semantics",
-                connection=identity,
-                spline_type=kind,
-            )
             # Over-approximate possibilities instead of guessing this type's
             # traffic rules. This graph can only make a check unverified; it
             # cannot establish validity or seed reconstruction.
@@ -292,8 +323,7 @@ def validate_final_network(
                 if other in sea_hubs:
                     possible_naval_routes[harbor].add(other)
             continue
-        if any(((n >> 23) & 31) != (0 if kind < 2 else 1) for n in path):
-            issue("incompatible_anchor_type", connection=identity)
+        if failure is not None and failure["kind"] == "incompatible_anchor_type":
             continue
         if kind >= 2:
             for harbor, other in ((a, b), (b, a)):
@@ -307,27 +337,10 @@ def validate_final_network(
             or not is_land(states[oa])
             or not is_land(states[ob])
         ):
-            issue(
-                "unknown_land_endpoint", category="implementation", connection=identity
-            )
             continue
         adjacent = True if oa == ob else geo.adjacent(oa, ob)
         if adjacent is False:
-            issue(
-                "nonadjacent_state_connection",
-                rule="land_adjacency",
-                connection=identity,
-                states=[oa, ob],
-            )
             continue
-        if adjacent is None:
-            issue(
-                "unverified_state_connection",
-                category="unverified",
-                rule="land_adjacency",
-                connection=identity,
-                states=[oa, ob],
-            )
         if invalid_ports.intersection(path):
             continue
         possible.join(a, b)

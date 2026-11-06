@@ -381,7 +381,7 @@ def test_pipeline_serializes_donor_position_across_coastline(
     merger = StateMerger(
         game, tmp_path / "mod", {"STATE_ALPHA": ["STATE_BETA"]}, tmp_path / "data"
     )
-    merger.run(["spline_network"])
+    merger.run(["spline_network"], repair_splines=False)
     result = merger.spline_result
     assert result is not None
     assert result.status == ("draft" if problem == "port" else "complete")

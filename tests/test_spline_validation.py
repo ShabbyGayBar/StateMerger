@@ -321,7 +321,7 @@ def test_unused_broken_source_records_do_not_make_valid_output_a_draft(spline_lo
 
 def test_nonadjacent_authored_route_is_preserved_and_reported(spline_logs):
     args = land_case([(100, 200, 1, ())], farm=False, required=())
-    result = merge_spline_network(*args)
+    result = merge_spline_network(*args, repair_splines=False)
     assert result.network.connections == args[0].connections
     assert result.network.strips == args[0].strips
     issue = next(
@@ -349,7 +349,7 @@ def test_mixed_type_crossing_cannot_seed_a_new_route(spline_logs):
 def test_mixed_type_authored_route_is_preserved_and_reported(spline_logs):
     args = land_case([(100, 200, 1, (NAVAL | 10,))], farm=False)
     args[0].anchors[NAVAL | 10] = Anchor(NAVAL | 10, 1, 1)
-    result = merge_spline_network(*args)
+    result = merge_spline_network(*args, repair_splines=False)
     assert result.network.connections == args[0].connections
     path = result.network.strips[1].anchors
     assert path[0] == 100 and path[-1] == 200

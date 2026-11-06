@@ -211,6 +211,12 @@ VIC3_GAME_ROOT="/path/to/Victoria 3/game" uv run --locked pytest -m live --no-co
 
 现在默认自动重建 spline network，包括陆地枢纽、港口及可复用的道路连接。
 CLI 的 `--no-splines` 或 GUI 的 “Merge spline network” 选项可关闭此步骤。
+默认启用 “Repair spline errors”：优先使用位于声明沿海省份内的最终港口定位器，
+否则将错位的陆地港口锚点移到该省份最近的像素中心；同时删除已确认连接非相邻州
+或包含不兼容锚点类型的连接。可通过 `--no-repair-splines`、取消 GUI 勾选，
+或在执行配置 JSON 中设置 `"repair_splines": false` 关闭修复。
+关闭后仍会按原有逻辑为已放置的定位器补充缺失枢纽。修复不修改州声明、可视定位器
+或海军几何数据；未知连接类型、邻接证据不足及其余连通性和海军问题仍需人工检查。
 缺失路线、港口问题和修复坐标统一通过日志系统输出，不再生成独立的 spline 报告。
 CLI 默认输出到控制台，可用 `--log-file run.log` 保存日志；`--log-level DEBUG`
 还会记录路线来源、节点变化和输入哈希。GUI 中请在运行前勾选 “Enable log file”。

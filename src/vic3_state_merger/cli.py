@@ -44,6 +44,13 @@ def get_parser() -> argparse.ArgumentParser:
         help="Skip spline reconstruction (enabled by default); existing spline output is untouched.",
     )
     parser.add_argument(
+        "--no-repair-splines",
+        dest="repair_splines",
+        action="store_false",
+        default=None,
+        help="Preserve misplaced ports and invalid connections instead of repairing them (repairs default to enabled).",
+    )
+    parser.add_argument(
         "merge_file",
         help="Path to merge_states.json (merge plan).",
     )
@@ -147,14 +154,22 @@ def _source_pair(value: str) -> tuple[str, str]:
     return stage, root
 
 
-def _execution_options(config, stages, sources, integration_traits, assets):
+def _execution_options(
+    config, stages, sources, integration_traits, assets, repair_splines=None
+):
     """Resolve config-relative roots, then replace fields explicitly set by CLI/API."""
     options = {}
     if config is not None:
         path = Path(config).resolve()
         with path.open(encoding="utf-8-sig") as handle:
             options = json.load(handle)
-        allowed = {"stages", "sources", "integration_traits", "assets"}
+        allowed = {
+            "stages",
+            "sources",
+            "integration_traits",
+            "assets",
+            "repair_splines",
+        }
         if not isinstance(options, dict) or set(options) - allowed:
             raise ValueError(
                 f"Configuration must be an object with only: {sorted(allowed)}"
@@ -176,6 +191,10 @@ def _execution_options(config, stages, sources, integration_traits, assets):
             options["integration_traits"], bool
         ):
             raise ValueError("Configuration integration_traits must be a boolean")
+        if "repair_splines" in options and not isinstance(
+            options["repair_splines"], bool
+        ):
+            raise ValueError("Configuration repair_splines must be a boolean")
     if sources is not None:
         SourceResolver(Path.cwd(), sources)
         options["sources"] = {**options.get("sources", {}), **sources}
@@ -185,6 +204,10 @@ def _execution_options(config, stages, sources, integration_traits, assets):
         options["integration_traits"] = integration_traits
     if assets is not None:
         options["assets"] = assets
+    if repair_splines is not None:
+        if not isinstance(repair_splines, bool):
+            raise TypeError("repair_splines must be a boolean")
+        options["repair_splines"] = repair_splines
     for field, choices in (("stages", STAGES), ("assets", ASSETS)):
         if field in options:
             options[field] = validate_names(options[field], choices, field)
@@ -205,6 +228,7 @@ def run_merge(
     assets=None,
     config: str | None = None,
     spline_network: bool = True,
+    repair_splines: bool | None = None,
 ) -> SplineMergeResult | None:
     with open(merge_file, "r", encoding="utf-8") as file:
         merge_dict = json.load(file)
@@ -215,7 +239,9 @@ def run_merge(
         value is not None
         for value in (stages, sources, integration_traits, assets, config)
     )
-    options = _execution_options(config, stages, sources, integration_traits, assets)
+    options = _execution_options(
+        config, stages, sources, integration_traits, assets, repair_splines
+    )
 
     state_merger = StateMerger(
         _ensure_trailing_sep(game_root),
@@ -233,6 +259,7 @@ def run_merge(
         assets=options.get("assets", () if configured else ASSETS),
         ignore_small_states=ignore_small_states,
         small_state_limit=small_state_limit,
+        repair_splines=options.get("repair_splines", True),
     )
     logger.info("Merge completed: %s", mod_dir)
     return state_merger.spline_result
@@ -263,6 +290,7 @@ def main() -> None:
             assets=args.assets,
             config=args.config,
             spline_network=args.spline_network,
+            repair_splines=args.repair_splines,
         )
         if result is not None and result.status == "draft":
             raise SystemExit(3)

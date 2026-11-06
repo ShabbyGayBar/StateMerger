@@ -22,7 +22,7 @@ replacement. Broken source records that cannot be interpreted are omitted with
 reconstruction diagnostics; unused source defects alone do not make a draft.
 
 `merge_spline_network(original, original_states, final_states, original_locators,
-final_locators, merge_plan, geography)` returns `SplineMergeResult`. State tables
+final_locators, merge_plan, geography, *, repair_splines=True)` returns `SplineMergeResult`. State tables
 are plain dictionaries (`StateRegion.to_python()`); locator tables are parsed
 trees keyed by city/farm/mine/port/wood. `Geography` carries passable final-state
 pairs and boundary evidence. Result fields are `network` and an explicit `status` (`complete` or `draft`);
@@ -75,7 +75,8 @@ owned by the caller; importing or using the spline API does not install handlers
   including routes to a different sea hub than `naval_exit_id`. That mismatch is
   advisory. Sea-to-sea routes remain separate; missing geometry is not invented.
 - Port anchors must lie in their final state's declared coastal land province.
-  A failure makes the output a draft but preserves authored anchors and routes.
+  Default repairs relocate misplaced anchors as described below. With repairs
+  disabled, a failure makes the output a draft and preserves authored geometry.
   Harbor coordinates are not tested against sea/lake pixels or sea-region
   ownership. No harbor is synthesized at a visual port locator.
 - A row-wise raster scan produces sparse province boundaries, cached by content
@@ -85,13 +86,52 @@ owned by the caller; importing or using the spline API does not install handlers
   represented as missing evidence, never assumed to establish nonadjacency.
   This does not reproduce the game's terrain/navmesh engine.
 
+## Automatic repairs
+
+Repairs default to enabled. Disable them with CLI `--no-repair-splines`, the GUI's
+**Repair spline errors** checkbox, execution configuration `"repair_splines": false`,
+or keyword-only `repair_splines=False` on `StateMerger.run()`,
+`merge_spline_network()`, or `export_spline_review()`. Explicit CLI/API settings
+override configuration. Skipping the spline stage skips repairs. This option alone
+does not change compensation or bundled-asset defaults.
+
+- Missing declared hubs with placed locators continue to be added in both modes.
+  Missing locator data and explicit `(-1, -1)` locators never generate anchors.
+- Before route reconstruction, a confirmed misplaced land-port anchor moves to
+  its final placed locator if that locator is in its declared coastal province.
+  Otherwise it moves to the nearest province pixel center, using wrapped
+  horizontal distance where configured and raster row, then column, to break ties.
+  Placement is checked after float32 conversion. IDs, donor mappings, harbor
+  positions, and intermediate route geometry remain intact.
+- After reconstruction, confirmed nonadjacent land connections and known-type
+  connections containing incompatible anchor types are removed. Only their
+  orphaned strips and intermediate anchors are cleaned up; shared geometry and
+  declared hubs remain.
+- Unknown types and uncertain adjacency are preserved. Noncoastal declarations,
+  unavailable placement evidence, remaining connectivity gaps, missing harbors,
+  naval routes or sea hubs, and invalid naval exits remain diagnostics. Repairs
+  do not change state declarations or visual locators and do not invent routes.
+
+`Geography.province_spans` optionally carries sparse inclusive runs
+`{province_color: [(raster_row, first_column, last_column), ...]}`. Filesystem
+preparation requests the declared coastal port provinces when repairs are enabled.
+Direct callers can supply these runs or populate them with
+`build_geography(..., relocation_provinces=colors)` for nearest-pixel fallback;
+without them, only a verified locator can provide a replacement position. Sparse
+point samples remain sufficient for normal validation. No input model is mutated.
+
+Successful `hub_added`, `port_relocated`, and `connection_removed` messages log at
+INFO with IDs and reasons; relocation messages include old/new coordinates.
+`spline_repair_skipped` explains missing evidence or unsupported conditions. Final
+validation of the repaired binary determines completeness and existing exit codes.
+
 ## Final-network validation and evidence
 
 Only the emitted network determines semantic validity. Validation uses a parsed
 round trip of the binary, including its actual float32 coordinates. Source-file
 diagnostics and unsuccessful construction attempts remain separate diagnostics.
-Semantically failing authored geometry is preserved after normal ID remapping,
-but cannot seed new routes. This does not restore absorbed state IDs or require
+With repairs disabled, semantically failing authored geometry is preserved after
+normal ID remapping, but cannot seed new routes. This does not restore absorbed state IDs or require
 keeping obsolete source routes whose terminals no longer survive projection.
 
 The accepted sources are:
@@ -178,8 +218,8 @@ policy, not additional claims about undocumented engine requirements.
 The exact horizontal locator position `(-1, -1)` exempts a hub from required-anchor
 and hub-connectivity checks **only when its spline anchor is absent**. The validator
 logs `unplaced_hub_skipped` with category `not_applicable` at INFO; this is neither
-a passed check nor a failure. Existing spline anchors are preserved and validated
-normally, including connectivity and land-port placement, regardless of an unplaced
+a passed check nor a failure. Existing spline anchors are retained and validated
+normally, including connectivity and land-port placement (and optional repair), regardless of an unplaced
 visual locator. Missing locator tables or entries log
 `locator_validation_unavailable` as an unverified required check and keep a draft.
 Neither absence nor an omitted validation argument is treated as an unused hub.
@@ -225,7 +265,7 @@ status. Optional internal gaps and not-applicable checks log at INFO. Node chang
 route provenance, type conversions, adjacency details,
 input/snapshot hashes, and network counts log at DEBUG. Node messages include actual
 `position`, separate `locator_position`, `donor`, and `coordinate_source`
-(`donor_spline` or `locator`). Input hashes also remain internal bookkeeping for
+(`donor_spline`, `locator`, or `port_relocation`). Input hashes also remain internal bookkeeping for
 source-change verification before output replacement. Validation and export
 summaries log at INFO for complete output and WARNING for drafts.
 
@@ -238,7 +278,8 @@ Neither status proves playability. Geography caches stay outside playable conten
 `build_geography(..., sample_points=...)` samples requested world coordinates into
 `Geography.province_samples`, keyed by raster pixel. `province_at(x, z)` is a pure
 lookup: x maps to `floor(x)`, y to `floor(height - z)`, with horizontal wrapping
-only when configured. Out-of-range or unsampled points return `None`. The
+only when configured. Points without either a sample or province-span evidence
+return `None`, as do out-of-range points. The
 filesystem pipeline requests land-port donor and float32 final port-locator samples;
 boundary caches do not cache these samples. `sea_provinces`, `lake_provinces`, and
 `coastal_provinces` distinguish shared sea edges from lake edges or corner contact.

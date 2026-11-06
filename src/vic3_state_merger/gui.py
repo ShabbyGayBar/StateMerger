@@ -65,6 +65,10 @@ def _build_help_text() -> str:
         "- Mod output folder: Target mod folder where merged files are written.\n"
         "- Small state limit: Integer limit used by the merger.\n"
         "- Ignore small states: If enabled, small states are ignored when merging.\n\n"
+        "- Repair spline errors (on by default): relocate misplaced land ports and\n"
+        "  remove confirmed nonadjacent or incompatible connections.\n"
+        "- Missing placed hubs are added even when repairs are off. Remaining\n"
+        "  connectivity and naval errors require manual correction.\n\n"
         "Run:\n"
         "- Click Run to execute the merge with the provided settings.\n"
         "- Enable log file at the bottom of the Merge tab to save DEBUG diagnostics.\n"
@@ -166,6 +170,7 @@ def main() -> None:
     small_state_limit_var = tk.StringVar(value="4")
     ignore_small_states_var = tk.BooleanVar(value=False)
     spline_network_var = tk.BooleanVar(value=True)
+    repair_splines_var = tk.BooleanVar(value=True)
     enable_log_file_var = tk.BooleanVar(value=False)
     log_file_var = tk.StringVar()
     status_var = tk.StringVar(value="Idle")
@@ -211,13 +216,30 @@ def main() -> None:
         variable=ignore_small_states_var,
     )
     ignore_checkbox.grid(row=4, column=0, columnspan=2, sticky="w", pady=(8, 0))
+
+    def _update_repair_control(is_running=False):
+        repair_checkbox.configure(
+            state="normal"
+            if spline_network_var.get() and not is_running
+            else "disabled"
+        )
+
     spline_checkbox = ttk.Checkbutton(
-        main_tab, text="Merge spline network", variable=spline_network_var
+        main_tab,
+        text="Merge spline network",
+        variable=spline_network_var,
+        command=_update_repair_control,
     )
     spline_checkbox.grid(row=4, column=2, sticky="w", pady=(8, 0))
+    repair_checkbox = ttk.Checkbutton(
+        main_tab,
+        text="Repair spline errors",
+        variable=repair_splines_var,
+    )
+    repair_checkbox.grid(row=5, column=2, sticky="w", pady=(8, 0))
 
     status_label = ttk.Label(main_tab, textvariable=status_var)
-    status_label.grid(row=5, column=0, columnspan=3, sticky="w", pady=(12, 0))
+    status_label.grid(row=5, column=0, columnspan=2, sticky="w", pady=(12, 0))
 
     run_button = ttk.Button(main_tab, text="Run")
     run_button.grid(row=6, column=0, pady=(16, 0), sticky="w")
@@ -273,6 +295,7 @@ def main() -> None:
         small_limit_entry.configure(state=state)
         ignore_checkbox.configure(state=state)
         spline_checkbox.configure(state=state)
+        _update_repair_control(is_running)
         log_checkbox.configure(state=state)
         _update_log_controls(is_running)
 
@@ -299,6 +322,7 @@ def main() -> None:
         _set_running(True)
         ignore_small_states = ignore_small_states_var.get()
         spline_network = spline_network_var.get()
+        repair_splines = repair_splines_var.get()
 
         def _worker() -> None:
             log_path = None
@@ -316,6 +340,7 @@ def main() -> None:
                     small_state_limit=limit,
                     ignore_small_states=ignore_small_states,
                     spline_network=spline_network,
+                    repair_splines=repair_splines,
                 )
             except Exception as exc:  # pragma: no cover - UI boundary
                 logger.exception("GUI merge or logging setup failed")

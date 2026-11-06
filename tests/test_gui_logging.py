@@ -215,6 +215,35 @@ def test_smoke_launch_creates_no_log(window, tmp_path):
     assert not list(tmp_path.iterdir())
 
 
+@pytest.mark.parametrize("repair", [False, True])
+def test_spline_repair_toggle_and_captured_worker_setting(window, monkeypatch, repair):
+    controls = {
+        w.options.get("text"): w for w in window.widgets if w.kind == "Checkbutton"
+    }
+    splines = controls["Merge spline network"]
+    repairs = controls["Repair spline errors"]
+    assert repairs.options["variable"].get() is True
+    splines.options["variable"].set(False)
+    splines.options["command"]()
+    assert repairs.options["state"] == "disabled"
+    splines.options["variable"].set(True)
+    splines.options["command"]()
+    assert repairs.options["state"] == "normal"
+    repairs.options["variable"].set(repair)
+    merge = Mock()
+    monkeypatch.setattr(gui, "run_merge", merge)
+    window.run.options["command"]()
+    assert repairs.options["state"] == "disabled"
+    repairs.options["variable"].set(not repair)
+    window.workers.pop()()
+    assert merge.call_args.kwargs["repair_splines"] is repair
+    # Restoring the UI must respect spline merging being disabled.
+    splines.options["variable"].set(False)
+    for callback in window.callbacks:
+        callback()
+    assert repairs.options["state"] == "disabled"
+
+
 @pytest.mark.parametrize("enabled", [False, True])
 def test_draft_dialog_uses_captured_log_destination(window, monkeypatch, enabled):
     window.enabled.set(enabled)
