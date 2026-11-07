@@ -16,6 +16,8 @@ This repository contains a Python project that automates the process of merging 
 It generates the following files that can be used in a Victoria 3 mod:
 - `/common/...`
 - `/event/...`
+- `/gfx/...`
+- `/localization/...`
 - `/map_data/state_regions/...`
 
 ## How to Make Your Own State Merging Mod
@@ -67,10 +69,15 @@ For example, the following rule merges `state_1`, `state_2`, and `state_3` into 
 
   - *Mod output folder*: Where you want the generated mod files to be saved.
   - *Small state limit* (optional): The maximum number of provinces a state can have to be considered "small". Default is 4.
-  - *Ignore small states* (optional): If set, states will not be granted buffs when merging *small states* defined above.
+  - *Log file* (optional): Available only if you check the "Enable log file" checkbox. If set, a log file will be generated in the designated location.
+- Check or uncheck:
+  - *Ignore small states*: If set, states will not be granted buffs when merging *small states* defined above.
+  - *Enable log file*: If set, a log file will be generated in the designated location. **ENABLE IT WHEN YOU ENCOUNTER BUGS AND SUBMIT A BUG REPORT.**
+  - *Merge spline network*: If set, the script will produce the merged spline network of the mod so that you can skip the manual process. This is enabled by default.
+  - *Repair spline errors*: If set, the script will attempt to repair spline errors in the merged states. This is enabled by default.
 - Click the "Run" button to start the merging process.
-- The execution of the script should take about 5 minutes.
-- After the script finishes, you should see the following folders in your mod output folder:
+- The execution of the script should take about 1 minute.
+- After the script finishes, you should see the following folders in your designated *mod output folder*:
 
   ![mod contents](docs/images/mod_contents.png)
 
@@ -81,7 +88,7 @@ For example, the following rule merges `state_1`, `state_2`, and `state_3` into 
 Run the CLI with required positional arguments:
 
 ```
-state-merger-cli <merge_file> <game_root> <mod_dir> [--data-dir <path>] [--small-state-limit <int>] [--ignore-small-states] [--log-level INFO] [--log-file <path>]
+state-merger-cli <merge_file> <game_root> <mod_dir> [--data-dir <path>] [--small-state-limit <int>] [--ignore-small-states] [--log-level INFO] [--log-file <path>] [--stages <stage1,stage2,...>]
 ```
 
 Example:
@@ -92,215 +99,11 @@ state-merger-cli merge_states.json "C:/Program Files (x86)/Steam/steamapps/commo
 
 You can also type `state-merger-cli --help` to see all available options.
 
-The CLI writes progress and warnings to stderr. Use `--log-level DEBUG` for detailed
-per-state, per-file, and localization diagnostics, or `--log-level WARNING` for quieter
-output. Add `--log-file <path>` to also save diagnostics at the selected level.
-Console output escapes characters unsupported by the terminal's encoding.
-
-GUI file logging is off by default. Check **Enable log file** at the bottom of the
-Merge tab, then type a file path or use **Browse...** to save DEBUG diagnostics.
-The suggested `state-merger.log` is in the resolved cache/data directory: the sibling
-`data` folder of the mod output folder if it exists, otherwise `data` in the working
-directory. Selected paths are retained when toggling logging within a session;
-settings are not saved between launches. Merge failure dialogs show the log path
-when a log file was successfully opened.
-Log files use UTF-8 and rotate at 5 MiB, keeping three backups. Logs should be stored
-outside the generated mod directory.
-
-### Select stages and combine mod inputs (Python API and CLI)
-
-Available stages are `map_data`, `state`, `pops`, `buildings`, `trade`,
-`map_objects`, `spline_network`, `misc`, and `localization`. Merge only a mod's map, without
-requiring vanilla history files:
-
-```sh
-state-merger-cli merge_states.json /mods/resource-mod /build/output --stages map_data
-```
-
-Run all stages using a mod map over vanilla, with vanilla data elsewhere:
-
-```sh
-state-merger-cli merge_states.json /games/Victoria3/game /build/output \
-  --source map_data=/games/Victoria3/game --source map_data=/mods/resource-mod
-```
-
-Each stage reads an ordered list of **game-layout roots** containing `common/`,
-`map_data/`, etc. Later roots replace matching relative filenames, including
-empty files; differently named files from earlier roots remain available. The
-resolved files are parsed in filename order using the existing merge rules.
-This does not implement launcher metadata, `replace_path`, or definition-level
-mod loading, and does not fill missing fields inside definitions. An explicit
-source list replaces the default `[game_root]` for that stage. Repeat
-`--source STAGE=ROOT` in increasing priority order; unspecified stages use the
-positional game root. `misc` retains its existing supported script directories.
-
-The `misc` stage automatically includes installed DLC scripts in those directories,
-including city-type scripts. Within each source root, direct files load first,
-followed by immediate `dlc/<pack>/` folders in pack-name order; later packs win
-matching filenames. A later configured source root overrides earlier roots and
-their DLC files, including with empty files. Generated overrides use game-relative
-paths without the DLC folder prefix and preserve feature guards and graphics
-definitions. Discovery scans installed folders without interpreting launcher
-activation or ownership metadata. Other stages and cache helpers do not scan DLC
-folders automatically. To use only a mod's scripts, specify only its root for
-`misc`; include the game root first when its base and DLC scripts are needed.
-
-```python
-from vic3_state_merger import StateMerger
-
-merger = StateMerger(
-    game_root,
-    output_dir,
-    merge_plan,
-    sources={"map_data": [game_root, resource_mod_root]},
-)
-merger.run(stages=["map_data"])
-# merger.run() selects all stages; other stages still read vanilla.
-```
-
-Construction is read-only. `map_data`, `states`, `pops`, `buildings`, and `trade`
-load lazily; every execution reloads the models it needs from the inputs. Editing
-these attributes does not customize a subsequent execution. `map_objects` and
-`localization` compute a merged map internally without generating or clearing map
-output. History and `misc` stages do not require map input. Missing optional
-locator/localization files are skipped. English and Simplified Chinese
-localization reads hub entries from all resolved YML files: later layers win duplicate keys, then
-later filenames within a layer. Cache-copy helpers also use resolved inputs.
-
-**Selected stages clear existing regular files in their output directories.**
-Subdirectories remain; disabled stages are untouched. Map-only therefore clears
-`map_data/state_regions/` while preserving copied history, scripts, locators,
-and localization. Required blank overrides suppress original core files. Sea
-nodes in replaced mixed land/sea files are preserved. Validation and output
-preparation finish before cleanup. Input and destination trees must not overlap.
-
-New `run()` calls and CLI invocations using any new configuration option default
-to no injected compensation or bundled assets. Enable compensation with
-`integration_traits=True` or `--integration-traits`; its definitions are included
-automatically. `ignore_small_states` and `small_state_limit` affect compensation,
-not which states merge. Without compensation, existing traits are preserved.
-Choose assets independently with `assets=["usa_flag"]` or `--assets usa_flag`.
-Choices are `state_traits`, `usa_flag`, and `usa_state_counter`; `--assets none`
-requests none. Explicit assets replace their own files without clearing unrelated
-files. Existing CLI commands without new options, GUI operations, and legacy
-`merge_state_data()`, `merge_misc_data()`, `merge_loc_data()` methods retain
-their compensation and asset defaults.
-
-For reusable builds, keep the merge plan unchanged and create a separate execution
-configuration, for example `build.json`:
-
-```json
-{
-  "stages": ["map_data", "state", "pops", "buildings", "trade", "map_objects", "spline_network", "misc", "localization"],
-  "sources": {"map_data": ["../game", "../resource-mod"]},
-  "integration_traits": false,
-  "assets": []
-}
-```
-
-```sh
-state-merger-cli merge_states.json /games/Victoria3/game /build/output --config build.json
-```
-
-Config source paths resolve relative to the config file; CLI paths resolve relative
-to the working directory. Flags replace corresponding config fields. Source flags
-replace the whole stack only for the specified stage. Use
-`--no-integration-traits` to override a true config value. Library `run_merge()`
-accepts `stages`, `sources`, `integration_traits`, `assets`, and `config` as
-keyword-only additions. `STAGES` and `ASSETS` are also exported by the package.
-
-Partial output is a component for another mod build: assemble the remaining files
-or enable the required source mods yourself. The tool does not reconcile copied
-ownership history with independently modified geography, copy unrelated mod
-contents, or create launcher metadata. Generic resource blocks, unknown map fields,
-`center_province`, and missing-field repair remain unsupported by the existing map
-model. **RWR-style discoverable resources still require an adapter** to prevent
-data loss; selecting mod sources does not remove that requirement.
-Definitions repeated under different filenames still use the existing parser's
-merge semantics and may be rejected; rename/replace matching files or prepare
-compatible inputs when definition-level overrides are needed.
-
-### Development checks
-
-This project targets Python 3.14 or later and uses [uv](https://docs.astral.sh/uv/).
-From a checkout, install the locked development environment and run the same checks
-used by continuous integration:
-
-```sh
-uv sync --locked --group dev
-uv run --locked pytest -m "not live"
-uv run --locked ruff check .
-uv run --locked ruff format --check .
-uv build
-```
-
-The test suite enforces branch coverage of at least 75% for the core merger
-modules. Tests marked `live` require a local Victoria 3 installation and are not
-run by the standard CI job. Pyright runs in CI as an informational check.
-
-Run the optional installed-game smoke test with:
-
-```sh
-VIC3_GAME_ROOT="/path/to/Victoria 3/game" uv run --locked pytest -m live --no-cov
-```
-
-### Step 3: Review the reconstructed spline network
-
-Spline merging runs by default in the CLI, GUI, `run()`, and legacy core pipeline.
-It reconciles settlement hubs and ports with the final locators, reuses original
-road geometry, and assembles new land connections as railroads. The GUI's
-**Merge spline network** control and CLI `--no-splines` option can disable it.
-
-**Repair spline errors** is enabled by default. It relocates misplaced land-port
-anchors to a valid final locator, or the nearest pixel center in their declared
-coastal province, and removes confirmed nonadjacent or incompatible connections.
-Use `--no-repair-splines`, uncheck the GUI control, or set `repair_splines: false`
-in the execution JSON to preserve those anchors and connections. Existing creation
-of missing hubs with placed locators continues in either mode. Repairs leave state
-declarations, visual locators, and naval geometry unchanged; remaining gaps and
-unverified rules still need review.
-
-The stage needs an original unmerged network, original locator files, state
-definitions, `default.map`, `provinces.png`, and `adjacencies.csv`. Configure its
-geography/network sources with `--source spline_network=ROOT`; locator sources
-still use `map_objects`. Do not use a previously merged network as input.
-Spline-only runs project map and locators without emitting those categories.
-Only the `.splnet` file is replaced; styles and textures remain untouched.
-
-Spline diagnostics use the application logging system. The CLI logs to the console;
-use `--log-file run.log` to save diagnostics and `--log-level DEBUG` to include route
-provenance, node changes, and input hashes. Enable **Enable log file** in the GUI
-before running to save these details. No separate spline report is generated.
-Exit code **0** means static completeness, **3** means an incomplete draft was
-exported, and **1** means processing failed. `StateMerger.spline_result` and
-`run_merge()` expose the typed result with `network`, `data`, and `status`.
-Missing routes, unsupported/moved locators and missing harbors are logged instead
-of inventing terrain paths. Binary networks have no UTF-8 BOM.
-
-For an existing mod, `vic3_state_merger.splines.export_spline_review()`
-uses its exact final map and locator files and writes to a separate output.
-See [spline merging](docs/SPLINE_NETWORK.md) for the API and limits.
-
-Inspect the result in the game editor, repair reported gaps, and test movement,
-ports and save/reload before adopting the new network. Automated checks do not
-constitute an in-game pass.
-
-- Open the Victoria 3 game in debug mode.
-- Open the console by pressing `~`.
-- Type `map_editor` and press `Enter`.
-- Click on the `Spline Network` tab or press `9`.
-- Choose the `Edit hub` tool.
-- Inspect the hubs and reported unresolved connections.
-- Choose the `Add spline` tool.
-- Redraw the road connections between the remaining state hubs.
-
-Further detailed information on how to edit the spline network can be found in [this steam tutorial](https://steamcommunity.com/sharedfiles/filedetails/?id=3165669021).
-
 ## Feedback
 
 ### Bug Reports
 
-Please report any bugs you encounter in the Issues tab using the bug report template.
+Please report any bugs you encounter in the Issues tab using the bug report template and provide the corresponding log file.
 
 ## Acknowledgments
 
